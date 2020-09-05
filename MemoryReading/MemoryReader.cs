@@ -55,5 +55,11 @@ namespace Whydoisuck.MemoryReading
                 return result;
             }
         }
+
+        public string ReadString(int address, int maxLength)
+        {
+            var bytes = ReadBytes(address, maxLength);
+            return Encoding.UTF8.GetString(bytes);
+        }
     }
 }

@@ -104,7 +104,7 @@ namespace Whydoisuck.Recording
             if (CurrentSession == null) return;
 
             //TODO save to json
-            var session = $"session:{CurrentSession.startTime}, {CurrentSession.Attempts.Count} attempts";
+            var session = $"[{CurrentSession.LevelName}] {CurrentSession.startTime}, {CurrentSession.Attempts.Count} attempts";
             foreach(var att in CurrentSession.Attempts)
             {
                 session += $"\n\t Attempt {att.Number}, {att.StartPercent}%-{att.EndPercent}%, {att.Duration.TotalSeconds}s";
@@ -115,8 +115,6 @@ namespace Whydoisuck.Recording
         public void SaveCurrentAttempt()
         {
             if(CurrentSession == null) throw new Exception("Saved an attempt without a session being created beforehand");
-
-            CurrentAttempt.StartPercent = Reader.Level.StartPosition;
             CurrentAttempt.EndPercent = 100 * Reader.Player.XPosition / Reader.Level.Length;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
@@ -128,7 +126,8 @@ namespace Whydoisuck.Recording
             {
                 LevelID = Reader.Level.ID,
                 Attempts = new List<Attempt>(),
-                startTime = DateTime.Now
+                startTime = DateTime.Now,
+                LevelName = Reader.Level.Name
             };
         }
 
@@ -137,7 +136,8 @@ namespace Whydoisuck.Recording
             CurrentAttempt = new Attempt()
             {
                 StartTime = DateTime.Now,
-                Number = Reader.Level.CurrentAttempt
+                Number = Reader.Level.CurrentAttempt,
+                StartPercent = 100 * Reader.Player.XPosition / Reader.Level.Length//Couldn't find a better way unfortunately
             };
         }
     }
