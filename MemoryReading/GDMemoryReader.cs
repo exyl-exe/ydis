@@ -10,10 +10,10 @@ namespace Whydoisuck.MemoryReading
     {
         const string GDProcessName = "GeometryDash";
 
-        const int baseOffset = 0x3222D0;//From module base address
+        const int baseOffset = 0x3222D0;//from module base address
         const int levelOffset = 0x164;//from base
 
-        const int levelLengthOffset = 0x3B4;//From level
+        const int levelLengthOffset = 0x3B4;//from level
         const int attemptsOffset = 0x4A8;
         const int playerOffset = 0x224;
 
@@ -23,22 +23,23 @@ namespace Whydoisuck.MemoryReading
 
         const int NO_LEVEL_LOADED = 0x0;
 
-        public GDLevel Level{ get ; private set ; }
-        public GDPlayer Player { get; private set; }
-        public bool IsInitialized { get { return reader.IsInitialized; } }
+        public GDLevelInfos Level{ get ; private set ; }
+        public GDPlayerInfos Player { get; private set; }
+        public bool IsInitialized { get { return Reader.IsInitialized; } }
 
-        private readonly MemoryReader reader = new MemoryReader();
+        public MemoryReader Reader { get; set; } = new MemoryReader();
 
         public bool Initialize()
         {
-            return reader.AttachTo(GDProcessName);
+            return Reader.AttachTo(GDProcessName);
         }
 
         public void Update()
         {
-            if (!reader.IsInitialized) return;
-            var commonAddr = BitConverter.ToInt32(reader.ReadBytes((int)reader.MainModuleAddr + baseOffset, 4), 0);
-            var levelAddr = BitConverter.ToInt32(reader.ReadBytes(commonAddr + levelOffset, 4), 0);
+            if (!Reader.IsInitialized) return;
+
+            var commonAddr = BitConverter.ToInt32(Reader.ReadBytes((int)Reader.MainModuleAddr + baseOffset, 4), 0);
+            var levelAddr = BitConverter.ToInt32(Reader.ReadBytes(commonAddr + levelOffset, 4), 0);
 
             if(levelAddr == NO_LEVEL_LOADED)
             {
@@ -47,41 +48,33 @@ namespace Whydoisuck.MemoryReading
                 return;
             }
 
-            var playerAddr = BitConverter.ToInt32(reader.ReadBytes(levelAddr + playerOffset, 4), 0);
+            var playerAddr = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + playerOffset, 4), 0);
 
-            Level = new GDLevel//TODO find a way to avoid instantiating
+            Level = new GDLevelInfos//TODO find a way to avoid instantiating
             {
-                CurrentAttempt = BitConverter.ToInt32(reader.ReadBytes(levelAddr + attemptsOffset, 4), 0),
-                Length = BitConverter.ToSingle(reader.ReadBytes(levelAddr + levelLengthOffset, 4), 0)
+                CurrentAttempt = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + attemptsOffset, 4), 0),
+                Length = BitConverter.ToSingle(Reader.ReadBytes(levelAddr + levelLengthOffset, 4), 0)
             };
 
-            Player = new GDPlayer
+            Player = new GDPlayerInfos
             {
-                XPosition = BitConverter.ToSingle(reader.ReadBytes(playerAddr + xPositionOffset, 4), 0),
-                IsDead = BitConverter.ToBoolean(reader.ReadBytes(playerAddr + isDeadOffset, 1), 0),
-                HasWon = BitConverter.ToBoolean(reader.ReadBytes(playerAddr + hasWonOffset, 1), 0)
+                XPosition = BitConverter.ToSingle(Reader.ReadBytes(playerAddr + xPositionOffset, 4), 0),
+                IsDead = BitConverter.ToBoolean(Reader.ReadBytes(playerAddr + isDeadOffset, 1), 0),
+                HasWon = BitConverter.ToBoolean(Reader.ReadBytes(playerAddr + hasWonOffset, 1), 0)
             };
-        }
-
-        public string GetState()//TODO remove
-        {
-            if(Level == null)
-            {
-                return "Not in a level";
-            } else
-            {
-                return $"Level ({Level.Length}), attempt {Level.CurrentAttempt}\nPlayer : pos {Player.XPosition}, isDead {Player.IsDead}, hasWon {Player.HasWon}";
-            }
         }
     }
 
-    class GDLevel//TODO ID, name, start position
+    class GDLevelInfos//TODO name, start position
     {
+        public int ID { get { throw new NotImplementedException(); } }
+        public string Name { get { throw new NotImplementedException(); } }
+        public float StartPosition { get { throw new NotImplementedException(); } }
         public int CurrentAttempt { get; set; }
         public float Length { get; set; }
     }
 
-    class GDPlayer
+    class GDPlayerInfos
     {
         public float XPosition { get; set; }
         public bool IsDead { get; set; }

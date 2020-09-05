@@ -58,6 +58,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Recording\Attempt.cs" />
+    <Compile Include="Recording\Level.cs" />
+    <Compile Include="Recording\Recorder.cs" />
+    <Compile Include="Recording\Session.cs" />
+    <Compile Include="TempLogger.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

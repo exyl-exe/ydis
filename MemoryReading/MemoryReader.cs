@@ -18,11 +18,10 @@ namespace Whydoisuck.MemoryReading
         [DllImport("kernel32.dll")]
         private static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
-        public IntPtr MainModuleAddr { get { return process == null ? IntPtr.Zero : process.MainModule.BaseAddress; } }
-        public bool IsInitialized { get { return process != null && !process.HasExited; } }
-
-        private Process process = null;
-        private IntPtr processHandle;
+        public IntPtr MainModuleAddr { get { return Process == null ? IntPtr.Zero : Process.MainModule.BaseAddress; } }
+        public bool IsInitialized { get { return Process != null && !Process.HasExited; } }
+        public Process Process { get; set; }
+        private IntPtr ProcessHandle { get; set; }
         
         public bool AttachTo(string processName)
         {
@@ -30,9 +29,9 @@ namespace Whydoisuck.MemoryReading
             var processesFound = Process.GetProcessesByName(processName);
             if (processesFound.Length > 0)
             {
-                process = processesFound[0];
-                processHandle = OpenProcess(PROCESS_VM_READ, false, process.Id);
-                if (processHandle != null)
+                Process = processesFound[0];
+                ProcessHandle = OpenProcess(PROCESS_VM_READ, false, Process.Id);
+                if (ProcessHandle != null)
                 {
                     success = true;
                 }
@@ -45,7 +44,7 @@ namespace Whydoisuck.MemoryReading
             int bytesRead = 0;
             byte[] result;
             byte[] buffer = new byte[size];
-            ReadProcessMemory((int)processHandle, address, buffer, size, ref bytesRead);
+            ReadProcessMemory((int)ProcessHandle, address, buffer, size, ref bytesRead);
             if(bytesRead == size)
             {
                 return buffer;

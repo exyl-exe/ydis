@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Whydoisuck.MemoryReading;
+using Whydoisuck.Recording;
 
 namespace Whydoisuck
 {
@@ -21,28 +23,26 @@ namespace Whydoisuck
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GDMemoryReader reader;
+        private static MainWindow instance;
 
         public MainWindow()
         {
-            reader = new GDMemoryReader();
+            instance = this;
             InitializeComponent();
             mainGrid.MouseDown += MouseUpCb;
+            var recorder = new Recorder();
+            var thread = recorder.StartRecording();
         }
 
         private void MouseUpCb(object sender, MouseButtonEventArgs e)
         {
-            if (!reader.IsInitialized)
-            {
-                var success = reader.Initialize();
-                if (!success)
-                {
-                    mainTextBlock.Text = "Not opened";
-                    return;
-                }
-            }
-            reader.Update();
-            mainTextBlock.Text = reader.GetState();
+            mainTextBlock.Text = TempLogger.Flush();
         }
+        
+        public static void SetText(string s)
+        {
+            MainWindow.instance.mainTextBlock.Text = s;
+        }
+
     }
 }
