@@ -13,9 +13,9 @@ namespace Whydoisuck.Recording
         private GDMemoryReader Reader { get; set; }
         private int Delay { get; set; } = 100;//ms
         private bool IsRecording { get; set; }
+        private int CurrentLevelID { get; set; }
         private Session CurrentSession { get; set; }
-        private int CurrentAttemptNumber { get; set; }//TODO replace by Attempt class
-        private DateTime CurrentAttemptStartTime { get; set; }
+        private Attempt CurrentAttempt { get; set; }
         private bool IsCurrentAttemptSaved { get; set; }
 
         public Recorder()
@@ -51,14 +51,14 @@ namespace Whydoisuck.Recording
             if (!Reader.IsInitialized)
             {
                 if (CurrentSession != null) SaveCurrentSession();
-                //Reader.Initialize();
+                Reader.Initialize();
                 return;
             }
 
             Reader.Update();
 
-            if (Reader.Level == null)//Current level was exited
-            //TODO or level != previousLevel
+            //Current level was exited
+            if (Reader.Level == null || Reader.Level.ID != CurrentLevelID)
             {
                 if(CurrentSession != null)
                 {
@@ -68,25 +68,28 @@ namespace Whydoisuck.Recording
                 return;
             }
 
-            if(Reader.Level != null && CurrentSession == null)//A level was entered
+            //A level was entered
+            if (Reader.Level != null && CurrentSession == null)
             {
+                CurrentLevelID = Reader.Level.ID;
                 CreateNewSession();
-                CurrentAttemptStartTime = DateTime.Now;
+                CreateNewAttempt();
                 IsCurrentAttemptSaved = false;
             }
 
-            if (!IsAnAttemptOngoing() && !IsCurrentAttemptSaved)//Current attempt has stopped and needs to be saved
-            //TODO && CurrentAttempt == Reader.Level.CurrentAttempt
+            //Current attempt has stopped and needs to be saved. If somehow another attempt has already started, give up on this attempt
+            //TODO proper way to handle lost attempts
+            if (!IsAnAttemptOngoing() && !IsCurrentAttemptSaved && CurrentAttempt.Number == Reader.Level.CurrentAttempt)
             {
-                IsCurrentAttemptSaved = true;
                 SaveCurrentAttempt();
+                IsCurrentAttemptSaved = true;
                 return;
             }
 
-            if(CurrentAttemptNumber != Reader.Level.CurrentAttempt)//An attempt just started (excluding first attempt)
+            //An attempt just started (excluding first attempt)
+            if (CurrentAttempt.Number != Reader.Level.CurrentAttempt)
             {
-                CurrentAttemptNumber = Reader.Level.CurrentAttempt;
-                CurrentAttemptStartTime = DateTime.Now;
+                CreateNewAttempt();
                 IsCurrentAttemptSaved = false;
             }
         }
@@ -113,24 +116,28 @@ namespace Whydoisuck.Recording
         {
             if(CurrentSession == null) throw new Exception("Saved an attempt without a session being created beforehand");
 
-            var att = new Attempt//TODO actual constructor ?
-            {
-                StartPercent = 0,//TODO : Reader.Level.StartPosition,
-                EndPercent = 100 * Reader.Player.XPosition / Reader.Level.Length,
-                Number = CurrentAttemptNumber,
-                StartTime = CurrentAttemptStartTime,
-                Duration = DateTime.Now - CurrentAttemptStartTime
-            };
-            CurrentSession.AddAttempt(att);
+            CurrentAttempt.StartPercent = Reader.Level.StartPosition;
+            CurrentAttempt.EndPercent = 100 * Reader.Player.XPosition / Reader.Level.Length;
+            CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
+            CurrentSession.AddAttempt(CurrentAttempt);
         }
 
         public void CreateNewSession()
         {
-            CurrentSession = new Session//TODO actual constructor ?
+            CurrentSession = new Session
             {
-                LevelID = 0,//TODO
+                LevelID = Reader.Level.ID,
                 Attempts = new List<Attempt>(),
                 startTime = DateTime.Now
+            };
+        }
+
+        public void CreateNewAttempt()
+        {
+            CurrentAttempt = new Attempt()
+            {
+                StartTime = DateTime.Now,
+                Number = Reader.Level.CurrentAttempt
             };
         }
     }
