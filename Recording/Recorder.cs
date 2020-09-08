@@ -4,102 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Whydoisuck.GameWatching;
 using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.Recording
 {
     class Recorder
     {
-        private GDMemoryReader Reader { get; set; }
-        private int Delay { get; set; } = 100;//ms
-        private bool IsRecording { get; set; }
-        private int CurrentLevelID { get; set; }
+        private GameWatcher gameWatcher { get; set; }
+
         private Session CurrentSession { get; set; }
         private Attempt CurrentAttempt { get; set; }
-        private bool IsCurrentAttemptSaved { get; set; }
+
 
         public Recorder()
         {
-            Reader = new GDMemoryReader();
+            gameWatcher = new GameWatcher();
+            //TODO Associate events
         }
 
-        public void RecordThread()
+        public void StartRecording()
         {
-            IsRecording = true;
-            while (IsRecording)
-            {
-                Thread.Sleep(Delay);
-                TrySave();
-            }
-        }
-
-        public Thread StartRecording()
-        {
-            Reader.Initialize();
-            var thread = new Thread(new ThreadStart(RecordThread));
-            thread.Start();
-            return thread;
+            gameWatcher.StartWatching();
         }
 
         public void StopRecording()
         {
-            IsRecording = false;
+            gameWatcher.StopWatching();
         }
 
-        public void TrySave()
-        {
-            if (!Reader.IsInitialized)
-            {
-                if (CurrentSession != null) SaveCurrentSession();
-                Reader.Initialize();
-                return;
-            }
-
-            Reader.Update();
-
-            //Current level was exited
-            if (Reader.Level == null || Reader.Level.ID != CurrentLevelID)
-            {
-                if(CurrentSession != null)
-                {
-                    SaveCurrentSession();
-                    CurrentSession = null;
-                }
-                return;
-            }
-
-            //A level was entered
-            if (Reader.Level != null && CurrentSession == null)
-            {
-                CurrentLevelID = Reader.Level.ID;
-                CreateNewSession();
-                CreateNewAttempt();
-                IsCurrentAttemptSaved = false;
-            }
-
-            //Current attempt has stopped and needs to be saved. If somehow another attempt has already started, give up on this attempt
-            //TODO proper way to handle lost attempts
-            if (!IsAnAttemptOngoing() && !IsCurrentAttemptSaved && CurrentAttempt.Number == Reader.Level.CurrentAttempt)
-            {
-                SaveCurrentAttempt();
-                IsCurrentAttemptSaved = true;
-                return;
-            }
-
-            //An attempt just started (excluding first attempt)
-            if (CurrentAttempt.Number != Reader.Level.CurrentAttempt)
-            {
-                CreateNewAttempt();
-                IsCurrentAttemptSaved = false;
-            }
-        }
-
-        public bool IsAnAttemptOngoing()
-        {
-            return !Reader.Player.IsDead && !Reader.Player.HasWon;
-        }
-
-        public void SaveCurrentSession()
+        public void SaveCurrentSession(GDLoadedLevelInfos level)
         {
             if (CurrentSession == null) return;
 
@@ -120,7 +54,7 @@ namespace Whydoisuck.Recording
             CurrentSession.AddAttempt(CurrentAttempt);
         }
 
-        public void CreateNewSession()
+        public void CreateNewSession(GDLoadedLevelInfos level)
         {
             CurrentSession = new Session
             {
@@ -131,7 +65,7 @@ namespace Whydoisuck.Recording
             };
         }
 
-        public void CreateNewAttempt()
+        public void CreateNewAttempt(GDLoadedLevelInfos level)
         {
             CurrentAttempt = new Attempt()
             {

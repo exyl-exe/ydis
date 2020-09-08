@@ -19,7 +19,7 @@ namespace Whydoisuck.MemoryReading
         private static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
         public IntPtr MainModuleAddr { get { return Process == null ? IntPtr.Zero : Process.MainModule.BaseAddress; } }
-        public bool IsInitialized { get { return Process != null && !Process.HasExited; } }
+        public bool IsProcessOpened { get { return Process != null && !Process.HasExited; } }
         public Process Process { get; set; }
         private IntPtr ProcessHandle { get; set; }
         

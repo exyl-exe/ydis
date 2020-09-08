@@ -58,7 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MemoryReading\GameState.cs" />
     <Compile Include="Recording\Attempt.cs" />
+    <Compile Include="GameWatching\GameWatcher.cs" />
     <Compile Include="Recording\Level.cs" />
     <Compile Include="Recording\Recorder.cs" />
     <Compile Include="Recording\Session.cs" />

@@ -34,86 +34,71 @@ namespace Whydoisuck.MemoryReading
         const int NO_LEVEL_LOADED = 0x0;
         const int NO_PLAYER_LOADED = 0x0;
 
-        public GDLevelInfos Level{ get ; private set ; }
-        public GDPlayerInfos Player { get; private set; }
-        public bool IsInitialized { get { return Reader.IsInitialized; } }
+        public bool IsGDOpened { get { return Reader.IsProcessOpened; } }
 
         public MemoryReader Reader { get; set; } = new MemoryReader();
 
-        public bool Initialize()
+        public bool TryAttachToGD()
         {
             return Reader.AttachTo(GDProcessName);
         }
 
-        public void Update()
+        public GameState GetGameState()
         {
-            if (!Reader.IsInitialized) return;
+            if (!Reader.IsProcessOpened) return null;
+
+            var currentState = new GameState() { PlayedLevel = null, PlayerObject = null };
 
             var commonAddr = BitConverter.ToInt32(Reader.ReadBytes((int)Reader.MainModuleAddr + baseOffset, 4), 0);
             var levelAddr = BitConverter.ToInt32(Reader.ReadBytes(commonAddr + levelOffset, 4), 0);
 
-            if(levelAddr == NO_LEVEL_LOADED)
+            if(levelAddr != NO_LEVEL_LOADED)
             {
-                Level = null;
-                Player = null;
-                return;
+                currentState.PlayedLevel = GetLevelInfos(levelAddr);
+                var playerAddr = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + playerOffset, 4), 0);
+                if (playerAddr != NO_PLAYER_LOADED)
+                {
+                   currentState.PlayerObject = GetPlayerInfos(playerAddr);
+                }
             }
+            return currentState;     
+        }
 
-            var playerAddr = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + playerOffset, 4), 0);
-
-            var levelMetadata = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + levelMetadataOffset, 4), 0);
-            var levelNameLength = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameSizeOffset, 4),0);
-            int nameAddr;
-            if(levelNameLength > MAX_POINTERLESS_NAME_SIZE)
+        private GDPlayerInfos GetPlayerInfos(int playerStructAddr)
+        {
+            return new GDPlayerInfos
             {
-                nameAddr = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameOffset, 4), 0);
-            } else
-            {
-                nameAddr = levelMetadata+nameOffset;
-            }
-            var levelName = Reader.ReadString(nameAddr, levelNameLength);
+                XPosition = BitConverter.ToSingle(Reader.ReadBytes(playerStructAddr + xPositionOffset, 4), 0),
+                IsDead = BitConverter.ToBoolean(Reader.ReadBytes(playerStructAddr + isDeadOffset, 1), 0),
+                HasWon = BitConverter.ToBoolean(Reader.ReadBytes(playerStructAddr + hasWonOffset, 1), 0)
+            };
+        }
 
-
-            Level = new GDLevelInfos//TODO find a way to avoid instantiating
+        private GDLoadedLevelInfos GetLevelInfos(int levelStructAddr)
+        {
+            var levelName = GetLevelName(levelStructAddr);
+            return new GDLoadedLevelInfos
             {
                 Name = levelName,
-                CurrentAttempt = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + attemptsOffset, 4), 0),
-                Length = BitConverter.ToSingle(Reader.ReadBytes(levelAddr + levelLengthOffset, 4), 0)
+                AttemptNumber = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + attemptsOffset, 4), 0),
+                Length = BitConverter.ToSingle(Reader.ReadBytes(levelStructAddr + levelLengthOffset, 4), 0)
             };
-
-            //TODO
-            //Player may have not been instanciated yet, but will be soon
-            //This loop ensure the player is always loaded
-            //Bad code but for now there doesn't seem to be any major drawback, so it'll stay like that for now
-            while(playerAddr == NO_PLAYER_LOADED)
-            {
-                Thread.Sleep(1);
-                playerAddr = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + playerOffset, 4), 0);
-            }
-            
-            Player = new GDPlayerInfos//TODO player pointer might be null at this stage
-            {
-                XPosition = BitConverter.ToSingle(Reader.ReadBytes(playerAddr + xPositionOffset, 4), 0),
-                IsDead = BitConverter.ToBoolean(Reader.ReadBytes(playerAddr + isDeadOffset, 1), 0),
-                HasWon = BitConverter.ToBoolean(Reader.ReadBytes(playerAddr + hasWonOffset, 1), 0)
-            };
-            
         }
-    }
 
-    class GDLevelInfos
-    {
-        public int ID { get; } = 0;//TODO
-        public string Name { get; set; }
-        //public float StartPosition { get { throw new NotImplementedException(); } } TODO couldn't find how to get it from memory
-        public int CurrentAttempt { get; set; }
-        public float Length { get; set; }
-    }
-
-    class GDPlayerInfos
-    {
-        public float XPosition { get; set; }
-        public bool IsDead { get; set; }
-        public bool HasWon { get; set; }
+        private string GetLevelName(int levelStructAddr)
+        {
+            var levelMetadata = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + levelMetadataOffset, 4), 0);
+            var levelNameLength = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameSizeOffset, 4), 0);
+            int nameAddr;
+            if (levelNameLength > MAX_POINTERLESS_NAME_SIZE)
+            {
+                nameAddr = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameOffset, 4), 0);
+            }
+            else
+            {
+                nameAddr = levelMetadata + nameOffset;
+            }
+            return Reader.ReadString(nameAddr, levelNameLength);
+        }
     }
 }
