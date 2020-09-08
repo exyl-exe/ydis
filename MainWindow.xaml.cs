@@ -31,7 +31,7 @@ namespace Whydoisuck
             InitializeComponent();
             mainGrid.MouseDown += MouseUpCb;
             var recorder = new Recorder();
-            var thread = recorder.StartRecording();
+            recorder.StartRecording();
         }
 
         private void MouseUpCb(object sender, MouseButtonEventArgs e)

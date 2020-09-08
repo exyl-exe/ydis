@@ -20,7 +20,12 @@ namespace Whydoisuck.Recording
         public Recorder()
         {
             gameWatcher = new GameWatcher();
-            //TODO Associate events
+            //TODO minimalize the impact of the order in which events are fired
+            gameWatcher.OnPlayerObjectCreated += CreateNewSession;
+            gameWatcher.OnLevelExited += SaveCurrentSession;
+            gameWatcher.OnPlayerSpawns += CreateNewAttempt;
+            gameWatcher.OnPlayerDies += SaveCurrentAttempt;
+            gameWatcher.OnPlayerWins += SaveCurrentWinningAttempt;
         }
 
         public void StartRecording()
@@ -33,45 +38,71 @@ namespace Whydoisuck.Recording
             gameWatcher.StopWatching();
         }
 
-        public void SaveCurrentSession(GDLoadedLevelInfos level)
+        public void SaveCurrentAttempt(GameState state)
+        {
+            if (CurrentSession == null)
+            {
+                CreateNewSession(state);
+                return;
+            }
+            CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.Length;
+            CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
+            CurrentSession.AddAttempt(CurrentAttempt);
+        }
+
+        public void SaveCurrentWinningAttempt(GameState state)
+        {
+            if (CurrentSession == null)
+            {
+                CreateNewSession(state);
+                return;
+            }
+            CurrentAttempt.EndPercent = 100;
+            CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
+            CurrentSession.AddAttempt(CurrentAttempt);
+        }
+
+        public void CreateNewSession(GameState state)
+        {
+            CurrentSession = new Session
+            {
+                LevelID = state.PlayedLevel.ID,
+                Attempts = new List<Attempt>(),
+                startTime = DateTime.Now,
+                LevelName = state.PlayedLevel.Name
+            };
+        }
+
+        public void SaveCurrentSession(GameState state)
+        {
+            SaveCurrentSession();
+        }
+
+        public void SaveCurrentSession(GDLoadedLevelInfos state)
+        {
+            SaveCurrentSession();
+        }
+
+        public void SaveCurrentSession()
         {
             if (CurrentSession == null) return;
 
             //TODO save to json
             var session = $"[{CurrentSession.LevelName}] {CurrentSession.startTime}, {CurrentSession.Attempts.Count} attempts";
-            foreach(var att in CurrentSession.Attempts)
+            foreach (var att in CurrentSession.Attempts)
             {
-                session += $"\n\t Attempt {att.Number}, {att.StartPercent}%-{att.EndPercent}%, {att.Duration.TotalSeconds}s";
+                session += $"\n\t Attempt {att.Number}, {(int)att.StartPercent}%-{(int)att.EndPercent}%, {att.Duration.TotalSeconds}s";
             }
             TempLogger.AddLog(session);
         }
 
-        public void SaveCurrentAttempt()
-        {
-            if(CurrentSession == null) throw new Exception("Saved an attempt without a session being created beforehand");
-            CurrentAttempt.EndPercent = 100 * Reader.Player.XPosition / Reader.Level.Length;
-            CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
-            CurrentSession.AddAttempt(CurrentAttempt);
-        }
-
-        public void CreateNewSession(GDLoadedLevelInfos level)
-        {
-            CurrentSession = new Session
-            {
-                LevelID = Reader.Level.ID,
-                Attempts = new List<Attempt>(),
-                startTime = DateTime.Now,
-                LevelName = Reader.Level.Name
-            };
-        }
-
-        public void CreateNewAttempt(GDLoadedLevelInfos level)
+        public void CreateNewAttempt(GameState state)
         {
             CurrentAttempt = new Attempt()
             {
                 StartTime = DateTime.Now,
-                Number = Reader.Level.CurrentAttempt,
-                StartPercent = 100 * Reader.Player.XPosition / Reader.Level.Length//Couldn't find a better way unfortunately
+                Number = state.PlayedLevel.AttemptNumber,
+                StartPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.Length
             };
         }
     }
