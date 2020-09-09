@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,13 +69,15 @@ namespace Whydoisuck.DataSaving
             if (key1Matches && key2Matches)
             {
                 var lengthComp = Math.Abs(key1.Name.Length - sample.Name.Length) - Math.Abs(key2.Name.Length - sample.Name.Length);
-                if(lengthComp < 0)//oui
+                if (lengthComp < 0)//oui
                 {
                     return GT;
-                } else if (lengthComp == 0)
+                }
+                else if (lengthComp == 0)
                 {
                     return EQ;
-                } else
+                }
+                else
                 {
                     return LT;
                 }
@@ -112,7 +116,7 @@ namespace Whydoisuck.DataSaving
 
         private static int CompareMusicAndObjects(Level sample, Level key1, Level key2)
         {
-            var key1Matches = (key1.MusicID == sample.MusicID && Math.Abs(key1.ObjectCount-sample.ObjectCount) < Level.OBJECT_COUNT_DELTA);
+            var key1Matches = (key1.MusicID == sample.MusicID && Math.Abs(key1.ObjectCount - sample.ObjectCount) < Level.OBJECT_COUNT_DELTA);
             var key2Matches = (key2.MusicID == sample.MusicID && Math.Abs(key2.ObjectCount - sample.ObjectCount) < Level.OBJECT_COUNT_DELTA);
             //Compare ID
             if (key1Matches && key2Matches)
@@ -128,6 +132,22 @@ namespace Whydoisuck.DataSaving
                 return LT;
             }
             return EQ;
+        }
+
+        public void AddTwinEntry(LevelEntry entry, string fileName, Level level)
+        {
+            var newEntry = new LevelEntry()
+            {
+                folderPath = entry.folderPath,
+                fileName = fileName,
+                level = level
+            };
+            Add(newEntry);
+        }
+
+        public void AddEntry(LevelEntry entry)
+        {
+            Add(entry);
         }
     }
     struct LevelEntry

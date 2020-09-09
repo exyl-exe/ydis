@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation.Peers;
 using Whydoisuck.Recording;
 
 namespace Whydoisuck.DataSaving
@@ -20,38 +21,92 @@ namespace Whydoisuck.DataSaving
             {
                 InitDir();
             }
-            //File.WriteAllText(SAVE_DIR+"test.json",json);TODO
-            LevelIndexer indexer = (LevelIndexer)JsonConvert.DeserializeObject(SAVE_DIR + INDEX_FILE_NAME);
+            LevelIndexer indexer = LoadIndexer();
             indexer.SortBySimilarityTo(s.Level);
-            var json = JsonConvert.SerializeObject(s, Formatting.Indented);
             if (indexer.Count != 0)
             {
                 var mostSimilar = indexer[0];
-                SaveUnder(mostSimilar, s);
+                SaveUnder(indexer, mostSimilar, s);//TODO might be shit
             } else
             {
-                SaveAsNewGroup(s);
+                SaveAsNewGroup(indexer, s);
+            }
+            SaveIndexer(indexer);
+            
+        }
+
+
+        public static void SaveAsNewGroup(LevelIndexer indexer, Session s)
+        {
+            var groupName = CreateGroup(SAVE_DIR+"\\"+s.Level.Name);
+            var fileName = CreateSession(groupName, s);
+            var entry = new LevelEntry()
+            {
+                folderPath = groupName,
+                fileName = fileName,
+                level = s.Level
+            };
+            indexer.AddEntry(entry);
+        }
+
+        public static void SaveUnder(LevelIndexer indexer,LevelEntry entry, Session s)
+        {
+            if (entry.level.CanBeSameLevel(s.Level))
+            {
+                if (!entry.level.IsSameLevel(s.Level))
+                {
+                    var fileName = CreateSession(entry.folderPath+"\\"+s.Level.Name,s);
+                    indexer.AddTwinEntry(entry, fileName, s.Level);
+                }
+            }
+            else
+            {
+                SaveAsNewGroup(indexer, s);
             }
         }
 
-        private static void SaveAsNewGroup(Session s)
+        public static string CreateGroup(string groupName)
         {
-            throw new NotImplementedException();
+            string realGroupName = groupName;
+            var i = 2;
+            while (Directory.Exists(realGroupName+"\\"))
+            {
+                realGroupName = groupName + "_" + i;
+                i++;
+            }
+            Directory.CreateDirectory(realGroupName + "\\");
+            return realGroupName;
         }
 
-        private static void SaveUnder(LevelEntry entry, Session s)
+        public static string CreateSession(string path, Session s)
         {
-            /*if (entry.level.IsSameLevel())
+            string realPath = path;
+            var i = 2;
+            while (File.Exists(realPath))
             {
-
-            }*/
-            throw new NotImplementedException();
+                realPath = path + "_" + i;
+                i++;
+            }
+            File.WriteAllText(realPath, JsonConvert.SerializeObject(s));
+            return realPath;
         }
 
         public static void InitDir()
         {
             Directory.CreateDirectory(SAVE_DIR);
             File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, JsonConvert.SerializeObject(new LevelIndexer()));
+        }
+
+        public static LevelIndexer LoadIndexer()
+        {
+            var indexerJson = File.ReadAllText(SAVE_DIR + INDEX_FILE_NAME);
+            return (LevelIndexer)JsonConvert.DeserializeObject(indexerJson);
+        }
+
+        public static void SaveIndexer(LevelIndexer indexer)
+        {
+            var indexerUpdatedJson = JsonConvert.SerializeObject(indexer);
+            File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, indexerUpdatedJson);
         }
     }
 }
