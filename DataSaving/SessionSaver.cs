@@ -41,7 +41,11 @@ namespace Whydoisuck.DataSaving
 
         private static void SaveUnder(LevelEntry entry, Session s)
         {
-            if(entry.level.IsSameLevel())
+            /*if (entry.level.IsSameLevel())
+            {
+
+            }*/
+            throw new NotImplementedException();
         }
 
         public static void InitDir()

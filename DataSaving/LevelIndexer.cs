@@ -112,8 +112,8 @@ namespace Whydoisuck.DataSaving
 
         private static int CompareMusicAndObjects(Level sample, Level key1, Level key2)
         {
-            var key1Matches = (key1.MusicID == sample.MusicID && Math.Abs(key1.ObjectCount-sample.ObjectCount) < OBJECT_COUNT_DELTA);
-            var key2Matches = (key2.MusicID == sample.MusicID && Math.Abs(key2.ObjectCount - sample.ObjectCount) < OBJECT_COUNT_DELTA);
+            var key1Matches = (key1.MusicID == sample.MusicID && Math.Abs(key1.ObjectCount-sample.ObjectCount) < Level.OBJECT_COUNT_DELTA);
+            var key2Matches = (key2.MusicID == sample.MusicID && Math.Abs(key2.ObjectCount - sample.ObjectCount) < Level.OBJECT_COUNT_DELTA);
             //Compare ID
             if (key1Matches && key2Matches)
             {
