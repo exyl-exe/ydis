@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Whydoisuck.DataSaving;
 using Whydoisuck.GameWatching;
 using Whydoisuck.MemoryReading;
 
@@ -64,12 +65,16 @@ namespace Whydoisuck.Recording
 
         public void CreateNewSession(GameState state)
         {
+            var playedLevel = new Level
+            {
+                ID = state.PlayedLevel.ID,
+                Name = state.PlayedLevel.Name
+            };
             CurrentSession = new Session
             {
-                LevelID = state.PlayedLevel.ID,
+                Level = playedLevel,
+                StartTime = DateTime.Now,
                 Attempts = new List<Attempt>(),
-                startTime = DateTime.Now,
-                LevelName = state.PlayedLevel.Name
             };
         }
 
@@ -86,14 +91,7 @@ namespace Whydoisuck.Recording
         public void SaveCurrentSession()
         {
             if (CurrentSession == null) return;
-
-            //TODO save to json
-            var session = $"[{CurrentSession.LevelName}] {CurrentSession.startTime}, {CurrentSession.Attempts.Count} attempts";
-            foreach (var att in CurrentSession.Attempts)
-            {
-                session += $"\n\t Attempt {att.Number}, {(int)att.StartPercent}%-{(int)att.EndPercent}%, {att.Duration.TotalSeconds}s";
-            }
-            TempLogger.AddLog(session);
+            SessionSaver.SaveSession(CurrentSession);
         }
 
         public void CreateNewAttempt(GameState state)
