@@ -77,10 +77,10 @@ namespace Whydoisuck.DataSaving
         public bool CanBeSameLevel(Level level)//TODO return level of similarity instead of bool, and use this in levelindexer ?
         {
             var test =
-                (ID == level.ID) ||
-                (OriginalID == level.OriginalID || OriginalID == level.ID || ID == level.OriginalID) ||
+                !(ID != level.ID) &&
+                ((OriginalID == level.OriginalID || OriginalID == level.ID || ID == level.OriginalID) ||
                 (Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower())) ||
-                (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount)<OBJECT_COUNT_DELTA));
+                (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount)<OBJECT_COUNT_DELTA)));
             return test;
         }
 

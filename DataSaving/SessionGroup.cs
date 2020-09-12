@@ -27,7 +27,7 @@ namespace Whydoisuck.DataSaving
             var i = 2;
             while (!IsSessionNameAvailable(name))
             {
-                name = defaultName + "_" + i;
+                name = $"{defaultName} ({i})";
                 i++;
             }
             return name;
@@ -42,7 +42,7 @@ namespace Whydoisuck.DataSaving
 
         public static string GetDefaultGroupName(Level level)
         {
-            return $"{level.Name}_{level.Revision}";
+            return $"{level.Name} rev{level.Revision}";
         }
 
         public string GetGroupDirectoryPath()
