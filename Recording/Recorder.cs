@@ -65,11 +65,7 @@ namespace Whydoisuck.DataSaving
 
         public void CreateNewSession(GameState state)
         {
-            var playedLevel = new Level
-            {
-                ID = state.PlayedLevel.ID,
-                Name = state.PlayedLevel.Name
-            };
+            var playedLevel = new Level(state.PlayedLevel);
             CurrentSession = new Session
             {
                 Level = playedLevel,

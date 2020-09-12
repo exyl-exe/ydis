@@ -23,9 +23,12 @@ namespace Whydoisuck.MemoryReading
 
         const int nameOffset = 0xFC;//from level metadata
         const int nameSizeOffset = 0x10C;
-        const int onlineID = 0xF8;
-        const int originalID = 0x2D4;
+        const int onlineIDOffset = 0xF8;
+        const int originalIDOffset = 0x2D4;
         const int revOffset = 0x1C8;
+        const int objectCountOffset = 0x1D8;
+        const int officialMusicIDOffset = 0x1C0;
+        const int musicIDOffset = 0x1C4;
 
         const int isDeadOffset = 0x63F;//from player
         const int hasWonOffset = 0x662;
@@ -76,18 +79,30 @@ namespace Whydoisuck.MemoryReading
 
         private GDLoadedLevelInfos GetLevelInfos(int levelStructAddr)
         {
-            var levelName = GetLevelName(levelStructAddr);
+            var levelMetadataAddr = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + levelMetadataOffset, 4), 0);
+            var levelName = GetLevelName(levelMetadataAddr);
+            var levelID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + onlineIDOffset, 4), 0);
+            var originalID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + originalIDOffset, 4), 0);
+            var musicID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + musicIDOffset, 4), 0);
             return new GDLoadedLevelInfos
             {
+                ID = levelID,
+                IsOnline = (levelID != 0),//lazyness
+                OriginalID = originalID,
+                IsOriginal = (originalID!=0),//lazyness v2
                 Name = levelName,
+                Revision = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + revOffset, 4), 0),
+                ObjectCount = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + objectCountOffset, 4), 0),
+                MusicID = musicID,
+                OfficialMusicID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + officialMusicIDOffset, 4), 0),
+                IsCustomMusic = (officialMusicIDOffset != 0),//It's how it's done in the game's code
                 AttemptNumber = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + attemptsOffset, 4), 0),
                 Length = BitConverter.ToSingle(Reader.ReadBytes(levelStructAddr + levelLengthOffset, 4), 0)
             };
         }
 
-        private string GetLevelName(int levelStructAddr)
+        private string GetLevelName(int levelMetadata)
         {
-            var levelMetadata = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + levelMetadataOffset, 4), 0);
             var levelNameLength = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameSizeOffset, 4), 0);
             int nameAddr;
             if (levelNameLength > MAX_POINTERLESS_NAME_SIZE)

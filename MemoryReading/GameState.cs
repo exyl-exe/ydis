@@ -14,11 +14,19 @@ namespace Whydoisuck.MemoryReading
 
     class GDLoadedLevelInfos
     {
-        public int ID { get; } = 0;//TODO
+        public int ID { get; set; }
         public string Name { get; set; }
         //public float StartPosition { get { throw new NotImplementedException(); } } TODO couldn't find how to get it from memory
         public int AttemptNumber { get; set; }
         public float Length { get; set; }
+        public bool IsOnline { get; set; }
+        public int OriginalID { get; set; }
+        public bool IsOriginal { get; set; }
+        public int Revision { get; set; }
+        public bool IsCustomMusic { get; set; }
+        public int MusicID { get; set; }
+        public int OfficialMusicID { get; set; }
+        public int ObjectCount { get; set; }
     }
 
     class GDPlayerInfos

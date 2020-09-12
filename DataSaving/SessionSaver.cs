@@ -23,10 +23,11 @@ namespace Whydoisuck.DataSaving
                 InitDir();
             }
 
-            SessionManager indexer = LoadIndexer();
-            var group = indexer.GetGroup(s);
-            indexer.AddSession(s, group);
-            SaveIndexer(indexer);
+            SessionManager manager = LoadSessionManager();
+            var group = manager.GetGroup(s);
+            var entry = group.AddSession(s);
+            manager.AddEntry(entry);
+            SaveIndexer(manager);
         }
 
         public static void InitDir()
@@ -35,7 +36,7 @@ namespace Whydoisuck.DataSaving
             File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, JsonConvert.SerializeObject(new SessionManager()));//TODO Path.Combine
         }
 
-        public static SessionManager LoadIndexer()
+        public static SessionManager LoadSessionManager()
         {
             var indexerJson = File.ReadAllText(SAVE_DIR + INDEX_FILE_NAME);
             return (SessionManager)JsonConvert.DeserializeObject(indexerJson);

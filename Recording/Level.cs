@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.DataSaving
 {
@@ -19,28 +20,65 @@ namespace Whydoisuck.DataSaving
         public bool IsOriginal { get; set; }
         public string Name { get; set; }
         public int Revision { get; set; }
+        public bool IsCustomMusic { get; set; }
         public int MusicID { get; set; }
+        public int OfficialMusicID { get; set; }
         public int ObjectCount { get; set; }
 
-        public bool IsSameLevel(Level l)
+        public Level(GDLoadedLevelInfos playedLevel)
         {
-            return
-                ID == l.ID &&
-                IsOnline == l.IsOnline &&
-                OriginalID == l.OriginalID &&
-                Name.Equals(l.Name) &&
-                Revision == l.Revision &&
-                MusicID == l.MusicID &&
-                ObjectCount == l.ObjectCount;
+            ID = playedLevel.ID;
+            IsOnline = playedLevel.IsOnline;
+            OriginalID = playedLevel.OriginalID;
+            IsOriginal = playedLevel.IsOriginal;
+            Name = playedLevel.Name;
+            Revision = playedLevel.Revision;
+            IsCustomMusic = playedLevel.IsCustomMusic;
+            MusicID = playedLevel.MusicID;
+            OfficialMusicID = playedLevel.OfficialMusicID;
+            ObjectCount = playedLevel.ObjectCount;
         }
 
-        public bool CanBeSameLevel(Level l)//TODO return level of similarity instead of bool, and use this in levelindexer ?
+        public bool IsSameLevel(Level level)
+        {
+            return
+                ID == level.ID &&
+                IsOnline == level.IsOnline &&
+                OriginalID == level.OriginalID &&
+                Name.Equals(level.Name) &&
+                Revision == level.Revision &&
+                SameMusic(level) &&
+                ObjectCount == level.ObjectCount;
+        }
+
+        public bool SameMusic(Level level)
+        {
+            if (level.IsCustomMusic && IsCustomMusic)
+            {
+                if (level.MusicID == MusicID)
+                {
+                    return true;
+                }
+            }
+
+            if (!level.IsCustomMusic && !IsCustomMusic)
+            {
+                if (level.OfficialMusicID == OfficialMusicID)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanBeSameLevel(Level level)//TODO return level of similarity instead of bool, and use this in levelindexer ?
         {
             var test =
-                (ID == l.ID) ||
-                (OriginalID == l.OriginalID || OriginalID == l.ID || ID == l.OriginalID) ||
-                (Name.ToLower().Contains(l.Name.ToLower()) || l.Name.ToLower().Contains(Name.ToLower())) ||
-                (MusicID == l.MusicID && (Math.Abs(ObjectCount - l.ObjectCount)<OBJECT_COUNT_DELTA));
+                (ID == level.ID) ||
+                (OriginalID == level.OriginalID || OriginalID == level.ID || ID == level.OriginalID) ||
+                (Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower())) ||
+                (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount)<OBJECT_COUNT_DELTA));
             return test;
         }
 
@@ -140,8 +178,8 @@ namespace Whydoisuck.DataSaving
 
         private static int CompareMusicAndObjects(Level sample, Level level1, Level level2)
         {
-            var key1Matches = (level1.MusicID == sample.MusicID && Math.Abs(level1.ObjectCount - sample.ObjectCount) < Level.OBJECT_COUNT_DELTA);
-            var key2Matches = (level2.MusicID == sample.MusicID && Math.Abs(level2.ObjectCount - sample.ObjectCount) < Level.OBJECT_COUNT_DELTA);
+            var key1Matches = (level1.SameMusic(sample) && Math.Abs(level1.ObjectCount - sample.ObjectCount) < OBJECT_COUNT_DELTA);
+            var key2Matches = (level2.SameMusic(sample) && Math.Abs(level2.ObjectCount - sample.ObjectCount) < OBJECT_COUNT_DELTA);
             //Compare ID
             if (key1Matches && key2Matches)
             {

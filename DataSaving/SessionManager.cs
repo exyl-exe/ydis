@@ -20,6 +20,11 @@ namespace Whydoisuck.DataSaving
             Entries.Sort((entry1, entry2) => Level.LevelComparison(level, entry1.Level, entry2.Level));
         }
 
+        public void AddEntry(IndexerEntry entry)
+        {
+            Entries.Add(entry);
+        }
+
         public SessionGroup GetGroup(Session session)
         {
             if(Entries.Count > 0)
