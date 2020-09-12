@@ -23,7 +23,7 @@ namespace Whydoisuck.DataSaving
                 InitDir();
             }
 
-            SessionManager manager = LoadSessionManager();
+            SessionManager manager = LoadSessionManager();//TODO only do that like once, and not each time there is a session to save (athough it doesn't matter much)
             var group = manager.GetGroup(s);
             var entry = group.AddSession(s);
             manager.AddEntry(entry);

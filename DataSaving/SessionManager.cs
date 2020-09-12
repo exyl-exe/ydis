@@ -50,7 +50,7 @@ namespace Whydoisuck.DataSaving
             var i = 2;
             while (!IsGroupNameAvailable(groupName))
             {
-                groupName = defaultGroupName + "_" + i;
+                groupName = $"{defaultGroupName} ({i})";
                 i++;
             }
             var newGroup = new SessionGroup() { Name = groupName };

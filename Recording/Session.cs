@@ -22,7 +22,7 @@ namespace Whydoisuck.DataSaving
 
         public string GetDefaultSessionFileName()
         {
-            return $"{Level.Name}_{Level.Revision}";
+            return $"{Level.Name} rev{Level.Revision}";
         }
 
         public void CreateSessionFile(IndexerEntry entry)
