@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Whydoisuck.DataSaving
+{
+    class SessionGroup
+    {
+        public string Name { get; set; }
+
+        public IndexerEntry AddSession(Session session)
+        {
+            var sessionName = GetSessionName(session);
+            var entry = new IndexerEntry() { Group = this, SessionName = sessionName, Level = session.Level };
+            session.CreateSessionFile(entry);
+            return entry;
+        }
+
+        private string GetSessionName(Session session)
+        {
+            var dir = GetGroupDirectoryPath();
+            var defaultName = session.GetDefaultSessionFileName();
+            var name = defaultName;
+            var i = 2;
+            while (!IsSessionNameAvailable(name))
+            {
+                name = defaultName + "_" + i;
+                i++;
+            }
+            return name;
+        }
+
+        private bool IsSessionNameAvailable(string name)
+        {
+            var groupPath = GetGroupDirectoryPath();
+            var filePath = Path.Combine(groupPath, name);
+            return !File.Exists(filePath);
+        }
+
+        public static string GetDefaultGroupName(Level level)
+        {
+            return $"{level.Name}_{level.Revision}";
+        }
+
+        public string GetGroupDirectoryPath()
+        {
+            return Path.Combine(SessionSaver.SAVE_DIR, Name + "\\");
+        }
+
+        public void CreateGroupDirectory()
+        {
+            Directory.CreateDirectory(GetGroupDirectoryPath());
+        }
+    }
+}

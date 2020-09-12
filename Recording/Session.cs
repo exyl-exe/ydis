@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,18 @@ namespace Whydoisuck.DataSaving
         public void AddAttempt(Attempt att)
         {
             Attempts.Add(att);
+        }
+
+        public string GetDefaultSessionFileName()
+        {
+            return $"{Level.Name}_{Level.Revision}";
+        }
+
+        public void CreateSessionFile(IndexerEntry entry)
+        {
+            var sessionJson = JsonConvert.SerializeObject(this);
+            var path = entry.GetSessionPath();
+            File.WriteAllText(path, sessionJson);
         }
     }
 }

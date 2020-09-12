@@ -24,18 +24,15 @@ namespace Whydoisuck.DataSaving
             }
 
             SessionManager indexer = LoadIndexer();
-
             var group = indexer.GetGroup(s);
             indexer.AddSession(s, group);
-
             SaveIndexer(indexer);
-            
         }
 
         public static void InitDir()
         {
             Directory.CreateDirectory(SAVE_DIR);
-            File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, JsonConvert.SerializeObject(new SessionManager()));
+            File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, JsonConvert.SerializeObject(new SessionManager()));//TODO Path.Combine
         }
 
         public static SessionManager LoadIndexer()
