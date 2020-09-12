@@ -25,6 +25,8 @@ namespace Whydoisuck.DataSaving
         public int OfficialMusicID { get; set; }
         public int ObjectCount { get; set; }
 
+        public Level() { }//for json deserializer
+
         public Level(GDLoadedLevelInfos playedLevel)
         {
             ID = playedLevel.ID;

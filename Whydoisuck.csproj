@@ -61,7 +61,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataSaving\LevelIndexer.cs" />
+    <Compile Include="DataSaving\IndexerEntry.cs" />
+    <Compile Include="DataSaving\SessionManager.cs" />
     <Compile Include="DataSaving\SessionSaver.cs" />
     <Compile Include="MemoryReading\GameState.cs" />
     <Compile Include="Recording\Attempt.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Recording\Level.cs" />
     <Compile Include="Recording\Recorder.cs" />
     <Compile Include="Recording\Session.cs" />
+    <Compile Include="DataSaving\SessionGroup.cs" />
     <Compile Include="TempLogger.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

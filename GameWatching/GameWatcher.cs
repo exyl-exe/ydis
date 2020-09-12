@@ -101,6 +101,11 @@ namespace Whydoisuck.GameWatching
         {
             if (currentState.PlayerObject != null && previousState.PlayerObject == null)
             {
+                if (currentState.PlayedLevel == null)
+                {
+                    TempLogger.AddLog("Played level null");
+                    return;
+                }
                 OnPlayerObjectCreated?.Invoke(currentState);
                 OnPlayerSpawns?.Invoke(currentState);
             }

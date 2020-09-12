@@ -41,11 +41,6 @@ namespace Whydoisuck.DataSaving
 
         public void SaveCurrentAttempt(GameState state)
         {
-            if (CurrentSession == null)
-            {
-                CreateNewSession(state);
-                return;
-            }
             CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.Length;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
@@ -53,11 +48,6 @@ namespace Whydoisuck.DataSaving
 
         public void SaveCurrentWinningAttempt(GameState state)
         {
-            if (CurrentSession == null)
-            {
-                CreateNewSession(state);
-                return;
-            }
             CurrentAttempt.EndPercent = 100;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
@@ -65,7 +55,7 @@ namespace Whydoisuck.DataSaving
 
         public void CreateNewSession(GameState state)
         {
-            var playedLevel = new Level(state.PlayedLevel);
+            var playedLevel = new Level(state.PlayedLevel);//TODO can be null for some reason
             CurrentSession = new Session
             {
                 Level = playedLevel,

@@ -33,18 +33,26 @@ namespace Whydoisuck.DataSaving
         public static void InitDir()
         {
             Directory.CreateDirectory(SAVE_DIR);
-            File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, JsonConvert.SerializeObject(new SessionManager()));//TODO Path.Combine
+            File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, JsonConvert.SerializeObject(new SessionManager(), Formatting.Indented));//TODO Path.Combine
         }
 
         public static SessionManager LoadSessionManager()
         {
-            var indexerJson = File.ReadAllText(SAVE_DIR + INDEX_FILE_NAME);
-            return (SessionManager)JsonConvert.DeserializeObject(indexerJson);
+            if(!File.Exists(SAVE_DIR + INDEX_FILE_NAME))
+            {
+                return new SessionManager();
+            } else
+            {
+                SessionManager storedManager;
+                var indexerJson = File.ReadAllText(SAVE_DIR + INDEX_FILE_NAME);
+                storedManager = JsonConvert.DeserializeObject<SessionManager>(indexerJson);
+                return storedManager;
+            } 
         }
 
-        public static void SaveIndexer(SessionManager indexer)
+        public static void SaveIndexer(SessionManager manager)
         {
-            var indexerUpdatedJson = JsonConvert.SerializeObject(indexer);
+            var indexerUpdatedJson = JsonConvert.SerializeObject(manager, Formatting.Indented);
             File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, indexerUpdatedJson);
         }
     }

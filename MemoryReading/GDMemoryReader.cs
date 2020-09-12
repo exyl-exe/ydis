@@ -48,7 +48,7 @@ namespace Whydoisuck.MemoryReading
 
         public GameState GetGameState()
         {
-            if (!Reader.IsProcessOpened) return null;
+            if (!Reader.IsProcessOpened || Reader.Process.MainModule == null) return null;
 
             var currentState = new GameState() { PlayedLevel = null, PlayerObject = null };
 
@@ -95,7 +95,7 @@ namespace Whydoisuck.MemoryReading
                 ObjectCount = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + objectCountOffset, 4), 0),
                 MusicID = musicID,
                 OfficialMusicID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + officialMusicIDOffset, 4), 0),
-                IsCustomMusic = (officialMusicIDOffset != 0),//It's how it's done in the game's code
+                IsCustomMusic = (musicID != 0),//It's how it's done in the game's code
                 AttemptNumber = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + attemptsOffset, 4), 0),
                 Length = BitConverter.ToSingle(Reader.ReadBytes(levelStructAddr + levelLengthOffset, 4), 0)
             };

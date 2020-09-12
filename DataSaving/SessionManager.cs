@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -13,7 +11,12 @@ namespace Whydoisuck.DataSaving
 {
     class SessionManager
     {
-        public List<IndexerEntry> Entries { get; private set; } = new List<IndexerEntry>();
+        public List<IndexerEntry> Entries { get; set; }
+
+        public SessionManager()
+        {
+            Entries = new List<IndexerEntry>();
+        }
 
         public void SortEntriesBySimilarityTo(Level level)
         {
@@ -22,6 +25,7 @@ namespace Whydoisuck.DataSaving
 
         public void AddEntry(IndexerEntry entry)
         {
+            //TODO avoid duplicate entries
             Entries.Add(entry);
         }
 
@@ -31,7 +35,7 @@ namespace Whydoisuck.DataSaving
             {
                 SortEntriesBySimilarityTo(session.Level);
                 var mostLikely = Entries[0];
-                if (mostLikely.Level.IsSameLevel(session.Level))
+                if (mostLikely.Level.CanBeSameLevel(session.Level))
                 {
                     return mostLikely.Group;
                 }

@@ -27,7 +27,7 @@ namespace Whydoisuck.DataSaving
 
         public void CreateSessionFile(IndexerEntry entry)
         {
-            var sessionJson = JsonConvert.SerializeObject(this);
+            var sessionJson = JsonConvert.SerializeObject(this, Formatting.Indented);
             var path = entry.GetSessionPath();
             File.WriteAllText(path, sessionJson);
         }
