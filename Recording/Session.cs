@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.Recording
+namespace Whydoisuck.DataSaving
 {
     class Session
     {

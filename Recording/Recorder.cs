@@ -8,7 +8,7 @@ using Whydoisuck.DataSaving;
 using Whydoisuck.GameWatching;
 using Whydoisuck.MemoryReading;
 
-namespace Whydoisuck.Recording
+namespace Whydoisuck.DataSaving
 {
     class Recorder
     {
