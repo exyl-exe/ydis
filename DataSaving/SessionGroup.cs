@@ -10,7 +10,6 @@ namespace Whydoisuck.DataSaving
     class SessionGroup
     {
         public string GroupName { get; set; }
-        public string LevelName { get; set; } = "";
 
         public bool IsSameGroup(SessionGroup group)
         {
@@ -22,10 +21,6 @@ namespace Whydoisuck.DataSaving
             var sessionName = GetSessionName(session);
             var path = SafePath.Combine(GetGroupDirectoryPath(), sessionName);
             session.CreateSessionFile(path);
-            if (LevelName.Length == 0)
-            {
-                LevelName = session.Level.Name;
-            }
         }
 
         private string GetSessionName(Session session)
