@@ -15,13 +15,12 @@ namespace Whydoisuck
         public static string Flush()
         {
            // LogEvent.Invoke(Logs);
-            var res = "";
+            var res = "--Logs--\n";
             foreach(var log in Logs)
             {
                 res += log;
             }
             Logs.Clear();
-            Logs.Add("--Logs--");
             return res;
         }
 
@@ -30,7 +29,6 @@ namespace Whydoisuck
             if (Logs.Count == 0) return "No logs";
             var res = Logs[Logs.Count - 1];
             Logs.Clear();
-            Logs.Add("--Logs--");
             return res;
         }
 

@@ -62,13 +62,12 @@ namespace Whydoisuck.DataSaving
             };
         }
 
-        public void SaveCurrentSession(GameState state)
+        public void SaveCurrentSession(GDLoadedLevelInfos level)
         {
-            SaveCurrentSession();
-        }
-
-        public void SaveCurrentSession(GDLoadedLevelInfos state)
-        {
+            if (CurrentSession.Level.PhysicalLength <= Level.LENGTH_EPSILON)//TODO not very clean, but length is not initialized right when the level loads
+            {
+                CurrentSession.Level.PhysicalLength = level.PhysicalLength;
+            }
             SaveCurrentSession();
         }
 
