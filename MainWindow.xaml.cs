@@ -29,7 +29,7 @@ namespace Whydoisuck
         {
             instance = this;
             InitializeComponent();
-            mainGrid.MouseDown += MouseUpCb;
+            mainTextBlock.MouseDown += MouseUpCb;
             var recorder = new Recorder();
             recorder.StartRecording();
         }

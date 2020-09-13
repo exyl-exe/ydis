@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Name="mainGrid">
-        <Viewbox>
-        <TextBlock Name="mainTextBlock" Margin="10,10,10,10" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Salut"/><LineBreak/><Run/></TextBlock>
-        </Viewbox>
+        <ScrollViewer HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" Name="mainTextBlock" FontSize="50">Salut</TextBlock>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

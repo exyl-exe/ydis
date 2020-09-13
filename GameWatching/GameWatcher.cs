@@ -68,6 +68,7 @@ namespace Whydoisuck.GameWatching
             //without this function detecting the level was exited (and more generally, impossible to miss any of the relevant game states)
             //Not very clean, but a proper implementation not relying on update frequency seems very difficult to do
             //without modifying the game's code
+            
             HandleLevelUnloaded(PreviousState, currentState);
             HandleLevelLoaded(PreviousState, currentState);
             HandlePlayerObjectCreated(PreviousState, currentState);
@@ -97,11 +98,6 @@ namespace Whydoisuck.GameWatching
         {
             if (currentState.PlayerObject != null && previousState.PlayerObject == null)
             {
-                if (currentState.PlayedLevel == null)
-                {
-                    TempLogger.AddLog("Played level null");
-                    return;
-                }
                 OnPlayerObjectCreated?.Invoke(currentState);
                 OnPlayerSpawns?.Invoke(currentState);
             }
