@@ -38,7 +38,7 @@ namespace Whydoisuck.DataSaving
 
         public void SaveCurrentAttempt(GameState state)
         {
-            CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.Length;
+            CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.PhysicalLength;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
         }
@@ -83,7 +83,7 @@ namespace Whydoisuck.DataSaving
             {
                 StartTime = DateTime.Now,
                 Number = state.PlayedLevel.AttemptNumber,
-                StartPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.Length
+                StartPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.PhysicalLength
             };
         }
     }

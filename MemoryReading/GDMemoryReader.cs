@@ -19,6 +19,7 @@ namespace Whydoisuck.MemoryReading
         const int attemptsOffset = 0x4A8;
         const int playerOffset = 0x224;
         const int levelMetadataOffset = 0x488;
+        const int levelSettingsOffset = 0x22C;
 
         const int nameOffset = 0xFC;//from level metadata
         const int nameLengthOffset = 0x10C;
@@ -26,9 +27,10 @@ namespace Whydoisuck.MemoryReading
         const int onlineIDOffset = 0xF8;
         const int originalIDOffset = 0x2D4;
         const int revOffset = 0x1C8;
-        const int objectCountOffset = 0x1D8;
         const int officialMusicIDOffset = 0x1C0;
         const int musicIDOffset = 0x1C4;
+
+        const int musicOffsetOffset = 0xFC;//from level settings
 
         const int isDeadOffset = 0x63F;//from player
         const int hasWonOffset = 0x662;
@@ -81,6 +83,7 @@ namespace Whydoisuck.MemoryReading
         private GDLoadedLevelInfos GetLevelInfos(int levelStructAddr)
         {
             var levelMetadataAddr = Reader.ReadInt(levelStructAddr + levelMetadataOffset);
+            var levelSettingsAddr = Reader.ReadInt(levelStructAddr + levelSettingsOffset);
             var levelName = GetLevelName(levelMetadataAddr);
             var levelID = Reader.ReadInt(levelMetadataAddr + onlineIDOffset);
             var originalID = Reader.ReadInt(levelMetadataAddr + originalIDOffset);
@@ -93,12 +96,12 @@ namespace Whydoisuck.MemoryReading
                 IsOriginal = (originalID!=0),//lazyness v2
                 Name = levelName,
                 Revision = Reader.ReadInt(levelMetadataAddr + revOffset),
-               /* ObjectCount = Reader.ReadInt(levelMetadataAddr + objectCountOffset),
                 MusicID = musicID,
                 OfficialMusicID = Reader.ReadInt(levelMetadataAddr + officialMusicIDOffset),
-                IsCustomMusic = (musicID != 0),//It's how it's done in the game's code*/
+                IsCustomMusic = (musicID != 0),//It's how it's done in the game's code
+                MusicOffset = Reader.ReadFloat(levelSettingsAddr + musicOffsetOffset),
                 AttemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset),
-                Length = Reader.ReadFloat(levelStructAddr + levelLengthOffset)
+                PhysicalLength = Reader.ReadFloat(levelStructAddr + levelLengthOffset)
             };
         }
 

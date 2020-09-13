@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.DataSaving
@@ -13,17 +14,19 @@ namespace Whydoisuck.DataSaving
         const int EQ = 0;
         const int LT = -1;
 
-        public const int OBJECT_COUNT_DELTA = 10;//Just in case some objects are deleted accidentally on copy
+        public const float LENGTH_EPSILON = 10f;//game space unit
+        public const float MUSIC_OFFSET_EPSILON = 0.1f;//seconds
         public int ID { get; set; }
         public bool IsOnline { get; set; }
         public int OriginalID { get; set; }
         public bool IsOriginal { get; set; }
         public string Name { get; set; }
         public int Revision { get; set; }
-       /* public bool IsCustomMusic { get; set; }
+        public float PhysicalLength { get; set; }
+        public bool IsCustomMusic { get; set; }
         public int MusicID { get; set; }
         public int OfficialMusicID { get; set; }
-        public int ObjectCount { get; set; }*/
+        public float MusicOffset { get; set; }
 
         public Level() { }//for json deserializer
 
@@ -35,10 +38,11 @@ namespace Whydoisuck.DataSaving
             IsOriginal = playedLevel.IsOriginal;
             Name = playedLevel.Name;
             Revision = playedLevel.Revision;
-            /*IsCustomMusic = playedLevel.IsCustomMusic;
+            PhysicalLength = playedLevel.PhysicalLength;
+            IsCustomMusic = playedLevel.IsCustomMusic;
             MusicID = playedLevel.MusicID;
             OfficialMusicID = playedLevel.OfficialMusicID;
-            ObjectCount = playedLevel.ObjectCount;*/
+            MusicOffset = playedLevel.MusicOffset;
         }
 
         public bool IsSameLevel(Level level)
@@ -48,9 +52,9 @@ namespace Whydoisuck.DataSaving
                 IsOnline == level.IsOnline &&
                 OriginalID == level.OriginalID &&
                 Name.Equals(level.Name) &&
-                Revision == level.Revision; /*&&
+                Revision == level.Revision &&
                 SameMusic(level) &&
-                ObjectCount == level.ObjectCount;*/
+                SamePhysicalLength(level);
         }
 
         public bool SimilarName(Level level)
@@ -58,8 +62,13 @@ namespace Whydoisuck.DataSaving
             return Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower());
         }
 
-        /*public bool SameMusic(Level level)
+        public bool SameMusic(Level level)
         {
+            if (!(Math.Abs(MusicOffset - level.MusicOffset)<MUSIC_OFFSET_EPSILON))
+            {
+                return false;
+            }
+
             if (level.IsCustomMusic && IsCustomMusic)
             {
                 if (level.MusicID == MusicID)
@@ -77,7 +86,12 @@ namespace Whydoisuck.DataSaving
             }
 
             return false;
-        }*/
+        }
+
+        public bool SamePhysicalLength(Level level)
+        {
+            return Math.Abs(PhysicalLength - level.PhysicalLength) <= LENGTH_EPSILON;
+        }
 
         public bool CouldBeSameLevel(Level level)
         {
@@ -96,10 +110,10 @@ namespace Whydoisuck.DataSaving
                 return true;
             }
 
-            /*if (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount) < OBJECT_COUNT_DELTA))
+            if (SameMusic(level) && SamePhysicalLength(level))
             {
                 return true;
-            }*/
+            }
 
             return false;
         }
@@ -115,8 +129,8 @@ namespace Whydoisuck.DataSaving
             var originalIdComp = CompareOriginalIds(sample, level1, level2);
             if (originalIdComp != EQ) return originalIdComp;
 
-            /*var musicComp = CompareMusicAndObjects(sample, level1, level2);//not separated functions because these values alone don't seem very relevant
-            if (musicComp != EQ) return musicComp;*/
+            var musicComp = CompareMusicAndLength(sample, level1, level2);//not separated functions because these values alone don't seem very relevant
+            if (musicComp != EQ) return musicComp;
 
             return EQ;
         }
@@ -127,7 +141,6 @@ namespace Whydoisuck.DataSaving
 
             var key1Matches = (level1.ID == sample.ID);
             var key2Matches = (level2.ID == sample.ID);
-            //Compare ID
             if (key1Matches && key2Matches)
             {
                 return EQ;
@@ -198,11 +211,10 @@ namespace Whydoisuck.DataSaving
             return EQ;
         }
 
-        /*private static int CompareMusicAndObjects(Level sample, Level level1, Level level2)
+        private static int CompareMusicAndLength(Level sample, Level level1, Level level2)
         {
-            var key1Matches = (level1.SameMusic(sample) && Math.Abs(level1.ObjectCount - sample.ObjectCount) < OBJECT_COUNT_DELTA);
-            var key2Matches = (level2.SameMusic(sample) && Math.Abs(level2.ObjectCount - sample.ObjectCount) < OBJECT_COUNT_DELTA);
-            //Compare ID
+            var key1Matches = level1.SameMusic(sample) && level1.SamePhysicalLength(sample);
+            var key2Matches = level2.SameMusic(sample) && level2.SamePhysicalLength(sample);
             if (key1Matches && key2Matches)
             {
                 return EQ;
@@ -216,6 +228,6 @@ namespace Whydoisuck.DataSaving
                 return LT;
             }
             return EQ;
-        }*/
+        }
     }
 }
