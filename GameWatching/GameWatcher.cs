@@ -8,7 +8,7 @@ using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.GameWatching
 {
-    static class GameWatcher//TODO static class
+    static class GameWatcher
     {
         private static int Delay { get; set; } = 10;//ms
         private static bool IsRecording { get; set; }

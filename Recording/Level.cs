@@ -9,7 +9,7 @@ namespace Whydoisuck.DataSaving
 {
     class Level
     {
-        const int GT = 1;//TODO might not be necessary
+        const int GT = 1;
         const int EQ = 0;
         const int LT = -1;
 
@@ -79,7 +79,7 @@ namespace Whydoisuck.DataSaving
             return false;
         }*/
 
-        public bool CouldBeSameLevel(Level level)//TODO return level of similarity instead of bool, and use this in levelindexer ?
+        public bool CouldBeSameLevel(Level level)
         {
             if (IsOnline && level.IsOnline)
             {
