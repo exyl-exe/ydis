@@ -19,6 +19,7 @@ namespace Whydoisuck.DataSaving
         public Recorder()
         {
             //TODO minimalize the impact of the order in which events are fired
+            //TODO on level settings loaded
             GameWatcher.OnPlayerObjectCreated += CreateNewSession;
             GameWatcher.OnLevelExited += SaveCurrentSession;
             GameWatcher.OnPlayerSpawns += CreateNewAttempt;

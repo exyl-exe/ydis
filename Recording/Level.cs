@@ -57,6 +57,34 @@ namespace Whydoisuck.DataSaving
                 SamePhysicalLength(level);
         }
 
+        public bool FromSameLevel(Level level)
+        {
+            if (IsOriginal && !level.IsOriginal)
+            {
+                if(level.OriginalID == ID)
+                {
+                    return true;
+                }
+            }
+
+            if(!IsOriginal && level.IsOriginal)
+            {
+                if (OriginalID == level.ID)
+                {
+                    return true;
+                }
+            }
+
+            if(!IsOriginal && !level.IsOriginal)
+            {
+                //If a not original level is copied, then the original ID of the copy is the same as the original ID of the copied level
+                //Therefore there is no need to test if the original ID of one level is the online ID of the other if both levels aren't original
+                return OriginalID == level.OriginalID;
+            }
+
+            return false;
+        }
+
         public bool SimilarName(Level level)
         {
             return Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower());
@@ -97,12 +125,12 @@ namespace Whydoisuck.DataSaving
         {
             if (IsOnline && level.IsOnline)
             {
-                if (ID != level.ID) return false;
+                return ID == level.ID;
             }
 
-            if (!IsOriginal || !level.IsOriginal)
+            if (FromSameLevel(level))
             {
-                if (OriginalID == level.OriginalID || OriginalID == level.ID || ID == level.OriginalID) return true;
+                return true;
             }
 
             if (SimilarName(level))
@@ -114,7 +142,6 @@ namespace Whydoisuck.DataSaving
             {
                 return true;
             }
-
             return false;
         }
 
@@ -192,10 +219,10 @@ namespace Whydoisuck.DataSaving
 
         private static int CompareOriginalIds(Level sample, Level level1, Level level2)
         {
-            if (!sample.IsOnline && sample.IsOriginal) return EQ;
+            if (!sample.IsOnline && sample.IsOriginal) return EQ;//if the sample is not uploaded and is original, there is no need to check for original IDs of compared levels
 
-            var key1Matches = (level1.OriginalID == sample.ID) || (level1.OriginalID == sample.OriginalID);
-            var key2Matches = (level2.OriginalID == sample.ID) || (level2.OriginalID == sample.OriginalID);
+            var key1Matches = level1.FromSameLevel(sample);
+            var key2Matches = level2.FromSameLevel(sample);
             if (key1Matches && key2Matches)
             {
                 return EQ;

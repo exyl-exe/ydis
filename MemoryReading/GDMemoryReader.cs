@@ -36,6 +36,7 @@ namespace Whydoisuck.MemoryReading
         const int hasWonOffset = 0x662;
         const int xPositionOffset = 0x67C;
 
+        const int SETTINGS_NOT_LOADED = 0x0;
         const int NO_LEVEL_LOADED = 0x0;
         const int NO_PLAYER_LOADED = 0x0;
         const int EXTENDED_NAME_CHECK_VALUE = 0x1F;//black magic imo
@@ -67,7 +68,7 @@ namespace Whydoisuck.MemoryReading
                    currentState.PlayerObject = GetPlayerInfos(playerAddr);
                 }
             }
-            return currentState;     
+            return currentState;
         }
 
         private GDPlayerInfos GetPlayerInfos(int playerStructAddr)
@@ -88,21 +89,22 @@ namespace Whydoisuck.MemoryReading
             var levelID = Reader.ReadInt(levelMetadataAddr + onlineIDOffset);
             var originalID = Reader.ReadInt(levelMetadataAddr + originalIDOffset);
             var musicID = Reader.ReadInt(levelMetadataAddr + musicIDOffset);
+            var musicOffset = levelSettingsAddr == SETTINGS_NOT_LOADED ? 0 : Reader.ReadFloat(levelSettingsAddr + musicOffsetOffset);
             return new GDLoadedLevelInfos
             {
                 ID = levelID,
                 IsOnline = (levelID != 0),//lazyness
                 OriginalID = originalID,
-                IsOriginal = (originalID!=0),//lazyness v2
+                IsOriginal = (originalID==0),//lazyness v2
                 Name = levelName,
                 Revision = Reader.ReadInt(levelMetadataAddr + revOffset),
                 MusicID = musicID,
                 OfficialMusicID = Reader.ReadInt(levelMetadataAddr + officialMusicIDOffset),
                 IsCustomMusic = (musicID != 0),//It's how it's done in the game's code
-                MusicOffset = Reader.ReadFloat(levelSettingsAddr + musicOffsetOffset),
+                MusicOffset = musicOffset,
                 AttemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset),
                 PhysicalLength = Reader.ReadFloat(levelStructAddr + levelLengthOffset)
-            };
+        };
         }
 
         private string GetLevelName(int levelMetadata)

@@ -41,7 +41,8 @@ namespace Whydoisuck.DataSaving
             {
                 SortEntriesBySimilarityTo(session.Level);
                 var mostLikely = Entries[0];
-                if (mostLikely.Level.CouldBeSameLevel(session.Level))
+                var sameLevel = mostLikely.Level.CouldBeSameLevel(session.Level);
+                if (sameLevel)
                 {
                     return mostLikely.Group;
                 }

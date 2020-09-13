@@ -41,7 +41,7 @@ namespace Whydoisuck
         
         public static void SetText(string s)
         {
-            MainWindow.instance.mainTextBlock.Text = s;
+            instance.mainTextBlock.Text = s;
         }
 
     }
