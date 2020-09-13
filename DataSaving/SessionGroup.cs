@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
 {
@@ -19,7 +19,7 @@ namespace Whydoisuck.DataSaving
         public void AddSession(Session session)
         {
             var sessionName = GetSessionName(session);
-            var path = Path.Combine(GetGroupDirectoryPath(), sessionName);
+            var path = SafePath.Combine(GetGroupDirectoryPath(), sessionName);
             session.CreateSessionFile(path);
         }
 
@@ -39,8 +39,8 @@ namespace Whydoisuck.DataSaving
         private bool IsSessionNameAvailable(string name)
         {
             var groupPath = GetGroupDirectoryPath();
-            var filePath = Path.Combine(groupPath, name);
-            return !File.Exists(filePath);
+            var filePath = SafePath.Combine(groupPath, name);
+            return !SafeFile.Exists(filePath);
         }
 
         public static string GetDefaultGroupName(Level level)
@@ -50,16 +50,13 @@ namespace Whydoisuck.DataSaving
 
         public string GetGroupDirectoryPath()
         {
-            TempLogger.AddLog("Name:"+Name);
-            var chars = Path.GetInvalidPathChars();
-            TempLogger.AddLog("Invalid:"+new string(chars));
-            var path = Path.Combine(SessionSaver.SAVE_DIR, Name + "\\");
+            var path = SafePath.Combine(SessionSaver.SAVE_DIR, Name + SafePath.DirectorySeparator);
             return path;
         }
 
         public void CreateGroupDirectory()
         {
-            Directory.CreateDirectory(GetGroupDirectoryPath());
+            SafeDirectory.CreateDirectory(GetGroupDirectoryPath());
         }
     }
 }

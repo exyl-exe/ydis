@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.MemoryReading;
+using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
 {
@@ -28,7 +28,7 @@ namespace Whydoisuck.DataSaving
         public void CreateSessionFile(string path)
         {
             var sessionJson = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText(path, sessionJson);
+            SafeFile.WriteAllText(path, sessionJson);
         }
     }
 }

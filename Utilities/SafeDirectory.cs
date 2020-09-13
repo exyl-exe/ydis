@@ -1,0 +1,22 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Whydoisuck.Utilities
+{
+    class SafeDirectory
+    {
+        public static bool Exists(string directoryPath)
+        {
+            return Directory.Exists(directoryPath);
+        }
+
+        public static void CreateDirectory(string directoryPath)
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+    }
+}

@@ -72,6 +72,9 @@
     <Compile Include="Recording\Session.cs" />
     <Compile Include="DataSaving\SessionGroup.cs" />
     <Compile Include="TempLogger.cs" />
+    <Compile Include="Utilities\SafeDirectory.cs" />
+    <Compile Include="Utilities\SafeFile.cs" />
+    <Compile Include="Utilities\SafePath.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
