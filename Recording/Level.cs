@@ -53,6 +53,11 @@ namespace Whydoisuck.DataSaving
                 ObjectCount == level.ObjectCount;
         }
 
+        public bool SimilarName(Level level)
+        {
+            return Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower());
+        }
+
         public bool SameMusic(Level level)
         {
             if (level.IsCustomMusic && IsCustomMusic)
@@ -74,14 +79,29 @@ namespace Whydoisuck.DataSaving
             return false;
         }
 
-        public bool CanBeSameLevel(Level level)//TODO return level of similarity instead of bool, and use this in levelindexer ?
+        public bool CouldBeSameLevel(Level level)//TODO return level of similarity instead of bool, and use this in levelindexer ?
         {
-            var test =
-                !(ID != level.ID) &&
-                ((OriginalID == level.OriginalID || OriginalID == level.ID || ID == level.OriginalID) ||
-                (Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower())) ||
-                (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount)<OBJECT_COUNT_DELTA)));
-            return test;
+            if (IsOnline && level.IsOnline)
+            {
+                if (ID != level.ID) return false;
+            }
+
+            if (!IsOriginal || !level.IsOriginal)
+            {
+                if (OriginalID == level.OriginalID || OriginalID == level.ID || ID == level.OriginalID) return true;
+            }
+
+            if (SimilarName(level))
+            {
+                return true;
+            }
+
+            if (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount) < OBJECT_COUNT_DELTA))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public static int LevelComparison(Level sample, Level level1, Level level2)

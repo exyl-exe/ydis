@@ -55,7 +55,7 @@ namespace Whydoisuck.DataSaving
 
         public void CreateNewSession(GameState state)
         {
-            var playedLevel = new Level(state.PlayedLevel);//TODO can be null for some reason
+            var playedLevel = new Level(state.PlayedLevel);
             CurrentSession = new Session
             {
                 Level = playedLevel,

@@ -15,6 +15,7 @@ namespace Whydoisuck.DataSaving
     {
         public const string SAVE_DIR = "./records/";
         const string INDEX_FILE_NAME = "indexedLevels.wdis";
+        public static string IndexFilePath { get { return Path.Combine(SAVE_DIR, INDEX_FILE_NAME); } }
 
         public static void SaveSession(Session s)
         {
@@ -23,7 +24,7 @@ namespace Whydoisuck.DataSaving
                 InitDir();
             }
 
-            SessionManager manager = LoadSessionManager();//TODO only do that like once, and not each time there is a session to save (athough it doesn't matter much)
+            SessionManager manager = LoadSessionManager();
             var group = manager.GetGroup(s);
             var entry = group.AddSession(s);
             manager.AddEntry(entry);
@@ -33,18 +34,18 @@ namespace Whydoisuck.DataSaving
         public static void InitDir()
         {
             Directory.CreateDirectory(SAVE_DIR);
-            File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, JsonConvert.SerializeObject(new SessionManager(), Formatting.Indented));//TODO Path.Combine
+            File.WriteAllText(IndexFilePath, JsonConvert.SerializeObject(new SessionManager(), Formatting.Indented));
         }
 
         public static SessionManager LoadSessionManager()
         {
-            if(!File.Exists(SAVE_DIR + INDEX_FILE_NAME))
+            if (!File.Exists(IndexFilePath))
             {
                 return new SessionManager();
             } else
             {
                 SessionManager storedManager;
-                var indexerJson = File.ReadAllText(SAVE_DIR + INDEX_FILE_NAME);
+                var indexerJson = File.ReadAllText(IndexFilePath);
                 storedManager = JsonConvert.DeserializeObject<SessionManager>(indexerJson);
                 return storedManager;
             } 
@@ -53,7 +54,7 @@ namespace Whydoisuck.DataSaving
         public static void SaveIndexer(SessionManager manager)
         {
             var indexerUpdatedJson = JsonConvert.SerializeObject(manager, Formatting.Indented);
-            File.WriteAllText(SAVE_DIR + INDEX_FILE_NAME, indexerUpdatedJson);
+            File.WriteAllText(IndexFilePath, indexerUpdatedJson);
         }
     }
 }

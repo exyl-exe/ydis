@@ -25,7 +25,7 @@ namespace Whydoisuck.DataSaving
 
         public void AddEntry(IndexerEntry entry)
         {
-            //TODO avoid duplicate entries
+            //TODO duplicate entries
             Entries.Add(entry);
         }
 
@@ -35,7 +35,7 @@ namespace Whydoisuck.DataSaving
             {
                 SortEntriesBySimilarityTo(session.Level);
                 var mostLikely = Entries[0];
-                if (mostLikely.Level.CanBeSameLevel(session.Level))
+                if (mostLikely.Level.CouldBeSameLevel(session.Level))
                 {
                     return mostLikely.Group;
                 }
