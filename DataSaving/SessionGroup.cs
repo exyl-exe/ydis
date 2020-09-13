@@ -25,7 +25,6 @@ namespace Whydoisuck.DataSaving
 
         private string GetSessionName(Session session)
         {
-            var dir = GetGroupDirectoryPath();
             var defaultName = session.GetDefaultSessionFileName();
             var name = defaultName;
             var i = 2;
@@ -51,7 +50,11 @@ namespace Whydoisuck.DataSaving
 
         public string GetGroupDirectoryPath()
         {
-            return Path.Combine(SessionSaver.SAVE_DIR, Name + "\\");
+            TempLogger.AddLog("Name:"+Name);
+            var chars = Path.GetInvalidPathChars();
+            TempLogger.AddLog("Invalid:"+new string(chars));
+            var path = Path.Combine(SessionSaver.SAVE_DIR, Name + "\\");
+            return path;
         }
 
         public void CreateGroupDirectory()

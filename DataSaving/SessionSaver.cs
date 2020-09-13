@@ -29,7 +29,7 @@ namespace Whydoisuck.DataSaving
             group.AddSession(session);
             var entry = new IndexerEntry() { Group = group, Level = session.Level };
             manager.AddEntry(entry);
-
+            
             SaveIndexer(manager);
         }
 

@@ -11,7 +11,7 @@ namespace Whydoisuck.MemoryReading
     {
         const string GDProcessName = "GeometryDash";
 
-        const byte MAX_POINTERLESS_NAME_SIZE = 15;
+        const int EXTENDED_NAME_CHECK_VALUE = 0x1F;//black magic imo
 
         const int baseOffset = 0x3222D0;//from module base address
         const int levelOffset = 0x164;//from base
@@ -22,7 +22,8 @@ namespace Whydoisuck.MemoryReading
         const int levelMetadataOffset = 0x488;
 
         const int nameOffset = 0xFC;//from level metadata
-        const int nameSizeOffset = 0x10C;
+        const int nameLengthOffset = 0x10C;
+        const int nameCheckOffset = 0x110;
         const int onlineIDOffset = 0xF8;
         const int originalIDOffset = 0x2D4;
         const int revOffset = 0x1C8;
@@ -103,9 +104,10 @@ namespace Whydoisuck.MemoryReading
 
         private string GetLevelName(int levelMetadata)
         {
-            var levelNameLength = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameSizeOffset, 4), 0);
+            var extendedNameByte = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameCheckOffset, 4), 0);
+            var nameLength = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameLengthOffset, 4), 0);
             int nameAddr;
-            if (levelNameLength > MAX_POINTERLESS_NAME_SIZE)
+            if (extendedNameByte == EXTENDED_NAME_CHECK_VALUE)
             {
                 nameAddr = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameOffset, 4), 0);
             }
@@ -113,7 +115,7 @@ namespace Whydoisuck.MemoryReading
             {
                 nameAddr = levelMetadata + nameOffset;
             }
-            return Reader.ReadString(nameAddr, levelNameLength);
+            return Reader.ReadString(nameAddr, nameLength);
         }
     }
 }
