@@ -12,31 +12,28 @@ namespace Whydoisuck.DataSaving
 {
     class Recorder
     {
-        private GameWatcher gameWatcher { get; set; }
-
         private Session CurrentSession { get; set; }
         private Attempt CurrentAttempt { get; set; }
 
 
         public Recorder()
         {
-            gameWatcher = new GameWatcher();
             //TODO minimalize the impact of the order in which events are fired
-            gameWatcher.OnPlayerObjectCreated += CreateNewSession;
-            gameWatcher.OnLevelExited += SaveCurrentSession;
-            gameWatcher.OnPlayerSpawns += CreateNewAttempt;
-            gameWatcher.OnPlayerDies += SaveCurrentAttempt;
-            gameWatcher.OnPlayerWins += SaveCurrentWinningAttempt;
+            GameWatcher.OnPlayerObjectCreated += CreateNewSession;
+            GameWatcher.OnLevelExited += SaveCurrentSession;
+            GameWatcher.OnPlayerSpawns += CreateNewAttempt;
+            GameWatcher.OnPlayerDies += SaveCurrentAttempt;
+            GameWatcher.OnPlayerWins += SaveCurrentWinningAttempt;
         }
 
         public void StartRecording()
         {
-            gameWatcher.StartWatching();
+            GameWatcher.StartWatching();
         }
 
         public void StopRecording()
         {
-            gameWatcher.StopWatching();
+            GameWatcher.StopWatching();
         }
 
         public void SaveCurrentAttempt(GameState state)

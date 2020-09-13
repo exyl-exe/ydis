@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Whydoisuck.DataSaving;
 
 namespace Whydoisuck.MemoryReading
 {
     class GDMemoryReader
     {
         const string GDProcessName = "GeometryDash";
-
-        const int EXTENDED_NAME_CHECK_VALUE = 0x1F;//black magic imo
 
         const int baseOffset = 0x3222D0;//from module base address
         const int levelOffset = 0x164;//from base
@@ -37,6 +36,7 @@ namespace Whydoisuck.MemoryReading
 
         const int NO_LEVEL_LOADED = 0x0;
         const int NO_PLAYER_LOADED = 0x0;
+        const int EXTENDED_NAME_CHECK_VALUE = 0x1F;//black magic imo
 
         public bool IsGDOpened { get { return Reader.IsProcessOpened; } }
 
@@ -53,13 +53,13 @@ namespace Whydoisuck.MemoryReading
 
             var currentState = new GameState() { PlayedLevel = null, PlayerObject = null };
 
-            var commonAddr = BitConverter.ToInt32(Reader.ReadBytes((int)Reader.MainModuleAddr + baseOffset, 4), 0);
-            var levelAddr = BitConverter.ToInt32(Reader.ReadBytes(commonAddr + levelOffset, 4), 0);
+            var commonAddr = Reader.ReadInt((int)Reader.MainModuleAddr + baseOffset);
+            var levelAddr = Reader.ReadInt(commonAddr + levelOffset);
 
             if(levelAddr != NO_LEVEL_LOADED)
             {
                 currentState.PlayedLevel = GetLevelInfos(levelAddr);
-                var playerAddr = BitConverter.ToInt32(Reader.ReadBytes(levelAddr + playerOffset, 4), 0);
+                var playerAddr = Reader.ReadInt(levelAddr + playerOffset);
                 if (playerAddr != NO_PLAYER_LOADED)
                 {
                    currentState.PlayerObject = GetPlayerInfos(playerAddr);
@@ -72,19 +72,19 @@ namespace Whydoisuck.MemoryReading
         {
             return new GDPlayerInfos
             {
-                XPosition = BitConverter.ToSingle(Reader.ReadBytes(playerStructAddr + xPositionOffset, 4), 0),
-                IsDead = BitConverter.ToBoolean(Reader.ReadBytes(playerStructAddr + isDeadOffset, 1), 0),
-                HasWon = BitConverter.ToBoolean(Reader.ReadBytes(playerStructAddr + hasWonOffset, 1), 0)
+                XPosition = Reader.ReadFloat(playerStructAddr + xPositionOffset),
+                IsDead = Reader.ReadBoolean(playerStructAddr + isDeadOffset),
+                HasWon = Reader.ReadBoolean(playerStructAddr + hasWonOffset)
             };
         }
 
         private GDLoadedLevelInfos GetLevelInfos(int levelStructAddr)
         {
-            var levelMetadataAddr = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + levelMetadataOffset, 4), 0);
+            var levelMetadataAddr = Reader.ReadInt(levelStructAddr + levelMetadataOffset);
             var levelName = GetLevelName(levelMetadataAddr);
-            var levelID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + onlineIDOffset, 4), 0);
-            var originalID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + originalIDOffset, 4), 0);
-            var musicID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + musicIDOffset, 4), 0);
+            var levelID = Reader.ReadInt(levelMetadataAddr + onlineIDOffset);
+            var originalID = Reader.ReadInt(levelMetadataAddr + originalIDOffset);
+            var musicID = Reader.ReadInt(levelMetadataAddr + musicIDOffset);
             return new GDLoadedLevelInfos
             {
                 ID = levelID,
@@ -92,24 +92,24 @@ namespace Whydoisuck.MemoryReading
                 OriginalID = originalID,
                 IsOriginal = (originalID!=0),//lazyness v2
                 Name = levelName,
-                Revision = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + revOffset, 4), 0),
-                ObjectCount = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + objectCountOffset, 4), 0),
+                Revision = Reader.ReadInt(levelMetadataAddr + revOffset),
+               /* ObjectCount = Reader.ReadInt(levelMetadataAddr + objectCountOffset),
                 MusicID = musicID,
-                OfficialMusicID = BitConverter.ToInt32(Reader.ReadBytes(levelMetadataAddr + officialMusicIDOffset, 4), 0),
-                IsCustomMusic = (musicID != 0),//It's how it's done in the game's code
-                AttemptNumber = BitConverter.ToInt32(Reader.ReadBytes(levelStructAddr + attemptsOffset, 4), 0),
-                Length = BitConverter.ToSingle(Reader.ReadBytes(levelStructAddr + levelLengthOffset, 4), 0)
+                OfficialMusicID = Reader.ReadInt(levelMetadataAddr + officialMusicIDOffset),
+                IsCustomMusic = (musicID != 0),//It's how it's done in the game's code*/
+                AttemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset),
+                Length = Reader.ReadFloat(levelStructAddr + levelLengthOffset)
             };
         }
 
         private string GetLevelName(int levelMetadata)
         {
-            var extendedNameByte = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameCheckOffset, 4), 0);
-            var nameLength = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameLengthOffset, 4), 0);
+            var extendedNameByte = Reader.ReadInt(levelMetadata + nameCheckOffset);
+            var nameLength = Reader.ReadInt(levelMetadata + nameLengthOffset);
             int nameAddr;
             if (extendedNameByte == EXTENDED_NAME_CHECK_VALUE)
             {
-                nameAddr = BitConverter.ToInt32(Reader.ReadBytes(levelMetadata + nameOffset, 4), 0);
+                nameAddr = Reader.ReadInt(levelMetadata + nameOffset);
             }
             else
             {

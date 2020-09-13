@@ -61,5 +61,20 @@ namespace Whydoisuck.MemoryReading
             var bytes = ReadBytes(address, maxLength);
             return Encoding.UTF8.GetString(bytes);
         }
+
+        public int ReadInt(int address)
+        {
+            return BitConverter.ToInt32(ReadBytes(address, 4), 0);
+        }
+
+        public bool ReadBoolean(int address)
+        {
+            return BitConverter.ToBoolean(ReadBytes(address, 1), 0);
+        }
+
+        public float ReadFloat(int address)
+        {
+            return BitConverter.ToSingle(ReadBytes(address, 4), 0);
+        }
     }
 }

@@ -20,10 +20,10 @@ namespace Whydoisuck.DataSaving
         public bool IsOriginal { get; set; }
         public string Name { get; set; }
         public int Revision { get; set; }
-        public bool IsCustomMusic { get; set; }
+       /* public bool IsCustomMusic { get; set; }
         public int MusicID { get; set; }
         public int OfficialMusicID { get; set; }
-        public int ObjectCount { get; set; }
+        public int ObjectCount { get; set; }*/
 
         public Level() { }//for json deserializer
 
@@ -35,10 +35,10 @@ namespace Whydoisuck.DataSaving
             IsOriginal = playedLevel.IsOriginal;
             Name = playedLevel.Name;
             Revision = playedLevel.Revision;
-            IsCustomMusic = playedLevel.IsCustomMusic;
+            /*IsCustomMusic = playedLevel.IsCustomMusic;
             MusicID = playedLevel.MusicID;
             OfficialMusicID = playedLevel.OfficialMusicID;
-            ObjectCount = playedLevel.ObjectCount;
+            ObjectCount = playedLevel.ObjectCount;*/
         }
 
         public bool IsSameLevel(Level level)
@@ -48,9 +48,9 @@ namespace Whydoisuck.DataSaving
                 IsOnline == level.IsOnline &&
                 OriginalID == level.OriginalID &&
                 Name.Equals(level.Name) &&
-                Revision == level.Revision &&
+                Revision == level.Revision; /*&&
                 SameMusic(level) &&
-                ObjectCount == level.ObjectCount;
+                ObjectCount == level.ObjectCount;*/
         }
 
         public bool SimilarName(Level level)
@@ -58,7 +58,7 @@ namespace Whydoisuck.DataSaving
             return Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower());
         }
 
-        public bool SameMusic(Level level)
+        /*public bool SameMusic(Level level)
         {
             if (level.IsCustomMusic && IsCustomMusic)
             {
@@ -77,7 +77,7 @@ namespace Whydoisuck.DataSaving
             }
 
             return false;
-        }
+        }*/
 
         public bool CouldBeSameLevel(Level level)//TODO return level of similarity instead of bool, and use this in levelindexer ?
         {
@@ -96,10 +96,10 @@ namespace Whydoisuck.DataSaving
                 return true;
             }
 
-            if (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount) < OBJECT_COUNT_DELTA))
+            /*if (SameMusic(level) && (Math.Abs(ObjectCount - level.ObjectCount) < OBJECT_COUNT_DELTA))
             {
                 return true;
-            }
+            }*/
 
             return false;
         }
@@ -115,8 +115,8 @@ namespace Whydoisuck.DataSaving
             var originalIdComp = CompareOriginalIds(sample, level1, level2);
             if (originalIdComp != EQ) return originalIdComp;
 
-            var musicComp = CompareMusicAndObjects(sample, level1, level2);//not separated functions because these values alone don't seem very relevant
-            if (musicComp != EQ) return musicComp;
+            /*var musicComp = CompareMusicAndObjects(sample, level1, level2);//not separated functions because these values alone don't seem very relevant
+            if (musicComp != EQ) return musicComp;*/
 
             return EQ;
         }
@@ -198,7 +198,7 @@ namespace Whydoisuck.DataSaving
             return EQ;
         }
 
-        private static int CompareMusicAndObjects(Level sample, Level level1, Level level2)
+        /*private static int CompareMusicAndObjects(Level sample, Level level1, Level level2)
         {
             var key1Matches = (level1.SameMusic(sample) && Math.Abs(level1.ObjectCount - sample.ObjectCount) < OBJECT_COUNT_DELTA);
             var key2Matches = (level2.SameMusic(sample) && Math.Abs(level2.ObjectCount - sample.ObjectCount) < OBJECT_COUNT_DELTA);
@@ -216,6 +216,6 @@ namespace Whydoisuck.DataSaving
                 return LT;
             }
             return EQ;
-        }
+        }*/
     }
 }

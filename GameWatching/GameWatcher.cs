@@ -8,31 +8,26 @@ using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.GameWatching
 {
-    class GameWatcher//TODO static class
+    static class GameWatcher//TODO static class
     {
-        private int Delay { get; set; } = 10;//ms
-        private bool IsRecording { get; set; }
-        private GDMemoryReader Reader { get; set; }
-        private GameState previousState { get; set; }
+        private static int Delay { get; set; } = 10;//ms
+        private static bool IsRecording { get; set; }
+        private static GDMemoryReader Reader { get; set; } = new GDMemoryReader();
+        private static GameState PreviousState { get; set; }
 
         public delegate void GameInfoCallback(GameState gameState);
         public delegate void LevelInfoCallback(GDLoadedLevelInfos level);
 
-        public event LevelInfoCallback OnLevelEntered;
-        public event LevelInfoCallback OnLevelExited;
-        public event LevelInfoCallback OnNewAttempt;
-        public event GameInfoCallback OnPlayerObjectCreated;
-        public event GameInfoCallback OnPlayerObjectDestroyed;
-        public event GameInfoCallback OnPlayerWins;
-        public event GameInfoCallback OnPlayerDies;
-        public event GameInfoCallback OnPlayerSpawns;
+        public static event LevelInfoCallback OnLevelEntered;
+        public static event LevelInfoCallback OnLevelExited;
+        public static event LevelInfoCallback OnNewAttempt;
+        public static event GameInfoCallback OnPlayerObjectCreated;
+        public static event GameInfoCallback OnPlayerObjectDestroyed;
+        public static event GameInfoCallback OnPlayerWins;
+        public static event GameInfoCallback OnPlayerDies;
+        public static event GameInfoCallback OnPlayerSpawns;
 
-        public GameWatcher()
-        {
-            Reader = new GDMemoryReader();
-        }
-
-        public void UpdateThread()
+        public static void UpdateThread()
         {
             while (IsRecording)
             {
@@ -41,28 +36,29 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        public void StartWatching()
+        public static void StartWatching()
         {
+            if (IsRecording) return;//Can't create more than 1 thread
             IsRecording = true;
             var thread = new Thread(new ThreadStart(UpdateThread));
             thread.Start();
         }
 
-        public void StopWatching()
+        public static void StopWatching()
         {
             IsRecording = false;
         }
 
-        public void UpdateState()
+        public static void UpdateState()
         {
             if (!Reader.IsGDOpened){
                 var initialized = Reader.TryAttachToGD();
                 if (!initialized) return;
             }
 
-            if (previousState == null)
+            if (PreviousState == null)
             {
-                previousState = Reader.GetGameState();
+                PreviousState = Reader.GetGameState();
                 return;
             }
 
@@ -72,15 +68,15 @@ namespace Whydoisuck.GameWatching
             //without this function detecting the level was exited (and more generally, impossible to miss any of the relevant game states)
             //Not very clean, but a proper implementation not relying on update frequency seems very difficult to do
             //without modifying the game's code
-            HandleLevelUnloaded(previousState, currentState);
-            HandleLevelLoaded(previousState, currentState);
-            HandlePlayerObjectCreated(previousState, currentState);
-            HandlePlayerObjectDestroyed(previousState, currentState);
-            HandleLevelNotExited(previousState, currentState);
-            previousState = currentState;
+            HandleLevelUnloaded(PreviousState, currentState);
+            HandleLevelLoaded(PreviousState, currentState);
+            HandlePlayerObjectCreated(PreviousState, currentState);
+            HandlePlayerObjectDestroyed(PreviousState, currentState);
+            HandleLevelNotExited(PreviousState, currentState);
+            PreviousState = currentState;
         }
 
-        public void HandleLevelUnloaded(GameState previousState, GameState currentState)
+        public static void HandleLevelUnloaded(GameState previousState, GameState currentState)
         {
             if (currentState.PlayedLevel == null && previousState.PlayedLevel != null)
             {
@@ -88,7 +84,7 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        public void HandleLevelLoaded(GameState previousState, GameState currentState)
+        public static void HandleLevelLoaded(GameState previousState, GameState currentState)
         {
             if (currentState.PlayedLevel != null && previousState.PlayedLevel == null)
             {
@@ -97,7 +93,7 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        private void HandlePlayerObjectCreated(GameState previousState, GameState currentState)
+        private static void HandlePlayerObjectCreated(GameState previousState, GameState currentState)
         {
             if (currentState.PlayerObject != null && previousState.PlayerObject == null)
             {
@@ -111,7 +107,7 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        private void HandlePlayerObjectDestroyed(GameState previousState, GameState currentState)
+        private static void HandlePlayerObjectDestroyed(GameState previousState, GameState currentState)
         {
             if (currentState.PlayerObject == null && previousState.PlayerObject != null)
             {
@@ -119,7 +115,7 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        private void HandleLevelNotExited(GameState previousState, GameState currentState)
+        private static void HandleLevelNotExited(GameState previousState, GameState currentState)
         {
             if (currentState.PlayerObject != null && previousState.PlayerObject != null)
             {
@@ -129,7 +125,7 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        private void HandleRespawn(GameState previousState, GameState currentState)
+        private static void HandleRespawn(GameState previousState, GameState currentState)
         { 
             if (currentState.PlayedLevel.AttemptNumber != previousState.PlayedLevel.AttemptNumber ||//Classic respawn
                 previousState.PlayerObject.HasWon && !currentState.PlayerObject.HasWon)//Attempt winning respawn
@@ -139,7 +135,7 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        private void HandlePlayerWin(GameState previousState, GameState currentState)
+        private static void HandlePlayerWin(GameState previousState, GameState currentState)
         {
             if (currentState.PlayerObject.HasWon && !previousState.PlayerObject.HasWon)
             {
@@ -147,7 +143,7 @@ namespace Whydoisuck.GameWatching
             }
         }
 
-        private void HandlePlayerDeath(GameState previousState, GameState currentState)
+        private static void HandlePlayerDeath(GameState previousState, GameState currentState)
         {
             //second part of the condition prevents being screwed by instant death
             if (currentState.PlayerObject.IsDead && (!previousState.PlayerObject.IsDead || previousState.PlayedLevel.AttemptNumber != currentState.PlayedLevel.AttemptNumber))

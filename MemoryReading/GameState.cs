@@ -23,10 +23,10 @@ namespace Whydoisuck.MemoryReading
         public int OriginalID { get; set; }
         public bool IsOriginal { get; set; }
         public int Revision { get; set; }
-        public bool IsCustomMusic { get; set; }
+        /*public bool IsCustomMusic { get; set; }
         public int MusicID { get; set; }
         public int OfficialMusicID { get; set; }
-        public int ObjectCount { get; set; }
+        public int ObjectCount { get; set; }*///Object count is annoying to find in memory
     }
 
     class GDPlayerInfos
