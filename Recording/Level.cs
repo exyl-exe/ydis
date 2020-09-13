@@ -61,7 +61,7 @@ namespace Whydoisuck.DataSaving
         {
             if (IsOriginal && !level.IsOriginal)
             {
-                if(level.OriginalID == ID)
+                if(ID == level.OriginalID)
                 {
                     return true;
                 }
@@ -82,7 +82,7 @@ namespace Whydoisuck.DataSaving
                 return OriginalID == level.OriginalID;
             }
 
-            return false;
+            return ID!=0 && ID==level.ID;//Effectively always false, but it ensures an uploaded level is from the same level as itself
         }
 
         public bool SimilarName(Level level)

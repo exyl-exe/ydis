@@ -60,7 +60,7 @@ namespace Whydoisuck.DataSaving
                 groupName = $"{defaultGroupName} ({i})";
                 i++;
             }
-            var newGroup = new SessionGroup() { Name = groupName };
+            var newGroup = new SessionGroup() { GroupName = groupName };
             newGroup.CreateGroupDirectory();
             return newGroup;
         }
@@ -69,7 +69,7 @@ namespace Whydoisuck.DataSaving
         {
             foreach(var e in Entries)
             {
-                if (e.Group.Name.Equals(groupName))
+                if (e.Group.GroupName.Equals(groupName))
                 {
                     return false;
                 }

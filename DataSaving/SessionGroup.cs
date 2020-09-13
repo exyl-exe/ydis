@@ -9,11 +9,12 @@ namespace Whydoisuck.DataSaving
 {
     class SessionGroup
     {
-        public string Name { get; set; }
+        public string GroupName { get; set; }
+        public string LevelName { get; set; } = "";
 
         public bool IsSameGroup(SessionGroup group)
         {
-            return Name.Equals(group.Name);
+            return GroupName.Equals(group.GroupName);
         }
 
         public void AddSession(Session session)
@@ -21,6 +22,10 @@ namespace Whydoisuck.DataSaving
             var sessionName = GetSessionName(session);
             var path = SafePath.Combine(GetGroupDirectoryPath(), sessionName);
             session.CreateSessionFile(path);
+            if (LevelName.Length == 0)
+            {
+                LevelName = session.Level.Name;
+            }
         }
 
         private string GetSessionName(Session session)
@@ -50,7 +55,7 @@ namespace Whydoisuck.DataSaving
 
         public string GetGroupDirectoryPath()
         {
-            var path = SafePath.Combine(SessionSaver.SAVE_DIR, Name + SafePath.DirectorySeparator);
+            var path = SafePath.Combine(SessionSaver.SAVE_DIR, GroupName + SafePath.DirectorySeparator);
             return path;
         }
 
