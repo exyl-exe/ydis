@@ -12,11 +12,10 @@ namespace Whydoisuck.DataSaving
     {
         public Level Level { get; set; }
         public SessionGroup Group { get; set; }
-        public string SessionName { get; set; }
 
-        public string GetSessionPath()
+        public bool SameEntry(IndexerEntry entry)
         {
-            return Path.Combine(Group.GetGroupDirectoryPath(), SessionName);
+            return Group.IsSameGroup(entry.Group) && Level.IsSameLevel(entry.Level);
         }
     }
 }

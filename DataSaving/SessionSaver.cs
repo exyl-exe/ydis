@@ -17,17 +17,19 @@ namespace Whydoisuck.DataSaving
         const string INDEX_FILE_NAME = "indexedLevels.wdis";
         public static string IndexFilePath { get { return Path.Combine(SAVE_DIR, INDEX_FILE_NAME); } }
 
-        public static void SaveSession(Session s)
+        public static void SaveSession(Session session)
         {
             if (!Directory.Exists(SAVE_DIR))
             {
                 InitDir();
             }
-
             SessionManager manager = LoadSessionManager();
-            var group = manager.GetGroup(s);
-            var entry = group.AddSession(s);
+
+            var group = manager.GetGroup(session);
+            group.AddSession(session);
+            var entry = new IndexerEntry() { Group = group, Level = session.Level };
             manager.AddEntry(entry);
+
             SaveIndexer(manager);
         }
 

@@ -21,11 +21,18 @@ namespace Whydoisuck.DataSaving
         public void SortEntriesBySimilarityTo(Level level)
         {
             Entries.Sort((entry1, entry2) => Level.LevelComparison(level, entry1.Level, entry2.Level));
+            Entries.Reverse();
         }
 
         public void AddEntry(IndexerEntry entry)
         {
-            //TODO duplicate entries
+            foreach(var existingEntry in Entries)
+            {
+                if (existingEntry.SameEntry(entry))
+                {
+                    return;
+                }
+            }
             Entries.Add(entry);
         }
 

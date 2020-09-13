@@ -25,10 +25,9 @@ namespace Whydoisuck.DataSaving
             return $"{Level.Name} rev{Level.Revision}";
         }
 
-        public void CreateSessionFile(IndexerEntry entry)
+        public void CreateSessionFile(string path)
         {
             var sessionJson = JsonConvert.SerializeObject(this, Formatting.Indented);
-            var path = entry.GetSessionPath();
             File.WriteAllText(path, sessionJson);
         }
     }

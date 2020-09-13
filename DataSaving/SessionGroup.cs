@@ -11,12 +11,16 @@ namespace Whydoisuck.DataSaving
     {
         public string Name { get; set; }
 
-        public IndexerEntry AddSession(Session session)
+        public bool IsSameGroup(SessionGroup group)
+        {
+            return Name.Equals(group.Name);
+        }
+
+        public void AddSession(Session session)
         {
             var sessionName = GetSessionName(session);
-            var entry = new IndexerEntry() { Group = this, SessionName = sessionName, Level = session.Level };
-            session.CreateSessionFile(entry);
-            return entry;
+            var path = Path.Combine(GetGroupDirectoryPath(), sessionName);
+            session.CreateSessionFile(path);
         }
 
         private string GetSessionName(Session session)
