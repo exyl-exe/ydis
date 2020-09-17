@@ -14,28 +14,19 @@ namespace Whydoisuck.DataSaving
     {
         public static List<GroupDisplayer> GetAllGroups()
         {
-            var groupList = new List<GroupDisplayer>();
-            var directories = SafeDirectory.GetDirectories(SessionSaver.SAVE_DIR);
+            var res = new List<GroupDisplayer>();
+            var indexer = SessionSaver.LoadSessionManager();
 
-            var dirLog = "Directories:";//TODO remove
-            foreach(var d in directories)
+            var directories = new HashSet<string>();
+            foreach(var entry in indexer.Entries)
             {
-                dirLog += "\n" + d;
+                directories.Add(entry.Group.GetGroupDirectoryPath());
             }
-            TempLogger.AddLog(dirLog);
 
             foreach(var dir in directories)
             {
                 var sessionList = new List<Session>();
                 var files = SafeDirectory.GetFiles(dir);
-
-                var filesLog = $"Files in {dir}:";//TODO remove
-                foreach (var f in files)
-                {
-                    filesLog += "\n" + SafePath.GetFileName(f);
-                }
-                TempLogger.AddLog(filesLog);
-
                 foreach (var sessionFile in files)
                 {
                     try
@@ -55,10 +46,11 @@ namespace Whydoisuck.DataSaving
                         GroupName = sessionList[0].Level.Name,
                         GroupSessions = sessionList
                     };
-                    groupList.Add(group);
+                    res.Add(group);
                 }
             }
-            return groupList;
+            res.Sort( (g1, g2) => string.Compare(g1.GroupName, g2.GroupName) );
+            return res;
         }
     }
 }

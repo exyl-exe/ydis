@@ -12,7 +12,7 @@
                 <Button.FontSize>25</Button.FontSize>
                 <Button.Content>Refresh</Button.Content>
             </Button>
-            <Border Name ="LogsView" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Visibility="Visible">
+            <Border Name ="LogsView" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Visibility="Collapsed">
                 <DockPanel Name="LogsPanel">
                     <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1">
                         <TextBlock TextAlignment="Center" FontWeight="Bold">Logs</TextBlock>

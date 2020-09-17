@@ -24,14 +24,17 @@ namespace Whydoisuck
     public partial class MainWindow : Window
     {
         private Recorder recorder;
-
+        public static RoutedCommand LogCommand = new RoutedCommand();
         public MainWindow()
         {
             InitializeComponent();
             Closing += ApplicationExit;
-            GroupList.ItemsSource = GroupLoader.GetAllGroups();
+
+            LogCommand.InputGestures.Add(new KeyGesture(Key.L, ModifierKeys.Control));
+            CommandBindings.Add(new CommandBinding(LogCommand, LogsVisibility));
+
             LogsPanel.MouseDown += RefreshLogs;
-            GroupList.MouseDown += LogsVisibility;
+            GroupList.ItemsSource = GroupLoader.GetAllGroups();
             refreshButton.Click += RefreshList;
             
             recorder = new Recorder();
@@ -53,7 +56,7 @@ namespace Whydoisuck
             LogsTextBlock.Text = TempLogger.Flush();
         }
 
-        private void LogsVisibility(object sender, MouseButtonEventArgs e)
+        private void LogsVisibility(object sender, ExecutedRoutedEventArgs e)
         {
             if(LogsView.Visibility == Visibility.Collapsed)
             {
