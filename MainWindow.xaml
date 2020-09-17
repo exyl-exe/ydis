@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Whydoisuck"
         mc:Ignorable="d"
-        Title="Why do I suck" Height="450" Width="800">
+        Title="Why do I suck" Height="980" Width="860">
     <Grid Name="mainGrid">
         <DockPanel Margin="2,2,2,2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Button DockPanel.Dock="Bottom" Name="refreshButton" Margin="10,10,10,10" Height="60" VerticalAlignment="Bottom">
@@ -37,6 +37,7 @@
                                             <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Level.Name}" Width="*" />
                                             <DataGridTextColumn IsReadOnly="True" Header="Starting time" Binding="{Binding StartTime}" Width="*"/>
                                             <DataGridTextColumn IsReadOnly="True" Header="Attempts count" Binding="{Binding Attempts.Count}" Width="*"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Normal mode run" Binding="{Binding IsCopy}" Width="*"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>

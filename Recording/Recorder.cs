@@ -15,6 +15,9 @@ namespace Whydoisuck.DataSaving
         private Session CurrentSession { get; set; }
         private Attempt CurrentAttempt { get; set; }
 
+        const float MIN_PERCENT_COPY = 0.5f;//Exists because start pos is determined by the earliest measured player position
+        //I hope nobody ever has to put a startpos this early
+
 
         public Recorder()
         {
@@ -23,6 +26,7 @@ namespace Whydoisuck.DataSaving
             GameWatcher.OnPlayerObjectCreated += CreateNewSession;
             GameWatcher.OnLevelExited += SaveCurrentSession;
             GameWatcher.OnPlayerSpawns += CreateNewAttempt;
+            GameWatcher.OnPlayerSpawns += UpdateSessionStartPercent;
             GameWatcher.OnPlayerDies += SaveCurrentAttempt;
             GameWatcher.OnPlayerWins += SaveCurrentWinningAttempt;
         }
@@ -57,6 +61,7 @@ namespace Whydoisuck.DataSaving
             CurrentSession = new Session
             {
                 Level = playedLevel,
+                StartPercent = float.PositiveInfinity,//branle TODO OnLevelSettingsLoaded ?
                 StartTime = DateTime.Now,
                 Attempts = new List<Attempt>(),
             };
@@ -74,7 +79,17 @@ namespace Whydoisuck.DataSaving
         public void SaveCurrentSession()
         {
             if (CurrentSession == null) return;
+            CurrentSession.IsCopy = CurrentSession.StartPercent <= MIN_PERCENT_COPY;
             SessionSaver.SaveSession(CurrentSession);
+        }
+
+        public void UpdateSessionStartPercent(GameState state)
+        {
+            var percent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.PhysicalLength;
+            if (percent < CurrentSession.StartPercent)
+            {
+                CurrentSession.StartPercent = percent;
+            }
         }
 
         public void CreateNewAttempt(GameState state)
@@ -83,7 +98,6 @@ namespace Whydoisuck.DataSaving
             {
                 StartTime = DateTime.Now,
                 Number = state.PlayedLevel.AttemptNumber,
-                StartPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.PhysicalLength
             };
         }
     }

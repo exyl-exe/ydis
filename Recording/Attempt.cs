@@ -9,7 +9,6 @@ namespace Whydoisuck.DataSaving
     class Attempt
     {
         public int Number { get; set; }
-        public float StartPercent { get; set; }
         public float EndPercent { get; set; }
         public DateTime StartTime { get; set; }
         public TimeSpan Duration { get; set; }

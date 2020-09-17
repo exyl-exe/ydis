@@ -12,7 +12,9 @@ namespace Whydoisuck.DataSaving
     class Session
     {
         public Level Level { get; set; }
+        public bool IsCopy { get; set; }
         public DateTime StartTime { get; set; }
+        public float StartPercent { get; set; }
         public List<Attempt> Attempts { get; set; }
 
         public void AddAttempt(Attempt att)
