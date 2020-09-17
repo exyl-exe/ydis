@@ -62,7 +62,7 @@ namespace Whydoisuck.MemoryReading
             return Encoding.UTF8.GetString(bytes);
         }
 
-        public int ReadInt(int address)//TODO crash on game being launched
+        public int ReadInt(int address)
         {
             return BitConverter.ToInt32(ReadBytes(address, 4), 0);
         }
