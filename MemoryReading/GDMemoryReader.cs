@@ -36,6 +36,7 @@ namespace Whydoisuck.MemoryReading
         const int hasWonOffset = 0x662;
         const int xPositionOffset = 0x67C;
 
+        const int MANAGER_NOT_LOADED = 0x0;
         const int SETTINGS_NOT_LOADED = 0x0;
         const int NO_LEVEL_LOADED = 0x0;
         const int NO_PLAYER_LOADED = 0x0;
@@ -54,9 +55,10 @@ namespace Whydoisuck.MemoryReading
         {
             if (!Reader.IsProcessOpened || Reader.Process.MainModule == null) return null;
 
-            var currentState = new GameState() { PlayedLevel = null, PlayerObject = null };
-
             var commonAddr = Reader.ReadInt((int)Reader.MainModuleAddr + baseOffset);
+            if (commonAddr == MANAGER_NOT_LOADED) return null;//game was launched but has not finished loading
+
+            var currentState = new GameState() { PlayedLevel = null, PlayerObject = null };
             var levelAddr = Reader.ReadInt(commonAddr + levelOffset);
 
             if(levelAddr != NO_LEVEL_LOADED)
