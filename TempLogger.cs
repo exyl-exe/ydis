@@ -14,8 +14,8 @@ namespace Whydoisuck
 
         public static string Flush()
         {
-           // LogEvent.Invoke(Logs);
-            var res = "--Logs--\n";
+            // LogEvent.Invoke(Logs);
+            var res = "";
             foreach(var log in Logs)
             {
                 res += log;
@@ -34,8 +34,8 @@ namespace Whydoisuck
 
         public static void AddLog(string log)
         {
-            Logs.Add("\n");
             Logs.Add(log);
+            Logs.Add("\n");
         }
     }
 }

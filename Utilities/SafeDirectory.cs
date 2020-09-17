@@ -9,6 +9,16 @@ namespace Whydoisuck.Utilities
 {
     class SafeDirectory
     {
+        public static string[] GetDirectories(string path)
+        {
+            return Directory.GetDirectories(path);
+        }
+
+        public static string[] GetFiles(string path)
+        {
+            return Directory.GetFiles(path);
+        }
+
         public static bool Exists(string directoryPath)
         {
             return Directory.Exists(directoryPath);

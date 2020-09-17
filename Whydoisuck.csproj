@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataSaving\GroupLoader.cs" />
     <Compile Include="DataSaving\IndexerEntry.cs" />
     <Compile Include="DataSaving\SessionManager.cs" />
     <Compile Include="DataSaving\SessionSaver.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Recording\Session.cs" />
     <Compile Include="DataSaving\SessionGroup.cs" />
     <Compile Include="TempLogger.cs" />
+    <Compile Include="UI\GroupDisplayer.cs" />
     <Compile Include="Utilities\SafeDirectory.cs" />
     <Compile Include="Utilities\SafeFile.cs" />
     <Compile Include="Utilities\SafePath.cs" />

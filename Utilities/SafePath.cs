@@ -16,5 +16,10 @@ namespace Whydoisuck.Utilities
         {
             return Path.Combine(path1, path2);
         }
+
+        public static string GetFileName(string path)
+        {
+            return Path.GetFileName(path);
+        }
     }
 }

@@ -5,12 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Whydoisuck"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Why do I suck" Height="450" Width="800">
     <Grid Name="mainGrid">
-        <ScrollViewer HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch">
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-                <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" Name="mainTextBlock" FontSize="50">Salut</TextBlock>
-            </StackPanel>
-        </ScrollViewer>
+        <DockPanel Margin="2,2,2,2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Button DockPanel.Dock="Bottom" Name="refreshButton" Margin="10,10,10,10" Height="60" VerticalAlignment="Bottom">
+                <Button.FontSize>25</Button.FontSize>
+                <Button.Content>Refresh</Button.Content>
+            </Button>
+            <Border Name ="LogsView" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Visibility="Visible">
+                <DockPanel Name="LogsPanel">
+                    <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock TextAlignment="Center" FontWeight="Bold">Logs</TextBlock>
+                    </Border>
+                    <ScrollViewer HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
+                        <TextBlock Name="LogsTextBlock" TextWrapping="Wrap" Width="200" Margin="5"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+            
+            <ScrollViewer DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch">
+                <ItemsControl Name="GroupList" HorizontalContentAlignment="Stretch">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Border CornerRadius="2" DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1" Background="LightGray" Margin="10,10,10,1">
+                                    <TextBlock Text="{Binding GroupName}" Foreground="Black" HorizontalAlignment="Center" FontSize="30"/>
+                                </Border>
+                                <Grid Margin="10,0,10,10">
+                                    <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" ItemsSource="{Binding GroupSessions}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Level.Name}" Width="*" />
+                                            <DataGridTextColumn IsReadOnly="True" Header="Starting time" Binding="{Binding StartTime}" Width="*"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Attempts count" Binding="{Binding Attempts.Count}" Width="*"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
     </Grid>
 </Window>

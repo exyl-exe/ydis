@@ -23,26 +23,45 @@ namespace Whydoisuck
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static MainWindow instance;
+        private Recorder recorder;
 
         public MainWindow()
         {
-            instance = this;
             InitializeComponent();
-            mainTextBlock.MouseDown += MouseUpCb;
-            var recorder = new Recorder();
+            Closing += ApplicationExit;
+            GroupList.ItemsSource = GroupLoader.GetAllGroups();
+            LogsPanel.MouseDown += RefreshLogs;
+            GroupList.MouseDown += LogsVisibility;
+            refreshButton.Click += RefreshList;
+            
+            recorder = new Recorder();
             recorder.StartRecording();
         }
 
-        private void MouseUpCb(object sender, MouseButtonEventArgs e)
+        private void ApplicationExit(object sender, EventArgs e)
         {
-            mainTextBlock.Text = TempLogger.Flush();
-        }
-        
-        public static void SetText(string s)
-        {
-            instance.mainTextBlock.Text = s;
+            recorder.StopRecording();
         }
 
+        private void RefreshList(object sender, EventArgs e)
+        {
+            GroupList.ItemsSource = GroupLoader.GetAllGroups();
+        }
+
+        private void RefreshLogs(object sender, MouseButtonEventArgs e)
+        {
+            LogsTextBlock.Text = TempLogger.Flush();
+        }
+
+        private void LogsVisibility(object sender, MouseButtonEventArgs e)
+        {
+            if(LogsView.Visibility == Visibility.Collapsed)
+            {
+                LogsView.Visibility = Visibility.Visible;
+            } else
+            {
+                LogsView.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }
