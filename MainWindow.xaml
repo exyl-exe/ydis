@@ -22,8 +22,8 @@
                     </ScrollViewer>
                 </DockPanel>
             </Border>
-            
-            <ScrollViewer DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch">
+
+            <ScrollViewer DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch" PreviewMouseWheel="ScrollViewerPreviewMouseWheel">
                 <ItemsControl Name="GroupList" HorizontalContentAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -34,10 +34,10 @@
                                 <Grid Margin="10,0,10,10">
                                     <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" ItemsSource="{Binding GroupSessions}">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Level.Name}" Width="*" />
+                                            <DataGridTextColumn IsReadOnly="True" Header="Level name" Binding="{Binding Level.Name}" Width="*"/>
                                             <DataGridTextColumn IsReadOnly="True" Header="Starting time" Binding="{Binding StartTime}" Width="*"/>
                                             <DataGridTextColumn IsReadOnly="True" Header="Attempts count" Binding="{Binding Attempts.Count}" Width="*"/>
-                                            <DataGridTextColumn IsReadOnly="True" Header="Normal mode run" Binding="{Binding IsCopy}" Width="*"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Normal mode" Binding="{Binding IsCopy}" Width="*"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>

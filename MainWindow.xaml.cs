@@ -66,5 +66,12 @@ namespace Whydoisuck
                 LogsView.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void ScrollViewerPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }
