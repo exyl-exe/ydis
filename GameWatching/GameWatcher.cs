@@ -26,6 +26,7 @@ namespace Whydoisuck.GameWatching
         public static event GameInfoCallback OnPlayerObjectDestroyed;*///TODO remove ?
         public static event GameInfoCallback OnPlayerWins;
         public static event GameInfoCallback OnPlayerDies;
+        public static event GameInfoCallback OnPlayerRestarts;
         public static event GameInfoCallback OnPlayerSpawns;
 
         /*
@@ -46,7 +47,7 @@ namespace Whydoisuck.GameWatching
             thread.Start();
         }
 
-        public static void UpdateThread()
+        private static void UpdateThread()
         {
             while (IsRecording)
             {
@@ -60,7 +61,7 @@ namespace Whydoisuck.GameWatching
             IsRecording = false;
         }
 
-        public static void UpdateState()
+        private static void UpdateState()
         {
             if (!Reader.IsGDOpened){
                 var initialized = Reader.TryAttachToGD();
@@ -89,7 +90,7 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
             PreviousState = currentState;
         }
 
-        public static void HandleLevelExited(GameState previousState, GameState currentState)
+        private static void HandleLevelExited(GameState previousState, GameState currentState)
         {
             if (currentState.LevelMetadata == null && previousState.LevelMetadata != null)
             {
@@ -97,7 +98,7 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
             }
         }
 
-        public static void HandleLevelEntered(GameState previousState, GameState currentState)
+        private static void HandleLevelEntered(GameState previousState, GameState currentState)
         {
             if (currentState.LevelMetadata != null && previousState.LevelMetadata == null)
             {
@@ -105,7 +106,7 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
             }
         }
 
-        public static void HandleLevelStarted(GameState previousState, GameState currentState)
+        private static void HandleLevelStarted(GameState previousState, GameState currentState)
         {
             if (currentState.LoadedLevel != null)
             {
@@ -138,9 +139,10 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
         {
             if (currentState.PlayerObject != null && previousState.PlayerObject != null)
             {
-                HandleRespawn(previousState, currentState);
+                HandlePlayerRestarts(previousState, currentState);
                 HandlePlayerDeath(previousState, currentState);
                 HandlePlayerWin(previousState, currentState);
+                HandleRespawn(previousState, currentState);
             }
         }
 
@@ -150,6 +152,14 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
                 previousState.PlayerObject.HasWon && !currentState.PlayerObject.HasWon)//Attempt winning respawn
             {
                 OnPlayerSpawns?.Invoke(currentState);
+            }
+        }
+
+        private static void HandlePlayerRestarts(GameState previousState, GameState currentState)//Manual restart
+        {
+            if (currentState.LoadedLevel.AttemptNumber != previousState.LoadedLevel.AttemptNumber && !previousState.PlayerObject.HasWon && !previousState.PlayerObject.IsDead)
+            {
+                OnPlayerRestarts?.Invoke(currentState);
             }
         }
 
@@ -163,8 +173,10 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
 
         private static void HandlePlayerDeath(GameState previousState, GameState currentState)
         {
-            //second part of the condition in case the player dies instantly after respawning
-            if (currentState.PlayerObject.IsDead && (!previousState.PlayerObject.IsDead || previousState.LoadedLevel.AttemptNumber != currentState.LoadedLevel.AttemptNumber))
+            if (currentState.PlayerObject.IsDead &&//player is dead
+                (!previousState.PlayerObject.IsDead//previously not dead
+                || previousState.PlayerObject.HasWon//previously had won = instant death on respawn after win (how is that possible)
+                || (previousState.LoadedLevel.AttemptNumber != currentState.LoadedLevel.AttemptNumber)))//previously not same attempt = instant death on respawn
             {
                 OnPlayerDies?.Invoke(currentState);
             }
