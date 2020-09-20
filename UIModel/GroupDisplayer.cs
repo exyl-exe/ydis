@@ -10,7 +10,7 @@ namespace Whydoisuck.UI
 {
     class GroupDisplayer
     {
-        public List<Session> GroupSessions { get; set; }
+        public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
         public string GroupName { get; set; }
     }
 }

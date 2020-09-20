@@ -6,19 +6,63 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:Whydoisuck.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
-        <lvc:CartesianChart LegendLocation="None">
-            <lvc:CartesianChart.Series>
-                <lvc:LineSeries Title="Level" Values="{Binding Percents}" LineSmoothness="0.5"></lvc:LineSeries>
-            </lvc:CartesianChart.Series>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis MinValue="0" MaxValue="100"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Unit="1"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-            
-        </lvc:CartesianChart>
+        <DockPanel>
+            <Border DockPanel.Dock="Top"  Margin="5" BorderThickness="1" BorderBrush="Black">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Name="comboBoxGroups" HorizontalContentAlignment="Center" DockPanel.Dock="Left">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding GroupName}" FontSize="20" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Border Grid.Column="2" Padding="5,0,5,0" Margin="1" BorderThickness="1" BorderBrush="Black">
+                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock FontSize="15" Margin="5" Grid.Column="0">
+                                Normal mode attempts
+                            </TextBlock>
+                        </CheckBox>
+                    </Border>
+                    <Border Grid.Column ="3" Padding="5,0,5,0" Margin="1" BorderThickness="1" BorderBrush="Black">
+                        <CheckBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBlock FontSize="15" Margin="5" Grid.Column="0">
+                            Copy attempts
+                            </TextBlock>
+                        </CheckBox>
+                    </Border>
+                </Grid>
+            </Border>
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical">
+                    <lvc:CartesianChart LegendLocation="None" Margin="10" Height="600" VerticalAlignment="Stretch">
+                        <lvc:CartesianChart.Series>
+                            <lvc:LineSeries Title="Level" Name="LevelChartSerie" LineSmoothness="0.1"></lvc:LineSeries>
+                        </lvc:CartesianChart.Series>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis MinValue="0" MaxValue="100"></lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Unit="1"></lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                    <DataGrid Name="LevelDataGrid" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Header="Percent" Binding="{Binding Percent}" Width="*"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Times reached" Binding="{Binding ReachCount}" Width="*"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Death count" Binding="{Binding DeathCount}" Width="*"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Pass rate" Binding="{Binding PassRate}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
     </Grid>
 </UserControl>

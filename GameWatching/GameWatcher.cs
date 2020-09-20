@@ -137,7 +137,7 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
 
         private static void HandleLevelNotExited(GameState previousState, GameState currentState)
         {
-            if (currentState.PlayerObject != null && previousState.PlayerObject != null)
+            if (currentState.PlayerObject != null && previousState.PlayerObject != null && currentState.LoadedLevel.IsRunning)
             {
                 HandlePlayerRestarts(previousState, currentState);
                 HandlePlayerDeath(previousState, currentState);
@@ -159,7 +159,7 @@ HandlePlayerObjectDestroyed(PreviousState, currentState);*/
         {
             if (currentState.LoadedLevel.AttemptNumber != previousState.LoadedLevel.AttemptNumber && !previousState.PlayerObject.HasWon && !previousState.PlayerObject.IsDead)
             {
-                OnPlayerRestarts?.Invoke(currentState);
+                OnPlayerRestarts?.Invoke(previousState);
             }
         }
 

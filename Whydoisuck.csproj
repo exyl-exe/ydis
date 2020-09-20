@@ -80,6 +80,7 @@
     <Compile Include="DataSaving\SessionGroup.cs" />
     <Compile Include="TempLogger.cs" />
     <Compile Include="UIModel\GroupDisplayer.cs" />
+    <Compile Include="UIModel\LevelPercent.cs" />
     <Compile Include="UI\GraphView.xaml.cs">
       <DependentUpon>GraphView.xaml</DependentUpon>
     </Compile>

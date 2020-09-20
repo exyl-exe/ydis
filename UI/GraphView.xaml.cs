@@ -1,21 +1,12 @@
 ﻿using LiveCharts;
 using LiveCharts.Defaults;
-using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Whydoisuck.DataSaving;
+using Whydoisuck.UIModel;
 
 namespace Whydoisuck.UI
 {
@@ -35,41 +26,65 @@ namespace Whydoisuck.UI
         public void Update()
         {
             var groups = GroupLoader.GetAllGroups();
-            if (groups.Count == 0) return;
+            comboBoxGroups.ItemsSource = groups;
+
+            
+            if (groups.Count == 0) return;//TODO group selection
             var group = groups[0];
-            var deaths = group.GroupSessions.SelectMany(s => s.Attempts).Select(a => a.EndPercent).ToList();
+            var percents = GetLevelPercentsData(group);
+            LevelDataGrid.ItemsSource = percents;
 
-            Percents = new ChartValues<ObservablePoint>();
-
-            var dic = new Dictionary<int, int>();
-            foreach(var d in deaths)
+            var graphSource = new ChartValues<ObservablePoint>();
+            foreach(var percent in percents)
             {
-                var key = (int)d;
+                graphSource.Add(new ObservablePoint(percent.Percent, percent.PassRate));
+            }
+
+            LevelChartSerie.Values = graphSource;
+
+            DataContext = this;
+        }
+
+        private List<LevelPercentData> GetLevelPercentsData(GroupDisplayer group)
+        {
+            var attempts = group.GroupSessions.SelectMany(s => s.Attempts).Select(a => a.EndPercent).ToList();
+            var attDic = GetAttemptsDictionnary(attempts);
+            var keys = new List<int>(attDic.Keys);
+            keys.Sort();
+
+            var percents = new List<LevelPercentData>();
+            var reachCount = 0;
+            for(var i=keys.Count-1; i >= 0; i--)
+            {
+                var percent = keys[i];
+                reachCount += attDic[percent];
+                var currentPercentData = new LevelPercentData
+                {
+                    Percent = percent,
+                    ReachCount = reachCount,
+                    DeathCount = attDic[percent],
+                };
+                percents.Add(currentPercentData);
+            }
+            return percents;
+        }
+
+        private Dictionary<int,int> GetAttemptsDictionnary(List<float> attempts)
+        {
+            var dic = new Dictionary<int, int>();
+            for (int i = 0; i < attempts.Count; i++)
+            {
+                var key = (int)attempts[i];
                 if (dic.ContainsKey(key))
                 {
                     dic[key]++;
-                } else
+                }
+                else
                 {
                     dic[key] = 1;
                 }
             }
-
-            var count = 0;
-            var keys = new List<int>(dic.Keys);
-            keys.Sort();
-            keys.Reverse();
-            for(int i = 100; i >= 0; i--)
-            {
-                if (dic.ContainsKey(i))
-                {
-                    count += dic[i];
-                    Percents.Add(new ObservablePoint(i, (float)dic[i]*100f/(float)count));
-                } else
-                {
-                    Percents.Add(new ObservablePoint(i, (float)0));
-                }
-            }
-            DataContext = this;
+            return dic;
         }
     }
 }

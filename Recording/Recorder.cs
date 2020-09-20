@@ -119,7 +119,8 @@ namespace Whydoisuck.DataSaving
             CreateSessionIfNotExists(state);
             CurrentAttempt = new Attempt()
             {
-                StartTime = DateTime.MinValue
+                StartTime = DateTime.MinValue,
+                Number = state.LoadedLevel.AttemptNumber
             };
 
             if (state.LoadedLevel == null) return;
