@@ -34,8 +34,7 @@ namespace Whydoisuck
             CommandBindings.Add(new CommandBinding(LogCommand, LogsVisibility));
 
             LogsPanel.MouseDown += RefreshLogs;
-            GroupList.ItemsSource = GroupLoader.GetAllGroups();
-            refreshButton.Click += RefreshList;
+            AllGroups.GroupList.ItemsSource = GroupLoader.GetAllGroups();
             
             recorder = new Recorder();
             recorder.StartRecording();
@@ -46,10 +45,7 @@ namespace Whydoisuck
             recorder.StopRecording();
         }
 
-        private void RefreshList(object sender, EventArgs e)
-        {
-            GroupList.ItemsSource = GroupLoader.GetAllGroups();
-        }
+
 
         private void RefreshLogs(object sender, MouseButtonEventArgs e)
         {
@@ -65,13 +61,6 @@ namespace Whydoisuck
             {
                 LogsView.Visibility = Visibility.Collapsed;
             }
-        }
-
-        private void ScrollViewerPreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            ScrollViewer scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
         }
     }
 }
