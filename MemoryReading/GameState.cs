@@ -8,17 +8,24 @@ namespace Whydoisuck.MemoryReading
 {
     class GameState
     {           
-        public GDLoadedLevelInfos PlayedLevel { get; set; }
-        public GDPlayerInfos PlayerObject { get; set; }       
+        public GDLoadedLevel LoadedLevel { get; set; }
+        public GDLevelMetadata LevelMetadata { get; set; }
+        public GDPlayerInfos PlayerObject { get; set; }
     }
 
-    class GDLoadedLevelInfos
+    class GDLoadedLevel
+    {
+        public bool IsRunning { get; set; }
+        public bool IsTestmode { get; set; }
+        public int AttemptNumber { get; set; }
+        public float PhysicalLength { get; set; }
+        public float StartPosition { get; set; }
+    }
+
+    class GDLevelMetadata
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        //public float StartPosition { get { throw new NotImplementedException(); } } TODO couldn't find how to get it from memory
-        public int AttemptNumber { get; set; }
-        public float PhysicalLength { get; set; }
         public bool IsOnline { get; set; }
         public int OriginalID { get; set; }
         public bool IsOriginal { get; set; }

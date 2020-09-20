@@ -37,7 +37,8 @@
                                             <DataGridTextColumn IsReadOnly="True" Header="Level name" Binding="{Binding Level.Name}" Width="*"/>
                                             <DataGridTextColumn IsReadOnly="True" Header="Starting time" Binding="{Binding StartTime}" Width="*"/>
                                             <DataGridTextColumn IsReadOnly="True" Header="Attempts count" Binding="{Binding Attempts.Count}" Width="*"/>
-                                            <DataGridTextColumn IsReadOnly="True" Header="Normal mode" Binding="{Binding IsCopy}" Width="*"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Copy run" Binding="{Binding IsCopyRun}" Width="*"/>
+                                            <DataGridTextColumn IsReadOnly="True" Header="Start Percent" Binding="{Binding StartPercent}" Width="*"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>

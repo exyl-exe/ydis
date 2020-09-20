@@ -14,7 +14,7 @@ namespace Whydoisuck.DataSaving
         const int EQ = 0;
         const int LT = -1;
 
-        public const float LENGTH_EPSILON = 10f;//game space unit
+        public const float LENGTH_EPSILON = 1f;//game space unit
         public const float MUSIC_OFFSET_EPSILON = 0.1f;//seconds
         public int ID { get; set; }
         public bool IsOnline { get; set; }
@@ -30,24 +30,32 @@ namespace Whydoisuck.DataSaving
 
         public Level() { }//for json deserializer
 
-        public Level(GDLoadedLevelInfos playedLevel)
+        public Level(GameState state)
         {
-            ID = playedLevel.ID;
-            IsOnline = playedLevel.IsOnline;
-            OriginalID = playedLevel.OriginalID;
-            IsOriginal = playedLevel.IsOriginal;
-            Name = playedLevel.Name;
-            Revision = playedLevel.Revision;
-            PhysicalLength = playedLevel.PhysicalLength;
-            IsCustomMusic = playedLevel.IsCustomMusic;
-            MusicID = playedLevel.MusicID;
-            OfficialMusicID = playedLevel.OfficialMusicID;
-            MusicOffset = playedLevel.MusicOffset;
+            if(state != null && state.LevelMetadata != null & state.LoadedLevel != null)
+            {
+                ID = state.LevelMetadata.ID;
+                IsOnline = state.LevelMetadata.IsOnline;
+                OriginalID = state.LevelMetadata.OriginalID;
+                IsOriginal = state.LevelMetadata.IsOriginal;
+                Name = state.LevelMetadata.Name;
+                Revision = state.LevelMetadata.Revision;
+                PhysicalLength = state.LoadedLevel.PhysicalLength;
+                IsCustomMusic = state.LevelMetadata.IsCustomMusic;
+                MusicID = state.LevelMetadata.MusicID;
+                OfficialMusicID = state.LevelMetadata.OfficialMusicID;
+                MusicOffset = state.LevelMetadata.MusicOffset;
+            }       
         }
 
         public bool IsSameLevel(Level level)
         {
-            return
+            if (level == null)
+            {
+                return false;
+            } else
+            {
+                return
                 ID == level.ID &&
                 IsOnline == level.IsOnline &&
                 OriginalID == level.OriginalID &&
@@ -55,10 +63,13 @@ namespace Whydoisuck.DataSaving
                 Revision == level.Revision &&
                 SameMusic(level) &&
                 SamePhysicalLength(level);
+            }  
         }
 
         public bool FromSameLevel(Level level)
         {
+            if (level == null) return false;
+
             if (IsOriginal && !level.IsOriginal)
             {
                 if(ID == level.OriginalID)
@@ -87,11 +98,13 @@ namespace Whydoisuck.DataSaving
 
         public bool SimilarName(Level level)
         {
+            if (level == null) return false;
             return Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower());
         }
 
         public bool SameMusic(Level level)
         {
+            if (level == null) return false;
             if (!(Math.Abs(MusicOffset - level.MusicOffset)<MUSIC_OFFSET_EPSILON))
             {
                 return false;
@@ -118,11 +131,13 @@ namespace Whydoisuck.DataSaving
 
         public bool SamePhysicalLength(Level level)
         {
+            if (level == null) return false;
             return Math.Abs(PhysicalLength - level.PhysicalLength) <= LENGTH_EPSILON;
         }
 
         public bool CouldBeSameLevel(Level level)
         {
+            if (level == null) return false;
             if (IsOnline && level.IsOnline)
             {
                 return ID == level.ID;

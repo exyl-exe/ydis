@@ -15,20 +15,14 @@ namespace Whydoisuck.DataSaving
         private Session CurrentSession { get; set; }
         private Attempt CurrentAttempt { get; set; }
 
-        const float MIN_PERCENT_COPY = 0.5f;//Exists because start pos is determined by the earliest measured player position
-        //I hope nobody ever has to put a startpos this early
-
-
         public Recorder()
         {
-            //TODO minimalize the impact of the order in which events are fired
-            //TODO on level settings loaded
-            GameWatcher.OnPlayerObjectCreated += CreateNewSession;
+            GameWatcher.OnLevelEntered += CreateNewSession;
+            GameWatcher.OnLevelStarted += UpdateCurrentSession;
             GameWatcher.OnLevelExited += SaveCurrentSession;
             GameWatcher.OnPlayerSpawns += CreateNewAttempt;
-            GameWatcher.OnPlayerSpawns += UpdateSessionStartPercent;
-            GameWatcher.OnPlayerDies += SaveCurrentAttempt;
-            GameWatcher.OnPlayerWins += SaveCurrentWinningAttempt;
+            GameWatcher.OnPlayerDies += SaveDeathAttempt;
+            GameWatcher.OnPlayerWins += SaveWinAttempt;
         }
 
         public void StartRecording()
@@ -41,55 +35,44 @@ namespace Whydoisuck.DataSaving
             GameWatcher.StopWatching();
         }
 
-        public void SaveCurrentAttempt(GameState state)
+        public void SaveDeathAttempt(GameState state)
         {
-            CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.PhysicalLength;
+            CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
         }
 
-        public void SaveCurrentWinningAttempt(GameState state)
+        public void SaveWinAttempt(GameState state)
         {
             CurrentAttempt.EndPercent = 100;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
         }
 
-        public void CreateNewSession(GameState state)
+        //Called when entering a level, ensure a session is created before an attempt needs to be saved
+        //However, while its metadata is fully loaded, the level is not
+        //Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
+        public void CreateNewSession(GDLevelMetadata level)
         {
-            var playedLevel = new Level(state.PlayedLevel);
             CurrentSession = new Session
             {
-                Level = playedLevel,
-                StartPercent = float.PositiveInfinity,//branle TODO OnLevelSettingsLoaded ?
-                StartTime = DateTime.Now,
                 Attempts = new List<Attempt>(),
             };
         }
 
-        public void SaveCurrentSession(GDLoadedLevelInfos level)
+        //Update values for the current session, is called when the level is fully loaded
+        public void UpdateCurrentSession(GameState state)
         {
-            if (CurrentSession.Level.PhysicalLength <= Level.LENGTH_EPSILON)//TODO not very clean, but length is not initialized right when the level loads
-            {
-                CurrentSession.Level.PhysicalLength = level.PhysicalLength;
-            }
-            SaveCurrentSession();
+            TempLogger.AddLog("Updated");
+            CurrentSession.Level = new Level(state);
+            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
+            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            CurrentSession.StartTime = DateTime.Now;
         }
 
-        public void SaveCurrentSession()
+        public void SaveCurrentSession(GDLevelMetadata level)
         {
-            if (CurrentSession == null) return;
-            CurrentSession.IsCopy = CurrentSession.StartPercent <= MIN_PERCENT_COPY;
             SessionSaver.SaveSession(CurrentSession);
-        }
-
-        public void UpdateSessionStartPercent(GameState state)
-        {
-            var percent = 100 * state.PlayerObject.XPosition / state.PlayedLevel.PhysicalLength;
-            if (percent < CurrentSession.StartPercent)
-            {
-                CurrentSession.StartPercent = percent;
-            }
         }
 
         public void CreateNewAttempt(GameState state)
@@ -97,7 +80,7 @@ namespace Whydoisuck.DataSaving
             CurrentAttempt = new Attempt()
             {
                 StartTime = DateTime.Now,
-                Number = state.PlayedLevel.AttemptNumber,
+                Number = state.LoadedLevel.AttemptNumber,
             };
         }
     }
