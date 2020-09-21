@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using Whydoisuck.DataSaving;
 using Whydoisuck.UIModel;
 
@@ -66,6 +67,21 @@ namespace Whydoisuck.UI
                 };
                 percents.Add(currentPercentData);
             }
+
+           /* for(int i = 0; i < 100; i++)
+            {
+                if (!attDic.ContainsKey(i))
+                {
+                    var currentPercentData = new LevelPercentData
+                    {
+                        Percent = i,
+                        ReachCount = 1,
+                        DeathCount = 0,
+                    };
+                    percents.Add(currentPercentData);
+                }
+            }
+            percents.Sort((p1, p2) => p1.Percent >= p2.Percent?1:-1);*/
             return percents;
         }
 
