@@ -13,6 +13,13 @@ namespace Whydoisuck.UIModel
     {
         private List<AttemptRangeElement> Content { get; set; } = new List<AttemptRangeElement>();
         private float RangeWidth { get; set; }//entries will be [0,KeyWidth][KeyWidth,2*KeyWidth][2*KeyWidth,3*KeyWidth] ...
+        private float RangeEpsilon//for comparisons
+        {
+            get
+            {
+                return RangeWidth / 2;
+            }
+        }
 
         public AttemptRangeList(float rangeWidth)
         {
@@ -78,10 +85,49 @@ namespace Whydoisuck.UIModel
             return null;
         }
 
-        public bool ContainsRangeFor(float percent)
+        private bool ContainsRangeFor(float percent)
         {
             var res = SearchRangeFor(percent, out var pos);
             return res != null;
+        }
+
+        private void AddElement(AttemptRangeElement e)
+        {
+            var targetRange = SearchRangeFor(e.Index.Start+RangeEpsilon, out var pos);
+            if (targetRange == null)//TODO merge elements if found
+            {
+                Content.Insert(pos, e);
+            }
+        }
+
+        public void FillEmpty()
+        {
+            var buffer = new List<AttemptRangeElement>();
+            for(float f=0; f<Content[Content.Count-1].Index.End; f += RangeWidth)
+            {
+                var targetRange = SearchRangeFor(f + RangeEpsilon, out var pos);
+                if (targetRange!=null && targetRange.Attempts.Count>0)
+                {
+                    if (!ContainsRangeFor(f+RangeEpsilon + RangeWidth))
+                    {
+                        var newRangeStart = f + RangeWidth;
+                        var element = new AttemptRangeElement(new Range() { Start = newRangeStart, End = newRangeStart + RangeWidth });
+                        buffer.Add(element);
+                    }
+
+                    if (!ContainsRangeFor(f+RangeEpsilon - RangeWidth))
+                    {
+                        var newRangeStart = f - RangeWidth;
+                        var element = new AttemptRangeElement(new Range() { Start = newRangeStart, End = newRangeStart + RangeWidth });
+                        buffer.Add(element);
+                    }
+                }
+            }
+
+            foreach(var e in buffer)
+            {
+                AddElement(e);
+            }
         }
 
         public List<AttemptRangeElement> GetContent()

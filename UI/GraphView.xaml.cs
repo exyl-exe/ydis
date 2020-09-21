@@ -1,10 +1,13 @@
 ﻿using LiveCharts;
+using LiveCharts.Configurations;
 using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using Whydoisuck.DataSaving;
@@ -18,39 +21,69 @@ namespace Whydoisuck.UI
     public partial class GraphView : UserControl
     {
         public ChartValues<ObservablePoint> Percents { get; set; }
+        public CartesianMapper<ObservablePoint> Mapper { get { return GetMapper(); } }
 
         public GraphView()
         {
             InitializeComponent();
-            Update();
+            Update();         
         }
 
         public void Update()
         {
             var groups = GroupLoader.GetAllGroups();
             comboBoxGroups.ItemsSource = groups;
-
             
             if (groups.Count == 0) return;//TODO group selection
             var group = groups[0];
-            var percents = GetLevelPercentsData(group);
+
+            var rangeWidth = 1f;
+            var percents = GetLevelPercentsData(group, rangeWidth);
             LevelDataGrid.ItemsSource = percents;
 
-            var graphSource = new ChartValues<ObservablePoint>();
-            for(int i = 0; i < percents.Count; i++)//TODO foreach ?
-            {
-                var percent = percents[i];
-                graphSource.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));
-            }
-
-            LevelChartSerie.Values = graphSource;
-
+            LevelChartSerie.Configuration = GetMapper();
+            LevelChartSerie.Values = CreateValuesFromPercents(percents, rangeWidth);
+            
             DataContext = this;
         }
 
-        private List<LevelPercentData> GetLevelPercentsData(GroupDisplayer group)//TODO gros bordel
+        private static CartesianMapper<ObservablePoint> GetMapper()
         {
-            var rangeWidth = 0.5f;
+            return Mappers.Xy<ObservablePoint>()
+            .X((item, index) => item.X)
+            .Y(item => item.Y)
+            /*.Fill(item => item.Y >=100 ? Brushes.Transparent : null)
+            .Stroke(item => item.Y >= 100 ? Brushes.Transparent : null)*/;
+        }
+
+        private ChartValues<ObservablePoint> CreateValuesFromPercents(List<LevelPercentData> percents, float rangeWidth)
+        {
+            var res = new ChartValues<ObservablePoint>();
+
+            var lastAdded = percents[0];
+            res.Add(new ObservablePoint(lastAdded.PercentRange.Start, lastAdded.PassRate));
+
+            for (int i = 1; i < percents.Count; i++)
+            {
+                var percent = percents[i];
+
+                if (percent.PercentRange.Start - lastAdded.PercentRange.Start > rangeWidth)
+                {
+                    res.Add(new ObservablePoint(lastAdded.PercentRange.Start + rangeWidth, 100));
+                    res.Add(new ObservablePoint(percent.PercentRange.Start - rangeWidth, 100));
+                }
+
+                res.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));
+
+                lastAdded = percent;
+            }
+
+            return res;
+        }
+
+        private List<LevelPercentData> GetLevelPercentsData(GroupDisplayer group, float rangeWidth)//TODO gros bordel
+        {
+            
             var attempts = group.GroupSessions.SelectMany(s => s.Attempts).ToList();
             var attList = GetAttemptsRangeList(attempts, rangeWidth);
             var groupedAttempts = attList.GetContent();
@@ -82,6 +115,7 @@ namespace Whydoisuck.UI
         {
             var list = new AttemptRangeList(rangeWidth);
             list.AddList(attempts);
+            //list.FillEmpty();
             return list;
         }
     }

@@ -44,7 +44,12 @@
                 <StackPanel Orientation="Vertical">
                     <lvc:CartesianChart LegendLocation="None" Margin="10" Height="600" VerticalAlignment="Stretch">
                         <lvc:CartesianChart.Series>
-                            <lvc:LineSeries Title="Level" Name="LevelChartSerie" LineSmoothness="0.1"></lvc:LineSeries>
+                            <lvc:LineSeries
+                                Title="Level"
+                                Name="LevelChartSerie"
+                                LineSmoothness="0.01"
+                                PointGeometrySize="10"
+                                Configuration="{Binding Mapper}"></lvc:LineSeries>
                         </lvc:CartesianChart.Series>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis MinValue="0" MaxValue="100"></lvc:Axis>
