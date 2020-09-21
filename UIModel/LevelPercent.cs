@@ -8,7 +8,7 @@ namespace Whydoisuck.UIModel
 {
     class LevelPercentData
     { 
-        public int Percent { get; set; }
+        public Range PercentRange { get; set; }
         public int ReachCount { get; set; }
         public int DeathCount { get; set; }
         public float PassRate {

@@ -19,6 +19,14 @@ namespace Whydoisuck.UIModel
             this.RangeWidth = rangeWidth;
         }
 
+        public void AddList(List<Attempt> attempts)
+        {
+            foreach(var a in attempts)
+            {
+                Add(a);
+            }
+        }
+
         public void Add(Attempt attempt)
         {
             var targetRange = SearchRangeFor(attempt.EndPercent, out var pos);
@@ -70,6 +78,17 @@ namespace Whydoisuck.UIModel
             return null;
         }
 
+        public bool ContainsRangeFor(float percent)
+        {
+            var res = SearchRangeFor(percent, out var pos);
+            return res != null;
+        }
+
+        public List<AttemptRangeElement> GetContent()
+        {
+            return Content;
+        }
+
         private float GetRangeStart(float value)
         {
             return ((int)(value/RangeWidth))*RangeWidth;
@@ -86,6 +105,7 @@ namespace Whydoisuck.UIModel
         {
             this.Index = range;
         }
+
 
         public void AddAttempt(Attempt att)
         {
@@ -112,5 +132,15 @@ namespace Whydoisuck.UIModel
     {
         public float Start { get; set; }
         public float End { get; set; }
+        
+        public static Range operator-(Range r,float f)
+        {
+            return new Range { Start = r.Start - f, End = r.End - f };
+        }
+
+        public static Range operator +(Range r, float f)
+        {
+            return new Range { Start = r.Start + f, End = r.End + f };
+        }
     }
 }

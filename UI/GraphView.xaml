@@ -55,7 +55,7 @@
                     </lvc:CartesianChart>
                     <DataGrid Name="LevelDataGrid" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn IsReadOnly="True" Header="Percent" Binding="{Binding Percent}" Width="*"/>
+                            <DataGridTextColumn IsReadOnly="True" Header="Percent" Binding="{Binding PercentRange.Start}" Width="*"/>
                             <DataGridTextColumn IsReadOnly="True" Header="Times reached" Binding="{Binding ReachCount}" Width="*"/>
                             <DataGridTextColumn IsReadOnly="True" Header="Death count" Binding="{Binding DeathCount}" Width="*"/>
                             <DataGridTextColumn IsReadOnly="True" Header="Pass rate" Binding="{Binding PassRate}" Width="*"/>
