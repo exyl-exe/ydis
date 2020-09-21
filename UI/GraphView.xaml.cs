@@ -128,11 +128,7 @@ namespace Whydoisuck.UI
                 percents.Add(currentPercentData);
             }
 
-            percents.Sort((p1, p2) =>
-            (int) (
-                    (p1.PercentRange.Start - p2.PercentRange.Start)*
-                    (1/Math.Abs(p1.PercentRange.Start - p2.PercentRange.Start)))
-            );
+            percents.Sort((p1, p2) => p1.Compare(p2));
             return percents;
         }
 
