@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
@@ -44,7 +45,7 @@ namespace Whydoisuck.UI
             if (groups.Count == 0) return;//TODO group selection
             var group = groups[0];
 
-            var rangeWidth = 0.1f;
+            var rangeWidth = 1f;
             var percents = GetLevelPercentsData(group, rangeWidth);
 
             LevelChartSerie.Values = CreateValuesFromPercents(percents, rangeWidth);
@@ -167,6 +168,13 @@ namespace Whydoisuck.UI
         {
             var start = ((int)(value / rangeWidth)) * rangeWidth;
             return new Range(start,start+rangeWidth);
+        }
+
+        private void ScrollViewerPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
         }
     }
 }
