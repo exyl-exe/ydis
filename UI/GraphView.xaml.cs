@@ -21,32 +21,32 @@ namespace Whydoisuck.UI
     /// <summary>
     /// Logique d'interaction pour GraphView.xaml
     /// </summary>
-    public partial class GraphView : UserControl
+    public partial class GraphView : UserControl//TODO awful class
     {
+        private const int DEFAULT_PASS_RATE = 100;
+
         public ChartValues<ObservablePoint> Percents { get; set; }
         public CartesianMapper<ObservablePoint> Mapper { get; set; }
         public bool ShowCopyAttempts { get; set; }
         public bool ShowNormalAttempts { get; set; }
+        private GroupDisplayer CurrentGroup { get; set; }
 
         public GraphView()
         {
             InitializeComponent();
+            RefreshGroups();
             Mapper = Mappers.Xy<ObservablePoint>()
             .X((item, index) => item.X)
             .Y(item => item.Y);
-            Update();        
+            Update();
         }
 
         public void Update()
         {
-            var groups = GroupLoader.GetAllGroups();
-            comboBoxGroups.ItemsSource = groups;
-            
-            if (groups.Count == 0) return;//TODO group selection
-            var group = groups[0];
+            if (CurrentGroup == null) return;
 
-            var rangeWidth = 1f;
-            var percents = GetLevelPercentsData(group, rangeWidth);
+            var rangeWidth = 100f;
+            var percents = GetLevelPercentsData(CurrentGroup, rangeWidth);
 
             LevelChartSerie.Values = CreateValuesFromPercents(percents, rangeWidth);
             LevelDataGrid.ItemsSource = percents;
@@ -96,8 +96,8 @@ namespace Whydoisuck.UI
                 var percent = percents[i];
                 if (percent.PercentRange.Start - lastAdded.PercentRange.Start > rangeWidth+epsilon)
                 {
-                    res.Add(new ObservablePoint(lastAdded.PercentRange.Start + rangeWidth, 100));
-                    res.Add(new ObservablePoint(percent.PercentRange.Start - rangeWidth, 100));
+                    res.Add(new ObservablePoint(lastAdded.PercentRange.Start + rangeWidth, DEFAULT_PASS_RATE));
+                    res.Add(new ObservablePoint(percent.PercentRange.Start - rangeWidth, DEFAULT_PASS_RATE));
                 }
                 res.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));
                 lastAdded = percent;
@@ -175,6 +175,22 @@ namespace Whydoisuck.UI
             ScrollViewer scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
+        }
+
+        private void comboBoxGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentGroup = comboBoxGroups.SelectedItem as GroupDisplayer;
+        }
+
+        private void RefreshGroupsButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RefreshGroups();
+        }
+
+        private void RefreshGroups()
+        {
+            var groups = GroupLoader.GetAllGroups();
+            comboBoxGroups.ItemsSource = groups;
         }
     }
 }

@@ -17,13 +17,23 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Name="comboBoxGroups" HorizontalContentAlignment="Center" DockPanel.Dock="Left">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding GroupName}" FontSize="20" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <DockPanel  Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                        <Button Name="RefreshGroupsButton" DockPanel.Dock="Right"
+                                Click="RefreshGroupsButton_Click">
+                            <TextBlock>Refresh</TextBlock>
+                        </Button>
+                        <ComboBox Name="comboBoxGroups"
+                                  HorizontalContentAlignment="Center"
+                                  DockPanel.Dock="Left"
+                                  SelectionChanged="comboBoxGroups_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding GroupName}" FontSize="20" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </DockPanel>
                     <Border Grid.Column="2" Padding="5,0,5,0" Margin="1" BorderThickness="1" BorderBrush="Black">
                         <CheckBox HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
