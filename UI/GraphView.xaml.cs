@@ -92,15 +92,12 @@ namespace Whydoisuck.UI
             for (int i = 1; i < percents.Count; i++)
             {
                 var percent = percents[i];
-
                 if (percent.PercentRange.Start - lastAdded.PercentRange.Start > rangeWidth)
                 {
                     res.Add(new ObservablePoint(lastAdded.PercentRange.Start + rangeWidth, 100));
                     res.Add(new ObservablePoint(percent.PercentRange.Start - rangeWidth, 100));
                 }
-
                 res.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));
-
                 lastAdded = percent;
             }
 
@@ -108,49 +105,67 @@ namespace Whydoisuck.UI
         }
 
         private List<LevelPercentData> GetLevelPercentsData(GroupDisplayer group, float rangeWidth)//TODO défintivement un gros bordel
-        {   
-            var attempts = group.GroupSessions
-                .Where(s => SessionSelectCondition(s))
+        {
+            var sessions = group.GroupSessions.Where(s => SessionSelectCondition(s)).ToList();
+            var attempts = sessions
                 .SelectMany(s => s.Attempts.Select(a => new SessionAttempt() { Attempt = a, Session = s }).ToList())
                 .ToList();
-            var attList = GetAttemptsRangeList(attempts, rangeWidth);
-            var groupedAttempts = attList;
 
+            sessions.Sort((s, s2) => (int)((s.StartPercent - s2.StartPercent)/Math.Abs(s.StartPercent - s2.StartPercent)));
+            var sessionIndex = 0;
+
+            var attDictionary = GetAttemptRangeList(attempts, rangeWidth);
             var percents = new List<LevelPercentData>();
             var reachCount = 0;
-            for(var i = groupedAttempts.Count-1; i >=0 ; i--)
+            for(var i = 0; i < attDictionary.Count; i++)
             {
-                var groupAttempts = groupedAttempts.At(i);
-                var deathCount = groupAttempts.Element.Count;
-                reachCount += deathCount;
+                var attemptsOfGroup = attDictionary.At(i);
+                var range = GetRange(attemptsOfGroup[0].Attempt.EndPercent, rangeWidth);
+
+                if (sessionIndex < sessions.Count
+                    && (range.Contains(sessions[sessionIndex].StartPercent) || sessions[sessionIndex].StartPercent < range.Start))
+                {
+                    reachCount += sessions[sessionIndex].Attempts.Count;
+                    sessionIndex++;
+                }
+
+                var deathCount = attemptsOfGroup.Count;
+
                 var currentPercentData = new LevelPercentData
                 {
-                    PercentRange = groupAttempts.Range,
+                    PercentRange = range,
                     ReachCount = reachCount,
                     DeathCount = deathCount,
                 };
                 percents.Add(currentPercentData);
-            }
 
+                reachCount -= deathCount;
+            }
             percents.Sort((p1, p2) => p1.Compare(p2));
             return percents;
         }
 
-        private RangeDictionary<SessionAttempt, List<SessionAttempt>> GetAttemptsRangeList(List<SessionAttempt> attempts, float rangeWidth)
+        private RangeDictionary<SessionAttempt, List<SessionAttempt>> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)
         {
-            var dictionary = new RangeDictionary<SessionAttempt, List<SessionAttempt>>(rangeWidth, (sa) => sa.Attempt.EndPercent);
+            var dictionary = new RangeDictionary<SessionAttempt, List<SessionAttempt>>((sa) => GetRange(sa.Attempt.EndPercent, rangeWidth).Start);
             foreach(var a in attempts)
             {
                 var attemptList = dictionary.Get(a);
                 if(attemptList == null)
                 {
-                    dictionary.Add(a, new List<SessionAttempt>() { a });
+                    dictionary.Affect(a, new List<SessionAttempt>() { a });
                 } else
                 {
                     attemptList.Add(a);
                 }
             }
             return dictionary;
+        }
+
+        private Range GetRange(float value, float rangeWidth)
+        {
+            var start = ((int)(value / rangeWidth)) * rangeWidth;
+            return new Range(start,start+rangeWidth);
         }
     }
 }

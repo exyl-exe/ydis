@@ -62,7 +62,7 @@
                             <lvc:Axis MinValue="0" MaxValue="100"></lvc:Axis>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Unit="1"></lvc:Axis>
+                            <lvc:Axis MinValue="0" MaxValue="100" Unit="1"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                     <DataGrid Name="LevelDataGrid" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">

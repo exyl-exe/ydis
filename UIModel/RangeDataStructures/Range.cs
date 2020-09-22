@@ -11,14 +11,15 @@ namespace Whydoisuck.UIModel.RangeDataStructures
         public float Start { get; set; }
         public float End { get; set; }
 
-        public static Range operator -(Range r, float f)
+        public Range(float Start, float End)
         {
-            return new Range { Start = r.Start - f, End = r.End - f };
+            this.Start = Start;
+            this.End = End;
         }
 
-        public static Range operator +(Range r, float f)
+        public bool Contains(float f)
         {
-            return new Range { Start = r.Start + f, End = r.End + f };
+            return Start <= f && f < End;
         }
     }
 }

@@ -11,60 +11,84 @@ namespace Whydoisuck.UIModel.RangeDataStructures
 {
     class RangeDictionary<TKey, TValue>
     {
+        public static float KEY_EPSILON = 0.001f;
         public int Count { get { return Content.Count; }}
 
-        private List<RangeDictionaryElement<TValue>> Content { get; set; } = new List<RangeDictionaryElement<TValue>>();
-        private float RangeWidth { get; set; }//entries will be [0,KeyWidth][KeyWidth,2*KeyWidth][2*KeyWidth,3*KeyWidth] ...
+        private List<SelectDictionaryKeyValue<float, TValue>> Content { get; set; } = new List<SelectDictionaryKeyValue<float, TValue>>();
         private Func<TKey, float> KeySelector { get; set; }
 
-        public RangeDictionary(float rangeWidth, Func<TKey, float> KeySelector)
+        public RangeDictionary(Func<TKey, float> KeySelector)
         {
-            this.RangeWidth = rangeWidth;
             this.KeySelector = KeySelector;
         }
 
-        public RangeDictionaryElement<TValue> At(int index)
+        public TValue At(int index)
         {
-            return Content[index];
+            return Content[index].Value;
+        }
+
+        public void SetAt(int index, TValue value)
+        {
+            Content[index].Value = value;
         }
 
         public TValue Get(TKey element)
         {
-            var range = SearchRangeFor(KeySelector(element), out var pos);
-            if(range == null)
+            var res = SearchFor(KeySelector(element), out var pos);
+            if(res == null)
             {
-                return default(TValue);
+                return default;//TODO
             } else
             {
-                return range.Element;
+                return res.Value;
             }
         }
 
-        public void Add(TKey key, TValue element)
+        public TValue Get(float value)
         {
-            var targetRange = SearchRangeFor(KeySelector(key), out var pos);
-            if (targetRange != null)
+            var res = SearchFor(value, out var pos);
+            if (res == null)
             {
-                targetRange.Element=element;
+                return default;//TODO
+            }
+            else
+            {
+                return res.Value;
+            }
+        }
+
+        public SelectDictionaryKeyValue<float, TValue> GetPair(float value)
+        {
+            var res = SearchFor(value, out var pos);
+            if (res == null)
+            {
+                return default;//TODO
+            }
+            else
+            {
+                return res;
+            }
+        }
+
+        public void Affect(TKey key, TValue element)
+        {
+            var target = SearchFor(KeySelector(key), out var pos);
+            if (target != null)
+            {
+                target.Value=element;
             } else
             {
-                var beginOfRange = GetRangeStart(KeySelector(key));
-                var range = new Range()
-                {
-                    Start = beginOfRange,
-                    End = beginOfRange + RangeWidth
-                };
-                var newElement = new RangeDictionaryElement<TValue>(range, element);
+                var newElement = new SelectDictionaryKeyValue<float, TValue>(KeySelector(key), element);
                 Content.Insert(pos, newElement);
             }
         }
 
-        private RangeDictionaryElement<TValue> SearchRangeFor(float key, out int pos){
+        private SelectDictionaryKeyValue<float, TValue> SearchFor(float key, out int pos){
 
             if (Content.Count == 0)
             {
                 pos = 0;
-                return null;
+                return default;
             }
 
             int inf = 0;
@@ -73,53 +97,33 @@ namespace Whydoisuck.UIModel.RangeDataStructures
             while (inf<=sup)
             {
                 middle = (inf + sup) / 2;
-                if (Content[middle].InBounds(key))
+                var middleKey = Content[middle].Key;
+                if (Math.Abs(middleKey-key)<KEY_EPSILON)// ==
                 {
                     pos = middle;
                     return Content[middle];
-                } else if (Content[middle].RangeBelow(key))
+                } else if (middleKey+KEY_EPSILON<key)// <
                 {
                     inf = middle+1;
-                } else
+                } else// >
                 {
                     sup = middle-1;
                 }
             }
 
-            pos = Content[middle].RangeAbove(key) ? middle : middle + 1;
+            pos = Content[middle].Key > key+KEY_EPSILON ? middle : middle + 1;
             return null;
-        }
-
-        private float GetRangeStart(float value)
-        {
-            return ((int)(value/RangeWidth))*RangeWidth;
         }
     }
 
-    class RangeDictionaryElement<T>
+    class SelectDictionaryKeyValue<TKey, TValue>
     {
-        public Range Range { get; set; }
-        public T Element { get; set; }
-
-        public RangeDictionaryElement(Range range, T Element)
+        public TKey Key { get; set; }
+        public TValue Value { get; set; }
+        public SelectDictionaryKeyValue(TKey Key, TValue Value)
         {
-            this.Range = range;
-            this.Element = Element;
+            this.Key = Key;
+            this.Value = Value;
         }
-
-        public bool RangeBelow(float value)
-        {
-            return Range.End <= value;
-        }
-
-        public bool RangeAbove(float value)
-        {
-            return value < Range.Start;
-        }
-
-        public bool InBounds(float value)
-        {
-            return Range.Start <= value && value < Range.End;
-        }
-    } 
+    }
 }
