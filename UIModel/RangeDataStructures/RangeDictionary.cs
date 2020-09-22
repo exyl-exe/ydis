@@ -7,49 +7,59 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
 
-namespace Whydoisuck.UIModel
+namespace Whydoisuck.UIModel.RangeDataStructures
 {
-    class RangeList<T>
+    class RangeDictionary<TKey, TValue>
     {
-        public List<RangeElement<T>> Content { get; private set; } = new List<RangeElement<T>>();
-        private float RangeWidth { get; set; }//entries will be [0,KeyWidth][KeyWidth,2*KeyWidth][2*KeyWidth,3*KeyWidth] ...
-        private Func<T, float> Selector { get; set; }
+        public int Count { get { return Content.Count; }}
 
-        public RangeList(float rangeWidth, Func<T, float> Selector)
+        private List<RangeDictionaryElement<TValue>> Content { get; set; } = new List<RangeDictionaryElement<TValue>>();
+        private float RangeWidth { get; set; }//entries will be [0,KeyWidth][KeyWidth,2*KeyWidth][2*KeyWidth,3*KeyWidth] ...
+        private Func<TKey, float> KeySelector { get; set; }
+
+        public RangeDictionary(float rangeWidth, Func<TKey, float> KeySelector)
         {
             this.RangeWidth = rangeWidth;
-            this.Selector = Selector;
+            this.KeySelector = KeySelector;
         }
 
-        public void AddList(List<T> elements)
+        public RangeDictionaryElement<TValue> At(int index)
         {
-            foreach(var e in elements)
+            return Content[index];
+        }
+
+        public TValue Get(TKey element)
+        {
+            var range = SearchRangeFor(KeySelector(element), out var pos);
+            if(range == null)
             {
-                Add(e);
+                return default(TValue);
+            } else
+            {
+                return range.Element;
             }
         }
 
-        public void Add(T element)
+        public void Add(TKey key, TValue element)
         {
-            var targetRange = SearchRangeFor(Selector(element), out var pos);
+            var targetRange = SearchRangeFor(KeySelector(key), out var pos);
             if (targetRange != null)
             {
-                targetRange.AddElement(element);
+                targetRange.Element=element;
             } else
             {
-                var beginOfRange = GetRangeStart(Selector(element));
+                var beginOfRange = GetRangeStart(KeySelector(key));
                 var range = new Range()
                 {
                     Start = beginOfRange,
                     End = beginOfRange + RangeWidth
                 };
-                var newElement = new RangeElement<T>(range);
-                newElement.AddElement(element);
+                var newElement = new RangeDictionaryElement<TValue>(range, element);
                 Content.Insert(pos, newElement);
             }
         }
 
-        private RangeElement<T> SearchRangeFor(float key, out int pos){
+        private RangeDictionaryElement<TValue> SearchRangeFor(float key, out int pos){
 
             if (Content.Count == 0)
             {
@@ -84,22 +94,17 @@ namespace Whydoisuck.UIModel
         {
             return ((int)(value/RangeWidth))*RangeWidth;
         }
-
     }
 
-    class RangeElement<T>
+    class RangeDictionaryElement<T>
     {
         public Range Range { get; set; }
-        public List<T> Elements { get; set; } = new List<T>();
+        public T Element { get; set; }
 
-        public RangeElement(Range range)
+        public RangeDictionaryElement(Range range, T Element)
         {
             this.Range = range;
-        }
-
-        public void AddElement(T element)
-        {
-            Elements.Add(element);
+            this.Element = Element;
         }
 
         public bool RangeBelow(float value)
@@ -117,20 +122,4 @@ namespace Whydoisuck.UIModel
             return Range.Start <= value && value < Range.End;
         }
     } 
-
-    class Range
-    {
-        public float Start { get; set; }
-        public float End { get; set; }
-        
-        public static Range operator-(Range r,float f)
-        {
-            return new Range { Start = r.Start - f, End = r.End - f };
-        }
-
-        public static Range operator +(Range r, float f)
-        {
-            return new Range { Start = r.Start + f, End = r.End + f };
-        }
-    }
 }

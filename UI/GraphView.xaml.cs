@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using Whydoisuck.DataSaving;
 using Whydoisuck.UIModel;
+using Whydoisuck.UIModel.RangeDataStructures;
 
 namespace Whydoisuck.UI
 {
@@ -113,17 +114,19 @@ namespace Whydoisuck.UI
                 .SelectMany(s => s.Attempts.Select(a => new SessionAttempt() { Attempt = a, Session = s }).ToList())
                 .ToList();
             var attList = GetAttemptsRangeList(attempts, rangeWidth);
-            var groupedAttempts = attList.Content;
+            var groupedAttempts = attList;
 
             var percents = new List<LevelPercentData>();
+            var reachCount = 0;
             for(var i = groupedAttempts.Count-1; i >=0 ; i--)
             {
-                var attemptGroup = groupedAttempts[i];
-                var deathCount = attemptGroup.Elements.Count;
+                var groupAttempts = groupedAttempts.At(i);
+                var deathCount = groupAttempts.Element.Count;
+                reachCount += deathCount;
                 var currentPercentData = new LevelPercentData
                 {
-                    PercentRange = attemptGroup.Range,
-                    ReachCount = 0,
+                    PercentRange = groupAttempts.Range,
+                    ReachCount = reachCount,
                     DeathCount = deathCount,
                 };
                 percents.Add(currentPercentData);
@@ -133,11 +136,21 @@ namespace Whydoisuck.UI
             return percents;
         }
 
-        private RangeList<SessionAttempt> GetAttemptsRangeList(List<SessionAttempt> attempts, float rangeWidth)
+        private RangeDictionary<SessionAttempt, List<SessionAttempt>> GetAttemptsRangeList(List<SessionAttempt> attempts, float rangeWidth)
         {
-            var list = new RangeList<SessionAttempt>(rangeWidth, (sa) => sa.Attempt.EndPercent);
-            list.AddList(attempts);
-            return list;
+            var dictionary = new RangeDictionary<SessionAttempt, List<SessionAttempt>>(rangeWidth, (sa) => sa.Attempt.EndPercent);
+            foreach(var a in attempts)
+            {
+                var attemptList = dictionary.Get(a);
+                if(attemptList == null)
+                {
+                    dictionary.Add(a, new List<SessionAttempt>() { a });
+                } else
+                {
+                    attemptList.Add(a);
+                }
+            }
+            return dictionary;
         }
     }
 }
