@@ -13,7 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using Whydoisuck.DataSaving;
 using Whydoisuck.UIModel;
-using Whydoisuck.UIModel.RangeDataStructures;
+using Whydoisuck.UIModel.DataStructures;
 
 namespace Whydoisuck.UI
 {
@@ -44,7 +44,7 @@ namespace Whydoisuck.UI
             if (groups.Count == 0) return;//TODO group selection
             var group = groups[0];
 
-            var rangeWidth = 1f;
+            var rangeWidth = 0.1f;
             var percents = GetLevelPercentsData(group, rangeWidth);
 
             LevelChartSerie.Values = CreateValuesFromPercents(percents, rangeWidth);
@@ -89,10 +89,11 @@ namespace Whydoisuck.UI
             var lastAdded = percents[0];
             res.Add(new ObservablePoint(lastAdded.PercentRange.Start, lastAdded.PassRate));
 
+            var epsilon = rangeWidth / 2;
             for (int i = 1; i < percents.Count; i++)
             {
                 var percent = percents[i];
-                if (percent.PercentRange.Start - lastAdded.PercentRange.Start > rangeWidth)
+                if (percent.PercentRange.Start - lastAdded.PercentRange.Start > rangeWidth+epsilon)
                 {
                     res.Add(new ObservablePoint(lastAdded.PercentRange.Start + rangeWidth, 100));
                     res.Add(new ObservablePoint(percent.PercentRange.Start - rangeWidth, 100));

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.UIModel.RangeDataStructures
+namespace Whydoisuck.UIModel.DataStructures
 {
     class Range
     {

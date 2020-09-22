@@ -49,7 +49,7 @@
             </Border>
             <ScrollViewer>
                 <StackPanel Orientation="Vertical">
-                    <lvc:CartesianChart LegendLocation="None" Margin="10" Height="600" VerticalAlignment="Stretch" DisableAnimations="True">
+                    <lvc:CartesianChart Zoom="Xy" LegendLocation="None" Margin="10" Height="600" VerticalAlignment="Stretch" DisableAnimations="True">
                         <lvc:CartesianChart.Series>
                             <lvc:LineSeries
                                 Title="Level"

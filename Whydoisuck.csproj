@@ -82,7 +82,7 @@
     <Compile Include="UIModel\GroupDisplayer.cs" />
     <Compile Include="UIModel\LevelPercent.cs" />
     <Compile Include="UIModel\RangeDataStructures\Range.cs" />
-    <Compile Include="UIModel\RangeDataStructures\RangeDictionary.cs" />
+    <Compile Include="UIModel\RangeDataStructures\SelectDictionary.cs" />
     <Compile Include="UIModel\SessionAttempt.cs" />
     <Compile Include="UI\GraphView.xaml.cs">
       <DependentUpon>GraphView.xaml</DependentUpon>
