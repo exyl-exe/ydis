@@ -9,52 +9,47 @@ using Whydoisuck.DataSaving;
 
 namespace Whydoisuck.UIModel
 {
-    class AttemptRangeList
+    class RangeList<T>
     {
-        public List<AttemptRangeElement> Content { get; private set; } = new List<AttemptRangeElement>();
+        public List<RangeElement<T>> Content { get; private set; } = new List<RangeElement<T>>();
         private float RangeWidth { get; set; }//entries will be [0,KeyWidth][KeyWidth,2*KeyWidth][2*KeyWidth,3*KeyWidth] ...
-        private float RangeEpsilon//for comparisons
-        {
-            get
-            {
-                return RangeWidth / 2;
-            }
-        }
+        private Func<T, float> Selector { get; set; }
 
-        public AttemptRangeList(float rangeWidth)
+        public RangeList(float rangeWidth, Func<T, float> Selector)
         {
             this.RangeWidth = rangeWidth;
+            this.Selector = Selector;
         }
 
-        public void AddList(List<Attempt> attempts)
+        public void AddList(List<T> elements)
         {
-            foreach(var a in attempts)
+            foreach(var e in elements)
             {
-                Add(a);
+                Add(e);
             }
         }
 
-        public void Add(Attempt attempt)
+        public void Add(T element)
         {
-            var targetRange = SearchRangeFor(attempt.EndPercent, out var pos);
+            var targetRange = SearchRangeFor(Selector(element), out var pos);
             if (targetRange != null)
             {
-                targetRange.AddAttempt(attempt);
+                targetRange.AddElement(element);
             } else
             {
-                var beginOfRange = GetRangeStart(attempt.EndPercent);
+                var beginOfRange = GetRangeStart(Selector(element));
                 var range = new Range()
                 {
                     Start = beginOfRange,
                     End = beginOfRange + RangeWidth
                 };
-                var newElement = new AttemptRangeElement(range);
-                newElement.AddAttempt(attempt);
+                var newElement = new RangeElement<T>(range);
+                newElement.AddElement(element);
                 Content.Insert(pos, newElement);
             }
         }
 
-        private AttemptRangeElement SearchRangeFor(float key, out int pos){
+        private RangeElement<T> SearchRangeFor(float key, out int pos){
 
             if (Content.Count == 0)
             {
@@ -92,35 +87,34 @@ namespace Whydoisuck.UIModel
 
     }
 
-    class AttemptRangeElement
+    class RangeElement<T>
     {
-        public Range Index { get; set; }
-        public List<Attempt> Attempts { get; set; } = new List<Attempt>();
+        public Range Range { get; set; }
+        public List<T> Elements { get; set; } = new List<T>();
 
-        public AttemptRangeElement(Range range)
+        public RangeElement(Range range)
         {
-            this.Index = range;
+            this.Range = range;
         }
 
-
-        public void AddAttempt(Attempt att)
+        public void AddElement(T element)
         {
-            Attempts.Add(att);
+            Elements.Add(element);
         }
 
         public bool RangeBelow(float value)
         {
-            return Index.End <= value;
+            return Range.End <= value;
         }
 
         public bool RangeAbove(float value)
         {
-            return value < Index.Start;
+            return value < Range.Start;
         }
 
         public bool InBounds(float value)
         {
-            return Index.Start <= value && value < Index.End;
+            return Range.Start <= value && value < Range.End;
         }
     } 
 

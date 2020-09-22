@@ -106,24 +106,25 @@ namespace Whydoisuck.UI
             return res;
         }
 
-        private List<LevelPercentData> GetLevelPercentsData(GroupDisplayer group, float rangeWidth)//TODO gros bordel
-        {
-            
-            var attempts = group.GroupSessions.Where(s => SessionSelectCondition(s)).SelectMany(s => s.Attempts).ToList();
+        private List<LevelPercentData> GetLevelPercentsData(GroupDisplayer group, float rangeWidth)//TODO défintivement un gros bordel
+        {   
+            var attempts = group.GroupSessions
+                .Where(s => SessionSelectCondition(s))
+                .SelectMany(s => s.Attempts.Select(a => new SessionAttempt() { Attempt = a, Session = s }).ToList())
+                .ToList();
             var attList = GetAttemptsRangeList(attempts, rangeWidth);
             var groupedAttempts = attList.Content;
 
             var percents = new List<LevelPercentData>();
-            var reachCount = 0;
-            for(var i=groupedAttempts.Count-1; i >= 0; i--)
+            for(var i = groupedAttempts.Count-1; i >=0 ; i--)
             {
                 var attemptGroup = groupedAttempts[i];
-                reachCount += attemptGroup.Attempts.Count;
+                var deathCount = attemptGroup.Elements.Count;
                 var currentPercentData = new LevelPercentData
                 {
-                    PercentRange = attemptGroup.Index,
-                    ReachCount = reachCount,
-                    DeathCount = attemptGroup.Attempts.Count,
+                    PercentRange = attemptGroup.Range,
+                    ReachCount = 0,
+                    DeathCount = deathCount,
                 };
                 percents.Add(currentPercentData);
             }
@@ -132,9 +133,9 @@ namespace Whydoisuck.UI
             return percents;
         }
 
-        private AttemptRangeList GetAttemptsRangeList(List<Attempt> attempts, float rangeWidth)
+        private RangeList<SessionAttempt> GetAttemptsRangeList(List<SessionAttempt> attempts, float rangeWidth)
         {
-            var list = new AttemptRangeList(rangeWidth);
+            var list = new RangeList<SessionAttempt>(rangeWidth, (sa) => sa.Attempt.EndPercent);
             list.AddList(attempts);
             return list;
         }
