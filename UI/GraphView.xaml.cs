@@ -145,9 +145,9 @@ namespace Whydoisuck.UI
             return percents;
         }
 
-        private RangeDictionary<SessionAttempt, List<SessionAttempt>> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)
+        private SelectDictionary<SessionAttempt, List<SessionAttempt>> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)
         {
-            var dictionary = new RangeDictionary<SessionAttempt, List<SessionAttempt>>((sa) => GetRange(sa.Attempt.EndPercent, rangeWidth).Start);
+            var dictionary = new SelectDictionary<SessionAttempt, List<SessionAttempt>>((sa) => GetRange(sa.Attempt.EndPercent, rangeWidth).Start);
             foreach(var a in attempts)
             {
                 var attemptList = dictionary.Get(a);
