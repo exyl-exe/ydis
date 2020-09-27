@@ -80,10 +80,10 @@
     <Compile Include="DataSaving\SessionGroup.cs" />
     <Compile Include="TempLogger.cs" />
     <Compile Include="UIModel\AttemptGraph.cs" />
+    <Compile Include="UIModel\DataStructures\RangeAttemptList.cs" />
     <Compile Include="UIModel\GroupDisplayer.cs" />
     <Compile Include="UIModel\LevelPercent.cs" />
     <Compile Include="UIModel\DataStructures\Range.cs" />
-    <Compile Include="UIModel\DataStructures\SelectDictionary.cs" />
     <Compile Include="UIModel\SessionAttempt.cs" />
     <Compile Include="UIModel\SessionFilter.cs" />
     <Compile Include="UI\GraphView.xaml.cs">

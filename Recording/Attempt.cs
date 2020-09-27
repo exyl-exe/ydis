@@ -12,5 +12,21 @@ namespace Whydoisuck.DataSaving
         public float EndPercent { get; set; }
         public DateTime StartTime { get; set; }
         public TimeSpan Duration { get; set; }
+
+        public int Compare(Attempt attempt)
+        {
+            if (EndPercent > attempt.EndPercent)
+            {
+                return 1;
+            }
+            else if(EndPercent < attempt.EndPercent)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

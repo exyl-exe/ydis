@@ -50,7 +50,7 @@ namespace Whydoisuck.UI
 
         private ChartValues<ObservablePoint> CreateChartValues(List<LevelPercentData> percents, float rangeWidth)
         {
-            var res = new ChartValues<ObservablePoint>();
+            var res = new List<ObservablePoint>();
 
             LevelPercentData lastAdded = null;
             foreach(var percent in percents)
@@ -59,10 +59,11 @@ namespace Whydoisuck.UI
                 res.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));
                 lastAdded = percent;
             }
-            return res;
+            res.Sort((o, o2) => (int)((o.X - o2.X)/Math.Abs(o.X - o2.X)));
+            return new ChartValues<ObservablePoint>(res);
         }
 
-        private void AddIntermediateValues(ChartValues<ObservablePoint> values, LevelPercentData lastAdded, LevelPercentData current, float rangeWidth)
+        private void AddIntermediateValues(List<ObservablePoint> values, LevelPercentData lastAdded, LevelPercentData current, float rangeWidth)
         {
             if (lastAdded == null) return;
             if (!current.IsNext(lastAdded, rangeWidth))

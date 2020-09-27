@@ -2,7 +2,9 @@
 using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
@@ -41,8 +43,8 @@ namespace Whydoisuck.UIModel
 
             for (var i = 0; i < attDictionary.Count; i++)
             {
-                var attemptsOfGroup = attDictionary.At(i);
-                var range = GetRange(attemptsOfGroup[0].Attempt.EndPercent, rangeWidth);
+                var attemptsOfGroup = attDictionary[i].Attempts;
+                var range = attDictionary[i].Range;
                 var deathCount = attemptsOfGroup.Count;
 
                 //Update reach count
@@ -60,22 +62,21 @@ namespace Whydoisuck.UIModel
             return res;
         }
 
-        private SelectDictionary<SessionAttempt, List<SessionAttempt>> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)
+        private List<RangeAttemptList> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)
         {
-            var dictionary = new SelectDictionary<SessionAttempt, List<SessionAttempt>>((sa) => GetRange(sa.Attempt.EndPercent, rangeWidth).Start);
+            attempts.Sort((a,a2)=>a.Attempt.Compare(a2.Attempt));
+            var res = new List<RangeAttemptList>();
+            RangeAttemptList currentRange = null;
             foreach (var a in attempts)
             {
-                var attemptList = dictionary.Get(a);
-                if (attemptList == null)
+                if (currentRange == null || !currentRange.Range.Contains(a.Attempt.EndPercent))
                 {
-                    dictionary.Affect(a, new List<SessionAttempt>() { a });
+                    currentRange = new RangeAttemptList(GetRange(a.Attempt.EndPercent, rangeWidth));
+                    res.Add(currentRange);
                 }
-                else
-                {
-                    attemptList.Add(a);
-                }
+                currentRange.Attempts.Add(a);
             }
-            return dictionary;
+            return res;
         }
 
         private Range GetRange(float value, float rangeWidth)
@@ -83,6 +84,5 @@ namespace Whydoisuck.UIModel
             var start = ((int)(value / rangeWidth)) * rangeWidth;
             return new Range(start, start + rangeWidth);
         }
-
     }
 }
