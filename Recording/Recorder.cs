@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whydoisuck.DataSaving;
-using Whydoisuck.GameWatching;
+using Whydoisuck.DataModel;
 using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.DataSaving

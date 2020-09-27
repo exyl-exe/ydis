@@ -5,16 +5,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.UIModel;
+using Whydoisuck.DataModel;
 using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
 {
     static class GroupLoader
     {
-        public static List<GroupDisplayer> GetAllGroups()
+        public static List<SessionGroup> GetAllGroups()//TODO don't deserialize sessions if not needed
         {
-            var res = new List<GroupDisplayer>();
+            var res = new List<SessionGroup>();
             var indexer = SessionSaver.LoadSessionManager();
 
             var directories = new HashSet<string>();
@@ -41,7 +41,7 @@ namespace Whydoisuck.DataSaving
                 }
                 if (sessionList.Count > 0)
                 {
-                    var group = new GroupDisplayer
+                    var group = new SessionGroup
                     {
                         GroupName = sessionList[0].Level.Name,
                         GroupSessions = sessionList

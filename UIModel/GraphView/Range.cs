@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.UIModel.DataStructures
+namespace Whydoisuck.UIModel.GraphView
 {
     public class Range
     {

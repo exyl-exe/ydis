@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Whydoisuck.MemoryReading;
 
-namespace Whydoisuck.DataSaving
+namespace Whydoisuck.DataModel
 {
     public class Level
     {
@@ -32,7 +32,7 @@ namespace Whydoisuck.DataSaving
 
         public Level(GameState state)
         {
-            if(state != null && state.LevelMetadata != null & state.LoadedLevel != null)
+            if (state != null && state.LevelMetadata != null & state.LoadedLevel != null)
             {
                 ID = state.LevelMetadata.ID;
                 IsOnline = state.LevelMetadata.IsOnline;
@@ -45,7 +45,7 @@ namespace Whydoisuck.DataSaving
                 MusicID = state.LevelMetadata.MusicID;
                 OfficialMusicID = state.LevelMetadata.OfficialMusicID;
                 MusicOffset = state.LevelMetadata.MusicOffset;
-            }       
+            }
         }
 
         public bool IsSameLevel(Level level)
@@ -53,7 +53,8 @@ namespace Whydoisuck.DataSaving
             if (level == null)
             {
                 return false;
-            } else
+            }
+            else
             {
                 return
                 ID == level.ID &&
@@ -63,7 +64,7 @@ namespace Whydoisuck.DataSaving
                 Revision == level.Revision &&
                 SameMusic(level) &&
                 SamePhysicalLength(level);
-            }  
+            }
         }
 
         public bool FromSameLevel(Level level)
@@ -72,13 +73,13 @@ namespace Whydoisuck.DataSaving
 
             if (IsOriginal && !level.IsOriginal)
             {
-                if(ID == level.OriginalID)
+                if (ID == level.OriginalID)
                 {
                     return true;
                 }
             }
 
-            if(!IsOriginal && level.IsOriginal)
+            if (!IsOriginal && level.IsOriginal)
             {
                 if (OriginalID == level.ID)
                 {
@@ -86,14 +87,14 @@ namespace Whydoisuck.DataSaving
                 }
             }
 
-            if(!IsOriginal && !level.IsOriginal)
+            if (!IsOriginal && !level.IsOriginal)
             {
                 //If a not original level is copied, then the original ID of the copy is the same as the original ID of the copied level
                 //Therefore there is no need to test if the original ID of one level is the online ID of the other if both levels aren't original
                 return OriginalID == level.OriginalID;
             }
 
-            return ID!=0 && ID==level.ID;//Effectively always false, but it ensures an uploaded level is from the same level as itself
+            return ID != 0 && ID == level.ID;//Effectively always false, but it ensures an uploaded level is from the same level as itself
         }
 
         public bool SimilarName(Level level)
@@ -105,7 +106,7 @@ namespace Whydoisuck.DataSaving
         public bool SameMusic(Level level)
         {
             if (level == null) return false;
-            if (!(Math.Abs(MusicOffset - level.MusicOffset)<MUSIC_OFFSET_EPSILON))
+            if (!(Math.Abs(MusicOffset - level.MusicOffset) < MUSIC_OFFSET_EPSILON))
             {
                 return false;
             }
@@ -181,8 +182,8 @@ namespace Whydoisuck.DataSaving
         {
             if (!sample.IsOnline) return EQ;
 
-            var key1Matches = (level1.ID == sample.ID);
-            var key2Matches = (level2.ID == sample.ID);
+            var key1Matches = level1.ID == sample.ID;
+            var key2Matches = level2.ID == sample.ID;
             if (key1Matches && key2Matches)
             {
                 return EQ;

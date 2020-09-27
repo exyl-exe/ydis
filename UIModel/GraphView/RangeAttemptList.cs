@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.DataModel;
 
-namespace Whydoisuck.UIModel.DataStructures
+namespace Whydoisuck.UIModel.GraphView
 {
     public class RangeAttemptList
     {

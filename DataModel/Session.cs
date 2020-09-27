@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.MemoryReading;
-using Whydoisuck.UIModel;
 using Whydoisuck.Utilities;
 
-namespace Whydoisuck.DataSaving
+namespace Whydoisuck.DataModel
 {
     public class Session
     {

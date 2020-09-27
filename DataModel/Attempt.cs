@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.DataSaving
+namespace Whydoisuck.DataModel
 {
     public class Attempt
     {
@@ -19,7 +19,7 @@ namespace Whydoisuck.DataSaving
             {
                 return 1;
             }
-            else if(EndPercent < attempt.EndPercent)
+            else if (EndPercent < attempt.EndPercent)
             {
                 return -1;
             }

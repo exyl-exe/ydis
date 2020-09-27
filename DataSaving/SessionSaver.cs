@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
-using Whydoisuck.DataSaving;
+using Whydoisuck.DataModel;
 using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
@@ -29,7 +29,7 @@ namespace Whydoisuck.DataSaving
             group.AddSession(session);
             var entry = new IndexerEntry() { Group = group, Level = session.Level };
             manager.AddEntry(entry);
-            
+
             SaveIndexer(manager);
         }
 
@@ -44,13 +44,14 @@ namespace Whydoisuck.DataSaving
             if (!SafeFile.Exists(IndexFilePath))
             {
                 return new SessionManager();
-            } else
+            }
+            else
             {
                 SessionManager storedManager;
                 var indexerJson = SafeFile.ReadAllText(IndexFilePath);
                 storedManager = JsonConvert.DeserializeObject<SessionManager>(indexerJson);
                 return storedManager;
-            } 
+            }
         }
 
         public static void SaveIndexer(SessionManager manager)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.UIModel.DataStructures;
+using Whydoisuck.UIModel.GraphView;
 
 namespace Whydoisuck.UIModel
 {

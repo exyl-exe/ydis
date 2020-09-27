@@ -7,16 +7,16 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.DataSaving;
-using Whydoisuck.UIModel.DataStructures;
+using Whydoisuck.DataModel;
+using Whydoisuck.UIModel.GraphView;
 
 namespace Whydoisuck.UIModel
 {
     class AttemptGraph
     {
-        private GroupDisplayer Group { get; set; }
+        private SessionGroup Group { get; set; }
 
-        public AttemptGraph(GroupDisplayer group, SessionFilter filter)
+        public AttemptGraph(SessionGroup group)
         {
             Group = group;
         }

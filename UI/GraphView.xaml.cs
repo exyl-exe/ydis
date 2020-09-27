@@ -14,14 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using Whydoisuck.DataSaving;
+using Whydoisuck.DataModel;
 using Whydoisuck.UIModel;
-using Whydoisuck.UIModel.DataStructures;
+using System.Diagnostics;
 
 namespace Whydoisuck.UI
 {
-    /// <summary>
-    /// Logique d'interaction pour GraphView.xaml
-    /// </summary>
     public partial class GraphView : UserControl
     {
         private const int DEFAULT_PASS_RATE = 100;
@@ -101,9 +99,9 @@ namespace Whydoisuck.UI
 
         private void ComboBoxGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var group= comboBoxGroups.SelectedItem as GroupDisplayer;
+            var group= comboBoxGroups.SelectedItem as SessionGroup;
             if (group == null) return;
-            CurrentGraph = new AttemptGraph(group, Filter);
+            CurrentGraph = new AttemptGraph(group);
             UpdateGraph();
         }
 
