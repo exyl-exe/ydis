@@ -46,5 +46,11 @@ namespace Whydoisuck.UIModel
             }
             return res;
         }
+
+        public bool IsNext(LevelPercentData percent, float rangeWidth)
+        {
+            var epsilon = rangeWidth / 2;
+            return PercentRange.Start - percent.PercentRange.Start > rangeWidth + epsilon;
+        }
     }
 }

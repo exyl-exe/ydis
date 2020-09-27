@@ -53,34 +53,35 @@ namespace Whydoisuck.UI
             DataContext = this;
         }
 
-        private ChartValues<ObservablePoint> CreateChartValues(List<LevelPercentData> percents, float rangeWidth)//TODO bordel
+        private ChartValues<ObservablePoint> CreateChartValues(List<LevelPercentData> percents, float rangeWidth)
         {
             var res = new ChartValues<ObservablePoint>();
-            if (percents.Count == 0) return res;
 
-            var lastAdded = percents[0];
-            res.Add(new ObservablePoint(lastAdded.PercentRange.Start, lastAdded.PassRate));
-
-            var epsilon = rangeWidth / 2;//Needed to check if there is a wide gap between 2 values to display
-            for (int i = 1; i < percents.Count; i++)
+            LevelPercentData lastAdded = null;
+            foreach(var percent in percents)
             {
-                var percent = percents[i];
-                if (percent.PercentRange.Start - lastAdded.PercentRange.Start > rangeWidth + epsilon)
-                {
-                    var nextToLast = lastAdded.PercentRange.Start + rangeWidth;
-                    var previousToCurrent = percent.PercentRange.Start - rangeWidth;
-
-                    res.Add(new ObservablePoint(nextToLast, DEFAULT_PASS_RATE));  
-                    if (!percent.PercentRange.Contains(100f) && !(Math.Abs(nextToLast-previousToCurrent)<epsilon))
-                    {
-                        res.Add(new ObservablePoint(previousToCurrent, DEFAULT_PASS_RATE));
-                    }
-                }
+                AddIntermediateValues(res, lastAdded, percent, rangeWidth);
                 res.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));
                 lastAdded = percent;
             }
-
             return res;
+        }
+
+        private void AddIntermediateValues(ChartValues<ObservablePoint> values, LevelPercentData lastAdded, LevelPercentData current, float rangeWidth)
+        {
+            if (lastAdded == null) return;
+            if (!current.IsNext(lastAdded, rangeWidth))
+            {
+                var nextOfLast = lastAdded.PercentRange.Start + rangeWidth;
+                var previousOfCurrent = current.PercentRange.Start - rangeWidth;
+
+                values.Add(new ObservablePoint(nextOfLast, DEFAULT_PASS_RATE));
+                //Don't add a second point if it's the end of the level or if there is a single middle point between values
+                if (!current.PercentRange.Contains(100f) && !(Math.Abs(nextOfLast - previousOfCurrent) < (rangeWidth / 2f)))
+                {
+                    values.Add(new ObservablePoint(previousOfCurrent, DEFAULT_PASS_RATE));
+                }
+            }
         }
 
         private void ToggleCopy(object sender, EventArgs e)
