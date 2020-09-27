@@ -9,7 +9,7 @@ using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
 {
-    class Session
+    public class Session
     {
         public Level Level { get; set; }
         public bool IsCopyRun { get; set; }

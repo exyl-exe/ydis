@@ -26,7 +26,7 @@
                         <ComboBox Name="comboBoxGroups"
                                   HorizontalContentAlignment="Center"
                                   DockPanel.Dock="Left"
-                                  SelectionChanged="comboBoxGroups_SelectionChanged">
+                                  SelectionChanged="ComboBoxGroups_SelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding GroupName}" FontSize="20" />
@@ -63,7 +63,7 @@
                         <lvc:CartesianChart.Series>
                             <lvc:LineSeries
                                 Title="Level"
-                                Name="LevelChartSerie"
+                                Name="LevelChart"
                                 LineSmoothness="0.01"
                                 PointGeometrySize="10"
                                 Configuration="{Binding Mapper}"></lvc:LineSeries>

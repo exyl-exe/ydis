@@ -8,7 +8,7 @@ using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.DataSaving
 {
-    class Level
+    public class Level
     {
         const int GT = 1;
         const int EQ = 0;

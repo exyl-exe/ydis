@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.UI;
+using Whydoisuck.UIModel;
 using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving

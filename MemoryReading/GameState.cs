@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.MemoryReading
 {
-    class GameState
+    public class GameState
     {           
         public GDLoadedLevel LoadedLevel { get; set; }
         public GDLevelMetadata LevelMetadata { get; set; }
         public GDPlayerInfos PlayerObject { get; set; }
     }
 
-    class GDLoadedLevel
+    public class GDLoadedLevel
     {
         public bool IsRunning { get; set; }
         public bool IsTestmode { get; set; }
@@ -22,7 +22,7 @@ namespace Whydoisuck.MemoryReading
         public float StartPosition { get; set; }
     }
 
-    class GDLevelMetadata
+    public class GDLevelMetadata
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -36,7 +36,7 @@ namespace Whydoisuck.MemoryReading
         public float MusicOffset { get; set; }
     }
 
-    class GDPlayerInfos
+    public class GDPlayerInfos
     {
         public float XPosition { get; set; }
         public bool IsDead { get; set; }

@@ -6,9 +6,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
 
-namespace Whydoisuck.UI
+namespace Whydoisuck.UIModel
 {
-    class GroupDisplayer
+    public class GroupDisplayer
     {
         public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
         public string GroupName { get; set; }

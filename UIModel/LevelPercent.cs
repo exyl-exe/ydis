@@ -8,8 +8,10 @@ using Whydoisuck.UIModel.DataStructures;
 
 namespace Whydoisuck.UIModel
 {
-    class LevelPercentData
-    { 
+    public class LevelPercentData
+    {
+        private const int COMPLETE_PASS_RATE = 100;
+
         public Range PercentRange { get; set; }
         public int ReachCount { get; set; }
         public int DeathCount { get; set; }
@@ -17,6 +19,7 @@ namespace Whydoisuck.UIModel
             get
             {
                 if (ReachCount == 0) return 0;
+                if (PercentRange.Contains(100f)) return COMPLETE_PASS_RATE;
                 return 100*(1-(float)DeathCount/(float)ReachCount);
             }
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.DataSaving
 {
-    class Attempt
+    public class Attempt
     {
         public int Number { get; set; }
         public float EndPercent { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.UIModel.DataStructures
 {
-    class Range
+    public class Range
     {
         public float Start { get; set; }
         public float End { get; set; }
