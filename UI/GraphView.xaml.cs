@@ -56,23 +56,24 @@ namespace Whydoisuck.UI
         private ChartValues<ObservablePoint> CreateChartValues(List<LevelPercentData> percents, float rangeWidth)//TODO bordel
         {
             var res = new ChartValues<ObservablePoint>();
-
             if (percents.Count == 0) return res;
 
             var lastAdded = percents[0];
-
             res.Add(new ObservablePoint(lastAdded.PercentRange.Start, lastAdded.PassRate));
 
-            var epsilon = rangeWidth / 2;
+            var epsilon = rangeWidth / 2;//Needed to check if there is a wide gap between 2 values to display
             for (int i = 1; i < percents.Count; i++)
             {
                 var percent = percents[i];
                 if (percent.PercentRange.Start - lastAdded.PercentRange.Start > rangeWidth + epsilon)
                 {
-                    res.Add(new ObservablePoint(lastAdded.PercentRange.Start + rangeWidth, DEFAULT_PASS_RATE));
-                    if (!percent.PercentRange.Contains(100f))
+                    var nextToLast = lastAdded.PercentRange.Start + rangeWidth;
+                    var previousToCurrent = percent.PercentRange.Start - rangeWidth;
+
+                    res.Add(new ObservablePoint(nextToLast, DEFAULT_PASS_RATE));  
+                    if (!percent.PercentRange.Contains(100f) && !(Math.Abs(nextToLast-previousToCurrent)<epsilon))
                     {
-                        res.Add(new ObservablePoint(percent.PercentRange.Start - rangeWidth, DEFAULT_PASS_RATE));
+                        res.Add(new ObservablePoint(previousToCurrent, DEFAULT_PASS_RATE));
                     }
                 }
                 res.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));

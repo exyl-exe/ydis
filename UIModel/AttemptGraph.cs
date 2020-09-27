@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.DataSaving;
 using Whydoisuck.UIModel.DataStructures;
 
 namespace Whydoisuck.UIModel
@@ -20,46 +21,45 @@ namespace Whydoisuck.UIModel
             Filter = filter;
         }
 
-        public List<LevelPercentData> GetLevelPercentsData(float rangeWidth)//TODO défintivement un gros bordel
+        private List<Session> GetRelevantSessions()
+        {
+            var sessions = Group.GroupSessions.Where(s => Filter.Matches(s)).ToList();
+            sessions.Sort(Session.CompareStart);
+            return sessions;
+        }
+
+        public List<LevelPercentData> GetLevelPercentsData(float rangeWidth)
         {
             if (Group == null) return null;
 
-            var sessions = Group.GroupSessions.Where(s => Filter.Matches(s)).ToList();
-            var attempts = sessions
-                .SelectMany(s => s.Attempts.Select(a => new SessionAttempt() { Attempt = a, Session = s }).ToList())
-                .ToList();
+            var res = new List<LevelPercentData>();
 
-            sessions.Sort((s, s2) => (int)((s.StartPercent - s2.StartPercent) / Math.Abs(s.StartPercent - s2.StartPercent)));
-            var sessionIndex = 0;
-
+            var sessions = GetRelevantSessions();
+            var attempts = sessions.SelectMany(s => s.GetSessionAttempts()).ToList();
+ 
             var attDictionary = GetAttemptRangeList(attempts, rangeWidth);
-            var percents = new List<LevelPercentData>();
+            var sessionIndex = 0;
             var reachCount = 0;
+
             for (var i = 0; i < attDictionary.Count; i++)
             {
                 var attemptsOfGroup = attDictionary.At(i);
                 var range = GetRange(attemptsOfGroup[0].Attempt.EndPercent, rangeWidth);
+                var deathCount = attemptsOfGroup.Count;
 
-                while (sessionIndex < sessions.Count
-                    && (range.Contains(sessions[sessionIndex].StartPercent) || sessions[sessionIndex].StartPercent < range.Start))
+                //Update reach count
+                while (sessionIndex < sessions.Count && (range.GreaterEquals(sessions[sessionIndex].StartPercent)))
                 {
                     reachCount += sessions[sessionIndex].Attempts.Count;
                     sessionIndex++;
                 }
+                var currentPercentData = new LevelPercentData(range, reachCount, deathCount);
+                res.Add(currentPercentData);
 
-                var deathCount = attemptsOfGroup.Count;
-
-                var currentPercentData = new LevelPercentData
-                {
-                    PercentRange = range,
-                    ReachCount = reachCount,
-                    DeathCount = deathCount,
-                };
-                percents.Add(currentPercentData);
                 reachCount -= deathCount;
             }
-            percents.Sort((p1, p2) => p1.Compare(p2));
-            return percents;
+            res.Sort((p1, p2) => p1.Compare(p2));
+            return res;
         }
 
         private SelectDictionary<SessionAttempt, List<SessionAttempt>> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)

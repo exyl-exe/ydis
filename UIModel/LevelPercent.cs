@@ -24,6 +24,13 @@ namespace Whydoisuck.UIModel
             }
         }
 
+        public LevelPercentData(Range range, int reachCount, int deathCount)
+        {
+            PercentRange = range;
+            ReachCount = reachCount;
+            DeathCount = deathCount;
+        }
+
         public int Compare(LevelPercentData p2)
         {
             int res;

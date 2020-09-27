@@ -21,5 +21,10 @@ namespace Whydoisuck.UIModel.DataStructures
         {
             return Start <= f && f < End;
         }
+
+        public bool GreaterEquals(float f)
+        {
+            return f < End;
+        }
     }
 }

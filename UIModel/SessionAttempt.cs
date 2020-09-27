@@ -7,9 +7,15 @@ using Whydoisuck.DataSaving;
 
 namespace Whydoisuck.UIModel
 {
-    struct SessionAttempt
+    public class SessionAttempt
     {
         public Session Session {get;set;}
         public Attempt Attempt { get; set; }
+
+        public SessionAttempt(Session session, Attempt attempt)
+        {
+            Session = session;
+            Attempt = attempt;
+        }
     }
 }
