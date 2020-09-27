@@ -45,7 +45,7 @@ namespace Whydoisuck.UI
         {
             if (CurrentGroup == null) return;
 
-            var rangeWidth = 100f;
+            var rangeWidth = 1f;
             var percents = GetLevelPercentsData(CurrentGroup, rangeWidth);
 
             LevelChartSerie.Values = CreateValuesFromPercents(percents, rangeWidth);
@@ -110,7 +110,7 @@ namespace Whydoisuck.UI
         {
             var sessions = group.GroupSessions.Where(s => SessionSelectCondition(s)).ToList();
             var attempts = sessions
-                .SelectMany(s => s.Attempts.Select(a => new SessionAttempt() { Attempt = a, Session = s }).ToList())
+                .SelectMany(s => s.Attempts.Select(a => new SessionAttempt() { Attempt = a, Session = s }))
                 .ToList();
 
             sessions.Sort((s, s2) => (int)((s.StartPercent - s2.StartPercent)/Math.Abs(s.StartPercent - s2.StartPercent)));
@@ -124,7 +124,7 @@ namespace Whydoisuck.UI
                 var attemptsOfGroup = attDictionary.At(i);
                 var range = GetRange(attemptsOfGroup[0].Attempt.EndPercent, rangeWidth);
 
-                if (sessionIndex < sessions.Count
+                while (sessionIndex < sessions.Count
                     && (range.Contains(sessions[sessionIndex].StartPercent) || sessions[sessionIndex].StartPercent < range.Start))
                 {
                     reachCount += sessions[sessionIndex].Attempts.Count;
@@ -140,7 +140,6 @@ namespace Whydoisuck.UI
                     DeathCount = deathCount,
                 };
                 percents.Add(currentPercentData);
-
                 reachCount -= deathCount;
             }
             percents.Sort((p1, p2) => p1.Compare(p2));

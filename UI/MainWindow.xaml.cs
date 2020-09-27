@@ -49,7 +49,7 @@ namespace Whydoisuck
 
         private void RefreshLogs(object sender, MouseButtonEventArgs e)
         {
-            LogsTextBlock.Text = TempLogger.Flush();
+            LogsTextBlock.Text = DebugLogger.Flush();
         }
 
         private void LogsVisibility(object sender, ExecutedRoutedEventArgs e)

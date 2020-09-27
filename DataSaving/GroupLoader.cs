@@ -36,7 +36,7 @@ namespace Whydoisuck.DataSaving
                         sessionList.Add(session);
                     } catch (JsonSerializationException)
                     {
-                        TempLogger.AddLog("Couldn't deserialize file : "+SafePath.GetFileName(sessionFile));
+                        DebugLogger.AddLog("Couldn't deserialize file : "+SafePath.GetFileName(sessionFile));
                     }
                 }
                 if (sessionList.Count > 0)

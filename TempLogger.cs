@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck
 {
-    static class TempLogger//TODO remove file
+    static class DebugLogger//TODO remove file
     {
         static List<string> Logs = new List<string>();
         /*public delegate void LogEventHandler(string s);
