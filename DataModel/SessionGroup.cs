@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ namespace Whydoisuck.DataModel
 {
     class SessionGroup
     {
-        public string GroupName { get; set; }
-        public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
+        [JsonProperty(PropertyName = "GroupName")] public string GroupName { get; set; }
+        [JsonIgnore] public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
 
         public bool IsSameGroup(SessionGroup group)
         {
@@ -22,7 +23,7 @@ namespace Whydoisuck.DataModel
         {
             var sessionName = GetSessionName(session);
             var path = SafePath.Combine(GetGroupDirectoryPath(), sessionName);
-            session.CreateSessionFile(path);
+            SessionSaver.SerializeSession(session, path);
         }
 
         private string GetSessionName(Session session)

@@ -9,13 +9,13 @@ using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataModel
 {
-    public class Session
+    public class Session : IWdisSerializable
     {
-        public Level Level { get; set; }
-        public bool IsCopyRun { get; set; }
-        public DateTime StartTime { get; set; }
-        public float StartPercent { get; set; }
-        public List<Attempt> Attempts { get; set; }
+        [JsonProperty(PropertyName = "Level")] public Level Level { get; set; }
+        [JsonProperty(PropertyName = "IsCopyRun")] public bool IsCopyRun { get; set; }
+        [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; }
+        [JsonProperty(PropertyName = "StartPercent")] public float StartPercent { get; set; }
+        [JsonProperty(PropertyName = "Attempts")] public List<Attempt> Attempts { get; set; }
 
         public void AddAttempt(Attempt att)
         {
@@ -30,12 +30,6 @@ namespace Whydoisuck.DataModel
         public string GetDefaultSessionFileName()
         {
             return $"{Level.Name} rev{Level.Revision}";
-        }
-
-        public void CreateSessionFile(string path)
-        {
-            var sessionJson = JsonConvert.SerializeObject(this, Formatting.Indented);
-            SafeFile.WriteAllText(path, sessionJson);
         }
 
         public static int CompareStart(Session s, Session s2)

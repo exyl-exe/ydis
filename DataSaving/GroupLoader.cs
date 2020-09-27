@@ -15,7 +15,7 @@ namespace Whydoisuck.DataSaving
         public static List<SessionGroup> GetAllGroups()//TODO don't deserialize sessions if not needed
         {
             var res = new List<SessionGroup>();
-            var indexer = SessionSaver.LoadSessionManager();
+            var indexer = SessionSaver.DeserializeSessionManager();
 
             var directories = new HashSet<string>();
             foreach(var entry in indexer.Entries)
@@ -31,11 +31,11 @@ namespace Whydoisuck.DataSaving
                 {
                     try
                     {
-                        var jsonData = File.ReadAllText(sessionFile);
-                        var session = JsonConvert.DeserializeObject<Session>(jsonData);
+                        var session = SessionSaver.DeserializeSession(sessionFile);
                         sessionList.Add(session);
                     } catch (JsonSerializationException)
                     {
+                        //TODO
                         DebugLogger.AddLog("Couldn't deserialize file : "+SafePath.GetFileName(sessionFile));
                     }
                 }
@@ -43,7 +43,7 @@ namespace Whydoisuck.DataSaving
                 {
                     var group = new SessionGroup
                     {
-                        GroupName = sessionList[0].Level.Name,
+                        GroupName = sessionList[0].Level.Name,//TODO name selection
                         GroupSessions = sessionList
                     };
                     res.Add(group);

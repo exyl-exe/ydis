@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,8 @@ namespace Whydoisuck.DataSaving
 {
     class IndexerEntry
     {
-        public Level Level { get; set; }
-        public SessionGroup Group { get; set; }
+        [JsonProperty(PropertyName = "Level")] public Level Level { get; set; }
+        [JsonProperty(PropertyName = "Group")] public SessionGroup Group { get; set; }
 
         public bool SameEntry(IndexerEntry entry)
         {

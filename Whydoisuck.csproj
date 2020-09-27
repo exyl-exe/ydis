@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\WDISSerializable.cs" />
     <Compile Include="DataSaving\GroupLoader.cs" />
     <Compile Include="DataSaving\IndexerEntry.cs" />
     <Compile Include="DataSaving\SessionManager.cs" />

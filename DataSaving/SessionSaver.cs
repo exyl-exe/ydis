@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,14 +24,26 @@ namespace Whydoisuck.DataSaving
             {
                 InitDir();
             }
-            SessionManager manager = LoadSessionManager();
+            SessionManager manager = DeserializeSessionManager();
 
             var group = manager.GetGroup(session);
             group.AddSession(session);
             var entry = new IndexerEntry() { Group = group, Level = session.Level };
             manager.AddEntry(entry);
 
-            SaveIndexer(manager);
+            SerializeSessionManager(manager);
+        }
+
+        public static void SerializeSession(Session s, string path)
+        {
+            var sessionJson = JsonConvert.SerializeObject(s, Formatting.Indented);
+            SafeFile.WriteAllText(path, sessionJson);
+        }
+
+        public static Session DeserializeSession(string sessionFile)
+        {
+            var jsonData = File.ReadAllText(sessionFile);
+            return JsonConvert.DeserializeObject<Session>(jsonData);
         }
 
         public static void InitDir()
@@ -39,7 +52,7 @@ namespace Whydoisuck.DataSaving
             SafeFile.WriteAllText(IndexFilePath, JsonConvert.SerializeObject(new SessionManager(), Formatting.Indented));
         }
 
-        public static SessionManager LoadSessionManager()
+        public static SessionManager DeserializeSessionManager()
         {
             if (!SafeFile.Exists(IndexFilePath))
             {
@@ -54,7 +67,7 @@ namespace Whydoisuck.DataSaving
             }
         }
 
-        public static void SaveIndexer(SessionManager manager)
+        public static void SerializeSessionManager(SessionManager manager)
         {
             var indexerUpdatedJson = JsonConvert.SerializeObject(manager, Formatting.Indented);
             SafeFile.WriteAllText(IndexFilePath, indexerUpdatedJson);

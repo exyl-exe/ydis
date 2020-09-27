@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,9 +9,9 @@ using Whydoisuck.DataModel;
 
 namespace Whydoisuck.DataSaving
 {
-    class SessionManager
+    class SessionManager : IWdisSerializable
     {
-        public List<IndexerEntry> Entries { get; set; }
+        [JsonProperty(PropertyName = "Entries")] public List<IndexerEntry> Entries { get; set; }
 
         public SessionManager()
         {
