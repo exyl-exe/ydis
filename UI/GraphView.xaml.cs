@@ -25,12 +25,10 @@ namespace Whydoisuck.UI
     public partial class GraphView : UserControl
     {
         private const int DEFAULT_PASS_RATE = 100;
-
-        private bool NormalToggle { get; set; }
-        private bool CopyToggle { get; set; }
-
         public CartesianMapper<ObservablePoint> Mapper { get; set; }
         private AttemptGraph CurrentGraph { get; set; }
+        private SessionFilter Filter { get; set; } = new SessionFilter(false, false);
+        private float RangeWidth { get; set; } = 1f;
 
         public GraphView()
         {
@@ -41,15 +39,12 @@ namespace Whydoisuck.UI
             .Y(item => item.Y);
         }
 
-        public void UpdateGraph()//TODO clean way to update when a value changes
+        public void UpdateGraph()
         {
             if (CurrentGraph == null) return;
-            var rangeWidth = 1f;
-            CurrentGraph.Filter.ShowCopyRuns = CopyToggle;
-            CurrentGraph.Filter.ShowNormalRuns = NormalToggle;
-            var percents = CurrentGraph.GetLevelPercentsData(rangeWidth);
+            var percents = CurrentGraph.GetLevelPercentsData(Filter, RangeWidth);
             LevelDataGrid.ItemsSource = percents;
-            LevelChart.Values = CreateChartValues(percents, rangeWidth);
+            LevelChart.Values = CreateChartValues(percents, RangeWidth);
             DataContext = this;
         }
 
@@ -86,13 +81,13 @@ namespace Whydoisuck.UI
 
         private void ToggleCopy(object sender, EventArgs e)
         {
-            CopyToggle = (bool)(sender as ToggleButton).IsChecked;
+            Filter.ShowCopyRuns = (bool)(sender as ToggleButton).IsChecked;
             UpdateGraph();
         }
 
         private void ToggleNormal(object sender, EventArgs e)
         {
-            NormalToggle = (bool)(sender as ToggleButton).IsChecked;
+            Filter.ShowNormalRuns = (bool)(sender as ToggleButton).IsChecked;
             UpdateGraph();
         }
 
@@ -107,7 +102,7 @@ namespace Whydoisuck.UI
         {
             var group= comboBoxGroups.SelectedItem as GroupDisplayer;
             if (group == null) return;
-            CurrentGraph = new AttemptGraph(group, new SessionFilter(NormalToggle, CopyToggle));//TODO use current selection filter
+            CurrentGraph = new AttemptGraph(group, Filter);
             UpdateGraph();
         }
 

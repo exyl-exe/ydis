@@ -13,28 +13,26 @@ namespace Whydoisuck.UIModel
     class AttemptGraph
     {
         private GroupDisplayer Group { get; set; }
-        public SessionFilter Filter { get; set; }
 
         public AttemptGraph(GroupDisplayer group, SessionFilter filter)
         {
             Group = group;
-            Filter = filter;
         }
 
-        private List<Session> GetRelevantSessions()
+        private List<Session> GetRelevantSessions(SessionFilter filter)
         {
-            var sessions = Group.GroupSessions.Where(s => Filter.Matches(s)).ToList();
+            var sessions = Group.GroupSessions.Where(s => filter.Matches(s)).ToList();
             sessions.Sort(Session.CompareStart);
             return sessions;
         }
 
-        public List<LevelPercentData> GetLevelPercentsData(float rangeWidth)
+        public List<LevelPercentData> GetLevelPercentsData(SessionFilter filter, float rangeWidth)
         {
             if (Group == null) return null;
 
             var res = new List<LevelPercentData>();
 
-            var sessions = GetRelevantSessions();
+            var sessions = GetRelevantSessions(filter);
             var attempts = sessions.SelectMany(s => s.GetSessionAttempts()).ToList();
  
             var attDictionary = GetAttemptRangeList(attempts, rangeWidth);
