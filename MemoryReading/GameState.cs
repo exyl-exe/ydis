@@ -10,7 +10,7 @@ namespace Whydoisuck.MemoryReading
     {           
         public GDLoadedLevel LoadedLevel { get; set; }
         public GDLevelMetadata LevelMetadata { get; set; }
-        public GDPlayerInfos PlayerObject { get; set; }
+        public GDPlayer PlayerObject { get; set; }
     }
 
     public class GDLoadedLevel
@@ -36,7 +36,7 @@ namespace Whydoisuck.MemoryReading
         public float MusicOffset { get; set; }
     }
 
-    public class GDPlayerInfos
+    public class GDPlayer
     {
         public float XPosition { get; set; }
         public bool IsDead { get; set; }

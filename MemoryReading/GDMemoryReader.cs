@@ -78,20 +78,20 @@ namespace Whydoisuck.MemoryReading
 
             if(levelAddr != NO_LEVEL_LOADED)
             {
-                currentState.LevelMetadata = GetLevelInfos(levelAddr);
-                currentState.LoadedLevel = GetLoadedLevelInfos(levelAddr);
+                currentState.LevelMetadata = GetLevelInfo(levelAddr);
+                currentState.LoadedLevel = GetLoadedLevelInfo(levelAddr);
                 var playerAddr = Reader.ReadInt(levelAddr + playerOffset);
                 if (playerAddr != NO_PLAYER_LOADED)
                 {
-                   currentState.PlayerObject = GetPlayerInfos(playerAddr);
+                   currentState.PlayerObject = GetPlayerInfo(playerAddr);
                 }
             }
             return currentState;
         }
 
-        private GDPlayerInfos GetPlayerInfos(int playerStructAddr)
+        private GDPlayer GetPlayerInfo(int playerStructAddr)
         {
-            return new GDPlayerInfos
+            return new GDPlayer
             {
                 XPosition = Reader.ReadFloat(playerStructAddr + xPositionOffset),
                 IsDead = Reader.ReadBoolean(playerStructAddr + isDeadOffset),
@@ -99,7 +99,7 @@ namespace Whydoisuck.MemoryReading
             };
         }
 
-        private GDLoadedLevel GetLoadedLevelInfos(int levelStructAddr)
+        private GDLoadedLevel GetLoadedLevelInfo(int levelStructAddr)
         {
             return new GDLoadedLevel
             {
@@ -112,7 +112,7 @@ namespace Whydoisuck.MemoryReading
         }
 
 
-        private GDLevelMetadata GetLevelInfos(int levelStructAddr)
+        private GDLevelMetadata GetLevelInfo(int levelStructAddr)
         {
             var levelMetadataAddr = Reader.ReadInt(levelStructAddr + levelMetadataOffset);
             var levelSettingsAddr = Reader.ReadInt(levelStructAddr + levelSettingsOffset);
