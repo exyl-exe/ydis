@@ -67,9 +67,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataModel\WDISSerializable.cs" />
+    <Compile Include="DataModel\SerializedData\SaveManager\SerializedManager.cs" />
+    <Compile Include="DataModel\SerializedData\SerializedAttempt.cs" />
+    <Compile Include="DataModel\SerializedData\SerializedGroup.cs" />
+    <Compile Include="DataModel\SerializedData\SerializedLevel.cs" />
+    <Compile Include="DataModel\SerializedData\SerializedSession.cs" />
+    <Compile Include="DataModel\SerializedData\SaveManager\SerializedManagerEntry.cs" />
+    <Compile Include="DataModel\SerializedData\IWDISSerialized.cs" />
+    <Compile Include="DataModel\IWDISSerializable.cs" />
     <Compile Include="DataSaving\GroupLoader.cs" />
     <Compile Include="DataSaving\IndexerEntry.cs" />
+    <Compile Include="DataSaving\SerializationManager.cs" />
     <Compile Include="DataSaving\SessionManager.cs" />
     <Compile Include="DataSaving\SessionSaver.cs" />
     <Compile Include="MemoryReading\GameState.cs" />

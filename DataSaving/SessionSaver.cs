@@ -31,25 +31,17 @@ namespace Whydoisuck.DataSaving
             var entry = new IndexerEntry() { Group = group, Level = session.Level };
             manager.AddEntry(entry);
 
-            SerializeSessionManager(manager);
+            SerializationManager.Serialize(manager, IndexFilePath);
         }
 
         public static void SerializeSession(Session s, string path)
         {
-            var sessionJson = JsonConvert.SerializeObject(s, Formatting.Indented);
-            SafeFile.WriteAllText(path, sessionJson);
+            SerializationManager.Serialize(s, path);
         }
 
         public static Session DeserializeSession(string sessionFile)
         {
-            var jsonData = File.ReadAllText(sessionFile);
-            return JsonConvert.DeserializeObject<Session>(jsonData);
-        }
-
-        public static void InitDir()
-        {
-            SafeDirectory.CreateDirectory(SAVE_DIR);
-            SafeFile.WriteAllText(IndexFilePath, JsonConvert.SerializeObject(new SessionManager(), Formatting.Indented));
+            return SerializationManager.Deserialize<Session>(sessionFile);
         }
 
         public static SessionManager DeserializeSessionManager()
@@ -60,17 +52,13 @@ namespace Whydoisuck.DataSaving
             }
             else
             {
-                SessionManager storedManager;
-                var indexerJson = SafeFile.ReadAllText(IndexFilePath);
-                storedManager = JsonConvert.DeserializeObject<SessionManager>(indexerJson);
-                return storedManager;
+                return SerializationManager.Deserialize<SessionManager>(IndexFilePath);
             }
         }
 
-        public static void SerializeSessionManager(SessionManager manager)
+        public static void InitDir()
         {
-            var indexerUpdatedJson = JsonConvert.SerializeObject(manager, Formatting.Indented);
-            SafeFile.WriteAllText(IndexFilePath, indexerUpdatedJson);
+            SafeDirectory.CreateDirectory(SAVE_DIR);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.DataModel.SerializedData;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Utilities;
 
@@ -11,8 +12,15 @@ namespace Whydoisuck.DataModel
 {
     class SessionGroup
     {
-        [JsonProperty(PropertyName = "GroupName")] public string GroupName { get; set; }
-        [JsonIgnore] public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
+        public string GroupName { get; set; }
+        public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
+
+        public SessionGroup() { }
+
+        public SessionGroup(SerializedGroup g)
+        {
+            GroupName = g.GroupName;
+        }
 
         public bool IsSameGroup(SessionGroup group)
         {

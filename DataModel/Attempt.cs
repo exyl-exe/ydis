@@ -4,15 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.DataModel.SerializedData;
 
 namespace Whydoisuck.DataModel
 {
     public class Attempt
     {
-        [JsonProperty(PropertyName = "Number")] public int Number { get; set; }
-        [JsonProperty(PropertyName = "EndPercent")] public float EndPercent { get; set; }
-        [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; }
-        [JsonProperty(PropertyName = "Duration")]  public TimeSpan Duration { get; set; }
+        public int Number { get; set; }
+        public float EndPercent { get; set; }
+        public DateTime StartTime { get; set; }
+        public TimeSpan Duration { get; set; }
+
+        public Attempt() { }
+
+        public Attempt(SerializedAttempt a)
+        {
+            Number = a.Number;
+            EndPercent = a.EndPercent;
+            StartTime = a.StartTime;
+            Duration = a.Duration;
+        }
 
         public int Compare(Attempt attempt)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Whydoisuck.DataModel.SerializedData;
 using Whydoisuck.MemoryReading;
 
 namespace Whydoisuck.DataModel
@@ -17,19 +18,34 @@ namespace Whydoisuck.DataModel
 
         public const float LENGTH_EPSILON = 1f;//game space unit
         public const float MUSIC_OFFSET_EPSILON = 0.1f;//seconds
-        [JsonProperty(PropertyName = "ID")] public int ID { get; set; }
-        [JsonProperty(PropertyName = "IsOnline")] public bool IsOnline { get; set; }
-        [JsonProperty(PropertyName = "OriginalID")] public int OriginalID { get; set; }
-        [JsonProperty(PropertyName = "IsOriginal")] public bool IsOriginal { get; set; }
-        [JsonProperty(PropertyName = "Name")] public string Name { get; set; }
-        [JsonProperty(PropertyName = "Revision")] public int Revision { get; set; }
-        [JsonProperty(PropertyName = "PhysicalLength")] public float PhysicalLength { get; set; }
-        [JsonProperty(PropertyName = "IsCustomMusic")] public bool IsCustomMusic { get; set; }
-        [JsonProperty(PropertyName = "MusicID")] public int MusicID { get; set; }
-        [JsonProperty(PropertyName = "OfficialMusicID")] public int OfficialMusicID { get; set; }
-        [JsonProperty(PropertyName = "MusicOffset")] public float MusicOffset { get; set; }
+        public int ID { get; set; }
+        public bool IsOnline { get; set; }
+        public int OriginalID { get; set; }
+        public bool IsOriginal { get; set; }
+        public string Name { get; set; }
+        public int Revision { get; set; }
+        public float PhysicalLength { get; set; }
+        public bool IsCustomMusic { get; set; }
+        public int MusicID { get; set; }
+        public int OfficialMusicID { get; set; }
+        public float MusicOffset { get; set; }
 
         public Level() { }//for json deserializer
+
+        public Level(SerializedLevel l)
+        {
+            ID = l.ID;
+            IsOnline = l.IsOnline;
+            OriginalID = l.OriginalID;
+            IsOriginal = l.IsOriginal;
+            Name = l.Name;
+            Revision = l.Revision;
+            PhysicalLength = l.PhysicalLength;
+            IsCustomMusic = l.IsCustomMusic;
+            MusicID = l.MusicID;
+            OfficialMusicID = l.OfficialMusicID;
+            MusicOffset = l.MusicOffset;
+        }
 
         public Level(GameState state)
         {

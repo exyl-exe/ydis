@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.DataModel;
+using Whydoisuck.DataModel.SerializedData.SaveManager;
 
 namespace Whydoisuck.DataSaving
 {
-    class SessionManager : IWdisSerializable
+    class SessionManager : IWDISSerializable
     {
-        [JsonProperty(PropertyName = "Entries")] public List<IndexerEntry> Entries { get; set; }
+        public List<IndexerEntry> Entries { get; set; }
 
         public SessionManager()
         {
@@ -76,6 +77,18 @@ namespace Whydoisuck.DataSaving
                 }
             }
             return true;
+        }
+
+        public string GetSerializedObject()
+        {
+            var serializedManager = new SerializedManager(this);
+            return serializedManager.Serialize();
+        }
+
+        public void InitFromSerialized(string value)
+        {
+            var serializedManager = new SerializedManager(value);
+            Entries = serializedManager.Entries.Select(e => (new IndexerEntry(e))).ToList();
         }
     }
 }
