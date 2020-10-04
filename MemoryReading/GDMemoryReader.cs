@@ -76,14 +76,14 @@ namespace Whydoisuck.MemoryReading
             var currentState = new GameState() { LevelMetadata = null, PlayerObject = null };
             var levelAddr = Reader.ReadInt(commonAddr + levelOffset);
 
-            if(levelAddr != NO_LEVEL_LOADED)
+            if (levelAddr != NO_LEVEL_LOADED)
             {
                 currentState.LevelMetadata = GetLevelInfo(levelAddr);
                 currentState.LoadedLevel = GetLoadedLevelInfo(levelAddr);
                 var playerAddr = Reader.ReadInt(levelAddr + playerOffset);
                 if (playerAddr != NO_PLAYER_LOADED)
                 {
-                   currentState.PlayerObject = GetPlayerInfo(playerAddr);
+                    currentState.PlayerObject = GetPlayerInfo(playerAddr);
                 }
             }
             return currentState;
@@ -126,7 +126,7 @@ namespace Whydoisuck.MemoryReading
                 ID = levelID,
                 IsOnline = (levelID != 0),//lazyness
                 OriginalID = originalID,
-                IsOriginal = (originalID==0),//lazyness v2
+                IsOriginal = (originalID == 0),//lazyness v2
                 Name = levelName,
                 Revision = Reader.ReadInt(levelMetadataAddr + revOffset),
                 MusicID = musicID,

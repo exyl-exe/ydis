@@ -30,7 +30,8 @@ namespace Whydoisuck.UI
         public SessionGroup GraphViewSessionGroup
         {
             get { return (SessionGroup)GetValue(GroupProperty); }
-            set {
+            set
+            {
                 SetValue(GroupProperty, value);
             }
         }
@@ -56,7 +57,7 @@ namespace Whydoisuck.UI
         {
             var value = (SessionGroup)args.NewValue;
             if (value == null && instance != null) return;
-            
+
             instance.CurrentGraph = new AttemptGraph(value);
             instance.UpdateGraph();
         }
@@ -76,13 +77,13 @@ namespace Whydoisuck.UI
             var res = new List<ObservablePoint>();
 
             LevelPercentData lastAdded = null;
-            foreach(var percent in percents)
+            foreach (var percent in percents)
             {
                 AddIntermediateValues(res, lastAdded, percent, rangeWidth);
                 res.Add(new ObservablePoint(percent.PercentRange.Start, percent.PassRate));
                 lastAdded = percent;
             }
-            res.Sort((o, o2) => (int)((o.X - o2.X)/Math.Abs(o.X - o2.X)));
+            res.Sort((o, o2) => (int)((o.X - o2.X) / Math.Abs(o.X - o2.X)));
             return new ChartValues<ObservablePoint>(res);
         }
 

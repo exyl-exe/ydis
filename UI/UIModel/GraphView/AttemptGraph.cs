@@ -36,7 +36,7 @@ namespace Whydoisuck.UIModel
 
             var sessions = GetRelevantSessions(filter);
             var attempts = sessions.SelectMany(s => s.GetSessionAttempts()).ToList();
- 
+
             var attDictionary = GetAttemptRangeList(attempts, rangeWidth);
             var sessionIndex = 0;
             var reachCount = 0;
@@ -64,7 +64,7 @@ namespace Whydoisuck.UIModel
 
         private List<RangeAttemptList> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)
         {
-            attempts.Sort((a,a2)=>a.Attempt.Compare(a2.Attempt));
+            attempts.Sort((a, a2) => a.Attempt.Compare(a2.Attempt));
             var res = new List<RangeAttemptList>();
             RangeAttemptList currentRange = null;
             foreach (var a in attempts)

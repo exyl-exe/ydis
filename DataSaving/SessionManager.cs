@@ -27,7 +27,7 @@ namespace Whydoisuck.DataSaving
 
         public void AddEntry(IndexerEntry entry)
         {
-            foreach(var existingEntry in Entries)
+            foreach (var existingEntry in Entries)
             {
                 if (existingEntry.SameEntry(entry))
                 {
@@ -39,7 +39,7 @@ namespace Whydoisuck.DataSaving
 
         public SessionGroup GetGroup(Session session)
         {
-            if(Entries.Count > 0)
+            if (Entries.Count > 0)
             {
                 SortEntriesBySimilarityTo(session.Level);
                 var mostLikely = Entries[0];
@@ -69,7 +69,7 @@ namespace Whydoisuck.DataSaving
 
         private bool IsGroupNameAvailable(string groupName)//TODO potentially laggy if called repeatedly, might be worth to sort list OR to check save directory directly
         {
-            foreach(var e in Entries)
+            foreach (var e in Entries)
             {
                 if (e.Group.GroupName.Equals(groupName))
                 {

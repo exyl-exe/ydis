@@ -25,13 +25,15 @@ namespace Whydoisuck
     public partial class MainWindow : Window
     {
         public SessionGroup CurrentGroup { get; set; }
-        public string CurrentGroupName {
+        public string CurrentGroupName
+        {
             get
             {
                 if (CurrentGroup != null)
                 {
                     return CurrentGroup.GroupName;
-                } else
+                }
+                else
                 {
                     return "Click to select a level";
                 }
@@ -56,7 +58,7 @@ namespace Whydoisuck
             CommandBindings.Add(new CommandBinding(LogCommand, LogsVisibility));
 
             LogsPanel.MouseDown += RefreshLogs;
-            
+
             recorder = new Recorder();
             recorder.StartRecording();
         }
@@ -73,10 +75,11 @@ namespace Whydoisuck
 
         private void LogsVisibility(object sender, ExecutedRoutedEventArgs e)
         {
-            if(LogsView.Visibility == Visibility.Collapsed)
+            if (LogsView.Visibility == Visibility.Collapsed)
             {
                 LogsView.Visibility = Visibility.Visible;
-            } else
+            }
+            else
             {
                 LogsView.Visibility = Visibility.Collapsed;
             }

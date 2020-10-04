@@ -15,12 +15,13 @@ namespace Whydoisuck.UIModel
         public Range PercentRange { get; set; }
         public int ReachCount { get; set; }
         public int DeathCount { get; set; }
-        public float PassRate {
+        public float PassRate
+        {
             get
             {
                 if (ReachCount == 0) return 0;
                 if (PercentRange.Contains(100f)) return COMPLETE_PASS_RATE;
-                return 100*(1-(float)DeathCount/(float)ReachCount);
+                return 100 * (1 - (float)DeathCount / (float)ReachCount);
             }
         }
 
@@ -34,13 +35,15 @@ namespace Whydoisuck.UIModel
         public int Compare(LevelPercentData p2)
         {
             int res;
-            if(PercentRange.Start > p2.PercentRange.Start)
+            if (PercentRange.Start > p2.PercentRange.Start)
             {
                 res = 1;
-            } else if(PercentRange.Start < p2.PercentRange.Start)
+            }
+            else if (PercentRange.Start < p2.PercentRange.Start)
             {
                 res = -1;
-            } else
+            }
+            else
             {
                 res = 0;
             }

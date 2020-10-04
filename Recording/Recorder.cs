@@ -33,7 +33,7 @@ namespace Whydoisuck.DataSaving
         public void StopRecording()
         {
             GameWatcher.StopWatching();
-        }  
+        }
 
         //Called when entering a level, ensure a session is created before an attempt needs to be saved
         //However, while its metadata is fully loaded, the level is not

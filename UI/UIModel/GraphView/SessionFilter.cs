@@ -23,7 +23,8 @@ namespace Whydoisuck.UIModel
             if (s.IsCopyRun)
             {
                 return ShowCopyRuns;
-            } else
+            }
+            else
             {
                 return ShowNormalRuns;
             }

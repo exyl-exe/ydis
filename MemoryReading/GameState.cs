@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Whydoisuck.MemoryReading
 {
     public class GameState
-    {           
+    {
         public GDLoadedLevel LoadedLevel { get; set; }
         public GDLevelMetadata LevelMetadata { get; set; }
         public GDPlayer PlayerObject { get; set; }

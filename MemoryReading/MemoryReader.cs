@@ -22,7 +22,7 @@ namespace Whydoisuck.MemoryReading
         public bool IsProcessOpened { get { return Process != null && !Process.HasExited; } }
         public Process Process { get; set; }
         private IntPtr ProcessHandle { get; set; }
-        
+
         public bool AttachTo(string processName)
         {
             bool success = false;
@@ -45,10 +45,11 @@ namespace Whydoisuck.MemoryReading
             byte[] result;
             byte[] buffer = new byte[size];
             ReadProcessMemory((int)ProcessHandle, address, buffer, size, ref bytesRead);
-            if(bytesRead == size)
+            if (bytesRead == size)
             {
                 return buffer;
-            } else
+            }
+            else
             {
                 result = new byte[bytesRead];
                 Array.Copy(buffer, result, bytesRead);
@@ -77,7 +78,8 @@ namespace Whydoisuck.MemoryReading
             try
             {
                 return BitConverter.ToSingle(ReadBytes(address, 4), 0);
-            } catch
+            }
+            catch
             {
                 throw;
             }

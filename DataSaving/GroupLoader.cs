@@ -18,12 +18,12 @@ namespace Whydoisuck.DataSaving
             var indexer = SessionSaver.DeserializeSessionManager();
 
             var directories = new HashSet<string>();
-            foreach(var entry in indexer.Entries)
+            foreach (var entry in indexer.Entries)
             {
                 directories.Add(entry.Group.GetGroupDirectoryPath());
             }
 
-            foreach(var dir in directories)
+            foreach (var dir in directories)
             {
                 var sessionList = new List<Session>();
                 var files = SafeDirectory.GetFiles(dir);
@@ -33,10 +33,11 @@ namespace Whydoisuck.DataSaving
                     {
                         var session = SessionSaver.DeserializeSession(sessionFile);
                         sessionList.Add(session);
-                    } catch (JsonSerializationException)
+                    }
+                    catch (JsonSerializationException)
                     {
                         //TODO
-                        DebugLogger.AddLog("Couldn't deserialize file : "+SafePath.GetFileName(sessionFile));
+                        DebugLogger.AddLog("Couldn't deserialize file : " + SafePath.GetFileName(sessionFile));
                     }
                 }
                 if (sessionList.Count > 0)
@@ -49,7 +50,7 @@ namespace Whydoisuck.DataSaving
                     res.Add(group);
                 }
             }
-            res.Sort( (g1, g2) => string.Compare(g1.GroupName, g2.GroupName) );
+            res.Sort((g1, g2) => string.Compare(g1.GroupName, g2.GroupName));
             return res;
         }
     }
