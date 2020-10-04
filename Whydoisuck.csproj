@@ -88,17 +88,20 @@
     <Compile Include="DataModel\Session.cs" />
     <Compile Include="DataModel\SessionGroup.cs" />
     <Compile Include="TempLogger.cs" />
-    <Compile Include="UIModel\GraphView\AttemptGraph.cs" />
-    <Compile Include="UIModel\GraphView\RangeAttemptList.cs" />
-    <Compile Include="UIModel\GraphView\LevelPercent.cs" />
-    <Compile Include="UIModel\GraphView\Range.cs" />
+    <Compile Include="UI\GroupView.xaml.cs">
+      <DependentUpon>GroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SessionsView.xaml.cs">
+      <DependentUpon>SessionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UIModel\GraphView\AttemptGraph.cs" />
+    <Compile Include="UI\UIModel\GraphView\RangeAttemptList.cs" />
+    <Compile Include="UI\UIModel\GraphView\LevelPercent.cs" />
+    <Compile Include="UI\UIModel\GraphView\Range.cs" />
     <Compile Include="DataModel\SessionAttempt.cs" />
-    <Compile Include="UIModel\GraphView\SessionFilter.cs" />
+    <Compile Include="UI\UIModel\GraphView\SessionFilter.cs" />
     <Compile Include="UI\GraphView.xaml.cs">
       <DependentUpon>GraphView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\GroupDebug.xaml.cs">
-      <DependentUpon>GroupDebug.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\SafeDirectory.cs" />
     <Compile Include="Utilities\SafeFile.cs" />
@@ -107,7 +110,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\GroupDebug.xaml">
+    <Page Include="UI\GroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +128,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\SessionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

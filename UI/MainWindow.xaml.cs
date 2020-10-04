@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Whydoisuck.MemoryReading;
 using Whydoisuck.DataSaving;
+using Whydoisuck.DataModel;
 
 namespace Whydoisuck
 {
@@ -23,10 +24,31 @@ namespace Whydoisuck
     /// </summary>
     public partial class MainWindow : Window
     {
+        public SessionGroup CurrentGroup { get; set; }
+        public string CurrentGroupName {
+            get
+            {
+                if (CurrentGroup != null)
+                {
+                    return CurrentGroup.GroupName;
+                } else
+                {
+                    return "Click to select a level";
+                }
+            }
+        }
+
         private Recorder recorder;
         public static RoutedCommand LogCommand = new RoutedCommand();
         public MainWindow()
         {
+
+            var groups = GroupLoader.GetAllGroups();//TODO
+            if (groups.Count > 0)
+            {
+                CurrentGroup = groups[0];
+            }
+
             InitializeComponent();
             Closing += ApplicationExit;
 
@@ -34,7 +56,6 @@ namespace Whydoisuck
             CommandBindings.Add(new CommandBinding(LogCommand, LogsVisibility));
 
             LogsPanel.MouseDown += RefreshLogs;
-            AllGroups.GroupList.ItemsSource = GroupLoader.GetAllGroups();
             
             recorder = new Recorder();
             recorder.StartRecording();
@@ -44,8 +65,6 @@ namespace Whydoisuck
         {
             recorder.StopRecording();
         }
-
-
 
         private void RefreshLogs(object sender, MouseButtonEventArgs e)
         {

@@ -22,6 +22,19 @@ namespace Whydoisuck.UI
 {
     public partial class GraphView : UserControl
     {
+        public static DependencyProperty GroupProperty =
+        DependencyProperty.Register("SessionGroup", typeof(SessionGroup), typeof(GroupView));
+        public SessionGroup SessionGroup
+        {
+            get { return (SessionGroup)GetValue(GroupProperty); }
+            set {
+                SetValue(GroupProperty, value);
+                if (value == null) return;
+                CurrentGraph = new AttemptGraph(value);
+                UpdateGraph();
+            }
+        }
+
         private const int DEFAULT_PASS_RATE = 100;
         public CartesianMapper<ObservablePoint> Mapper { get; set; }
         private AttemptGraph CurrentGraph { get; set; }
@@ -31,7 +44,6 @@ namespace Whydoisuck.UI
         public GraphView()
         {
             InitializeComponent();
-            RefreshGroups();//TODO proper refresh
             Mapper = Mappers.Xy<ObservablePoint>()
             .X((item, index) => item.X)
             .Y(item => item.Y);
@@ -95,25 +107,6 @@ namespace Whydoisuck.UI
             ScrollViewer scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
-        }
-
-        private void ComboBoxGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var group= comboBoxGroups.SelectedItem as SessionGroup;
-            if (group == null) return;
-            CurrentGraph = new AttemptGraph(group);
-            UpdateGraph();
-        }
-
-        private void RefreshGroupsButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            RefreshGroups();
-        }
-
-        private void RefreshGroups()
-        {
-            var groups = GroupLoader.GetAllGroups();
-            comboBoxGroups.ItemsSource = groups;
         }
     }
 }

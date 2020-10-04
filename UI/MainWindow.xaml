@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Whydoisuck"
         xmlns:wp="clr-namespace:Whydoisuck.UI"
         mc:Ignorable="d"
-        Title="Why do I suck" Height="980" Width="860">
+        Title="Why do I suck" Height="980" Width="860"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Name="mainGrid">
         <DockPanel Margin="2,2,2,2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Border Name ="LogsView" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Left" Visibility="Collapsed">
@@ -19,14 +20,15 @@
                     </ScrollViewer>
                 </DockPanel>
             </Border>
-            <TabControl>
-                <TabItem Header="Debug">
-                    <wp:GroupDebug x:Name="AllGroups"></wp:GroupDebug>
-                </TabItem>
-                <TabItem Header="Graph">
-                    <wp:GraphView x:Name="Graph"></wp:GraphView>
-                </TabItem>
-            </TabControl>
+            <DockPanel Grid.Column="0" Grid.ColumnSpan="2" DockPanel.Dock="Top">
+                <Button Name="RefreshGroupsButton" DockPanel.Dock="Right">
+                    <TextBlock
+                        Text="{Binding CurrentGroupName}"
+                        FontSize="30"
+                        TextWrapping="Wrap"/>
+                </Button>
+            </DockPanel>
+            <wp:GroupView x:Name="GroupView" SessionGroup="{Binding CurrentGroup}"></wp:GroupView>
         </DockPanel>
     </Grid>
 </Window>

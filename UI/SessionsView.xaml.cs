@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.DataSaving;
 
 namespace Whydoisuck.UI
 {
     /// <summary>
-    /// Logique d'interaction pour GroupDebug.xaml
+    /// Logique d'interaction pour SessionsView.xaml
     /// </summary>
-    public partial class GroupDebug : UserControl
+    public partial class SessionsView : UserControl
     {
-        public GroupDebug()
+        public SessionsView()
         {
             InitializeComponent();
-            refreshButton.Click += RefreshList;
         }
 
         private void ScrollViewerPreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -32,11 +30,6 @@ namespace Whydoisuck.UI
             ScrollViewer scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
-        }
-
-        private void RefreshList(object sender, EventArgs e)
-        {
-            GroupList.ItemsSource = GroupLoader.GetAllGroups();
         }
     }
 }

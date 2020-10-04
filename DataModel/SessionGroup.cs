@@ -10,7 +10,7 @@ using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataModel
 {
-    class SessionGroup
+    public class SessionGroup
     {
         public string GroupName { get; set; }
         public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
