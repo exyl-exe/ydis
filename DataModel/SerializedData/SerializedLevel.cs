@@ -28,6 +28,7 @@ namespace Whydoisuck.DataModel.SerializedData
             ID = l.ID;
             IsOnline = l.IsOnline;
             OriginalID = l.OriginalID;
+            IsOriginal = l.IsOriginal;
             Name = l.Name;
             Revision = l.Revision;
             PhysicalLength = l.PhysicalLength;

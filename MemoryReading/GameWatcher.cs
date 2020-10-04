@@ -9,10 +9,12 @@ namespace Whydoisuck.MemoryReading
 {
     static class GameWatcher
     {
-        private static int Delay { get; set; } = 10;//ms
+        private static int Delay { get; set; } = 0;//ms
         private static bool IsRecording { get; set; }
         private static GDMemoryReader Reader { get; set; } = new GDMemoryReader();
         private static GameState PreviousState { get; set; }
+        private static AttemptState CurrentAttempt { get; set; }
+
 
         public delegate void GameInfoCallback(GameState gameState);
         public delegate void LevelInfoCallback(GDLevelMetadata level);
@@ -25,16 +27,6 @@ namespace Whydoisuck.MemoryReading
         public static event GameInfoCallback OnPlayerDies;
         public static event GameInfoCallback OnPlayerRestarts;
         public static event GameInfoCallback OnPlayerSpawns;
-
-        /*
-         Cycle of events :
-         OnLevelEntered
-         OnLevelStarted
-         loop:
-            OnPlayerSpawns
-            OnPlayerWins || OnPlayersDies
-         OnLevelExited
-         */
 
         public static void StartWatching()
         {
@@ -109,6 +101,7 @@ namespace Whydoisuck.MemoryReading
                 if (currentState.LoadedLevel.IsRunning && (previousState.LoadedLevel == null || !previousState.LoadedLevel.IsRunning))
                 {
                     OnLevelStarted?.Invoke(currentState);
+                    CurrentAttempt = new AttemptState(currentState.LoadedLevel.AttemptNumber);
                 }
             }
         }
@@ -118,24 +111,25 @@ namespace Whydoisuck.MemoryReading
             if (currentState.PlayerObject != null && previousState.PlayerObject != null && currentState.LoadedLevel.IsRunning)
             {
                 HandlePlayerRestarts(previousState, currentState);
-                HandlePlayerDeath(previousState, currentState);
+                HandlePlayerDeath(currentState);
                 HandlePlayerWin(previousState, currentState);
-                HandleRespawn(previousState, currentState);
+                HandleRespawn(currentState);
             }
         }
 
-        private static void HandleRespawn(GameState previousState, GameState currentState)
+        private static void HandleRespawn(GameState currentState)
         {
-            if (currentState.LoadedLevel.AttemptNumber != previousState.LoadedLevel.AttemptNumber ||//Classic respawn
-                previousState.PlayerObject.HasWon && !currentState.PlayerObject.HasWon)//Attempt winning respawn
+            if (currentState.LoadedLevel.AttemptNumber != CurrentAttempt.Number ||//Classic respawn
+                CurrentAttempt.HasWon && !currentState.PlayerObject.HasWon)//TODO attempt 1
             {
                 OnPlayerSpawns?.Invoke(currentState);
+                CurrentAttempt = new AttemptState(currentState.LoadedLevel.AttemptNumber);
             }
         }
 
         private static void HandlePlayerRestarts(GameState previousState, GameState currentState)//Manual restart
         {
-            if (currentState.LoadedLevel.AttemptNumber != previousState.LoadedLevel.AttemptNumber && !previousState.PlayerObject.HasWon && !previousState.PlayerObject.IsDead)
+            if (currentState.LoadedLevel.AttemptNumber != CurrentAttempt.Number && !CurrentAttempt.HasEnded) //TODO would be better to use position ?
             {
                 OnPlayerRestarts?.Invoke(previousState);
             }
@@ -145,19 +139,44 @@ namespace Whydoisuck.MemoryReading
         {
             if (currentState.PlayerObject.HasWon && !previousState.PlayerObject.HasWon)
             {
+                CurrentAttempt.HasWon = true;
                 OnPlayerWins?.Invoke(currentState);
             }
         }
 
-        private static void HandlePlayerDeath(GameState previousState, GameState currentState)
+        private static void HandlePlayerDeath(GameState currentState)
         {
-            if (currentState.PlayerObject.IsDead &&//player is dead
-                (!previousState.PlayerObject.IsDead//previously not dead
-                || previousState.PlayerObject.HasWon//previously had won = instant death on respawn after win (how is that possible)
-                || previousState.LoadedLevel.AttemptNumber != currentState.LoadedLevel.AttemptNumber))//previously not same attempt = instant death on respawn
+            if (currentState.PlayerObject.IsDead)
             {
-                OnPlayerDies?.Invoke(currentState);
+                if (!CurrentAttempt.HasDied)
+                //Most common case, player went from alive to dead
+                {
+                    OnPlayerDies?.Invoke(currentState);
+                }
+
+                if (CurrentAttempt.Number != currentState.LoadedLevel.AttemptNumber)
+                //Dead and previously not same attempt, the player died on the first frame after respawning
+                {
+                    OnPlayerDies?.Invoke(currentState);
+                }
+
+                CurrentAttempt.HasDied = true;
             }
         }
+    }
+
+    class AttemptState
+    {
+        public AttemptState(int number)
+        {
+            Number = number;
+            HasDied = false;
+            HasWon = false;
+        }
+
+        public int Number { get; private set; }
+        public bool HasDied { get; set; }
+        public bool HasWon { get; set; }
+        public bool HasEnded { get { return HasWon || HasDied; } }
     }
 }

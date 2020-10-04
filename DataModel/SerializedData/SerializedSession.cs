@@ -31,7 +31,6 @@ namespace Whydoisuck.DataModel.SerializedData
 
         public SerializedSession(Session s)
         {
-            DebugLogger.AddLog(s.Level.ID+"");
             Level = new SerializedLevel(s.Level);
             IsCopyRun = s.IsCopyRun;
             StartTime = s.StartTime;
