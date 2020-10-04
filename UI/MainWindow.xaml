@@ -28,7 +28,7 @@
                         TextWrapping="Wrap"/>
                 </Button>
             </DockPanel>
-            <wp:GroupView x:Name="GroupView" SessionGroup="{Binding CurrentGroup}"></wp:GroupView>
+            <wp:GroupView x:Name="GroupView" GroupViewSessionGroup="{Binding CurrentGroup}"></wp:GroupView>
         </DockPanel>
     </Grid>
 </Window>

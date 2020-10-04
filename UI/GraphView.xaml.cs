@@ -23,17 +23,19 @@ namespace Whydoisuck.UI
     public partial class GraphView : UserControl
     {
         public static DependencyProperty GroupProperty =
-        DependencyProperty.Register("SessionGroup", typeof(SessionGroup), typeof(GroupView));
-        public SessionGroup SessionGroup
+            DependencyProperty.Register("GraphViewSessionGroup",
+                                        typeof(SessionGroup),
+                                        typeof(GraphView),
+                                        new PropertyMetadata(DataChangeCallback));
+        public SessionGroup GraphViewSessionGroup
         {
             get { return (SessionGroup)GetValue(GroupProperty); }
             set {
                 SetValue(GroupProperty, value);
-                if (value == null) return;
-                CurrentGraph = new AttemptGraph(value);
-                UpdateGraph();
             }
         }
+
+        private static GraphView instance;
 
         private const int DEFAULT_PASS_RATE = 100;
         public CartesianMapper<ObservablePoint> Mapper { get; set; }
@@ -43,11 +45,22 @@ namespace Whydoisuck.UI
 
         public GraphView()
         {
+            instance = this;
             InitializeComponent();
             Mapper = Mappers.Xy<ObservablePoint>()
             .X((item, index) => item.X)
             .Y(item => item.Y);
         }
+
+        private static void DataChangeCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var value = (SessionGroup)args.NewValue;
+            if (value == null && instance != null) return;
+            
+            instance.CurrentGraph = new AttemptGraph(value);
+            instance.UpdateGraph();
+        }
+
 
         public void UpdateGraph()
         {

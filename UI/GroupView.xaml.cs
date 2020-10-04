@@ -22,10 +22,10 @@ namespace Whydoisuck.UI
     public partial class GroupView : UserControl
     {
         public static DependencyProperty GroupProperty =
-        DependencyProperty.Register("SessionGroup", typeof(SessionGroup), typeof(GroupView));
-        public SessionGroup SessionGroup {
+        DependencyProperty.Register("GroupViewSessionGroup", typeof(SessionGroup), typeof(GroupView));
+        public SessionGroup GroupViewSessionGroup {
             get { return (SessionGroup)GetValue(GroupProperty); }
-            set { SetValue(GroupProperty, value); }
+            set { SetValue(GroupProperty, value);}
         }
 
         public GroupView()

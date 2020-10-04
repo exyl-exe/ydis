@@ -9,7 +9,7 @@ namespace Whydoisuck.MemoryReading
 {
     static class GameWatcher
     {
-        private static int Delay { get; set; } = 0;//ms
+        private static int Delay { get; set; } = 10;//ms
         private static bool IsRecording { get; set; }
         private static GDMemoryReader Reader { get; set; } = new GDMemoryReader();
         private static GameState PreviousState { get; set; }
