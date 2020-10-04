@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.DataModel.SerializedData
 {
-    class SerializedGroup : IWdisSerialized
+    class SerializedGroup
     {
         [JsonProperty(PropertyName = "GroupName")] public string GroupName { get; set; }
 
@@ -17,10 +17,6 @@ namespace Whydoisuck.DataModel.SerializedData
         public SerializedGroup(SessionGroup g)
         {
             GroupName = g.GroupName;
-        }
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this);
         }
     }
 }

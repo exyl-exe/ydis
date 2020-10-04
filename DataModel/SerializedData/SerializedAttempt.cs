@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.DataModel.SerializedData
 {
-    public class SerializedAttempt : IWdisSerialized
+    public class SerializedAttempt
     {
         [JsonProperty(PropertyName = "Number")] public int Number { get; set; }
         [JsonProperty(PropertyName = "EndPercent")] public float EndPercent { get; set; }
@@ -22,11 +22,6 @@ namespace Whydoisuck.DataModel.SerializedData
             EndPercent = attempt.EndPercent;
             StartTime = attempt.StartTime;
             Duration = attempt.Duration;
-        }
-
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

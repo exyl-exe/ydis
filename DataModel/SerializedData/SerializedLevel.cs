@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.DataModel.SerializedData
 {
-    public class SerializedLevel : IWdisSerialized
+    public class SerializedLevel
     {
         [JsonProperty(PropertyName = "ID")] public int ID { get; set; }
         [JsonProperty(PropertyName = "IsOnline")] public bool IsOnline { get; set; }
@@ -36,11 +36,6 @@ namespace Whydoisuck.DataModel.SerializedData
             MusicID = l.MusicID;
             OfficialMusicID = l.OfficialMusicID;
             MusicOffset = l.MusicOffset;
-        }
-
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this);
         }
     }
 }

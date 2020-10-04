@@ -8,7 +8,7 @@ using Whydoisuck.DataSaving;
 
 namespace Whydoisuck.DataModel.SerializedData.SaveManager
 {
-    class SerializedManagerEntry : IWdisSerialized
+    class SerializedManagerEntry
     {
         [JsonProperty(PropertyName = "Level")] public SerializedLevel Level { get; set; }
         [JsonProperty(PropertyName = "Group")] public SerializedGroup Group { get; set; }
@@ -19,11 +19,6 @@ namespace Whydoisuck.DataModel.SerializedData.SaveManager
         {
             Level = new SerializedLevel(e.Level);
             Group = new SerializedGroup(e.Group);
-        }
-
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }
