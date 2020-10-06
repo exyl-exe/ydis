@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Whydoisuck.DataModel;
 
 namespace Whydoisuck.UI
 {
@@ -20,9 +21,31 @@ namespace Whydoisuck.UI
     /// </summary>
     public partial class SessionsView : UserControl
     {
+        public static DependencyProperty GroupProperty = DependencyProperty.Register("SessionViewGroup",
+                                       typeof(SessionGroup),
+                                       typeof(SessionsView),
+                                       new PropertyMetadata(DataChangeCallback));
+        
+        private static SessionsView Instance { get; set; }
+
+        public SessionGroup SessionViewGroup
+        {
+            get { return (SessionGroup)GetValue(GroupProperty); }
+            set
+            {
+                SetValue(GroupProperty, value);
+            }
+        }
+
         public SessionsView()
         {
             InitializeComponent();
+        }
+
+        private static void DataChangeCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var value = (SessionGroup)args.NewValue;
+            if (value == null && Instance != null) return;
         }
 
         private void ScrollViewerPreviewMouseWheel(object sender, MouseWheelEventArgs e)

@@ -5,31 +5,70 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Whydoisuck.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Name="SessionsViewUC">
     <Grid>
         <ScrollViewer HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch" PreviewMouseWheel="ScrollViewerPreviewMouseWheel">
-            <ItemsControl Name="GroupList" HorizontalContentAlignment="Stretch">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <Border CornerRadius="2" DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1" Background="LightGray" Margin="10,10,10,1">
-                                <TextBlock Text="{Binding GroupName}" Foreground="Black" HorizontalAlignment="Center" FontSize="30"/>
+            <DockPanel>
+                <ItemsControl ItemsSource="{Binding ElementName=SessionsViewUC, Path=SessionViewGroup.GroupSessions, Mode=TwoWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" BorderBrush="LightGray"  Margin="10,5,10,5">
+                                <Expander HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                                    <Expander.Header>
+                                        <Grid
+                                            HorizontalAlignment=
+                                            "{Binding HorizontalAlignment,
+                                            RelativeSource={RelativeSource AncestorType=ContentPresenter},
+                                            Mode=OneWayToSource}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding StartTime, StringFormat='{}Played on {0:dd/MM/yyyy}'}" Foreground="Black" HorizontalAlignment="Center" FontSize="20"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding StartPercent, StringFormat='{}from {0:#,#,0}%'}" Foreground="Black" HorizontalAlignment="Center" FontSize="20"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Attempts.Count, StringFormat='{}{0:#} attempts'}" Foreground="Black" HorizontalAlignment="Center" FontSize="20"/>
+                                        </Grid>
+                                    </Expander.Header>
+                                    <StackPanel>
+                                        <Border BorderThickness="1" BorderBrush="Gray" Margin="10,10,10,1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions >
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="Attempt" Foreground="Black" HorizontalAlignment="Center" FontSize="15"/>
+                                                <TextBlock Grid.Column="1" Text="End percent" Foreground="Black" HorizontalAlignment="Center" FontSize="15"/>
+                                                <TextBlock Grid.Column="2" Text="Duration" Foreground="Black" HorizontalAlignment="Center" FontSize="15"/>
+                                            </Grid>
+                                        </Border>
+                                        <Border BorderThickness="1" BorderBrush="Gray" Margin="10,1,10,5">
+                                        <ItemsControl ItemsSource="{Binding Attempts}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid HorizontalAlignment="Stretch" Margin="0,5,0,5">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="{Binding Number}" Foreground="Black" HorizontalAlignment="Center"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding EndPercent, StringFormat='{}{0:#,#,0}%'}" Foreground="Black" HorizontalAlignment="Center"/>
+                                                        <TextBlock Grid.Column="2" Text="{Binding Duration.TotalSeconds, StringFormat='{}{0:F0}s'}" Foreground="Black" HorizontalAlignment="Center"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        </Border>
+                                    </StackPanel>
+                                </Expander>
                             </Border>
-                            <Grid Margin="10,0,10,10">
-                                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" ItemsSource="{Binding GroupSessions}">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn IsReadOnly="True" Header="Level name" Binding="{Binding Level.Name}" Width="*"/>
-                                        <DataGridTextColumn IsReadOnly="True" Header="Starting time" Binding="{Binding StartTime}" Width="*"/>
-                                        <DataGridTextColumn IsReadOnly="True" Header="Attempts count" Binding="{Binding Attempts.Count}" Width="*"/>
-                                        <DataGridTextColumn IsReadOnly="True" Header="Copy run" Binding="{Binding IsCopyRun}" Width="*"/>
-                                        <DataGridTextColumn IsReadOnly="True" Header="Start Percent" Binding="{Binding StartPercent}" Width="*"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DockPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

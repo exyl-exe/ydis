@@ -13,7 +13,7 @@
                 <local:GraphView x:Name="Graph" GraphViewSessionGroup="{Binding ElementName=GroupViewUC, Path=GroupViewSessionGroup, Mode=TwoWay}"></local:GraphView>
             </TabItem>
             <TabItem Header="Sessions">
-                <local:SessionsView x:Name="Sessions"></local:SessionsView>
+                <local:SessionsView x:Name="Sessions" SessionViewGroup="{Binding ElementName=GroupViewUC, Path=GroupViewSessionGroup, Mode=TwoWay}"></local:SessionsView>
             </TabItem>
         </TabControl>
     </Grid>

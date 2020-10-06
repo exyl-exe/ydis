@@ -36,7 +36,7 @@ namespace Whydoisuck.UI
             }
         }
 
-        private static GraphView instance;
+        private static GraphView Instance { get; set; }
 
         private const int DEFAULT_PASS_RATE = 100;
         public CartesianMapper<ObservablePoint> Mapper { get; set; }
@@ -46,7 +46,7 @@ namespace Whydoisuck.UI
 
         public GraphView()
         {
-            instance = this;
+            Instance = this;
             InitializeComponent();
             Mapper = Mappers.Xy<ObservablePoint>()
             .X((item, index) => item.X)
@@ -56,10 +56,10 @@ namespace Whydoisuck.UI
         private static void DataChangeCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
             var value = (SessionGroup)args.NewValue;
-            if (value == null && instance != null) return;
+            if (value == null && Instance != null) return;
 
-            instance.CurrentGraph = new AttemptGraph(value);
-            instance.UpdateGraph();
+            Instance.CurrentGraph = new AttemptGraph(value);
+            Instance.UpdateGraph();
         }
 
 
