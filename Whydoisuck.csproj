@@ -38,17 +38,19 @@
     <StartupObject>Whydoisuck.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
-    </Reference>
-    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
-      <HintPath>packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot, Version=2.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Core.2.0.0\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=2.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Wpf.2.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -67,54 +69,73 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataModel\SerializedData\SaveManager\SerializedManager.cs" />
-    <Compile Include="DataModel\SerializedData\SerializedAttempt.cs" />
-    <Compile Include="DataModel\SerializedData\SerializedGroup.cs" />
-    <Compile Include="DataModel\SerializedData\SerializedLevel.cs" />
-    <Compile Include="DataModel\SerializedData\SerializedSession.cs" />
-    <Compile Include="DataModel\SerializedData\SaveManager\SerializedManagerEntry.cs" />
-    <Compile Include="DataModel\SerializedData\IWDISSerialized.cs" />
-    <Compile Include="DataModel\IWDISSerializable.cs" />
-    <Compile Include="DataSaving\GroupLoader.cs" />
-    <Compile Include="DataSaving\IndexerEntry.cs" />
-    <Compile Include="DataSaving\SerializationManager.cs" />
-    <Compile Include="DataSaving\SessionManager.cs" />
-    <Compile Include="DataSaving\SessionSaver.cs" />
-    <Compile Include="MemoryReading\GameState.cs" />
-    <Compile Include="DataModel\Attempt.cs" />
-    <Compile Include="MemoryReading\GameWatcher.cs" />
-    <Compile Include="DataModel\Level.cs" />
-    <Compile Include="Recording\Recorder.cs" />
-    <Compile Include="DataModel\Session.cs" />
-    <Compile Include="DataModel\SessionGroup.cs" />
+    <Compile Include="Model\DataModel\SerializedData\SaveManager\SerializedManager.cs" />
+    <Compile Include="Model\DataModel\SerializedData\SerializedAttempt.cs" />
+    <Compile Include="Model\DataModel\SerializedData\SerializedGroup.cs" />
+    <Compile Include="Model\DataModel\SerializedData\SerializedLevel.cs" />
+    <Compile Include="Model\DataModel\SerializedData\SerializedSession.cs" />
+    <Compile Include="Model\DataModel\SerializedData\SaveManager\SerializedManagerEntry.cs" />
+    <Compile Include="Model\DataModel\SerializedData\IWDISSerialized.cs" />
+    <Compile Include="Model\DataModel\IWDISSerializable.cs" />
+    <Compile Include="Model\DataSaving\GroupLoader.cs" />
+    <Compile Include="Model\DataSaving\IndexerEntry.cs" />
+    <Compile Include="Model\DataSaving\SerializationManager.cs" />
+    <Compile Include="Model\DataSaving\SessionManager.cs" />
+    <Compile Include="Model\DataSaving\SessionSaver.cs" />
+    <Compile Include="Model\MemoryReading\GameState.cs" />
+    <Compile Include="Model\DataModel\Attempt.cs" />
+    <Compile Include="Model\MemoryReading\GameWatcher.cs" />
+    <Compile Include="Model\DataModel\Level.cs" />
+    <Compile Include="Model\Recording\Recorder.cs" />
+    <Compile Include="Model\DataModel\Session.cs" />
+    <Compile Include="Model\DataModel\SessionGroup.cs" />
     <Compile Include="TempLogger.cs" />
-    <Compile Include="UI\GroupView.xaml.cs">
-      <DependentUpon>GroupView.xaml</DependentUpon>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Current\CurrentLevelViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Navigation\NavigationSearchViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SelectedLevelViewModel.cs" />
+    <Compile Include="Views\Commands\NavigatorCommand.cs" />
+    <Compile Include="Views\CommonControls\LevelDatagrid.xaml.cs">
+      <DependentUpon>LevelDatagrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SessionsView.xaml.cs">
-      <DependentUpon>SessionsView.xaml</DependentUpon>
+    <Compile Include="Views\CommonControls\LevelGraph.xaml.cs">
+      <DependentUpon>LevelGraph.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIModel\GraphView\AttemptGraph.cs" />
-    <Compile Include="UI\UIModel\GraphView\RangeAttemptList.cs" />
-    <Compile Include="UI\UIModel\GraphView\LevelPercent.cs" />
-    <Compile Include="UI\UIModel\GraphView\Range.cs" />
-    <Compile Include="DataModel\SessionAttempt.cs" />
-    <Compile Include="UI\UIModel\GraphView\SessionFilter.cs" />
-    <Compile Include="UI\GraphView.xaml.cs">
-      <DependentUpon>GraphView.xaml</DependentUpon>
+    <Compile Include="Views\Currentlevel\CurrentLevelView.xaml.cs">
+      <DependentUpon>CurrentLevelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\SafeDirectory.cs" />
-    <Compile Include="Utilities\SafeFile.cs" />
-    <Compile Include="Utilities\SafePath.cs" />
-    <Page Include="UI\GraphView.xaml">
+    <Compile Include="Views\NavigationPanel\LevelSearchPanel.xaml.cs">
+      <DependentUpon>LevelSearchPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavigationPanel\NavigationPanel.xaml.cs">
+      <DependentUpon>NavigationPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataModel\SessionAttempt.cs" />
+    <Compile Include="Model\Utilities\SafeDirectory.cs" />
+    <Compile Include="Model\Utilities\SafeFile.cs" />
+    <Compile Include="Model\Utilities\SafePath.cs" />
+    <Page Include="Views\CommonControls\LevelDatagrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\GroupView.xaml">
+    <Page Include="Views\CommonControls\LevelGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\MainWindow.xaml">
+    <Page Include="Views\Currentlevel\CurrentLevelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavigationPanel\LevelSearchPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavigationPanel\NavigationPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -122,16 +143,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MemoryReading\GDMemoryReader.cs" />
-    <Compile Include="MemoryReading\MemoryReader.cs" />
-    <Compile Include="UI\MainWindow.xaml.cs">
+    <Compile Include="Model\MemoryReading\GDMemoryReader.cs" />
+    <Compile Include="Model\MemoryReading\MemoryReader.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\SessionsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -159,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\SelectedLevel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,17 @@
+﻿<Window x:Class="Whydoisuck.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:navigationpanel="clr-namespace:Whydoisuck.Views.NavigationPanel"
+        xmlns:currentlevel="clr-namespace:Whydoisuck.Views.Currentlevel"
+        mc:Ignorable="d"
+        Title="Why do I suck TODO" Height="980" Width="860">
+    <DockPanel Name="mainView"
+          Background="Violet">
+        <navigationpanel:NavigationPanel DockPanel.Dock="Left"/>
+        <ContentControl Content="{Binding CurrentMainView}">
+
+        </ContentControl>
+    </DockPanel>
+</Window>
