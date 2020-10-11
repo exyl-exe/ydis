@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Whydoisuck.ViewModels;
 using Whydoisuck.ViewModels.Current;
+using Whydoisuck.ViewModels.SelectedLevel;
 
 namespace Whydoisuck.Views.Commands
 {
-    class NavigatorCommand : ICommand
+    public class NavigatorCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         private MainWindowViewModel viewModel;
+        private BaseViewModel viewToNavigateTo;
 
-        public NavigatorCommand(MainWindowViewModel viewModel)
+        public NavigatorCommand(MainWindowViewModel viewModel, BaseViewModel newView)
         {
             this.viewModel = viewModel;
+            this.viewToNavigateTo = newView;
         }
 
         public bool CanExecute(object parameter)
@@ -26,7 +29,7 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            viewModel.ReplaceMainView(new CurrentLevelViewModel() );
+            viewModel.ReplaceMainView(viewToNavigateTo);
         }
     }
 }

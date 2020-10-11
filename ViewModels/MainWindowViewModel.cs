@@ -21,7 +21,7 @@ namespace Whydoisuck.ViewModels
 		{
 			Instance = this;
 			_mainView = new Stack<BaseViewModel>();
-			_mainView.Push(new SelectedLevelViewModel());
+			_mainView.Push(new CurrentLevelViewModel());
 		}
 
 		public void ReplaceMainView(BaseViewModel m)

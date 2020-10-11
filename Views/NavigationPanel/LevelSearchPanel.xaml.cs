@@ -14,7 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Whydoisuck.ViewModels;
 using Whydoisuck.ViewModels.Navigation;
+using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.Commands;
+using Whydoisuck.Views.SelectedLevel;
 
 namespace Whydoisuck.Views.NavigationPanel
 {
@@ -30,7 +32,7 @@ namespace Whydoisuck.Views.NavigationPanel
             InitializeComponent();
             DataContext = new NavigationSearchViewModel();
 
-            UpdateNavigatorView = new NavigatorCommand(MainWindowViewModel.Instance);
+            UpdateNavigatorView = new NavigatorCommand(MainWindowViewModel.Instance, new SelectedLevelViewModel());
 
             var searchRes = new List<object>();
             foreach (var l in "abcdefghijklmnopqrstuvwxyzhecjhjhdsb")

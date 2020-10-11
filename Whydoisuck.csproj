@@ -63,6 +63,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -94,13 +109,18 @@
     <Compile Include="ViewModels\Current\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\DaySummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SelectedLevelViewModel.cs" />
+    <Compile Include="ViewModels\Session\SessionViewModel.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\CommonControls\LevelDatagrid.xaml.cs">
       <DependentUpon>LevelDatagrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommonControls\LevelGraph.xaml.cs">
       <DependentUpon>LevelGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommonControls\PercentRangeSelector.xaml.cs">
+      <DependentUpon>PercentRangeSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Currentlevel\CurrentLevelView.xaml.cs">
       <DependentUpon>CurrentLevelView.xaml</DependentUpon>
@@ -115,11 +135,33 @@
     <Compile Include="Model\Utilities\SafeDirectory.cs" />
     <Compile Include="Model\Utilities\SafeFile.cs" />
     <Compile Include="Model\Utilities\SafePath.cs" />
+    <Compile Include="Views\SelectedLevel\DaySummary.xaml.cs">
+      <DependentUpon>DaySummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedLevel\GraphTab.xaml.cs">
+      <DependentUpon>GraphTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedLevel\SelectedLevelView.xaml.cs">
+      <DependentUpon>SelectedLevelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedLevel\SessionsTab.xaml.cs">
+      <DependentUpon>SessionsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedSession\SessionSettingsPanel.xaml.cs">
+      <DependentUpon>SessionSettingsPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedSession\SessionView.xaml.cs">
+      <DependentUpon>SessionView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\CommonControls\LevelDatagrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommonControls\LevelGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommonControls\PercentRangeSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,6 +191,30 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SelectedLevel\DaySummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedLevel\GraphTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedLevel\SelectedLevelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedLevel\SessionsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedSession\SessionSettingsPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedSession\SessionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -177,8 +243,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\SelectedLevel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
