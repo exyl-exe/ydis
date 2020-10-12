@@ -15,6 +15,8 @@
                 DockPanel.Dock="Bottom">
             SETTING TODO
         </Button>
-        <uc:LevelSearchPanel></uc:LevelSearchPanel>
+        <uc:LevelSearchPanel
+            DataContext="{Binding SearchView}">
+        </uc:LevelSearchPanel>
     </DockPanel>
 </UserControl>

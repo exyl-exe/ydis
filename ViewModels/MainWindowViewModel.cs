@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.ViewModels.Current;
+using Whydoisuck.ViewModels.Navigation;
 using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.Currentlevel;
 
@@ -11,6 +12,9 @@ namespace Whydoisuck.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
+		public NavigationPanelViewModel NavigationPanel { get; set; }
+
+
 		private readonly Stack<BaseViewModel> _mainView;
 		public BaseViewModel CurrentMainView
 		{
@@ -19,7 +23,7 @@ namespace Whydoisuck.ViewModels
 
 		public MainWindowViewModel()
 		{
-			Instance = this;
+			NavigationPanel = new NavigationPanelViewModel(this);
 			_mainView = new Stack<BaseViewModel>();
 			_mainView.Push(new CurrentLevelViewModel());
 		}
@@ -30,9 +34,5 @@ namespace Whydoisuck.ViewModels
 			_mainView.Push(m);
 			OnPropertyChanged(nameof(CurrentMainView));
 		}
-
-
-		//TODO remove below
-		public static MainWindowViewModel Instance { get; set; }
 	}
 }

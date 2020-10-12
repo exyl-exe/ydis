@@ -36,7 +36,6 @@ namespace Whydoisuck.Views.SelectedLevel
 
         public DaySummary()
         {
-            ViewSessionCommand = new NavigatorCommand(MainWindowViewModel.Instance, new SessionViewModel());
             InitializeComponent();
         }
     }

@@ -25,21 +25,9 @@ namespace Whydoisuck.Views.NavigationPanel
     /// </summary>
     public partial class LevelSearchPanel : UserControl
     {
-        public ICommand UpdateNavigatorView { get; set; }
-
         public LevelSearchPanel()
         {
             InitializeComponent();
-            DataContext = new NavigationSearchViewModel();
-
-            UpdateNavigatorView = new NavigatorCommand(MainWindowViewModel.Instance, new SelectedLevelViewModel());
-
-            var searchRes = new List<object>();
-            foreach (var l in "abcdefghijklmnopqrstuvwxyzhecjhjhdsb")
-            {
-                searchRes.Add(new {text = l.ToString(), UpdateNavigatorView });
-            }
-            DataContext = new { SearchResults = searchRes };
         }
     }
 }

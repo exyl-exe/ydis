@@ -21,7 +21,7 @@
             <ItemsControl ItemsSource="{Binding SearchResults}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Margin="5" Command="{Binding UpdateNavigatorView}" CommandParameter="switch">
+                        <Button Margin="5" Command="{Binding UpdateCommand}" CommandParameter="switch">
                             <TextBlock Text="{Binding text}"/>
                         </Button>
                     </DataTemplate>

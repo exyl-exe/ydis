@@ -9,7 +9,9 @@
         Title="Why do I suck TODO" Height="980" Width="860">
     <DockPanel Name="mainView"
           Background="Violet">
-        <navigationpanel:NavigationPanel DockPanel.Dock="Left"/>
+        <navigationpanel:NavigationPanel
+            DockPanel.Dock="Left"
+            DataContext="{Binding NavigationPanel}"/>
         <ContentControl Content="{Binding CurrentMainView}">
 
         </ContentControl>
