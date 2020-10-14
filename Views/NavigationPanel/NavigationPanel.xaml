@@ -8,7 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel x:Name="NavigationDockPanel">
         <Button x:Name="CurrentLevelNavigationButton"
-                DockPanel.Dock="Top">
+                DockPanel.Dock="Top"
+                Command="{Binding GoToCurrentCommand}">
             Current level TODO
         </Button>
         <Button x:Name="Settings"

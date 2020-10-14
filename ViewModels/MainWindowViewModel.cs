@@ -14,24 +14,17 @@ namespace Whydoisuck.ViewModels
     {
 		public NavigationPanelViewModel NavigationPanel { get; set; }
 
-
-		private readonly Stack<BaseViewModel> _mainView;
-		public BaseViewModel CurrentMainView
-		{
-			get { return _mainView.Peek(); }
-		}
+		public BaseViewModel CurrentMainView { get; set; }
 
 		public MainWindowViewModel()
 		{
 			NavigationPanel = new NavigationPanelViewModel(this);
-			_mainView = new Stack<BaseViewModel>();
-			_mainView.Push(new CurrentLevelViewModel());
+			CurrentMainView = new CurrentLevelViewModel();
 		}
 
 		public void ReplaceMainView(BaseViewModel m)
 		{
-			_mainView.Pop();
-			_mainView.Push(m);
+			CurrentMainView = m;
 			OnPropertyChanged(nameof(CurrentMainView));
 		}
 	}

@@ -13,7 +13,8 @@
                        DockPanel.Dock="Right">
                 TODOLOUPE
             </TextBlock>
-            <TextBox x:Name="SearchTextBox"></TextBox>
+            <TextBox x:Name="SearchTextBox"
+                     Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
         <ScrollViewer x:Name="ResultsScrollViewer"
                       VerticalScrollBarVisibility="Disabled"
@@ -21,8 +22,8 @@
             <ItemsControl ItemsSource="{Binding SearchResults}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Margin="5" Command="{Binding UpdateCommand}" CommandParameter="switch">
-                            <TextBlock Text="{Binding text}"/>
+                        <Button Padding="5" Command="{Binding UpdateCommand}" CommandParameter="switch">
+                            <TextBlock Text="{Binding Group.GroupName}"/>
                         </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

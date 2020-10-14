@@ -14,9 +14,8 @@
                 BorderBrush="PaleVioletRed"
                 BorderThickness="1"
                 DockPanel.Dock="Top">
-            <TextBlock x:Name="GroupName">
-                TODO Group : The Hell Field
-            </TextBlock>
+            <TextBlock x:Name="GroupName"
+                       Text="{Binding Group.GroupName}"/>
         </Border>
         <TabControl x:Name="SelectedLevelNavigationTabs">
             <TabItem x:Name="GraphTab"
