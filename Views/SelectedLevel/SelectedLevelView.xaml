@@ -19,7 +19,8 @@
         </Border>
         <TabControl x:Name="SelectedLevelNavigationTabs">
             <TabItem x:Name="GraphTab"
-                     Header="TODOGraph">
+                     Header="TODOGraph"
+                     DataContext="{Binding GraphTab}">
                 <local:GraphTab></local:GraphTab>    
             </TabItem>
             <TabItem x:Name="SessionsTab"

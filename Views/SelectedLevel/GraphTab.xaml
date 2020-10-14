@@ -23,7 +23,7 @@
                 Background="DarkViolet"
                 BorderBrush="PaleVioletRed"
                 BorderThickness="1">
-                <common:LevelDatagrid Height="500"/>
+                <common:LevelDatagrid DataContext="{Binding DataGrid}"/>
             </Border>
         </StackPanel>
     </ScrollViewer>
