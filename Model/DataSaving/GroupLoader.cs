@@ -37,7 +37,7 @@ namespace Whydoisuck.DataSaving
                     catch (JsonSerializationException)
                     {
                         //TODO
-                        DebugLogger.AddLog("Couldn't deserialize file : " + SafePath.GetFileName(sessionFile));
+                       
                     }
                 }
                 if (sessionList.Count > 0)

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DataGrid Name="LevelData"
-              ItemsSource="{Binding PercentsData}"
+              ItemsSource="{Binding SessionStats.Statistics}"
               Background="Teal"
               CanUserAddRows="False"
               CanUserDeleteRows="False"

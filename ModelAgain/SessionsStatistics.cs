@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,67 +13,72 @@ namespace Whydoisuck.ModelAgain
     public class SessionsStatistics
     {
         private List<Session> Sessions { get; set; }
-        private float Width { get; set; }
-        public List<LevelPercentData> Statistics { get { return GetLevelPercentsData(Width); } }
+        private List<Range> Dividing { get; set; }
+        public List<LevelPartStatistics> Statistics { get; }
 
-        public SessionsStatistics(List<Session> sessions, float rangeWidth)
+        public SessionsStatistics(List<Session> sessions, float defaultPartWidth)
         {
             Sessions = sessions;
-            Width = rangeWidth;
+            Dividing = GetParts(defaultPartWidth);
+            var sw = Stopwatch.StartNew();
+            Statistics = GetStatistics();
         }
 
-        public List<LevelPercentData> GetLevelPercentsData(float rangeWidth)
+        public List<Range> GetParts(float partWidth)
         {
-            var res = new List<LevelPercentData>();
-
-            var attempts = Sessions.SelectMany(s => s.GetSessionAttempts()).ToList();
-
-            var attDictionary = GetAttemptRangeList(attempts, rangeWidth);
-            var sessionIndex = 0;
-            var reachCount = 0;
-
-            for (var i = 0; i < attDictionary.Count; i++)
+            var res = new List<Range>();
+            var currentPartStart = 0f;
+            while(currentPartStart < 100f+partWidth)
             {
-                var attemptsOfGroup = attDictionary[i].Attempts;
-                var range = attDictionary[i].Range;
-                var deathCount = attemptsOfGroup.Count();
-
-                //Update reach count
-                while (sessionIndex < Sessions.Count && (range.GreaterEquals(Sessions[sessionIndex].StartPercent)))
-                {
-                    reachCount += Sessions[sessionIndex].Attempts.Count;
-                    sessionIndex++;
-                }
-                var currentPercentData = new LevelPercentData(range, reachCount, deathCount);
-                res.Add(currentPercentData);
-
-                reachCount -= deathCount;
-            }
-            res.Sort((p1, p2) => p1.Compare(p2));
-            return res;
-        }
-
-        private List<RangeOfAttempts> GetAttemptRangeList(List<SessionAttempt> attempts, float rangeWidth)
-        {
-            attempts.Sort((a, a2) => a.Attempt.Compare(a2.Attempt));
-            var res = new List<RangeOfAttempts>();
-            RangeOfAttempts currentRange = null;
-            foreach (var a in attempts)
-            {
-                if (currentRange == null || !currentRange.Range.Contains(a.Attempt.EndPercent))
-                {
-                    currentRange = new RangeOfAttempts(GetRange(a.Attempt.EndPercent, rangeWidth));
-                    res.Add(currentRange);
-                }
-                currentRange.Attempts.Add(a);
+                res.Add(new Range(currentPartStart, currentPartStart + partWidth));
+                currentPartStart += partWidth;
             }
             return res;
         }
 
-        private Range GetRange(float value, float rangeWidth)
+        public List<LevelPartStatistics> GetStatistics()
         {
-            var start = ((int)(value / rangeWidth)) * rangeWidth;
-            return new Range(start, start + rangeWidth);
+            var res = new List<LevelPartStatistics>();
+            var attempts = Sessions.SelectMany(s => s.Attempts).ToList();
+            var counting = new SortedList<Range, LevelPartStatistics>();
+
+            foreach(var range in Dividing)
+            {
+                counting.Add(range, new LevelPartStatistics(range, 0, 0));
+            }
+
+            foreach(var attempt in attempts)
+            {
+                var deathRange = Dividing.Find(r => r.Contains(attempt.EndPercent));
+                if(counting.TryGetValue(deathRange, out var attemptDeathPartStats))
+                {
+                    attemptDeathPartStats.DeathCount++;
+                }
+            }
+
+            foreach(var session in Sessions)
+            {
+                var spawnRange = Dividing.Find(r => r.Contains(session.StartPercent));
+                if (counting.TryGetValue(spawnRange, out var attemptStartPartStats))
+                {
+                    attemptStartPartStats.ReachCount += session.Attempts.Count;
+                }
+            }
+
+            int totalReach = 0;
+            foreach (var part in counting.Values)
+            {
+                if(part.DeathCount > 0)
+                {
+                    res.Add(part);
+                }
+
+                totalReach += part.ReachCount;
+                part.ReachCount = totalReach;
+                totalReach -= part.DeathCount;
+            }
+
+            return res;
         }
     }
 }

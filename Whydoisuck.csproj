@@ -84,9 +84,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ModelAgain\LevelPercent.cs" />
+    <Compile Include="ModelAgain\LevelPartStatistics.cs" />
     <Compile Include="ModelAgain\Range.cs" />
-    <Compile Include="ModelAgain\RangeAttemptList.cs" />
     <Compile Include="ModelAgain\SessionsStatistics.cs" />
     <Compile Include="Model\DataModel\SerializedData\SaveManager\SerializedManager.cs" />
     <Compile Include="Model\DataModel\SerializedData\SerializedAttempt.cs" />
@@ -108,12 +107,12 @@
     <Compile Include="Model\Recording\Recorder.cs" />
     <Compile Include="Model\DataModel\Session.cs" />
     <Compile Include="Model\DataModel\SessionGroup.cs" />
-    <Compile Include="TempLogger.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModels\LevelDataGridViewModel.cs" />
     <Compile Include="ViewModels\Current\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
+    <Compile Include="ViewModels\Navigation\NavigationSearchResult.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\DaySummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\GraphTabViewModel.cs" />
@@ -138,7 +137,6 @@
     <Compile Include="Views\NavigationPanel\NavigationPanel.xaml.cs">
       <DependentUpon>NavigationPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\DataModel\SessionAttempt.cs" />
     <Compile Include="Model\Utilities\SafeDirectory.cs" />
     <Compile Include="Model\Utilities\SafeFile.cs" />
     <Compile Include="Model\Utilities\SafePath.cs" />

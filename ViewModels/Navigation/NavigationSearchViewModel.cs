@@ -38,7 +38,9 @@ namespace Whydoisuck.ViewModels.Navigation
             this.ParentNavigationPanel = ParentNavigationPanel;
             _search = "";
             var groups = GroupLoader.GetAllGroups();
-            AllResults = groups.Select( g => new NavigationSearchResult(g, new NavigatorCommand(ParentNavigationPanel.MainView, new SelectedLevelViewModel(g))) ).ToList();
+            AllResults = groups.Select(
+                g => new NavigationSearchResult(g, new NavigatorCommand(ParentNavigationPanel.MainView, new SelectedLevelViewModel(g)))
+                ).ToList();
             UpdateSearchResults();
         }
 
@@ -46,18 +48,6 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             SearchResults = AllResults.Where(result => result.Group.GroupName.ToLower().Trim().StartsWith(_search.ToLower().Trim())).ToList();
             OnPropertyChanged(nameof(SearchResults));
-        }
-    }
-
-    public class NavigationSearchResult //TODO
-    {
-        public NavigatorCommand UpdateCommand { get; set; }
-        public SessionGroup Group { get; set; }
-
-        public NavigationSearchResult(SessionGroup g, NavigatorCommand updateCommand)
-        {
-            Group = g;
-            UpdateCommand = updateCommand;
         }
     }
 }

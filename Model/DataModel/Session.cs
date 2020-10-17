@@ -24,11 +24,6 @@ namespace Whydoisuck.DataModel
             Attempts.Add(att);
         }
 
-        public List<SessionAttempt> GetSessionAttempts()
-        {
-            return Attempts.Select(a => new SessionAttempt(this, a)).ToList();
-        }
-
         public string GetDefaultSessionFileName()
         {
             return $"{Level.Name} rev{Level.Revision}";

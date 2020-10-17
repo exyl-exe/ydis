@@ -9,12 +9,9 @@ using Whydoisuck.UIModel;
 
 namespace Whydoisuck.ViewModels.CommonViewModels
 {
-    public class LevelDataGridViewModel
+    public class LevelDataGridViewModel : BaseViewModel
     {
-        private readonly SessionsStatistics SessionStats;
-        public List<LevelPercentData> PercentsData {
-            get { return SessionStats.Statistics; }
-        }
+        public SessionsStatistics SessionStats { get; set; }
         public LevelDataGridViewModel(SessionGroup group)
         {
             SessionStats = new SessionsStatistics(group.GroupSessions, 1f);
