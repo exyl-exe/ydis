@@ -16,7 +16,7 @@
                 Background="DarkViolet"
                 BorderBrush="PaleVioletRed"
                 BorderThickness="1">
-                <common:LevelGraph/>
+                <common:LevelGraph DataContext="{Binding Graph}"/>
             </Border>
             <Border x:Name="GroupDatagridBorder"
                 Margin="5"

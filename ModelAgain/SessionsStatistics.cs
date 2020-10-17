@@ -16,11 +16,11 @@ namespace Whydoisuck.ModelAgain
         private List<Range> Dividing { get; set; }
         public List<LevelPartStatistics> Statistics { get; }
 
+
         public SessionsStatistics(List<Session> sessions, float defaultPartWidth)
         {
             Sessions = sessions;
             Dividing = GetParts(defaultPartWidth);
-            var sw = Stopwatch.StartNew();
             Statistics = GetStatistics();
         }
 
@@ -47,16 +47,36 @@ namespace Whydoisuck.ModelAgain
                 counting.Add(range, new LevelPartStatistics(range, 0, 0));
             }
 
-            foreach(var attempt in attempts)
+            SetDeathCount(attempts, counting);
+            SetStartCount(attempts, counting);
+
+            int totalReach = 0;
+            foreach (var part in counting.Values)
+            {
+                totalReach += part.ReachCount;
+                part.ReachCount = totalReach;
+                totalReach -= part.DeathCount;
+            }
+            return counting.Select(element => element.Value).ToList();
+        }
+
+        //Set the number of death for each part in the SortedList
+        public void SetDeathCount(List<Attempt> attempts, SortedList<Range, LevelPartStatistics> counting)
+        {
+            foreach (var attempt in attempts)
             {
                 var deathRange = Dividing.Find(r => r.Contains(attempt.EndPercent));
-                if(counting.TryGetValue(deathRange, out var attemptDeathPartStats))
+                if (counting.TryGetValue(deathRange, out var attemptDeathPartStats))
                 {
                     attemptDeathPartStats.DeathCount++;
                 }
             }
+        }
 
-            foreach(var session in Sessions)
+        //Set the reach count for each part in the SortedList to the number of attempts that started in this range
+        public void SetStartCount(List<Attempt> attempts, SortedList<Range, LevelPartStatistics> counting)
+        {
+            foreach (var session in Sessions)
             {
                 var spawnRange = Dividing.Find(r => r.Contains(session.StartPercent));
                 if (counting.TryGetValue(spawnRange, out var attemptStartPartStats))
@@ -64,21 +84,6 @@ namespace Whydoisuck.ModelAgain
                     attemptStartPartStats.ReachCount += session.Attempts.Count;
                 }
             }
-
-            int totalReach = 0;
-            foreach (var part in counting.Values)
-            {
-                if(part.DeathCount > 0)
-                {
-                    res.Add(part);
-                }
-
-                totalReach += part.ReachCount;
-                part.ReachCount = totalReach;
-                totalReach -= part.DeathCount;
-            }
-
-            return res;
         }
     }
 }

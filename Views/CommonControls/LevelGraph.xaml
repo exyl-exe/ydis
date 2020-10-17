@@ -8,14 +8,30 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <oxy:Plot
         x:Name="LevelPlot"
-        MinHeight="300"
-        MaxHeight="500"
+        Height="500"
         Background="Transparent"
         TitleColor="ForestGreen"
+        PlotAreaBorderThickness="1,0,1,1"
         PlotAreaBorderColor="AliceBlue"
         LegendTextColor="Aquamarine">
+        <oxy:Plot.Axes>
+            <oxy:LinearAxis Position="Bottom"
+                            Minimum="0"
+                            Maximum="100"
+                            IsZoomEnabled="False"/>
+            <oxy:LinearAxis Position="Left"
+                            Minimum="0"
+                            Maximum="100"
+                            IsZoomEnabled="False"/>
+        </oxy:Plot.Axes>
         <oxy:Plot.Series>
-            <oxy:LineSeries></oxy:LineSeries>
+            <oxy:LineSeries
+                x:Name="LevelPassRateSeries"
+                ItemsSource="{Binding Points}"
+                StrokeThickness="4"
+                Color="Magenta" 
+                MarkerFill="Yellow" 
+                MarkerType="Triangle"></oxy:LineSeries>
         </oxy:Plot.Series>
     </oxy:Plot>
 </UserControl>

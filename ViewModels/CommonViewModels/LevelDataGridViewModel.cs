@@ -11,10 +11,28 @@ namespace Whydoisuck.ViewModels.CommonViewModels
 {
     public class LevelDataGridViewModel : BaseViewModel
     {
-        public SessionsStatistics SessionStats { get; set; }
-        public LevelDataGridViewModel(SessionGroup group)
+        public List<LevelPartStatistics> SessionStats { get; set; }
+        public LevelDataGridViewModel(List<LevelPartStatistics> stats)
         {
-            SessionStats = new SessionsStatistics(group.GroupSessions, 1f);
+            SessionStats = FilterOutRedondantParts(stats);
+        }
+
+        public List<LevelPartStatistics> FilterOutRedondantParts(List<LevelPartStatistics> stats)
+        {
+            var res = new List<LevelPartStatistics>();
+            if (stats.Count > 0)
+            {
+                var prec = stats[0];
+                if (prec.DeathCount > 0) res.Add(prec);//showing first element only if it brings useful information
+                foreach (var part in stats)
+                {
+                    if (part.DeathCount != prec.DeathCount)
+                    {
+                        res.Add(part);
+                    }
+                }
+            }
+            return res;
         }
     }
 }

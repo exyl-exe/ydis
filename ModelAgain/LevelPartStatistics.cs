@@ -18,6 +18,7 @@ namespace Whydoisuck.UIModel
             get
             {
                 if (ReachCount == 0) return 0;
+                if (PercentRange.Start >= 100) return 100;
                 return 100 * (1 - (float)DeathCount / (float)ReachCount);
             }
         }

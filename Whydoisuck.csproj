@@ -109,6 +109,7 @@
     <Compile Include="Model\DataModel\SessionGroup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModels\LevelDataGridViewModel.cs" />
+    <Compile Include="ViewModels\CommonViewModels\LevelGraphViewModel.cs" />
     <Compile Include="ViewModels\Current\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
