@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
              xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <oxy:Plot
+    <common:OxyPlotTooltipHover
         x:Name="LevelPlot"
         Height="500"
         Background="Transparent"
@@ -14,7 +15,7 @@
         PlotAreaBorderThickness="1,0,1,1"
         PlotAreaBorderColor="AliceBlue"
         LegendTextColor="Aquamarine">
-        <oxy:Plot.Axes>
+        <common:OxyPlotTooltipHover.Axes>
             <oxy:LinearAxis Position="Bottom"
                             Minimum="0"
                             Maximum="100"
@@ -23,15 +24,14 @@
                             Minimum="0"
                             Maximum="100"
                             IsZoomEnabled="False"/>
-        </oxy:Plot.Axes>
-        <oxy:Plot.Series>
+        </common:OxyPlotTooltipHover.Axes>
+        <common:OxyPlotTooltipHover.Series>
             <oxy:LineSeries
-                x:Name="LevelPassRateSeries"
                 ItemsSource="{Binding Points}"
                 StrokeThickness="4"
                 Color="Magenta" 
                 MarkerFill="Yellow" 
                 MarkerType="Triangle"></oxy:LineSeries>
-        </oxy:Plot.Series>
-    </oxy:Plot>
+        </common:OxyPlotTooltipHover.Series>
+    </common:OxyPlotTooltipHover>
 </UserControl>

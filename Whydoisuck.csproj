@@ -126,6 +126,9 @@
     <Compile Include="Views\CommonControls\LevelGraph.xaml.cs">
       <DependentUpon>LevelGraph.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CommonControls\OxyPlotTooltipHover.xaml.cs">
+      <DependentUpon>OxyPlotTooltipHover.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommonControls\PercentRangeSelector.xaml.cs">
       <DependentUpon>PercentRangeSelector.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommonControls\LevelGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommonControls\OxyPlotTooltipHover.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
