@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Whydoisuck.ViewModels;
-using Whydoisuck.ViewModels.Session;
 using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.Views.SelectedLevel
@@ -23,17 +22,6 @@ namespace Whydoisuck.Views.SelectedLevel
     /// </summary>
     public partial class DaySummary : UserControl
     {
-        public object[] SessionsOfDay
-        {//TODO
-            get
-            {
-                return new[] { new {ViewSessionCommand}, new { ViewSessionCommand }, new { ViewSessionCommand }, new { ViewSessionCommand } };
-            }
-        }
-
-        public NavigatorCommand ViewSessionCommand { get; set; }
-
-
         public DaySummary()
         {
             InitializeComponent();

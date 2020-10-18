@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Whydoisuck"
              xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.Current"
              xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel"
-             xmlns:sessionVM="clr-namespace:Whydoisuck.ViewModels.Session"
+             xmlns:sessionVM="clr-namespace:Whydoisuck.ViewModels.SessionSummary"
              xmlns:currentView="clr-namespace:Whydoisuck.Views.Currentlevel"
              xmlns:selectedView="clr-namespace:Whydoisuck.Views.SelectedLevel"
              xmlns:sessionView="clr-namespace:Whydoisuck.Views.SelectedSession"

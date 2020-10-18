@@ -20,9 +20,6 @@ namespace Whydoisuck.Views.SelectedLevel
     /// </summary>
     public partial class SessionsTab : UserControl
     {
-
-        public int[] Days { get; set; } = new[] { 24, 25, 26, 27 };
-
         public SessionsTab()
         {
             InitializeComponent();

@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.SelectedLevel"
              xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
             <Border x:Name="RangeBorder"
@@ -21,10 +20,10 @@
                 </DockPanel>
             </Border>
             <Separator BorderBrush="Aquamarine" BorderThickness="1"/>
-            <ItemsControl ItemsSource="{Binding Days}">
+            <ItemsControl ItemsSource="{Binding Summaries.Values}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:DaySummary></local:DaySummary>
+                        <local:DaySummary DataContext="{Binding}"></local:DaySummary>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

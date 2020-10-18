@@ -119,7 +119,8 @@
     <Compile Include="ViewModels\SelectedLevel\DaySummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\GraphTabViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SelectedLevelViewModel.cs" />
-    <Compile Include="ViewModels\Session\SessionViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTabViewModel.cs" />
+    <Compile Include="ViewModels\SessionSummary\SessionViewModel.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\CommonControls\LevelDatagrid.xaml.cs">
       <DependentUpon>LevelDatagrid.xaml</DependentUpon>

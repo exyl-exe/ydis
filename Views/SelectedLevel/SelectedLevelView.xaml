@@ -24,7 +24,8 @@
                 <local:GraphTab></local:GraphTab>    
             </TabItem>
             <TabItem x:Name="SessionsTab"
-                     Header="TODOSessions">
+                     Header="TODOSessions"
+                     DataContext="{Binding Sessions}">
                 <local:SessionsTab></local:SessionsTab>
             </TabItem>
         </TabControl>
