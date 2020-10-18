@@ -15,7 +15,7 @@ namespace Whydoisuck.ViewModels.CommonViewModels
     public class LevelGraphViewModel
     {
         private List<LevelPartStatistics> Statistics { get; set; }
-        public List<DataPoint> Points { get; set; }
+        public List<LevelPartDataPoint> Points { get; set; }
 
         public LevelGraphViewModel(List<LevelPartStatistics> statistics)
         {
@@ -23,21 +23,20 @@ namespace Whydoisuck.ViewModels.CommonViewModels
             Points = GetPoints(statistics);
         }
 
-        private List<DataPoint> GetPoints(List<LevelPartStatistics> stats)
+        private List<LevelPartDataPoint> GetPoints(List<LevelPartStatistics> stats)
         {
-            var res = new List<DataPoint>();
-
+            var res = new List<LevelPartDataPoint>();
             if(stats.Count != 0)
             {
-                res.Add(new DataPoint(stats[0].PercentRange.Start, stats[0].PassRate));
+                res.Add(new LevelPartDataPoint(stats[0]));
                 for (var i = 1; i < stats.Count-1; i++)
                 {
                     if(stats[i].PassRate != stats[i-1].PassRate || stats[i].PassRate != stats[i + 1].PassRate)//TODO epsilon ?
                     {
-                        res.Add(new DataPoint(stats[i].PercentRange.Start, stats[i].PassRate));
+                        res.Add(new LevelPartDataPoint(stats[i]));
                     }  
                 }
-                res.Add(new DataPoint(stats[stats.Count-1].PercentRange.Start, stats[stats.Count - 1].PassRate));
+                res.Add(new LevelPartDataPoint(stats[stats.Count - 1]));
             }
             return res;
         }

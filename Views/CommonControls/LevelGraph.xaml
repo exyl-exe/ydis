@@ -15,6 +15,11 @@
         PlotAreaBorderThickness="1,0,1,1"
         PlotAreaBorderColor="AliceBlue"
         LegendTextColor="Aquamarine">
+        <common:OxyPlotTooltipHover.DefaultTrackerTemplate>
+            <ControlTemplate>
+                <common:LevelGraphTracker></common:LevelGraphTracker>
+            </ControlTemplate>
+        </common:OxyPlotTooltipHover.DefaultTrackerTemplate>
         <common:OxyPlotTooltipHover.Axes>
             <oxy:LinearAxis Position="Bottom"
                             Minimum="0"

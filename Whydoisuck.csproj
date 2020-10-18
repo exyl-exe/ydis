@@ -110,6 +110,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModels\LevelDataGridViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModels\LevelGraphViewModel.cs" />
+    <Compile Include="ViewModels\CommonViewModels\LevelPartDataPoint.cs" />
     <Compile Include="ViewModels\Current\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
@@ -125,6 +126,9 @@
     </Compile>
     <Compile Include="Views\CommonControls\LevelGraph.xaml.cs">
       <DependentUpon>LevelGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommonControls\LevelGraphTracker.xaml.cs">
+      <DependentUpon>LevelGraphTracker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommonControls\OxyPlotTooltipHover.xaml.cs">
       <DependentUpon>OxyPlotTooltipHover.xaml</DependentUpon>
@@ -167,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommonControls\LevelGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommonControls\LevelGraphTracker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
