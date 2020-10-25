@@ -55,9 +55,9 @@ namespace Whydoisuck.ViewModels.SelectedLevel
                     else
                     {
                         sessionModel.Visible = false;
-
                     }
                 }
+                summary.UpdateVisibility();
             }
             OnPropertyChanged(nameof(Summaries));
         }

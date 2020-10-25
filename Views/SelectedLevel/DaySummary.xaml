@@ -10,7 +10,8 @@
     <Border Background="DarkViolet"
             BorderBrush="Aquamarine"
             BorderThickness="2">
-        <StackPanel x:Name="DaySessionsStackPanel">
+        <StackPanel x:Name="DaySessionsStackPanel"
+                    Visibility="{Binding SummaryVisibility}">
             <TextBlock x:Name="DayTitle" Text="{Binding Day, StringFormat={}{0:dd/MM/yyyy}}"></TextBlock>
             <Separator BorderBrush="Green" BorderThickness="1"></Separator>
             <ItemsControl ItemsSource="{Binding Sessions.Values}">

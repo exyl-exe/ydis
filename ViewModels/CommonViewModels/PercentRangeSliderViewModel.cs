@@ -14,8 +14,8 @@ namespace Whydoisuck.ViewModels.CommonViewModels
         public int MAX { get; } = 100;
         public int MIN { get; } = 0;
 
-        public int HigherValue { get => (int)Range.End; set => OnHigherValueChanged(value); }
-        public int LowerValue { get => (int)Range.Start; set => OnLowerValueChanged(value); }
+        public double HigherValue { get => Range.End; set => OnHigherValueChanged(value); }
+        public double LowerValue { get => Range.Start; set => OnLowerValueChanged(value); }
 
         public Range Range { get; }
 
