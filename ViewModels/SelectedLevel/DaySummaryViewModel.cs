@@ -11,13 +11,12 @@ namespace Whydoisuck.ViewModels.SelectedLevel
 {
     public class DaySummaryViewModel
     {
-        private readonly SortedList<TimeSpan, Session> _sessions;
-        public List<Session> Sessions { get => _sessions.Values.Reverse().ToList();}
+        public SortedList<TimeSpan, SessionButtonViewModel> Sessions { get; }
         public DateTime Day { get; set; }
 
         public DaySummaryViewModel(DateTime day)
         {
-            _sessions = new SortedList<TimeSpan, Session>();
+            Sessions = new SortedList<TimeSpan, SessionButtonViewModel>();
             Day = day;
         }
 
@@ -31,7 +30,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel
 
         public void AddSession(Session session)
         {
-            _sessions.Add(session.StartTime.TimeOfDay, session);
+            Sessions.Add(session.StartTime.TimeOfDay, new SessionButtonViewModel(session));
         }
     }
 }

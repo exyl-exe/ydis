@@ -120,6 +120,7 @@
     <Compile Include="ViewModels\SelectedLevel\DaySummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\GraphTabViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SelectedLevelViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionButtonViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTabViewModel.cs" />
     <Compile Include="ViewModels\SessionSummary\SessionViewModel.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
@@ -158,6 +159,9 @@
     </Compile>
     <Compile Include="Views\SelectedLevel\SelectedLevelView.xaml.cs">
       <DependentUpon>SelectedLevelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedLevel\SessionButton.xaml.cs">
+      <DependentUpon>SessionButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedLevel\SessionsTab.xaml.cs">
       <DependentUpon>SessionsTab.xaml</DependentUpon>
@@ -223,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SelectedLevel\SelectedLevelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedLevel\SessionButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

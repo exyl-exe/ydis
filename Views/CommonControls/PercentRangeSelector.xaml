@@ -7,12 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <xctk:RangeSlider
-        Minimum="0"
-        Maximum="100"
-        LowerValue="0"
-        HigherValue="100"
-        Step="1"
-        LowerValueChanged="RangeSlider_LowerValueChanged"
-        HigherValueChanged="RangeSlider_HigherValueChanged">
+        Minimum="{Binding MIN}"
+        Maximum="{Binding MAX}"
+        LowerValue="{Binding LowerValue}"
+        HigherValue="{Binding HigherValue}"
+        Step="1">
     </xctk:RangeSlider>
 </UserControl>

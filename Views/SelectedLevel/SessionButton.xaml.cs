@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.ViewModels.CommonViewModels;
 
-namespace Whydoisuck.Views.CommonControls
+namespace Whydoisuck.Views.SelectedLevel
 {
     /// <summary>
-    /// Logique d'interaction pour PercentRange.xaml
+    /// Logique d'interaction pour SessionButton.xaml
     /// </summary>
-    public partial class PercentRangeSelector : UserControl
+    public partial class SessionButton : UserControl
     {
-        public PercentRangeSelector()
+        public SessionButton()
         {
             InitializeComponent();
         }

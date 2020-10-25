@@ -13,22 +13,10 @@
         <StackPanel x:Name="DaySessionsStackPanel">
             <TextBlock x:Name="DayTitle" Text="{Binding Day, StringFormat={}{0:dd/MM/yyyy}}"></TextBlock>
             <Separator BorderBrush="Green" BorderThickness="1"></Separator>
-            <ItemsControl ItemsSource="{Binding Sessions}">
+            <ItemsControl ItemsSource="{Binding Sessions.Values}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Command="{Binding ViewSessionCommand}"
-                                HorizontalContentAlignment="Stretch">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding StartTime.TimeOfDay, StringFormat={}{0:hh}h{0:mm}}"></TextBlock>
-                                <TextBlock Grid.Column="1" Text="{Binding StartPercent, StringFormat={}from {0:0.##}%}"></TextBlock>
-                                <TextBlock Grid.Column="2" Text="{Binding Attempts.Count, StringFormat={}{0} attempts}"></TextBlock>
-                            </Grid>
-                        </Button>
+                        <local:SessionButton DataContext="{Binding}"></local:SessionButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

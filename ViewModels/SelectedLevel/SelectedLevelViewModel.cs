@@ -13,6 +13,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel
         public SessionGroup Group { get; set; }
         public GraphTabViewModel GraphTab { get; set; }
         public SessionsTabViewModel Sessions { get; set; }
+
         public SelectedLevelViewModel(SessionGroup g)
         {
             Group = g;

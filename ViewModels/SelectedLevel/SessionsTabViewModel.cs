@@ -11,8 +11,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel
     public class SessionsTabViewModel : BaseViewModel
     {
         private SessionGroup Group { get; set; }
-        private SortedList<DateTime, DaySummaryViewModel> AllSummaries { get; set; }
-        public SortedList<DateTime, DaySummaryViewModel> Summaries => GetFilteredSummaries();
+        public SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
 
         public PercentRangeSliderViewModel SelectRange { get; set; }
 
@@ -21,7 +20,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel
             Group = g;
             SelectRange = new PercentRangeSliderViewModel();
             SelectRange.OnRangeChanged += Update;
-            AllSummaries = CreateSummaries();
+            Summaries = CreateSummaries();
         }
 
         private SortedList<DateTime, DaySummaryViewModel> CreateSummaries()
@@ -43,23 +42,29 @@ namespace Whydoisuck.ViewModels.SelectedLevel
             return res;
         }
 
-        private void Update(object sender, EventArgs e)
+        private void UpdateSummaries()
         {
+            foreach (var summary in Summaries.Values)
+            {
+                foreach (var sessionModel in summary.Sessions.Values)
+                {
+                    if (SelectRange.Range.Contains(sessionModel.Session.StartPercent))
+                    {
+                        sessionModel.Visible = true;
+                    }
+                    else
+                    {
+                        sessionModel.Visible = false;
+
+                    }
+                }
+            }
             OnPropertyChanged(nameof(Summaries));
         }
 
-        private SortedList<DateTime, DaySummaryViewModel> GetFilteredSummaries()
+        private void Update(object sender, EventArgs e)
         {
-            var res = new SortedList<DateTime, DaySummaryViewModel>();
-            foreach(var summary in AllSummaries)
-            {
-                var sessions = summary.Value.Sessions.Where(s => SelectRange.Range.Contains(s.StartPercent)).ToList();
-                if(sessions.Count > 0)
-                {
-                    res.Add(summary.Key, new DaySummaryViewModel(summary.Key, sessions));
-                }
-            }
-            return res;
+            UpdateSummaries();
         }
     }
 }
