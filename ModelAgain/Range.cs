@@ -8,21 +8,21 @@ namespace Whydoisuck.UIModel.GraphView
 {
     public class Range : IComparable
     {
-        public float Start { get; set; }
-        public float End { get; set; }
+        public double Start { get; set; }
+        public double End { get; set; }
 
-        public Range(float Start, float End)
+        public Range(double Start, double End)
         {
             this.Start = Start;
             this.End = End;
         }
 
-        public bool Contains(float f)
+        public bool Contains(double f)
         {
             return Start <= f && f < End;
         }
 
-        public bool GreaterEquals(float f)
+        public bool GreaterEquals(double f)
         {
             return f < End;
         }

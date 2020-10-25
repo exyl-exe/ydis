@@ -111,6 +111,7 @@
     <Compile Include="ViewModels\CommonViewModels\LevelDataGridViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModels\LevelGraphViewModel.cs" />
     <Compile Include="ViewModels\CommonViewModels\LevelPartDataPoint.cs" />
+    <Compile Include="ViewModels\CommonViewModels\PercentRangeSliderViewModel.cs" />
     <Compile Include="ViewModels\Current\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />

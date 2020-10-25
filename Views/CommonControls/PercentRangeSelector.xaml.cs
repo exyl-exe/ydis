@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Whydoisuck.ViewModels.CommonViewModels;
 
 namespace Whydoisuck.Views.CommonControls
 {
@@ -23,6 +24,18 @@ namespace Whydoisuck.Views.CommonControls
         public PercentRangeSelector()
         {
             InitializeComponent();
+        }
+
+        private void RangeSlider_LowerValueChanged(object sender, RoutedEventArgs e)
+        {
+            var viewmodel = (PercentRangeSliderViewModel)DataContext;
+            viewmodel?.OnLowerValueChanged(sender, e);
+        }
+
+        private void RangeSlider_HigherValueChanged(object sender, RoutedEventArgs e)
+        {
+            var viewmodel = (PercentRangeSliderViewModel)DataContext;
+            viewmodel?.OnHigherValueChanged(sender, e);
         }
     }
 }

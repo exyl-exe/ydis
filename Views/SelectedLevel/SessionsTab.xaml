@@ -16,7 +16,7 @@
                 BorderThickness="1">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Left">TODO Starting Between</TextBlock>
-                    <common:PercentRangeSelector></common:PercentRangeSelector>
+                    <common:PercentRangeSelector DataContext="{Binding SelectRange}"></common:PercentRangeSelector>
                 </DockPanel>
             </Border>
             <Separator BorderBrush="Aquamarine" BorderThickness="1"/>

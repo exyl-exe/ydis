@@ -21,6 +21,14 @@ namespace Whydoisuck.ViewModels.SelectedLevel
             Day = day;
         }
 
+        public DaySummaryViewModel(DateTime day, List<Session> sessions) : this(day)
+        {
+            foreach(var s in sessions)
+            {
+                AddSession(s);
+            }
+        }
+
         public void AddSession(Session session)
         {
             _sessions.Add(session.StartTime.TimeOfDay, session);
