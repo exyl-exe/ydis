@@ -4,22 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.ViewModels;
-using Whydoisuck.ViewModels.Current;
+using Whydoisuck.DataModel;
 using Whydoisuck.ViewModels.SelectedLevel;
+using Whydoisuck.ViewModels.SessionSummary;
+using Whydoisuck.Views.SelectedSession;
 
 namespace Whydoisuck.Views.Commands
 {
-    public class NavigatorCommand : ICommand
+    class ViewSessionCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private MainWindowViewModel ViewModel { get; set; }
-        private BaseViewModel ViewToNavigateTo { get; set; }
+        private Session Session { get; set; }
+        private SessionsTabViewModel SessionsTab { get; set; }
 
-        public NavigatorCommand(MainWindowViewModel viewModel, BaseViewModel newView)
+        public ViewSessionCommand(SessionsTabViewModel parent, Session s)
         {
-            this.ViewModel = viewModel;
-            this.ViewToNavigateTo = newView;
+            SessionsTab = parent;
+            Session = s;
         }
 
         public bool CanExecute(object parameter)
@@ -29,7 +30,7 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            ViewModel.ReplaceMainView(ViewToNavigateTo);
+            SessionsTab.PushView(new SessionViewModel(Session));
         }
     }
 }

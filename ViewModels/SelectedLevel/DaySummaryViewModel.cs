@@ -18,23 +18,18 @@ namespace Whydoisuck.ViewModels.SelectedLevel
         public SortedList<TimeSpan, SessionButtonViewModel> Sessions { get; }
         public DateTime Day { get; set; }
 
-        public DaySummaryViewModel(DateTime day)
+        private SessionsTabViewModel Parent { get; set; }
+
+        public DaySummaryViewModel(SessionsTabViewModel parent, DateTime day)
         {
             Sessions = new SortedList<TimeSpan, SessionButtonViewModel>();
             Day = day;
-        }
-
-        public DaySummaryViewModel(DateTime day, List<Session> sessions) : this(day)
-        {
-            foreach(var s in sessions)
-            {
-                AddSession(s);
-            }
+            Parent = parent;
         }
 
         public void AddSession(Session session)
         {
-            Sessions.Add(session.StartTime.TimeOfDay, new SessionButtonViewModel(session));
+            Sessions.Add(session.StartTime.TimeOfDay, new SessionButtonViewModel(Parent, session));
         }
 
         public void UpdateVisibility()

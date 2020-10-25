@@ -2,69 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Whydoisuck.DataModel;
-using Whydoisuck.ViewModels.CommonViewModels;
 
 namespace Whydoisuck.ViewModels.SelectedLevel
 {
     public class SessionsTabViewModel : BaseViewModel
     {
-        private SessionGroup Group { get; set; }
-        public SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
-
-        public PercentRangeSliderViewModel SelectRange { get; set; }
+        public BaseViewModel CurrentView => Views.Peek();
+        private Stack<BaseViewModel> Views { get; set; }
 
         public SessionsTabViewModel(SessionGroup g)
         {
-            Group = g;
-            SelectRange = new PercentRangeSliderViewModel();
-            SelectRange.OnRangeChanged += Update;
-            Summaries = CreateSummaries();
+            Views = new Stack<BaseViewModel>();
+            Views.Push(new SessionsSummariesViewModel(this, g));
         }
 
-        private SortedList<DateTime, DaySummaryViewModel> CreateSummaries()
+        public void PushView(BaseViewModel m)
         {
-            var res = new SortedList<DateTime, DaySummaryViewModel>();
-            foreach(var session in Group.GroupSessions)
-            {
-                var startTime = session.StartTime;
-                if(res.TryGetValue(startTime.Date, out var daySummary))
-                {
-                    daySummary.AddSession(session);
-                } else
-                {
-                    var newSummary = new DaySummaryViewModel(startTime.Date);
-                    res.Add(startTime.Date, newSummary);
-                    newSummary.AddSession(session);
-                }
-            }
-            return res;
+            Views.Push(m);
+            OnPropertyChanged(nameof(CurrentView));
         }
 
-        private void UpdateSummaries()
+        public void PopView()
         {
-            foreach (var summary in Summaries.Values)
-            {
-                foreach (var sessionModel in summary.Sessions.Values)
-                {
-                    if (SelectRange.Range.Contains(sessionModel.Session.StartPercent))
-                    {
-                        sessionModel.Visible = true;
-                    }
-                    else
-                    {
-                        sessionModel.Visible = false;
-                    }
-                }
-                summary.UpdateVisibility();
-            }
-            OnPropertyChanged(nameof(Summaries));
-        }
-
-        private void Update(object sender, EventArgs e)
-        {
-            UpdateSummaries();
+            Views.Pop();
+            OnPropertyChanged(nameof(CurrentView));
         }
     }
 }

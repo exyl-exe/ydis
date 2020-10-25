@@ -19,5 +19,8 @@
         <DataTemplate DataType="{x:Type sessionVM:SessionViewModel}">
             <sessionView:SessionView></sessionView:SessionView>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type selectedLevelVM:SessionsSummariesViewModel}">
+            <selectedView:SessionsSummaries></selectedView:SessionsSummaries>
+        </DataTemplate>
     </Application.Resources>
 </Application>

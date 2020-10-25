@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Whydoisuck.DataModel;
+using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.SelectedLevel
 {
@@ -28,10 +30,13 @@ namespace Whydoisuck.ViewModels.SelectedLevel
 
         public Session Session { get; }
         public Visibility Visibility => Visible ? Visibility.Visible : Visibility.Collapsed;
-        public SessionButtonViewModel(Session session)
+        public ICommand ViewSessionCommand { get; set; }
+
+        public SessionButtonViewModel(SessionsTabViewModel parent, Session session)
         {
             Session = session;
             Visible = true;
+            ViewSessionCommand = new ViewSessionCommand(parent, session);
         }
     }
 }
