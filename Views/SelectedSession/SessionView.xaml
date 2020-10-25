@@ -11,8 +11,8 @@
         <StackPanel Orientation="Vertical"
                     Background="LightGoldenrodYellow">
             <local:SessionSettingsPanel></local:SessionSettingsPanel>
-            <common:LevelGraph/>
-            <common:LevelDatagrid/>
+            <common:LevelGraph DataContext="{Binding Graph}"/>
+            <common:LevelDatagrid DataContext="{Binding Datagrid}"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

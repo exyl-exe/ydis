@@ -26,9 +26,10 @@ namespace Whydoisuck.ViewModels.CommonViewModels
                 if (prec.DeathCount > 0) res.Add(prec);//showing first element only if it brings useful information
                 foreach (var part in stats)
                 {
-                    if (part.DeathCount != prec.DeathCount)
+                    if (part.DeathCount != 0 && part.DeathCount != prec.DeathCount)
                     {
                         res.Add(part);
+                        prec = part;
                     }
                 }
             }
