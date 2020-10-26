@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.DataSaving;
 using Whydoisuck.ViewModels.CurrentLevel;
 using Whydoisuck.ViewModels.Navigation;
 using Whydoisuck.ViewModels.SelectedLevel;
@@ -13,11 +14,12 @@ namespace Whydoisuck.ViewModels
     public class MainWindowViewModel : BaseViewModel
     {
 		public NavigationPanelViewModel NavigationPanel { get; set; }
-
 		public BaseViewModel CurrentMainView { get; set; }
+		public SessionManager Manager { get; set; }
 
-		public MainWindowViewModel()
+		public MainWindowViewModel(SessionManager manager)
 		{
+			Manager = manager;
 			NavigationPanel = new NavigationPanelViewModel(this);
 			CurrentMainView = new CurrentLevelViewModel();
 		}

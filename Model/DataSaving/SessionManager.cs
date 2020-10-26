@@ -9,7 +9,7 @@ using Whydoisuck.Model.DataStructures;
 
 namespace Whydoisuck.DataSaving
 {
-    class SessionManager : IWDISSerializable
+    public class SessionManager : IWDISSerializable
     {
         [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
 

@@ -13,12 +13,12 @@ namespace Whydoisuck.Views
         private readonly Recorder _recorder;
         public MainWindow()
         {
-            DataContext = new MainWindowViewModel();
+            _recorder = new Recorder();
+            _recorder.StartRecording();
+            DataContext = new MainWindowViewModel(_recorder.Manager);
             InitializeComponent();
             Closing += ApplicationExit;
 
-            _recorder = new Recorder();
-            _recorder.StartRecording();
         }
 
         private void ApplicationExit(object sender, EventArgs e)

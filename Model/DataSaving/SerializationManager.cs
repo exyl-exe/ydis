@@ -42,7 +42,7 @@ namespace Whydoisuck.DataSaving
         {
             var res = new List<Session>();
             var folderPath = GetGroupDirectoryPath(group);
-            var files = SafeDirectory.GetFiles(folderPath);
+            var files = SafeDirectory.GetFiles(folderPath);//TODO maybe keep a list of session files ?
             foreach (var file in files)
             {
                 var session = Deserialize<Session>(file);

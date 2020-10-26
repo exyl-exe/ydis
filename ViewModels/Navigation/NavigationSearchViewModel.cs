@@ -13,6 +13,7 @@ namespace Whydoisuck.ViewModels.Navigation
 {
     public class NavigationSearchViewModel : BaseViewModel
     {
+        private SessionManager Manager { get; set; }
         public NavigationPanelViewModel ParentNavigationPanel { get; set; }
         public List<NavigationSearchResult> AllResults { get; set; }
         public List<NavigationSearchResult> SearchResults { get; set; }
@@ -32,11 +33,12 @@ namespace Whydoisuck.ViewModels.Navigation
             }
         }
 
-        public NavigationSearchViewModel(NavigationPanelViewModel ParentNavigationPanel)
+        public NavigationSearchViewModel(NavigationPanelViewModel ParentNavigationPanel, SessionManager manager)
         {
             this.ParentNavigationPanel = ParentNavigationPanel;
             _search = "";
-            var groups = GroupLoader.GetAllGroups();
+            Manager = manager;
+            var groups = Manager.Groups;
             AllResults = groups.Select(
                 g => new NavigationSearchResult(g, new NavigatorCommand(ParentNavigationPanel.MainView, new SelectedLevelViewModel(g)))
                 ).ToList();

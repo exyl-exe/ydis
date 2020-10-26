@@ -13,7 +13,7 @@ namespace Whydoisuck.DataSaving
     {
         private Session CurrentSession { get; set; }
         private Attempt CurrentAttempt { get; set; }
-        private SessionManager Manager { get; set; }
+        public SessionManager Manager { get; set; }
 
         public Recorder()
         {
