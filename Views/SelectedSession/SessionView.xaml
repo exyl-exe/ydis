@@ -11,7 +11,9 @@
         <StackPanel Orientation="Vertical"
                     Background="LightGoldenrodYellow">
             <DockPanel>
-                <Button DockPanel.Dock="Left">
+                <Button x:Name="GoBackButton"
+                        DockPanel.Dock="Left"
+                        Command="{Binding GoBack}">
                     <TextBlock>
                     TODO go back
                     </TextBlock>

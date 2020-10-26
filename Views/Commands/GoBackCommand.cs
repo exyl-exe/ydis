@@ -4,23 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.DataModel;
 using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.ViewModels.SessionSummary;
-using Whydoisuck.Views.SelectedSession;
 
 namespace Whydoisuck.Views.Commands
 {
-    public class ViewSessionCommand : ICommand
+    public class GoBackCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private Session Session { get; set; }
+
         private SessionsTabViewModel SessionsTab { get; set; }
 
-        public ViewSessionCommand(SessionsTabViewModel parent, Session s)
+        public GoBackCommand(SessionsTabViewModel parent)
         {
             SessionsTab = parent;
-            Session = s;
         }
 
         public bool CanExecute(object parameter)
@@ -30,7 +26,7 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            SessionsTab.PushView(new SessionViewModel(SessionsTab, Session));
+            SessionsTab.PopView();
         }
     }
 }

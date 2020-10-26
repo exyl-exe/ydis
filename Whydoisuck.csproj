@@ -125,6 +125,7 @@
     <Compile Include="ViewModels\SelectedLevel\SessionsTabViewModel.cs" />
     <Compile Include="ViewModels\SessionSummary\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\SessionSummary\SessionViewModel.cs" />
+    <Compile Include="Views\Commands\GoBackCommand.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\Commands\ViewSessionCommand.cs" />
     <Compile Include="Views\CommonControls\LevelDatagrid.xaml.cs">
