@@ -123,6 +123,7 @@
     <Compile Include="ViewModels\SelectedLevel\SessionButtonViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsSummariesViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTabViewModel.cs" />
+    <Compile Include="ViewModels\SessionSummary\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\SessionSummary\SessionViewModel.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\Commands\ViewSessionCommand.cs" />
@@ -171,8 +172,8 @@
     <Compile Include="Views\SelectedLevel\SessionsSummaries.xaml.cs">
       <DependentUpon>SessionsSummaries.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectedSession\SessionSettingsPanel.xaml.cs">
-      <DependentUpon>SessionSettingsPanel.xaml</DependentUpon>
+    <Compile Include="Views\SelectedSession\SessionHeader.xaml.cs">
+      <DependentUpon>SessionHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedSession\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
@@ -247,7 +248,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectedSession\SessionSettingsPanel.xaml">
+    <Page Include="Views\SelectedSession\SessionHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

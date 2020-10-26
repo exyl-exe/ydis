@@ -10,7 +10,19 @@
     <ScrollViewer>
         <StackPanel Orientation="Vertical"
                     Background="LightGoldenrodYellow">
-            <local:SessionSettingsPanel></local:SessionSettingsPanel>
+            <DockPanel>
+                <Button DockPanel.Dock="Left">
+                    <TextBlock>
+                    TODO go back
+                    </TextBlock>
+                </Button>
+                <Button DockPanel.Dock="Right">
+                    <TextBlock>
+                    TODO delete
+                    </TextBlock>
+                </Button>
+                <local:SessionHeader DataContext="{Binding Header}"></local:SessionHeader>
+            </DockPanel>
             <common:LevelGraph DataContext="{Binding Graph}"/>
             <common:LevelDatagrid DataContext="{Binding Datagrid}"/>
         </StackPanel>

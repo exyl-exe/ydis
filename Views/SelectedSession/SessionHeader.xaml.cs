@@ -18,9 +18,9 @@ namespace Whydoisuck.Views.SelectedSession
     /// <summary>
     /// Logique d'interaction pour SessionSettingsPanel.xaml
     /// </summary>
-    public partial class SessionSettingsPanel : UserControl
+    public partial class SessionHeader : UserControl
     {
-        public SessionSettingsPanel()
+        public SessionHeader()
         {
             InitializeComponent();
         }
