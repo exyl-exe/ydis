@@ -14,15 +14,40 @@ namespace Whydoisuck.Model.DataStructures
     {
         [JsonProperty(PropertyName = "GroupName")] public string GroupName { get; set; }
         [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
-        [JsonIgnore] public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
 
-        public SessionGroup() {} //For json deserialization
+        [JsonIgnore] private bool _loaded = false;
+        [JsonIgnore] private List<Session> groupSessions;
+
+        [JsonIgnore] public List<Session> GroupSessions
+        {
+            get
+            {
+                if (!_loaded)
+                {
+                    LoadSessions();
+                    _loaded = true;
+                }
+                return groupSessions;
+            }
+
+            set
+            {
+                groupSessions = value;
+            }
+        }
+
+        public SessionGroup() { } //For json deserialization
 
         public SessionGroup(string name)
         {
             GroupName = name;
             Levels = new List<Level>();
             GroupSessions = new List<Session>();
+        }
+
+        private void LoadSessions()
+        {
+            groupSessions = SerializationManager.LoadGroupSessions(this);
         }
 
         public bool CouldContainLevel(Level level)
@@ -32,24 +57,25 @@ namespace Whydoisuck.Model.DataStructures
 
         public Level GetMostSimilarLevelInGroup(Level level)
         {
-            if(Levels.Count > 0)
+            if (Levels.Count > 0)
             {
                 var mostSimilar = Levels[0];
                 foreach (var l in Levels)
                 {
-                    if(Level.CompareToSample(level, mostSimilar, l)< 0)
+                    if (Level.CompareToSample(level, mostSimilar, l) < 0)
                     {
                         mostSimilar = l;
                     }
                 }
                 return mostSimilar;
-            } else
+            }
+            else
             {
                 return null;
             }
         }
 
-        public void AddSession(Session session)
+        public void AddAndSerializeSession(Session session)
         {
             session.SessionName = GetAvailaibleSessionName(session);
             GroupSessions.Add(session);

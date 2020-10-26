@@ -28,7 +28,11 @@ namespace Whydoisuck.DataSaving
         public void SaveSession(Session session)
         {
             var group = GetOrCreateGroup(session);
-            group.AddSession(session);
+            if (!group.GetMostSimilarLevelInGroup(session.Level).IsSameLevel(session.Level))
+            {
+                group.Levels.Add(session.Level);
+            }
+            group.AddAndSerializeSession(session);
         }
 
         public SessionGroup GetOrCreateGroup(Session session)

@@ -17,11 +17,6 @@ namespace Whydoisuck.DataSaving
         const string INDEX_FILE_NAME = "indexedLevels.wdis";
         public static string IndexFilePath { get { return SafePath.Combine(SAVE_DIR, INDEX_FILE_NAME); } }
 
-        public static void InitDir()
-        {
-            SafeDirectory.CreateDirectory(SAVE_DIR);
-        }
-
         public static void SerializeSession(SessionGroup group, Session session)
         {
             var path = SafePath.Combine(GetGroupDirectoryPath(group), GetSessionFileName(session));
@@ -41,6 +36,19 @@ namespace Whydoisuck.DataSaving
         private static string GetSessionFileName(Session session)
         {
             return session.SessionName;
+        }
+
+        public static List<Session> LoadGroupSessions(SessionGroup group)
+        {
+            var res = new List<Session>();
+            var folderPath = GetGroupDirectoryPath(group);
+            var files = SafeDirectory.GetFiles(folderPath);
+            foreach (var file in files)
+            {
+                var session = Deserialize<Session>(file);
+                res.Add(session);
+            }
+            return res;
         }
 
         public static void SerializeSessionManager(SessionManager manager)
