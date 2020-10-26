@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Whydoisuck.ViewModels;
-using Whydoisuck.ViewModels.Current;
+using Whydoisuck.ViewModels.CurrentLevel;
 using Whydoisuck.ViewModels.SelectedLevel;
 
 namespace Whydoisuck.Views.Commands

@@ -1,5 +1,4 @@
-﻿using OxyPlot;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
 
-namespace Whydoisuck.Views.CommonControls
+namespace Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary
 {
     /// <summary>
-    /// Logique d'interaction pour LevelGraph.xaml
+    /// Logique d'interaction pour SessionSettingsPanel.xaml
     /// </summary>
-    public partial class LevelGraph : UserControl
+    public partial class SessionHeader : UserControl
     {
-        public LevelGraph()
+        public SessionHeader()
         {
             InitializeComponent();
         }

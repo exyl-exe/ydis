@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -84,9 +99,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ModelAgain\LevelPartStatistics.cs" />
-    <Compile Include="ModelAgain\Range.cs" />
-    <Compile Include="ModelAgain\SessionsStatistics.cs" />
+    <Compile Include="ViewModels\DataStructures\LevelPartStatistics.cs" />
+    <Compile Include="ViewModels\DataStructures\Range.cs" />
+    <Compile Include="ViewModels\DataStructures\SessionsStatistics.cs" />
     <Compile Include="Model\DataModel\SerializedData\SaveManager\SerializedManager.cs" />
     <Compile Include="Model\DataModel\SerializedData\SerializedAttempt.cs" />
     <Compile Include="Model\DataModel\SerializedData\SerializedGroup.cs" />
@@ -108,23 +123,23 @@
     <Compile Include="Model\DataModel\Session.cs" />
     <Compile Include="Model\DataModel\SessionGroup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\CommonViewModels\LevelDataGridViewModel.cs" />
-    <Compile Include="ViewModels\CommonViewModels\LevelGraphViewModel.cs" />
-    <Compile Include="ViewModels\CommonViewModels\LevelPartDataPoint.cs" />
-    <Compile Include="ViewModels\CommonViewModels\PercentRangeSliderViewModel.cs" />
-    <Compile Include="ViewModels\Current\CurrentLevelViewModel.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\LevelDataGridViewModel.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\LevelGraphViewModel.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\LevelPartDataPoint.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\PercentRangeSliderViewModel.cs" />
+    <Compile Include="ViewModels\CurrentLevel\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchResult.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchViewModel.cs" />
-    <Compile Include="ViewModels\SelectedLevel\DaySummaryViewModel.cs" />
-    <Compile Include="ViewModels\SelectedLevel\GraphTabViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\DaySummaryViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\GraphTab\GraphTabMainViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SelectedLevelViewModel.cs" />
-    <Compile Include="ViewModels\SelectedLevel\SessionButtonViewModel.cs" />
-    <Compile Include="ViewModels\SelectedLevel\SessionsSummariesViewModel.cs" />
-    <Compile Include="ViewModels\SelectedLevel\SessionsTabViewModel.cs" />
-    <Compile Include="ViewModels\SessionSummary\SessionHeaderViewModel.cs" />
-    <Compile Include="ViewModels\SessionSummary\SessionViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionButtonViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsSummariesViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsTabMainViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionHeaderViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionViewModel.cs" />
     <Compile Include="Views\Commands\GoBackCommand.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\Commands\ViewSessionCommand.cs" />
@@ -140,14 +155,14 @@
     <Compile Include="Views\CommonControls\OxyPlotTooltipHover.xaml.cs">
       <DependentUpon>OxyPlotTooltipHover.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CommonControls\PercentRangeSelector.xaml.cs">
-      <DependentUpon>PercentRangeSelector.xaml</DependentUpon>
+    <Compile Include="Views\CommonControls\PercentRangeSlider.xaml.cs">
+      <DependentUpon>PercentRangeSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Currentlevel\CurrentLevelView.xaml.cs">
+    <Compile Include="Views\CurrentLevel\CurrentLevelView.xaml.cs">
       <DependentUpon>CurrentLevelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationPanel\LevelSearchPanel.xaml.cs">
-      <DependentUpon>LevelSearchPanel.xaml</DependentUpon>
+    <Compile Include="Views\NavigationPanel\NavigationSearchPanel.xaml.cs">
+      <DependentUpon>NavigationSearchPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NavigationPanel\NavigationPanel.xaml.cs">
       <DependentUpon>NavigationPanel.xaml</DependentUpon>
@@ -155,28 +170,31 @@
     <Compile Include="Model\Utilities\SafeDirectory.cs" />
     <Compile Include="Model\Utilities\SafeFile.cs" />
     <Compile Include="Model\Utilities\SafePath.cs" />
-    <Compile Include="Views\SelectedLevel\DaySummary.xaml.cs">
+    <Compile Include="Views\NavigationPanel\NavigationSearchResult.xaml.cs">
+      <DependentUpon>NavigationSearchResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectedLevel\SessionsTab\DaySummary.xaml.cs">
       <DependentUpon>DaySummary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectedLevel\GraphTab.xaml.cs">
-      <DependentUpon>GraphTab.xaml</DependentUpon>
+    <Compile Include="Views\SelectedLevel\GraphTab\GraphTabMain.xaml.cs">
+      <DependentUpon>GraphTabMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedLevel\SelectedLevelView.xaml.cs">
       <DependentUpon>SelectedLevelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectedLevel\SessionButton.xaml.cs">
+    <Compile Include="Views\SelectedLevel\SessionsTab\SessionButton.xaml.cs">
       <DependentUpon>SessionButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectedLevel\SessionsTab.xaml.cs">
-      <DependentUpon>SessionsTab.xaml</DependentUpon>
+    <Compile Include="Views\SelectedLevel\SessionsTab\SessionsTabMain.xaml.cs">
+      <DependentUpon>SessionsTabMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectedLevel\SessionsSummaries.xaml.cs">
+    <Compile Include="Views\SelectedLevel\SessionsTab\SessionsSummaries.xaml.cs">
       <DependentUpon>SessionsSummaries.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectedSession\SessionHeader.xaml.cs">
+    <Compile Include="Views\SelectedLevel\SessionsTab\SessionSummary\SessionHeader.xaml.cs">
       <DependentUpon>SessionHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SelectedSession\SessionView.xaml.cs">
+    <Compile Include="Views\SelectedLevel\SessionsTab\SessionSummary\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\CommonControls\LevelDatagrid.xaml">
@@ -195,15 +213,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CommonControls\PercentRangeSelector.xaml">
+    <Page Include="Views\CommonControls\PercentRangeSlider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Currentlevel\CurrentLevelView.xaml">
+    <Page Include="Views\CurrentLevel\CurrentLevelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NavigationPanel\LevelSearchPanel.xaml">
+    <Page Include="Views\NavigationPanel\NavigationSearchPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,11 +243,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\SelectedLevel\DaySummary.xaml">
+    <Page Include="Views\NavigationPanel\NavigationSearchResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectedLevel\GraphTab.xaml">
+    <Page Include="Views\SelectedLevel\SessionsTab\DaySummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedLevel\GraphTab\GraphTabMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,23 +259,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectedLevel\SessionButton.xaml">
+    <Page Include="Views\SelectedLevel\SessionsTab\SessionButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectedLevel\SessionsTab.xaml">
+    <Page Include="Views\SelectedLevel\SessionsTab\SessionsTabMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectedLevel\SessionsSummaries.xaml">
+    <Page Include="Views\SelectedLevel\SessionsTab\SessionsSummaries.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectedSession\SessionHeader.xaml">
+    <Page Include="Views\SelectedLevel\SessionsTab\SessionSummary\SessionHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SelectedSession\SessionView.xaml">
+    <Page Include="Views\SelectedLevel\SessionsTab\SessionSummary\SessionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,6 +307,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.1 %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

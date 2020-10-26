@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Whydoisuck.DataModel;
-using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.ViewModels.SessionSummary;
-using Whydoisuck.Views.SelectedSession;
+using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
+using Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary;
+using Whydoisuck.Views.SelectedLevel;
 
 namespace Whydoisuck.Views.Commands
 {
@@ -15,9 +15,9 @@ namespace Whydoisuck.Views.Commands
     {
         public event EventHandler CanExecuteChanged;
         private Session Session { get; set; }
-        private SessionsTabViewModel SessionsTab { get; set; }
+        private SessionsTabMainViewModel SessionsTab { get; set; }
 
-        public ViewSessionCommand(SessionsTabViewModel parent, Session s)
+        public ViewSessionCommand(SessionsTabMainViewModel parent, Session s)
         {
             SessionsTab = parent;
             Session = s;

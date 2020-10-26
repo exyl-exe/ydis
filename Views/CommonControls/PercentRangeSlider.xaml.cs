@@ -1,5 +1,4 @@
-﻿using OxyPlot;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +17,11 @@ using Whydoisuck.ViewModels.CommonControlsViewModels;
 namespace Whydoisuck.Views.CommonControls
 {
     /// <summary>
-    /// Logique d'interaction pour LevelGraph.xaml
+    /// Logique d'interaction pour PercentRange.xaml
     /// </summary>
-    public partial class LevelGraph : UserControl
+    public partial class PercentRangeSlider : UserControl
     {
-        public LevelGraph()
+        public PercentRangeSlider()
         {
             InitializeComponent();
         }

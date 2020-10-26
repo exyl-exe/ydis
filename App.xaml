@@ -2,12 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Whydoisuck"
-             xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.Current"
+             xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.CurrentLevel"
              xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel"
-             xmlns:sessionVM="clr-namespace:Whydoisuck.ViewModels.SessionSummary"
+             xmlns:sessionVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary"
+             xmlns:sessionTabVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab"
              xmlns:currentView="clr-namespace:Whydoisuck.Views.Currentlevel"
              xmlns:selectedView="clr-namespace:Whydoisuck.Views.SelectedLevel"
-             xmlns:sessionView="clr-namespace:Whydoisuck.Views.SelectedSession"
+             xmlns:selectedViewSessionsTab="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab" xmlns:sessionsummary="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary"
              StartupUri="pack:Views/MainWindow.xaml">
     <Application.Resources>
         <DataTemplate DataType="{x:Type currentLevelVM:CurrentLevelViewModel}">
@@ -16,11 +17,11 @@
         <DataTemplate DataType="{x:Type selectedLevelVM:SelectedLevelViewModel}">
             <selectedView:SelectedLevelView></selectedView:SelectedLevelView>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type sessionVM:SessionViewModel}">
-            <sessionView:SessionView></sessionView:SessionView>
+        <DataTemplate DataType="{x:Type sessionTabVM:SessionsSummariesViewModel}">
+            <selectedViewSessionsTab:SessionsSummaries></selectedViewSessionsTab:SessionsSummaries>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type selectedLevelVM:SessionsSummariesViewModel}">
-            <selectedView:SessionsSummaries></selectedView:SessionsSummaries>
+        <DataTemplate DataType="{x:Type sessionVM:SessionViewModel}">
+            <sessionsummary:SessionView></sessionsummary:SessionView>
         </DataTemplate>
     </Application.Resources>
 </Application>

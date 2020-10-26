@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.ViewModels.SelectedLevel;
+using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
 
 namespace Whydoisuck.Views.Commands
 {
@@ -12,9 +12,9 @@ namespace Whydoisuck.Views.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private SessionsTabViewModel SessionsTab { get; set; }
+        private SessionsTabMainViewModel SessionsTab { get; set; }
 
-        public GoBackCommand(SessionsTabViewModel parent)
+        public GoBackCommand(SessionsTabMainViewModel parent)
         {
             SessionsTab = parent;
         }

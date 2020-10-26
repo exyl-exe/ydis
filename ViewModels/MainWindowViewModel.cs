@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.ViewModels.Current;
+using Whydoisuck.ViewModels.CurrentLevel;
 using Whydoisuck.ViewModels.Navigation;
 using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.Currentlevel;
