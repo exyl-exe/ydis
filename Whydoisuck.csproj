@@ -104,10 +104,8 @@
     <Compile Include="ViewModels\DataStructures\SessionsStatistics.cs" />
     <Compile Include="Model\DataStructures\IWDISSerializable.cs" />
     <Compile Include="Model\DataSaving\GroupLoader.cs" />
-    <Compile Include="Model\DataSaving\ManagerEntry.cs" />
     <Compile Include="Model\DataSaving\SerializationManager.cs" />
     <Compile Include="Model\DataSaving\SessionManager.cs" />
-    <Compile Include="Model\DataSaving\SessionSaver.cs" />
     <Compile Include="Model\MemoryReading\GameState.cs" />
     <Compile Include="Model\DataStructures\Attempt.cs" />
     <Compile Include="Model\MemoryReading\GameWatcher.cs" />

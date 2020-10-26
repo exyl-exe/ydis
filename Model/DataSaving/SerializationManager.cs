@@ -13,6 +13,53 @@ namespace Whydoisuck.DataSaving
 {
     static class SerializationManager
     {
+        public const string SAVE_DIR = "./records/";//TODO config ?
+        const string INDEX_FILE_NAME = "indexedLevels.wdis";
+        public static string IndexFilePath { get { return SafePath.Combine(SAVE_DIR, INDEX_FILE_NAME); } }
+
+        public static void InitDir()
+        {
+            SafeDirectory.CreateDirectory(SAVE_DIR);
+        }
+
+        public static void SerializeSession(SessionGroup group, Session session)
+        {
+            var path = SafePath.Combine(GetGroupDirectoryPath(group), GetSessionFileName(session));
+            Serialize(session, path);
+        }
+
+        public static void CreateGroupDirectory(SessionGroup group)
+        {
+            SafeDirectory.CreateDirectory(GetGroupDirectoryPath(group));
+        }
+
+        private static string GetGroupDirectoryPath(SessionGroup group)
+        {
+            var path = SafePath.Combine(SAVE_DIR, group.GroupName + SafePath.DirectorySeparator);
+            return path;
+        }
+        private static string GetSessionFileName(Session session)
+        {
+            return session.SessionName;
+        }
+
+        public static void SerializeSessionManager(SessionManager manager)
+        {
+            Serialize(manager, IndexFilePath);
+        }
+
+        public static SessionManager DeserializeSessionManager()
+        {
+            if (!SafeFile.Exists(IndexFilePath))
+            {
+                return new SessionManager();
+            }
+            else
+            {
+                return Deserialize<SessionManager>(IndexFilePath);
+            }
+        }
+
         public static void Serialize(IWDISSerializable item, string filePath)
         {
             var serializedItem = item.Serialize();

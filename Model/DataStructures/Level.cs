@@ -164,7 +164,7 @@ namespace Whydoisuck.Model.DataStructures
             return false;
         }
 
-        public static int LevelComparison(Level sample, Level level1, Level level2)
+        public static int CompareToSample(Level sample, Level level1, Level level2)
         {
             var idComp = CompareIDs(sample, level1, level2);
             if (idComp != EQ) return idComp;

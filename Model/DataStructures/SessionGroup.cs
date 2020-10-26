@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Utilities;
@@ -12,28 +13,60 @@ namespace Whydoisuck.Model.DataStructures
     public class SessionGroup
     {
         [JsonProperty(PropertyName = "GroupName")] public string GroupName { get; set; }
+        [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
         [JsonIgnore] public List<Session> GroupSessions { get; set; }//TODO shouldn't be loaded directly
 
-        public SessionGroup() { }
+        public SessionGroup() {} //For json deserialization
 
-        public bool IsSameGroup(SessionGroup group)
+        public SessionGroup(string name)
         {
-            return GroupName.Equals(group.GroupName);
+            GroupName = name;
+            Levels = new List<Level>();
+            GroupSessions = new List<Session>();
+        }
+
+        public bool CouldContainLevel(Level level)
+        {
+            return Levels.Any(l => l.CouldBeSameLevel(level));
+        }
+
+        public Level GetMostSimilarLevelInGroup(Level level)
+        {
+            if(Levels.Count > 0)
+            {
+                var mostSimilar = Levels[0];
+                foreach (var l in Levels)
+                {
+                    if(Level.CompareToSample(level, mostSimilar, l)< 0)
+                    {
+                        mostSimilar = l;
+                    }
+                }
+                return mostSimilar;
+            } else
+            {
+                return null;
+            }
         }
 
         public void AddSession(Session session)
         {
-            var sessionName = GetSessionName(session);
-            var path = SafePath.Combine(GetGroupDirectoryPath(), sessionName);
-            SessionSaver.SerializeSession(session, path);
+            session.SessionName = GetAvailaibleSessionName(session);
+            GroupSessions.Add(session);
+            SerializationManager.SerializeSession(this, session);
         }
 
-        private string GetSessionName(Session session)
+        public bool IsSessionNameAvailable(string name)
+        {
+            return !GroupSessions.Any(s => s.SessionName.Equals(name));
+        }
+
+        public string GetAvailaibleSessionName(Session session)
         {
             var defaultName = session.GetDefaultSessionFileName();
             var name = defaultName;
             var i = 2;
-            while (!IsSessionNameAvailable(name))
+            while (!IsSessionNameAvailable(name)) //TODO might be slow
             {
                 name = $"{defaultName} ({i})";
                 i++;
@@ -41,27 +74,9 @@ namespace Whydoisuck.Model.DataStructures
             return name;
         }
 
-        private bool IsSessionNameAvailable(string name)
-        {
-            var groupPath = GetGroupDirectoryPath();
-            var filePath = SafePath.Combine(groupPath, name);
-            return !SafeFile.Exists(filePath);
-        }
-
         public static string GetDefaultGroupName(Level level)
         {
-            return $"{level.Name} rev{level.Revision}";
-        }
-
-        public string GetGroupDirectoryPath()
-        {
-            var path = SafePath.Combine(SessionSaver.SAVE_DIR, GroupName + SafePath.DirectorySeparator);
-            return path;
-        }
-
-        public void CreateGroupDirectory()
-        {
-            SafeDirectory.CreateDirectory(GetGroupDirectoryPath());
+            return $"{level.Name}" + (level.Revision == 0 ? "" : $" rev{level.Revision}");
         }
     }
 }

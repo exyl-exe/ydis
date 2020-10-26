@@ -13,6 +13,7 @@ namespace Whydoisuck.DataSaving
     {
         private Session CurrentSession { get; set; }
         private Attempt CurrentAttempt { get; set; }
+        private SessionManager Manager { get; set; }
 
         public Recorder()
         {
@@ -27,12 +28,14 @@ namespace Whydoisuck.DataSaving
 
         public void StartRecording()
         {
+            Manager = SerializationManager.DeserializeSessionManager();
             GameWatcher.StartWatching();
         }
 
         public void StopRecording()
         {
             GameWatcher.StopWatching();
+            SerializationManager.SerializeSessionManager(Manager);
         }
 
         //Called when entering a level, ensure a session is created before an attempt needs to be saved
@@ -90,7 +93,7 @@ namespace Whydoisuck.DataSaving
             //  -The current level is unknown (= The level was left before it finished loading)
             //  -There are not attempts in the session (= useless data)
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
-            SessionSaver.SaveSession(CurrentSession);
+            Manager.SaveSession(CurrentSession);
             CurrentSession = null;
         }
 

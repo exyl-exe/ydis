@@ -13,11 +13,14 @@ namespace Whydoisuck.Model.DataStructures
 {
     public class Session : IWDISSerializable
     {
+        [JsonProperty(PropertyName ="SessionName")] public string SessionName { get; set; }
         [JsonProperty(PropertyName = "Level")] public Level Level { get; set; }
         [JsonProperty(PropertyName = "IsCopyRun")] public bool IsCopyRun { get; set; }
         [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; }
         [JsonProperty(PropertyName = "StartPercent")] public float StartPercent { get; set; }
         [JsonProperty(PropertyName = "Attempts")] public List<Attempt> Attempts { get; set; }
+
+        public Session() { } //for json deserializer
 
         public void AddAttempt(Attempt att)
         {
@@ -26,7 +29,7 @@ namespace Whydoisuck.Model.DataStructures
 
         public string GetDefaultSessionFileName()
         {
-            return $"{Level.Name} rev{Level.Revision}";
+            return $"{Level.Name}" + (Level.Revision == 0 ? "" : $" rev{Level.Revision}");
         }
 
         public static int CompareStart(Session s, Session s2)

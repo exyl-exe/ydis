@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.Model.DataStructures
 {
-    public class Attempt
+    public class Attempt 
     {
         [JsonProperty(PropertyName = "Number")] public int Number { get; set; }
         [JsonProperty(PropertyName = "EndPercent")] public float EndPercent { get; set; }
@@ -15,21 +15,5 @@ namespace Whydoisuck.Model.DataStructures
         [JsonProperty(PropertyName = "Duration")] public TimeSpan Duration { get; set; }
 
         public Attempt() { }
-
-        public int Compare(Attempt attempt)
-        {
-            if (EndPercent > attempt.EndPercent)
-            {
-                return 1;
-            }
-            else if (EndPercent < attempt.EndPercent)
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
     }
 }

@@ -11,41 +11,35 @@ namespace Whydoisuck.DataSaving
 {
     class SessionManager : IWDISSerializable
     {
-        [JsonProperty(PropertyName = "Entries")] public List<ManagerEntry> Entries { get; set; }
+        [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
 
         public SessionManager()
         {
-            Entries = new List<ManagerEntry>();
+            Groups = new List<SessionGroup>();
         }
 
-        public void SortEntriesBySimilarityTo(Level level)
+        public void SortGroupsByClosestTo(Level level)
         {
-            Entries.Sort((entry1, entry2) => Level.LevelComparison(level, entry1.Level, entry2.Level));
-            Entries.Reverse();
+            //TODO giga bad because most similar level in group is computed several time
+            Groups.Sort((entry1, entry2) => Level.CompareToSample(level, entry1.GetMostSimilarLevelInGroup(level), entry2.GetMostSimilarLevelInGroup(level)));
+            Groups.Reverse();
         }
 
-        public void AddEntry(ManagerEntry entry)
+        public void SaveSession(Session session)
         {
-            foreach (var existingEntry in Entries)
+            var group = GetOrCreateGroup(session);
+            group.AddSession(session);
+        }
+
+        public SessionGroup GetOrCreateGroup(Session session)
+        {
+            if (Groups.Count > 0)
             {
-                if (existingEntry.SameEntry(entry))
+                SortGroupsByClosestTo(session.Level);
+                var mostLikely = Groups[0];
+                if (mostLikely.CouldContainLevel(session.Level))
                 {
-                    return;
-                }
-            }
-            Entries.Add(entry);
-        }
-
-        public SessionGroup GetGroup(Session session)
-        {
-            if (Entries.Count > 0)
-            {
-                SortEntriesBySimilarityTo(session.Level);
-                var mostLikely = Entries[0];
-                var sameLevel = mostLikely.Level.CouldBeSameLevel(session.Level);
-                if (sameLevel)
-                {
-                    return mostLikely.Group;
+                    return mostLikely;
                 }
             }
             return CreateNewGroup(session.Level);
@@ -61,16 +55,18 @@ namespace Whydoisuck.DataSaving
                 groupName = $"{defaultGroupName} ({i})";
                 i++;
             }
-            var newGroup = new SessionGroup() { GroupName = groupName };
-            newGroup.CreateGroupDirectory();
+            var newGroup = new SessionGroup(groupName);
+            Groups.Add(newGroup);
+            newGroup.Levels.Add(level);
+            SerializationManager.CreateGroupDirectory(newGroup);
             return newGroup;
         }
 
         private bool IsGroupNameAvailable(string groupName)//TODO potentially laggy if called repeatedly, might be worth to sort list OR to check save directory directly
         {
-            foreach (var e in Entries)
+            foreach (var group in Groups)
             {
-                if (e.Group.GroupName.Equals(groupName))
+                if (group.GroupName.Equals(groupName))
                 {
                     return false;
                 }
