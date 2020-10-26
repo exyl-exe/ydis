@@ -22,9 +22,9 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
             {
                 var prec = stats[0];
                 if (prec.DeathCount > 0) res.Add(prec);//showing first element only if it brings useful information
-                foreach (var part in stats)
+                foreach (var part in stats.SkipWhile(t => t == stats[0]).ToList())
                 {
-                    if (part.DeathCount != 0 && part.DeathCount != prec.DeathCount)
+                    if (part.DeathCount > 0 || part.ReachCount != (prec.ReachCount-prec.DeathCount))
                     {
                         res.Add(part);
                         prec = part;
