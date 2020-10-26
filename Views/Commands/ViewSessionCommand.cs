@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.DataModel;
+using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
 using Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary;
 using Whydoisuck.Views.SelectedLevel;

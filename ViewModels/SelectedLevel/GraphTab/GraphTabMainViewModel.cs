@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.DataModel;
+using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
 using Whydoisuck.ViewModels.DataStructures;
 

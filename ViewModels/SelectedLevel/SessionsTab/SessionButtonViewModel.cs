@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Whydoisuck.DataModel;
+using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab

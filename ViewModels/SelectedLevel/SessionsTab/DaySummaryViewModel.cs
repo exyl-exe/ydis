@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Views.Commands;
 using Whydoisuck.Views.SelectedLevel;
-using Whydoisuck.DataModel;
 using System.Windows;
+using Whydoisuck.Model.DataStructures;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
 {

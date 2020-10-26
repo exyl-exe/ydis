@@ -102,26 +102,19 @@
     <Compile Include="ViewModels\DataStructures\LevelPartStatistics.cs" />
     <Compile Include="ViewModels\DataStructures\Range.cs" />
     <Compile Include="ViewModels\DataStructures\SessionsStatistics.cs" />
-    <Compile Include="Model\DataModel\SerializedData\SaveManager\SerializedManager.cs" />
-    <Compile Include="Model\DataModel\SerializedData\SerializedAttempt.cs" />
-    <Compile Include="Model\DataModel\SerializedData\SerializedGroup.cs" />
-    <Compile Include="Model\DataModel\SerializedData\SerializedLevel.cs" />
-    <Compile Include="Model\DataModel\SerializedData\SerializedSession.cs" />
-    <Compile Include="Model\DataModel\SerializedData\SaveManager\SerializedManagerEntry.cs" />
-    <Compile Include="Model\DataModel\SerializedData\IWDISSerialized.cs" />
-    <Compile Include="Model\DataModel\IWDISSerializable.cs" />
+    <Compile Include="Model\DataStructures\IWDISSerializable.cs" />
     <Compile Include="Model\DataSaving\GroupLoader.cs" />
-    <Compile Include="Model\DataSaving\IndexerEntry.cs" />
+    <Compile Include="Model\DataSaving\ManagerEntry.cs" />
     <Compile Include="Model\DataSaving\SerializationManager.cs" />
     <Compile Include="Model\DataSaving\SessionManager.cs" />
     <Compile Include="Model\DataSaving\SessionSaver.cs" />
     <Compile Include="Model\MemoryReading\GameState.cs" />
-    <Compile Include="Model\DataModel\Attempt.cs" />
+    <Compile Include="Model\DataStructures\Attempt.cs" />
     <Compile Include="Model\MemoryReading\GameWatcher.cs" />
-    <Compile Include="Model\DataModel\Level.cs" />
+    <Compile Include="Model\DataStructures\Level.cs" />
     <Compile Include="Model\Recording\Recorder.cs" />
-    <Compile Include="Model\DataModel\Session.cs" />
-    <Compile Include="Model\DataModel\SessionGroup.cs" />
+    <Compile Include="Model\DataStructures\Session.cs" />
+    <Compile Include="Model\DataStructures\SessionGroup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelDataGridViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelGraphViewModel.cs" />
@@ -319,5 +312,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

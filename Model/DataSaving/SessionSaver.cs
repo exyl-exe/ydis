@@ -7,14 +7,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
-using Whydoisuck.DataModel;
+using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
 {
     static class SessionSaver
     {
-        public const string SAVE_DIR = "./records/";
+        public const string SAVE_DIR = "./records/";//TODO config ?
         const string INDEX_FILE_NAME = "indexedLevels.wdis";
         public static string IndexFilePath { get { return SafePath.Combine(SAVE_DIR, INDEX_FILE_NAME); } }
 
@@ -28,7 +28,7 @@ namespace Whydoisuck.DataSaving
 
             var group = manager.GetGroup(session);
             group.AddSession(session);
-            var entry = new IndexerEntry() { Group = group, Level = session.Level };
+            var entry = new ManagerEntry() { Group = group, Level = session.Level };
             manager.AddEntry(entry);
 
             SerializationManager.Serialize(manager, IndexFilePath);

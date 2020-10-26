@@ -5,18 +5,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.DataModel;
-using Whydoisuck.DataModel.SerializedData.SaveManager;
+using Whydoisuck.Model.DataStructures;
 
 namespace Whydoisuck.DataSaving
 {
     class SessionManager : IWDISSerializable
     {
-        public List<IndexerEntry> Entries { get; set; }
+        [JsonProperty(PropertyName = "Entries")] public List<ManagerEntry> Entries { get; set; }
 
         public SessionManager()
         {
-            Entries = new List<IndexerEntry>();
+            Entries = new List<ManagerEntry>();
         }
 
         public void SortEntriesBySimilarityTo(Level level)
@@ -25,7 +24,7 @@ namespace Whydoisuck.DataSaving
             Entries.Reverse();
         }
 
-        public void AddEntry(IndexerEntry entry)
+        public void AddEntry(ManagerEntry entry)
         {
             foreach (var existingEntry in Entries)
             {
@@ -79,16 +78,14 @@ namespace Whydoisuck.DataSaving
             return true;
         }
 
-        public string GetSerializedObject()
+        public override string Serialize()
         {
-            var serializedManager = new SerializedManager(this);
-            return serializedManager.Serialize();
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public void InitFromSerialized(string value)
+        public override void Deserialize(string value)
         {
-            var serializedManager = new SerializedManager(value);
-            Entries = serializedManager.Entries.Select(e => (new IndexerEntry(e))).ToList();
+            JsonConvert.PopulateObject(value, this);
         }
     }
 }

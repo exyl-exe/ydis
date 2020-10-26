@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.DataModel;
+using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
@@ -15,7 +15,7 @@ namespace Whydoisuck.DataSaving
     {
         public static void Serialize(IWDISSerializable item, string filePath)
         {
-            var serializedItem = item.GetSerializedObject();
+            var serializedItem = item.Serialize();
             SafeFile.WriteAllText(filePath, serializedItem);
         }
 
@@ -23,7 +23,7 @@ namespace Whydoisuck.DataSaving
         {
             var item = new T();
             var value = SafeFile.ReadAllText(filePath);
-            item.InitFromSerialized(value);
+            item.Deserialize(value);
             return item;
         }
     }
