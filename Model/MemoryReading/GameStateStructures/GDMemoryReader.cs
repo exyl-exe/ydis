@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
+using Whydoisuck.MemoryReading;
 
-namespace Whydoisuck.MemoryReading
+namespace Whydoisuck.Model.MemoryReading.GameStateStructures
 {
     class GDMemoryReader
     {
@@ -73,7 +74,7 @@ namespace Whydoisuck.MemoryReading
             var commonAddr = Reader.ReadInt((int)Reader.MainModuleAddr + baseOffset);
             if (commonAddr == MANAGER_NOT_LOADED) return null;//game was launched but has not finished loading
 
-            var currentState = new GameState() { LevelMetadata = null, PlayerObject = null };
+            var currentState = new GameState(null, null, null);
             var levelAddr = Reader.ReadInt(commonAddr + levelOffset);
 
             if (levelAddr != NO_LEVEL_LOADED)
@@ -91,48 +92,49 @@ namespace Whydoisuck.MemoryReading
 
         private GDPlayer GetPlayerInfo(int playerStructAddr)
         {
-            return new GDPlayer
-            {
-                XPosition = Reader.ReadFloat(playerStructAddr + xPositionOffset),
-                IsDead = Reader.ReadBoolean(playerStructAddr + isDeadOffset),
-                HasWon = Reader.ReadBoolean(playerStructAddr + hasWonOffset)
-            };
+            var xPosition = Reader.ReadFloat(playerStructAddr + xPositionOffset);
+            var isDead = Reader.ReadBoolean(playerStructAddr + isDeadOffset);
+            var hasWon = Reader.ReadBoolean(playerStructAddr + hasWonOffset);
+            return new GDPlayer(xPosition, isDead, hasWon);
         }
 
         private GDLoadedLevel GetLoadedLevelInfo(int levelStructAddr)
         {
-            return new GDLoadedLevel
-            {
-                IsRunning = Reader.ReadBoolean(levelStructAddr + isRunningOffset),
-                IsTestmode = Reader.ReadBoolean(levelStructAddr + isTestmodeOffset),
-                AttemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset),
-                PhysicalLength = Reader.ReadFloat(levelStructAddr + levelLengthOffset),
-                StartPosition = Reader.ReadFloat(levelStructAddr + respawnPositionOffset)
-            };
+            var isRunning = Reader.ReadBoolean(levelStructAddr + isRunningOffset);
+            var isTestmode = Reader.ReadBoolean(levelStructAddr + isTestmodeOffset);
+            var attemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset);
+            var physicalLength = Reader.ReadFloat(levelStructAddr + levelLengthOffset);
+            var startPosition = Reader.ReadFloat(levelStructAddr + respawnPositionOffset);
+            return new GDLoadedLevel(isRunning, isTestmode, attemptNumber, physicalLength, startPosition);
         }
 
         private GDLevelMetadata GetLevelInfo(int levelStructAddr)
         {
             var levelMetadataAddr = Reader.ReadInt(levelStructAddr + levelMetadataOffset);
             var levelSettingsAddr = Reader.ReadInt(levelStructAddr + levelSettingsOffset);
-            var levelName = GetLevelName(levelMetadataAddr);
+
             var levelID = Reader.ReadInt(levelMetadataAddr + onlineIDOffset);
+            var levelName = GetLevelName(levelMetadataAddr);
+            var isOnline = levelID != 0;//lazyness
             var originalID = Reader.ReadInt(levelMetadataAddr + originalIDOffset);
+            var isOriginal = originalID == 0;//lazyness v2
+            var revision = Reader.ReadInt(levelMetadataAddr + revOffset);
             var musicID = Reader.ReadInt(levelMetadataAddr + musicIDOffset);
+            var officialMusicID = Reader.ReadInt(levelMetadataAddr + officialMusicIDOffset);
+            var isCustomMusic = musicID != 0;//It's how it's done in the game's code
             var musicOffset = levelSettingsAddr == SETTINGS_NOT_LOADED ? 0 : Reader.ReadFloat(levelSettingsAddr + musicOffsetOffset);
-            return new GDLevelMetadata
-            {
-                ID = levelID,
-                IsOnline = (levelID != 0),//lazyness
-                OriginalID = originalID,
-                IsOriginal = (originalID == 0),//lazyness v2
-                Name = levelName,
-                Revision = Reader.ReadInt(levelMetadataAddr + revOffset),
-                MusicID = musicID,
-                OfficialMusicID = Reader.ReadInt(levelMetadataAddr + officialMusicIDOffset),
-                IsCustomMusic = (musicID != 0),//It's how it's done in the game's code
-                MusicOffset = musicOffset
-            };
+
+            return new GDLevelMetadata(
+                levelID,
+                levelName,
+                isOnline,
+                originalID,
+                isOriginal,
+                revision,
+                isCustomMusic,
+                musicID,
+                officialMusicID,
+                musicOffset);
         }
 
         private string GetLevelName(int levelMetadata)

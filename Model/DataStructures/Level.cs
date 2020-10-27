@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Whydoisuck.MemoryReading;
+using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
 namespace Whydoisuck.Model.DataStructures
 {
@@ -70,7 +70,7 @@ namespace Whydoisuck.Model.DataStructures
             }
         }
 
-        public bool FromSameLevel(Level level)
+        private bool FromSameLevel(Level level)
         {
             if (level == null) return false;
 
@@ -100,13 +100,13 @@ namespace Whydoisuck.Model.DataStructures
             return ID != 0 && ID == level.ID;//Effectively always false, but it ensures an uploaded level is from the same level as itself
         }
 
-        public bool SimilarName(Level level)
+        private bool SimilarName(Level level)
         {
             if (level == null) return false;
             return Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower());
         }
 
-        public bool SameMusic(Level level)
+        private bool SameMusic(Level level)
         {
             if (level == null) return false;
             if (!(Math.Abs(MusicOffset - level.MusicOffset) < MUSIC_OFFSET_EPSILON))
@@ -133,7 +133,7 @@ namespace Whydoisuck.Model.DataStructures
             return false;
         }
 
-        public bool SamePhysicalLength(Level level)
+        private bool SamePhysicalLength(Level level)
         {
             if (level == null) return false;
             return Math.Abs(PhysicalLength - level.PhysicalLength) <= LENGTH_EPSILON;
