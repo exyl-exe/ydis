@@ -64,6 +64,7 @@ namespace Whydoisuck.DataSaving
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
             Manager.SaveSession(CurrentSession);
             CurrentSession = null;
+            CurrentAttempt = null;
         }
 
         public void CreateNewAttempt(GameState state)
