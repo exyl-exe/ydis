@@ -66,7 +66,7 @@ namespace Whydoisuck.DataSaving
             return newGroup;
         }
 
-        private bool IsGroupNameAvailable(string groupName)//TODO potentially laggy if called repeatedly, might be worth to sort list OR to check save directory directly
+        private bool IsGroupNameAvailable(string groupName)
         {
             foreach (var group in Groups)
             {

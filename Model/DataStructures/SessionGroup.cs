@@ -92,7 +92,7 @@ namespace Whydoisuck.Model.DataStructures
             var defaultName = session.GetDefaultSessionFileName();
             var name = defaultName;
             var i = 2;
-            while (!IsSessionNameAvailable(name)) //TODO might be slow
+            while (!IsSessionNameAvailable(name))
             {
                 name = $"{defaultName} ({i})";
                 i++;

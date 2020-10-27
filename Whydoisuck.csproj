@@ -99,13 +99,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
+    <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
+    <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
     <Compile Include="ViewModels\DataStructures\LevelPartStatistics.cs" />
     <Compile Include="ViewModels\DataStructures\Range.cs" />
     <Compile Include="ViewModels\DataStructures\SessionsStatistics.cs" />
     <Compile Include="Model\DataStructures\IWDISSerializable.cs" />
     <Compile Include="Model\DataSaving\SerializationManager.cs" />
     <Compile Include="Model\DataSaving\SessionManager.cs" />
-    <Compile Include="Model\MemoryReading\GameState.cs" />
+    <Compile Include="Model\MemoryReading\GameStateStructures\GameState.cs" />
     <Compile Include="Model\DataStructures\Attempt.cs" />
     <Compile Include="Model\MemoryReading\GameWatcher.cs" />
     <Compile Include="Model\DataStructures\Level.cs" />

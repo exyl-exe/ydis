@@ -64,6 +64,7 @@ namespace Whydoisuck.DataSaving
             //  -There are not attempts in the session (= useless data)
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
             Manager.SaveSession(CurrentSession);
+            SerializationManager.SerializeSessionManager(Manager);
             CurrentSession = null;
             CurrentAttempt = null;
         }

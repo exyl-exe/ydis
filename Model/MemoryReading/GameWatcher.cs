@@ -75,7 +75,7 @@ namespace Whydoisuck.MemoryReading
             HandleLevelExited(PreviousState, currentState);
             HandleLevelEntered(PreviousState, currentState);
             HandleLevelStarted(PreviousState, currentState);
-            HandleLevelNotExited(PreviousState, currentState);//TODO not a good idea ?
+            HandleLevelNotExited(PreviousState, currentState);
             PreviousState = currentState;
         }
 
