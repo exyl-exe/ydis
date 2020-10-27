@@ -75,6 +75,7 @@ namespace Whydoisuck.DataSaving
 
         public void PopSaveLosingAttempt(GameState state)
         {
+            CreateSessionIfNotExists(state);
             CreateAttemptIfNotExists(state);
             CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
@@ -84,6 +85,7 @@ namespace Whydoisuck.DataSaving
 
         public void PopSaveWinningAttempt(GameState state)
         {
+            CreateSessionIfNotExists(state);
             CreateAttemptIfNotExists(state);
             CurrentAttempt.EndPercent = 100;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
@@ -107,7 +109,6 @@ namespace Whydoisuck.DataSaving
         private void CreateAttemptIfNotExists(GameState state)
         {
             if (CurrentAttempt != null) return;
-            CreateSessionIfNotExists(state);
             CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber, DateTime.Now);
 
             if (state.LoadedLevel == null) return;
