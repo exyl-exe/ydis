@@ -11,7 +11,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
     public class SessionsSummariesViewModel : BaseViewModel
     {
         private SessionGroup Group { get; set; }
-        public SortedList<DateTime?, DaySummaryViewModel> Summaries { get; }
+        public SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
         public PercentRangeSliderViewModel SelectRange { get; set; }
 
         private SessionsTabMainViewModel Parent { get; set; }
@@ -25,19 +25,19 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
             Summaries = CreateSummaries();
         }
 
-        private SortedList<DateTime?, DaySummaryViewModel> CreateSummaries()
+        private SortedList<DateTime, DaySummaryViewModel> CreateSummaries()
         {
-            var res = new SortedList<DateTime?, DaySummaryViewModel>();
+            var res = new SortedList<DateTime, DaySummaryViewModel>();
             foreach (var session in Group.GroupSessions)
             {
-                if (res.TryGetValue(session.StartTime, out var daySummary))
+                if (res.TryGetValue(session.StartTime.Date, out var daySummary))
                 {
                     daySummary.AddSession(session);
                 }
                 else
                 {
-                    var newSummary = new DaySummaryViewModel(Parent, session.StartTime);
-                    res.Add(session.StartTime, newSummary);
+                    var newSummary = new DaySummaryViewModel(Parent, session.StartTime.Date);
+                    res.Add(session.StartTime.Date, newSummary);
                     newSummary.AddSession(session);
                 }
             }
