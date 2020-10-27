@@ -75,14 +75,7 @@ namespace Whydoisuck.MemoryReading
 
         public float ReadFloat(int address)
         {
-            try
-            {
-                return BitConverter.ToSingle(ReadBytes(address, 4), 0);
-            }
-            catch
-            {
-                throw;
-            }
+            return BitConverter.ToSingle(ReadBytes(address, 4), 0);
         }
     }
 }

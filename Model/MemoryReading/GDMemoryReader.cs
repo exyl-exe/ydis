@@ -8,8 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
 using Whydoisuck.MemoryReading;
+using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.Model.MemoryReading.GameStateStructures
+namespace Whydoisuck.Model.MemoryReading
 {
     class GDMemoryReader
     {
@@ -59,17 +60,18 @@ namespace Whydoisuck.Model.MemoryReading.GameStateStructures
 
         public GameState GetGameState()
         {
-            bool GDClosed = false;
             try
             {
-                GDClosed = !Reader.IsProcessOpened || Reader.Process.MainModule == null;
+                //If the game is closed
+                if (!Reader.IsProcessOpened || Reader.Process.MainModule == null)
+                {
+                    return null;
+                }
             }
             catch (Win32Exception)
             {
                 return null;
             }
-            if (GDClosed) return null;
-
 
             var commonAddr = Reader.ReadInt((int)Reader.MainModuleAddr + baseOffset);
             if (commonAddr == MANAGER_NOT_LOADED) return null;//game was launched but has not finished loading
