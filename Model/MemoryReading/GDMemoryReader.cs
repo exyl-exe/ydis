@@ -111,7 +111,6 @@ namespace Whydoisuck.MemoryReading
             };
         }
 
-
         private GDLevelMetadata GetLevelInfo(int levelStructAddr)
         {
             var levelMetadataAddr = Reader.ReadInt(levelStructAddr + levelMetadataOffset);

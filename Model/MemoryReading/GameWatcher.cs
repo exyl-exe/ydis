@@ -110,6 +110,10 @@ namespace Whydoisuck.MemoryReading
         {
             if (currentState.PlayerObject != null && previousState.PlayerObject != null && currentState.LoadedLevel.IsRunning)
             {
+                if(CurrentAttempt == null) // TODO patch
+                {
+                    CurrentAttempt = new AttemptState(currentState.LoadedLevel.AttemptNumber);
+                }
                 HandlePlayerRestarts(previousState, currentState);
                 HandlePlayerDeath(currentState);
                 HandlePlayerWin(previousState, currentState);

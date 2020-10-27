@@ -20,7 +20,13 @@ namespace Whydoisuck.Model.DataStructures
         [JsonProperty(PropertyName = "StartPercent")] public float StartPercent { get; set; }
         [JsonProperty(PropertyName = "Attempts")] public List<Attempt> Attempts { get; set; }
 
-        public Session() { } //for json deserializer
+        public Session() { } //for json deserializer //TODO make public
+
+        public Session(DateTime startTime)
+        {
+            Attempts = new List<Attempt>();
+            StartTime = startTime;
+        }
 
         public void AddAttempt(Attempt att)
         {

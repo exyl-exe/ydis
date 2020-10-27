@@ -14,6 +14,12 @@ namespace Whydoisuck.Model.DataStructures
         [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; }
         [JsonProperty(PropertyName = "Duration")] public TimeSpan Duration { get; set; }
 
-        public Attempt() { }
+        private Attempt() { } //TODO make public
+
+        public Attempt(int number, DateTime startTime)
+        {
+            Number = number;
+            StartTime = startTime;
+        }
     }
 }
