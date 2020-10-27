@@ -18,8 +18,8 @@ namespace Whydoisuck.ViewModels.Navigation
         public NavigationPanelViewModel(MainWindowViewModel mainWindow)
         {
             MainView = mainWindow;
-            GoToCurrentCommand = new NavigatorCommand(mainWindow, new CurrentLevelViewModel());
-            SearchView = new NavigationSearchViewModel(this, mainWindow.Manager);
+            GoToCurrentCommand = new NavigatorCommand(mainWindow, new CurrentLevelViewModel(mainWindow.Recorder));
+            SearchView = new NavigationSearchViewModel(this, mainWindow.Recorder.Manager);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,11 +11,19 @@ using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
 namespace Whydoisuck.DataSaving
 {
-    class Recorder
+    public class Recorder
     {
         private Attempt CurrentAttempt { get; set; }
         public Session CurrentSession { get; set; }
         public SessionManager Manager { get; set; }
+
+        public delegate void SessionCallback(Session session);
+        public delegate void AttemptCallback(Attempt attempt);
+
+        public event SessionCallback OnNewCurrentSessionInitialized;
+        public event SessionCallback OnQuitCurrentSession;
+        public event AttemptCallback OnAttemptAdded;
+
 
         public Recorder()
         {
@@ -42,21 +51,22 @@ namespace Whydoisuck.DataSaving
         //Called when entering a level, ensure a session is created before an attempt needs to be saved
         //However, while its metadata is fully loaded, the level is not
         //Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
-        public void CreateNewSession(GDLevelMetadata level)
+        private void CreateNewSession(GDLevelMetadata level)
         {
             CurrentSession = new Session(DateTime.Now);
         }
 
         //Update values for the current session, is called when the level is fully loaded
-        public void UpdateCurrentSession(GameState state)
+        private void UpdateCurrentSession(GameState state)
         {
             CreateSessionIfNotExists(state);
             CurrentSession.Level = new Level(state);
             CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
             CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
         }
 
-        public void PopSaveCurrentSession(GDLevelMetadata level)
+        private void PopSaveCurrentSession(GDLevelMetadata level)
         {
             //Don't save if :
             //  -no session were created (= software launched while playing a level, and no attempts have been played before exiting)
@@ -65,32 +75,36 @@ namespace Whydoisuck.DataSaving
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
             Manager.SaveSession(CurrentSession);
             SerializationManager.SerializeSessionManager(Manager);
+
+            OnQuitCurrentSession?.Invoke(CurrentSession);
             CurrentSession = null;
             CurrentAttempt = null;
         }
 
-        public void CreateNewAttempt(GameState state)
+        private void CreateNewAttempt(GameState state)
         {
             CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber, DateTime.Now);
         }
 
-        public void PopSaveLosingAttempt(GameState state)
+        private void PopSaveLosingAttempt(GameState state)
         {
             CreateSessionIfNotExists(state);
             CreateAttemptIfNotExists(state);
             CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
+            OnAttemptAdded?.Invoke(CurrentAttempt);
             CurrentAttempt = null;
         }
 
-        public void PopSaveWinningAttempt(GameState state)
+        private void PopSaveWinningAttempt(GameState state)
         {
             CreateSessionIfNotExists(state);
             CreateAttemptIfNotExists(state);
             CurrentAttempt.EndPercent = 100;
             CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
+            OnAttemptAdded?.Invoke(CurrentAttempt);
             CurrentAttempt = null;
         }
 
@@ -104,6 +118,7 @@ namespace Whydoisuck.DataSaving
             CurrentSession.Level = new Level(state);
             CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
             CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
         }
 
         //Creates an attempt if there is no current attempt and initialize known values

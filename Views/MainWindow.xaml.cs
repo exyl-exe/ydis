@@ -15,7 +15,7 @@ namespace Whydoisuck.Views
         {
             _recorder = new Recorder();
             _recorder.StartRecording();
-            DataContext = new MainWindowViewModel(_recorder.Manager);
+            DataContext = new MainWindowViewModel(_recorder);
             InitializeComponent();
             Closing += ApplicationExit;
 

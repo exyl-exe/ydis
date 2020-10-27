@@ -15,13 +15,13 @@ namespace Whydoisuck.ViewModels
     {
 		public NavigationPanelViewModel NavigationPanel { get; set; }
 		public BaseViewModel CurrentMainView { get; set; }
-		public SessionManager Manager { get; set; }
+		public Recorder Recorder { get; set; }
 
-		public MainWindowViewModel(SessionManager manager)
+		public MainWindowViewModel(Recorder recorder)
 		{
-			Manager = manager;
+			Recorder = recorder;
 			NavigationPanel = new NavigationPanelViewModel(this);
-			CurrentMainView = new CurrentLevelViewModel();
+			CurrentMainView = new CurrentLevelViewModel(recorder);
 		}
 
 		public void ReplaceMainView(BaseViewModel m)

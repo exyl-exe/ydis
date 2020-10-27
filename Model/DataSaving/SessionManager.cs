@@ -37,16 +37,26 @@ namespace Whydoisuck.DataSaving
 
         public SessionGroup GetOrCreateGroup(Session session)
         {
+            var group = FindGroupOf(session.Level);
+            if(group != null)
+            {
+                return group;
+            }
+            return CreateNewGroup(session.Level);
+        }
+
+        public SessionGroup FindGroupOf(Level level)
+        {
             if (Groups.Count > 0)
             {
-                SortGroupsByClosestTo(session.Level);
+                SortGroupsByClosestTo(level);
                 var mostLikely = Groups[0];
-                if (mostLikely.CouldContainLevel(session.Level))
+                if (mostLikely.CouldContainLevel(level))
                 {
                     return mostLikely;
                 }
             }
-            return CreateNewGroup(session.Level);
+            return null;
         }
 
         public SessionGroup CreateNewGroup(Level level)

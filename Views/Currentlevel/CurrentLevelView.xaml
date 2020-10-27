@@ -16,25 +16,28 @@
                 Background="DarkViolet"
                 BorderBrush="PaleVioletRed"
                 BorderThickness="1">
-                <TextBlock x:Name="LevelTitle">
-                TODO Playign : The Hell TODO
-                </TextBlock>
+                <TextBlock x:Name="LevelTitle"
+                           Text="{Binding Title}"/>
             </Border>
             <Border x:Name="GroupAutoguessBorder"
                 Margin="5"
                 Background="DarkViolet"
                 BorderBrush="PaleVioletRed"
                 BorderThickness="1">
-                <TextBlock x:Name="GroupAutoguess">
-                TODO GroupAutoguess : never rated
-                </TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="GroupAutoguessLabel">
+                        TODO GroupAutoguess :
+                    </TextBlock>
+                    <TextBlock x:Name="GroupAutoguess"
+                               Text="{Binding Autoguess}"/>
+                </StackPanel>
             </Border>
             <Border x:Name="CurrentLevelGraphBorder"
                 Margin="5"
                 Background="DarkViolet"
                 BorderBrush="PaleVioletRed"
                 BorderThickness="1">
-                <common:LevelGraph>
+                <common:LevelGraph DataContext="{Binding Graph}">
                     
                 </common:LevelGraph>
             </Border>
@@ -43,7 +46,7 @@
                 Background="DarkViolet"
                 BorderBrush="PaleVioletRed"
                 BorderThickness="1">
-                <common:LevelDatagrid Height="500">
+                <common:LevelDatagrid DataContext="{Binding Datagrid}">
                     
                 </common:LevelDatagrid>
             </Border>
