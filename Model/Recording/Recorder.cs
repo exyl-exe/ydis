@@ -5,8 +5,8 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whydoisuck.MemoryReading;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Model.MemoryReading;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
 namespace Whydoisuck.DataSaving

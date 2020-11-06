@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.Model.DataStructures
 {
+
     public class Attempt 
     {
         [JsonProperty(PropertyName = "Number")] public int Number { get; set; }

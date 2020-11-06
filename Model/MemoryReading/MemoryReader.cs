@@ -6,11 +6,28 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.MemoryReading
+namespace Whydoisuck.Model.MemoryReading
 {
-    class MemoryReader
+    /// <summary>
+    /// Class <c>MemoryReader</c> is a simple class to read values in the
+    /// memory of a process without calling dll functions directly
+    /// </summary>
+    public class MemoryReader
     {
-        private const int PROCESS_VM_READ = 0x0010;
+        /// <summary>
+        /// Base address of the main module of the read process
+        /// </summary>
+        public IntPtr MainModuleAddr { get { return Process == null ? IntPtr.Zero : Process.MainModule.BaseAddress; } }
+
+        /// <summary>
+        /// Boolean true if the read process is opened, false if it has terminated
+        /// </summary>
+        public bool IsProcessOpened { get { return Process != null && !Process.HasExited; } }
+
+        /// <summary>
+        /// Current process the reader is attached to
+        /// </summary>
+        public Process Process { get; set; }
 
         [DllImport("kernel32.dll")]
         private static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
@@ -18,11 +35,17 @@ namespace Whydoisuck.MemoryReading
         [DllImport("kernel32.dll")]
         private static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
 
-        public IntPtr MainModuleAddr { get { return Process == null ? IntPtr.Zero : Process.MainModule.BaseAddress; } }
-        public bool IsProcessOpened { get { return Process != null && !Process.HasExited; } }
-        public Process Process { get; set; }
+        // flags to open a process with read perms 
+        private const int PROCESS_VM_READ = 0x0010;
+
+        // Handle for the current process
         private IntPtr ProcessHandle { get; set; }
 
+        /// <summary>
+        /// Attaches itself to a process with the given name
+        /// </summary>
+        /// <param name="processName">The name of the process which memory's will be read</param>
+        /// <returns>true if the process was opened successfully, false otherwise</returns>
         public bool AttachTo(string processName)
         {
             bool success = false;
@@ -39,6 +62,13 @@ namespace Whydoisuck.MemoryReading
             return success;
         }
 
+        /// <summary>
+        /// Reads an array of bytes in the memory of the current process
+        /// </summary>
+        /// <param name="address">Base address of the byte array to read</param>
+        /// <param name="size">Number of bytes to be read</param>
+        /// <returns>An array of bytes read in the memory.
+        /// Can be shorter than the given size if an error occured</returns>
         public byte[] ReadBytes(int address, int size)
         {
             int bytesRead = 0;
@@ -57,22 +87,44 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        /// <summary>
+        /// Reads a string in the memory of the current process
+        /// </summary>
+        /// <param name="address">Address the string starts at in memory</param>
+        /// <param name="maxLength">Length of the string to read</param>
+        /// <returns>The string read at the give address in the memory.
+        /// Can be shorted than the given size if an error occured.</returns>
         public string ReadString(int address, int maxLength)
         {
             var bytes = ReadBytes(address, maxLength);
             return Encoding.UTF8.GetString(bytes);
         }
 
+        /// <summary>
+        /// Reads an integer in the memory of the current process
+        /// </summary>
+        /// <param name="address">The address where to read the integer</param>
+        /// <returns>The integer at the given address in the memory.</returns>
         public int ReadInt(int address)
         {
             return BitConverter.ToInt32(ReadBytes(address, 4), 0);
         }
 
+        /// <summary>
+        /// Reads a boolean in the memory of the current process
+        /// </summary>
+        /// <param name="address">The address where to read the boolean</param>
+        /// <returns>The boolean at the given address in the memory</returns>
         public bool ReadBoolean(int address)
         {
             return BitConverter.ToBoolean(ReadBytes(address, 1), 0);
         }
 
+        /// <summary>
+        /// Reads a float in the memory of the current process
+        /// </summary>
+        /// <param name="address">The address where to read the float</param>
+        /// <returns>The float at the given address in the memory</returns>
         public float ReadFloat(int address)
         {
             return BitConverter.ToSingle(ReadBytes(address, 4), 0);

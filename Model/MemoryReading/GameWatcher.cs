@@ -4,33 +4,72 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whydoisuck.Model.MemoryReading;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.MemoryReading
+namespace Whydoisuck.Model.MemoryReading
 {
-    static class GameWatcher
+    /// <summary>
+    /// Class <c>GameWatcher</c> has several events invoked based on what happens in the game
+    /// </summary>
+    public static class GameWatcher
     {
-        private static int Delay { get; set; } = 10;//ms
-        private static bool IsRecording { get; set; }
-        private static GDMemoryReader Reader { get; set; } = new GDMemoryReader();
-        private static GameState PreviousState { get; set; }
-        private static WatchedAttempt CurrentAttempt { get; set; }
-        private static Thread CurrentWatchThread { get; set; }
-
-
+        /// <summary>
+        /// Delegate for events providing new values about the game's state
+        /// </summary>
         public delegate void GameInfoCallback(GameState gameState);
+        /// <summary>
+        /// Delegate for events providing new values about the current level
+        /// </summary>
         public delegate void LevelInfoCallback(GDLevelMetadata level);
 
+        /// <summary>
+        /// Event invoked when a level is entered in-game
+        /// </summary>
         public static event LevelInfoCallback OnLevelEntered;
+        /// <summary>
+        /// Event invoked when a level is exited in-game
+        /// </summary>
         public static event LevelInfoCallback OnLevelExited;
+        /// <summary>
+        /// Event invoked when the current level has finished loading.
+        /// It ensures its length, the player object and some other values are initialized.
+        /// </summary>
         public static event GameInfoCallback OnLevelStarted;
 
+        /// <summary>
+        /// Event invoked when the player object reached the end of the level
+        /// </summary>
         public static event GameInfoCallback OnPlayerWins;
+        /// <summary>
+        /// Event invoked when the player object dies
+        /// </summary>
         public static event GameInfoCallback OnPlayerDies;
+        /// <summary>
+        /// Event invoked when the user has manually restarted an attempt
+        /// </summary>
         public static event GameInfoCallback OnPlayerRestarts;
+        /// <summary>
+        /// Event invoked when the player object just respawned
+        /// </summary>
         public static event GameInfoCallback OnPlayerSpawns;
 
+        // Delay between every check of the game's state
+        private static int Delay { get; set; } = 10;//milliseconds
+        // Boolean true if the GameWatcher is active
+        private static bool IsRecording { get; set; }
+        // Reader to access the game's memory
+        private static GDMemoryReader Reader { get; set; } = new GDMemoryReader();
+        // Previously read state
+        private static GameState PreviousState { get; set; }
+        // Current on going attempt
+        private static WatchedAttempt CurrentAttempt { get; set; }
+        // Current thread that reads the game's memory and manages events.
+        private static Thread CurrentWatchThread { get; set; }
+
+        /// <summary>
+        /// Called to start watching the game's process.
+        /// Events will be invoked based on what happens in the game.
+        /// </summary>
         public static void StartWatching()
         {
             if (IsRecording) return;//Can't create more than 1 thread
@@ -41,6 +80,7 @@ namespace Whydoisuck.MemoryReading
             CurrentWatchThread.Start();
         }
 
+        // Loop to update the game's state
         private static void UpdateThread()
         {
             while (IsRecording)
@@ -50,20 +90,26 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        /// <summary>
+        /// Called to stop watching the game's process.
+        /// </summary>
         public static void StopWatching()
         {
             IsRecording = false;
             CurrentWatchThread.Join();
         }
 
+        // Manages events based on the state of the game
         private static void UpdateState()
         {
+            // Try to initialize the reader if it's not attached to a process
             if (!Reader.IsGDOpened)
             {
                 var initialized = Reader.TryAttachToGD();
                 if (!initialized) return;
             }
 
+            // First time reading the game's state
             if (PreviousState == null)
             {
                 PreviousState = Reader.GetGameState();
@@ -79,6 +125,8 @@ namespace Whydoisuck.MemoryReading
             PreviousState = currentState;
         }
 
+        // Compares two successive states of the game,
+        // in order to invoke the OnLevelExited event if needed.
         private static void HandleLevelExited(GameState previousState, GameState currentState)
         {
             if (currentState.LevelMetadata == null && previousState.LevelMetadata != null)
@@ -87,6 +135,8 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Compares two successive states of the game,
+        // in order to invoke the OnLevelEntered event if needed.
         private static void HandleLevelEntered(GameState previousState, GameState currentState)
         {
             if (currentState.LevelMetadata != null && previousState.LevelMetadata == null)
@@ -95,6 +145,8 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Compares two successive states of the game,
+        // in order to invoke the OnLevelStarted event if needed.
         private static void HandleLevelStarted(GameState previousState, GameState currentState)
         {
             if (currentState.LoadedLevel != null)
@@ -107,11 +159,12 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Manages events about an on going level
         private static void HandleLevelNotExited(GameState previousState, GameState currentState)
         {
             if (currentState.PlayerObject != null && previousState.PlayerObject != null && currentState.LoadedLevel.IsRunning)
             {
-                //Check needed because the game watcher might have been started while playing a level
+                //Needed because the game watcher might have been started while playing a level
                 if (CurrentAttempt == null)
                 {
                     CurrentAttempt = new WatchedAttempt(currentState.LoadedLevel.AttemptNumber);
@@ -123,6 +176,8 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Checks the current state of the game,
+        // in order to invoke the OnPlayerSpawns event if needed.
         private static void HandleRespawn(GameState currentState)
         {
             if (currentState.LoadedLevel.AttemptNumber != CurrentAttempt.Number ||//Classic respawn
@@ -133,6 +188,8 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Checks the current state of the game,
+        // in order to invoke the OnPlayerRestarts event if needed.
         private static void HandlePlayerRestarts(GameState previousState, GameState currentState)//Manual restart
         {
             if (currentState.LoadedLevel.AttemptNumber != CurrentAttempt.Number && !CurrentAttempt.HasEnded)
@@ -141,6 +198,8 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Checks the current state of the game,
+        // in order to invoke the OnPlayerWins event if needed.
         private static void HandlePlayerWin(GameState previousState, GameState currentState)
         {
             if (currentState.PlayerObject.HasWon && !previousState.PlayerObject.HasWon)
@@ -150,6 +209,8 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Checks the current state of the game,
+        // in order to invoke the OnPlayerDies event if needed.
         private static void HandlePlayerDeath(GameState currentState)
         {
             if (currentState.PlayerObject.IsDead)
@@ -170,6 +231,7 @@ namespace Whydoisuck.MemoryReading
             }
         }
 
+        // Private class to store data about the on going attempt
         private class WatchedAttempt
         {
             public WatchedAttempt(int number)
