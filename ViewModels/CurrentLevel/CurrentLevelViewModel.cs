@@ -37,7 +37,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         {
             Session = s;
             Title = s.Level.Name;
-            Autoguess = Recorder.Manager.FindGroupOf(s.Level)==null?"New group TODO":SessionGroup.GetDefaultGroupName(s.Level);//TODO
+            Autoguess = Recorder.Autoguess==null?"New group TODO":SessionGroup.GetDefaultGroupName(s.Level);//TODO
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
             Graph = new LevelGraphViewModel(CurrentLevelStats.Statistics);//TODO
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats.Statistics);

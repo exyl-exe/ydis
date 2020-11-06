@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
+using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.Commands;
 using Whydoisuck.Views.NavigationPanel;
@@ -13,7 +14,6 @@ namespace Whydoisuck.ViewModels.Navigation
 {
     public class NavigationSearchViewModel : BaseViewModel
     {
-        private SessionManager Manager { get; set; }
         public NavigationPanelViewModel ParentNavigationPanel { get; set; }
         public List<NavigationSearchResult> AllResults { get; set; }
         public List<NavigationSearchResult> SearchResults { get; set; }
@@ -33,12 +33,10 @@ namespace Whydoisuck.ViewModels.Navigation
             }
         }
 
-        public NavigationSearchViewModel(NavigationPanelViewModel ParentNavigationPanel, SessionManager manager)
+        public NavigationSearchViewModel(NavigationPanelViewModel ParentNavigationPanel, List<SessionGroup> groups)
         {
             this.ParentNavigationPanel = ParentNavigationPanel;
             _search = "";
-            Manager = manager;
-            var groups = Manager.Groups;
             AllResults = groups.Select(
                 g => new NavigationSearchResult(g, new NavigatorCommand(ParentNavigationPanel.MainView, new SelectedLevelViewModel(g)))
                 ).ToList();

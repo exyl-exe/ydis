@@ -17,9 +17,29 @@ namespace Whydoisuck.DataSaving
     public class Recorder
     {
         /// <summary>
+        /// Current session manager, used by the recorder
+        /// </summary>
+        public SessionManager Manager { get; set; }
+
+        /// <summary>
         /// Current session on the currently played level.
         /// </summary>
         public Session CurrentSession { get; set; }
+
+        /// <summary>
+        /// Guessed group for the current session.
+        /// </summary>
+        public SessionGroup Autoguess
+        {
+            get
+            {
+                if (CurrentSession != null)
+                {
+                    return Manager.FindGroupOf(CurrentSession.Level);
+                }
+                return null;
+            }
+        }
 
         /// <summary>
         /// Delegate for callbacks when the current session changes
@@ -45,7 +65,6 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public event AttemptCallback OnAttemptAdded;
 
-        private SessionManager Manager { get; set; }
         private Attempt CurrentAttempt { get; set; }
 
         public Recorder()
@@ -114,7 +133,7 @@ namespace Whydoisuck.DataSaving
         // Creates an attempt
         private void CreateNewAttempt(GameState state)
         {
-            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber, DateTime.Now);
+            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber);
         }
 
         // Saves a losing attempt in the current session, and remove current attempt from recorder
@@ -123,7 +142,6 @@ namespace Whydoisuck.DataSaving
             CreateSessionIfNotExists(state);
             CreateAttemptIfNotExists(state);
             CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
-            CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
             OnAttemptAdded?.Invoke(CurrentAttempt);
             CurrentAttempt = null;
@@ -135,7 +153,6 @@ namespace Whydoisuck.DataSaving
             CreateSessionIfNotExists(state);
             CreateAttemptIfNotExists(state);
             CurrentAttempt.EndPercent = 100;
-            CurrentAttempt.Duration = DateTime.Now - CurrentAttempt.StartTime;
             CurrentSession.AddAttempt(CurrentAttempt);
             OnAttemptAdded?.Invoke(CurrentAttempt);
             CurrentAttempt = null;
@@ -158,7 +175,7 @@ namespace Whydoisuck.DataSaving
         private void CreateAttemptIfNotExists(GameState state)
         {
             if (CurrentAttempt != null) return;
-            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber, DateTime.Now);
+            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber);
 
             if (state.LoadedLevel == null) return;
             CurrentAttempt.Number = state.LoadedLevel.AttemptNumber;

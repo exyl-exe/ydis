@@ -19,7 +19,7 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             MainView = mainWindow;
             GoToCurrentCommand = new NavigatorCommand(mainWindow, new CurrentLevelViewModel(mainWindow.Recorder));
-            SearchView = new NavigationSearchViewModel(this, mainWindow.Recorder.Manager);
+            SearchView = new NavigationSearchViewModel(this, mainWindow.Recorder.Manager.Groups);//TODO
         }
     }
 }

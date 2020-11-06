@@ -20,21 +20,13 @@ namespace Whydoisuck.Model.DataStructures
         /// The percent the player died at
         /// </summary>
         [JsonProperty(PropertyName = "EndPercent")] public float EndPercent { get; set; }
-        /// <summary>
-        /// The starting time of the attempt
-        /// </summary>
-        [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; } // TODO useless
-        /// <summary>
-        /// The duration of the attempt
-        /// </summary>
-        [JsonProperty(PropertyName = "Duration")] public TimeSpan Duration { get; set; } // TODO useless
+
 
         public Attempt() { }
 
-        public Attempt(int number, DateTime startTime)
+        public Attempt(int number)
         {
             Number = number;
-            StartTime = startTime;
         }
     }
 }
