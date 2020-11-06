@@ -11,19 +11,42 @@ using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
 namespace Whydoisuck.DataSaving
 {
+    /// <summary>
+    /// Saves data on the disk based on what happens in the game
+    /// </summary>
     public class Recorder
     {
-        private Attempt CurrentAttempt { get; set; }
+        /// <summary>
+        /// Current session on the currently played level.
+        /// </summary>
         public Session CurrentSession { get; set; }
-        public SessionManager Manager { get; set; }
 
+        /// <summary>
+        /// Delegate for callbacks when the current session changes
+        /// </summary>
+        /// <param name="session">The current session</param>
         public delegate void SessionCallback(Session session);
+        /// <summary>
+        /// Delegare for callbacks when a new attempt is created
+        /// </summary>
+        /// <param name="attempt">The created attempt</param>
         public delegate void AttemptCallback(Attempt attempt);
 
+        /// <summary>
+        /// Event invoked when a new session is initialized
+        /// </summary>
         public event SessionCallback OnNewCurrentSessionInitialized;
+        /// <summary>
+        /// Event invoked when the current session is saved
+        /// </summary>
         public event SessionCallback OnQuitCurrentSession;
+        /// <summary>
+        /// Event invoked when a new attempt is created
+        /// </summary>
         public event AttemptCallback OnAttemptAdded;
 
+        private SessionManager Manager { get; set; }
+        private Attempt CurrentAttempt { get; set; }
 
         public Recorder()
         {
@@ -36,27 +59,33 @@ namespace Whydoisuck.DataSaving
             GameWatcher.OnPlayerWins += PopSaveWinningAttempt;
         }
 
+        /// <summary>
+        /// Starts saving data based on what happens in game.
+        /// </summary>
         public void StartRecording()
         {
             Manager = SerializationManager.DeserializeSessionManager();
             GameWatcher.StartWatching();
         }
 
+        /// <summary>
+        /// Stops saving data.
+        /// </summary>
         public void StopRecording()
         {
             GameWatcher.StopWatching();
             SerializationManager.SerializeSessionManager(Manager);
         }
 
-        //Called when entering a level, ensure a session is created before an attempt needs to be saved
-        //However, while its metadata is fully loaded, the level is not
-        //Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
+        // Called when entering a level, ensure a session is created before an attempt needs to be saved
+        // However, while its metadata is fully loaded, the level is not
+        // Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
         private void CreateNewSession(GDLevelMetadata level)
         {
             CurrentSession = new Session(DateTime.Now);
         }
 
-        //Update values for the current session, is called when the level is fully loaded
+        // Update values for the current session, is called when the level is fully loaded
         private void UpdateCurrentSession(GameState state)
         {
             CreateSessionIfNotExists(state);
@@ -66,6 +95,7 @@ namespace Whydoisuck.DataSaving
             OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
         }
 
+        //Saves current session and removes it from the recorder.
         private void PopSaveCurrentSession(GDLevelMetadata level)
         {
             //Don't save if :
@@ -81,11 +111,13 @@ namespace Whydoisuck.DataSaving
             CurrentAttempt = null;
         }
 
+        // Creates an attempt
         private void CreateNewAttempt(GameState state)
         {
             CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber, DateTime.Now);
         }
 
+        // Saves a losing attempt in the current session, and remove current attempt from recorder
         private void PopSaveLosingAttempt(GameState state)
         {
             CreateSessionIfNotExists(state);
@@ -97,6 +129,7 @@ namespace Whydoisuck.DataSaving
             CurrentAttempt = null;
         }
 
+        // Saves a winning attempt in the current session, and remove current attempt from recorder
         private void PopSaveWinningAttempt(GameState state)
         {
             CreateSessionIfNotExists(state);
