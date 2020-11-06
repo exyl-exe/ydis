@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.Utilities
 {
-    class SafeFile
+    /// <summary>
+    /// File class that manages exceptions.
+    /// </summary>
+    public class SafeFile
     {
         public static void WriteAllText(string filePath, string content)
         {

@@ -8,7 +8,10 @@ using System.Windows.Media;
 
 namespace Whydoisuck.Utilities
 {
-    class SafePath
+    /// <summary>
+    /// Path class that manages exceptions.
+    /// </summary>
+    public class SafePath
     {
         public static char DirectorySeparator => Path.DirectorySeparatorChar;
 

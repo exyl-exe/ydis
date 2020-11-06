@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.Utilities
 {
-    class SafeDirectory
+    /// <summary>
+    /// Directory class that manages exception
+    /// </summary>
+    public class SafeDirectory
     {
         public static string[] GetDirectories(string path)
         {
