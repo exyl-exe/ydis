@@ -9,8 +9,14 @@ using Whydoisuck.Model.DataStructures;
 
 namespace Whydoisuck.DataSaving
 {
+    /// <summary>
+    /// This class manages which group a session belongs to
+    /// </summary>
     public class SessionManager : IWDISSerializable
     {
+        /// <summary>
+        /// List of all groups
+        /// </summary>
         [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
 
         public SessionManager()
@@ -18,6 +24,10 @@ namespace Whydoisuck.DataSaving
             Groups = new List<SessionGroup>();
         }
 
+        /// <summary>
+        /// Sorts groups depending on which is most likely to contain a given level
+        /// </summary>
+        /// <param name="level"></param>
         public void SortGroupsByClosestTo(Level level)
         {
             //TODO giga bad because most similar level in group is computed several time
@@ -25,6 +35,10 @@ namespace Whydoisuck.DataSaving
             Groups.Reverse();
         }
 
+        /// <summary>
+        /// Saves a session in the most appropriate group
+        /// </summary>
+        /// <param name="session">The session to save</param>
         public void SaveSession(Session session)
         {
             var group = GetOrCreateGroup(session);
@@ -35,6 +49,11 @@ namespace Whydoisuck.DataSaving
             group.AddAndSerializeSession(session);
         }
 
+        /// <summary>
+        /// Gets the most appropriate group for a session. If no existing group is appropriate, a new group is created.
+        /// </summary>
+        /// <param name="session">The session to get a group for</param>
+        /// <returns>The most appropriate group for this session</returns>
         public SessionGroup GetOrCreateGroup(Session session)
         {
             var group = FindGroupOf(session.Level);
@@ -45,6 +64,11 @@ namespace Whydoisuck.DataSaving
             return CreateNewGroup(session.Level);
         }
 
+        /// <summary>
+        /// Finds what group a level belongs to
+        /// </summary>
+        /// <param name="level">The level to find the group of</param>
+        /// <returns>The group the level belongs to</returns>
         public SessionGroup FindGroupOf(Level level)
         {
             if (Groups.Count > 0)
@@ -59,6 +83,11 @@ namespace Whydoisuck.DataSaving
             return null;
         }
 
+        /// <summary>
+        /// Creates a new group for a given level.
+        /// </summary>
+        /// <param name="level">A level to create a group for</param>
+        /// <returns>The group the level will belong to</returns>
         public SessionGroup CreateNewGroup(Level level)
         {
             var defaultGroupName = SessionGroup.GetDefaultGroupName(level);
@@ -76,6 +105,24 @@ namespace Whydoisuck.DataSaving
             return newGroup;
         }
 
+        /// <summary>
+        /// Serializes the session manager.
+        /// </summary>
+        /// <returns>A string containing a json object matching the manager.</returns>
+        public override string Serialize()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Deserializes the session manager.
+        /// </summary>
+        /// <param name="value">A string containing a json object matching a manager.</param>
+        public override void Deserialize(string value)
+        {
+            JsonConvert.PopulateObject(value, this);
+        }
+
         private bool IsGroupNameAvailable(string groupName)
         {
             foreach (var group in Groups)
@@ -86,16 +133,6 @@ namespace Whydoisuck.DataSaving
                 }
             }
             return true;
-        }
-
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        public override void Deserialize(string value)
-        {
-            JsonConvert.PopulateObject(value, this);
         }
     }
 }
