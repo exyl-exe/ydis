@@ -26,7 +26,7 @@
         /// </summary>
         public bool IsOriginal { get; set; }
         /// <summary>
-        /// Revision of the level, to distinguish levels with the same name
+        /// Revision of the level
         /// </summary>
         public int Revision { get; set; }
         /// <summary>
@@ -34,7 +34,7 @@
         /// </summary>
         public bool IsCustomMusic { get; set; }
         /// <summary>
-        /// ID of the music on newgrounds
+        /// ID of the used music on newgrounds
         /// </summary>
         public int MusicID { get; set; }
         /// <summary>

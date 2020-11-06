@@ -7,13 +7,27 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.Model.DataStructures
 {
-
+    /// <summary>
+    /// One played attempt on a level.
+    /// </summary>
     public class Attempt 
     {
+        /// <summary>
+        /// The attempt number
+        /// </summary>
         [JsonProperty(PropertyName = "Number")] public int Number { get; set; }
+        /// <summary>
+        /// The percent the player died at
+        /// </summary>
         [JsonProperty(PropertyName = "EndPercent")] public float EndPercent { get; set; }
-        [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; }
-        [JsonProperty(PropertyName = "Duration")] public TimeSpan Duration { get; set; }
+        /// <summary>
+        /// The starting time of the attempt
+        /// </summary>
+        [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; } // TODO useless
+        /// <summary>
+        /// The duration of the attempt
+        /// </summary>
+        [JsonProperty(PropertyName = "Duration")] public TimeSpan Duration { get; set; } // TODO useless
 
         public Attempt() { }
 
