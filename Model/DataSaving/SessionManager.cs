@@ -19,6 +19,16 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
 
+        /// <summary>
+        /// Delegate for callbacks when a group is updated
+        /// </summary>
+        /// <param name="group">Updated group</param>
+        public delegate void OnGroupUpdatedCallback(SessionGroup group);
+        /// <summary>
+        /// Event invoked when a new group is added
+        /// </summary>
+        public event OnGroupUpdatedCallback OnGroupUpdated;
+
         public SessionManager()
         {
             Groups = new List<SessionGroup>();
@@ -47,6 +57,7 @@ namespace Whydoisuck.DataSaving
                 group.Levels.Add(session.Level);
             }
             group.AddAndSerializeSession(session);
+            OnGroupUpdated?.Invoke(group);
         }
 
         /// <summary>

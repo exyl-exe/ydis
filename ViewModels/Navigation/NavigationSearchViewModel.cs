@@ -15,8 +15,8 @@ namespace Whydoisuck.ViewModels.Navigation
     public class NavigationSearchViewModel : BaseViewModel
     {
         public NavigationPanelViewModel ParentNavigationPanel { get; set; }
-        public List<NavigationSearchResult> AllResults { get; set; }
-        public List<NavigationSearchResult> SearchResults { get; set; }
+        public List<NavigationSearchResultViewModel> AllResults { get; set; }
+        public List<NavigationSearchResultViewModel> SearchResults { get; set; }
 
         private string _search;
         public string Search {
@@ -33,13 +33,28 @@ namespace Whydoisuck.ViewModels.Navigation
             }
         }
 
+
         public NavigationSearchViewModel(NavigationPanelViewModel ParentNavigationPanel, List<SessionGroup> groups)
         {
             this.ParentNavigationPanel = ParentNavigationPanel;
             _search = "";
             AllResults = groups.Select(
-                g => new NavigationSearchResult(g, new NavigatorCommand(ParentNavigationPanel.MainView, new SelectedLevelViewModel(g)))
+                g => new NavigationSearchResultViewModel(g, ParentNavigationPanel.MainView, new SelectedLevelViewModel(g))
                 ).ToList();
+            UpdateSearchResults();
+        }
+
+        public void UpdateGroup(SessionGroup group)
+        {
+            var existingResult = AllResults.Find(res => res.Group.Equals(group));
+            if(existingResult == null)
+            {
+                var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView, new SelectedLevelViewModel(group));
+                AllResults.Add(newGroup);
+            } else
+            {
+                existingResult.Update();
+            }
             UpdateSearchResults();
         }
 

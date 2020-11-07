@@ -123,7 +123,7 @@
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
-    <Compile Include="ViewModels\Navigation\NavigationSearchResult.cs" />
+    <Compile Include="ViewModels\Navigation\NavigationSearchResultViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\DaySummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\GraphTab\GraphTabMainViewModel.cs" />

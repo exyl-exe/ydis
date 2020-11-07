@@ -10,7 +10,7 @@ using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
 
 namespace Whydoisuck.ViewModels.SelectedLevel
 {
-    class SelectedLevelViewModel : BaseViewModel
+    public class SelectedLevelViewModel : BaseViewModel
     {
         public SessionGroup Group { get; set; }
         public GraphTabMainViewModel GraphTab { get; set; }
@@ -21,6 +21,14 @@ namespace Whydoisuck.ViewModels.SelectedLevel
             Group = g;
             GraphTab = new GraphTabMainViewModel(g);
             Sessions = new SessionsTabMainViewModel(g);
+        }
+
+        public void Update()
+        {
+            GraphTab = new GraphTabMainViewModel(Group);
+            Sessions = new SessionsTabMainViewModel(Group);
+            OnPropertyChanged(nameof(GraphTab));
+            OnPropertyChanged(nameof(Sessions));
         }
     }
 }
