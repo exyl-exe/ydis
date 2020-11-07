@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.RightsManagement;
 using System.Text;
 using System.Threading;
@@ -70,7 +71,7 @@ namespace Whydoisuck.DataSaving
         public Recorder()
         {
             GameWatcher.OnLevelEntered += CreateNewSession;
-            GameWatcher.OnLevelStarted += UpdateCurrentSession;
+            GameWatcher.OnLevelStarted += UpdateSessionOnLoad;
             GameWatcher.OnLevelExited += PopSaveCurrentSession;
             GameWatcher.OnPlayerSpawns += CreateNewAttempt;
             GameWatcher.OnPlayerDies += PopSaveLosingAttempt;
@@ -105,12 +106,10 @@ namespace Whydoisuck.DataSaving
         }
 
         // Update values for the current session, is called when the level is fully loaded
-        private void UpdateCurrentSession(GameState state)
+        private void UpdateSessionOnLoad(GameState state)
         {
             CreateSessionIfNotExists(state);
-            CurrentSession.Level = new Level(state);
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            UpdateSession(state);
             OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
         }
 
@@ -161,6 +160,14 @@ namespace Whydoisuck.DataSaving
             CurrentAttempt = null;
         }
 
+        //Updates values of the current session
+        private void UpdateSession(GameState state)
+        {
+            CurrentSession.Level = new Level(state);
+            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
+            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+        }
+
         //Creates a session if there is no current session and initialize known values
         private void CreateSessionIfNotExists(GameState state)
         {
@@ -168,9 +175,7 @@ namespace Whydoisuck.DataSaving
             CurrentSession = new Session(DateTime.Now);
 
             if (state == null || state.LevelMetadata == null || state.LoadedLevel == null) return;
-            CurrentSession.Level = new Level(state);
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            UpdateSession(state);
             OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
         }
 
