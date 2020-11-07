@@ -14,6 +14,10 @@
         /// </summary>
         public bool IsTestmode { get; set; }
         /// <summary>
+        /// Boolean true if the level is currently being played in practice mode
+        /// </summary>
+        public bool IsPractice { get; set; }
+        /// <summary>
         /// Current attempt
         /// </summary>
         public int AttemptNumber { get; set; }
@@ -26,10 +30,11 @@
         /// </summary>
         public float StartPosition { get; set; }
 
-        public GDLoadedLevel(bool isRunning, bool isTestmode, int attemptNumber, float physicalLength, float startPosition)
+        public GDLoadedLevel(bool isRunning, bool isTestmode, bool isPractice, int attemptNumber, float physicalLength, float startPosition)
         {
             IsRunning = isRunning;
             IsTestmode = isTestmode;
+            IsPractice = isPractice;
             AttemptNumber = attemptNumber;
             PhysicalLength = physicalLength;
             StartPosition = startPosition;

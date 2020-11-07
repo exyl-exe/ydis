@@ -29,6 +29,7 @@ namespace Whydoisuck.Model.MemoryReading
         // Added to the address of the current level
         const int isRunningOffset = 0x2EC;
         const int isTestmodeOffset = 0x494;
+        const int isPracticeOffset = 0x495;
         const int respawnPositionOffset = 0x4A0;
         const int levelLengthOffset = 0x3B4;
         const int attemptsOffset = 0x4A8;
@@ -143,12 +144,14 @@ namespace Whydoisuck.Model.MemoryReading
         {
             var isRunning = Reader.ReadBoolean(levelStructAddr + isRunningOffset);
             var isTestmode = Reader.ReadBoolean(levelStructAddr + isTestmodeOffset);
+            var isPractice = Reader.ReadBoolean(levelStructAddr + isPracticeOffset);
             var attemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset);
             var physicalLength = Reader.ReadFloat(levelStructAddr + levelLengthOffset);
             var startPosition = Reader.ReadFloat(levelStructAddr + respawnPositionOffset);
             return new GDLoadedLevel(
                 isRunning,
                 isTestmode,
+                isPractice,
                 attemptNumber,
                 physicalLength,
                 startPosition);

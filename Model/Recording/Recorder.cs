@@ -152,11 +152,14 @@ namespace Whydoisuck.DataSaving
         // Saves the current attempt with the specified end percent
         private void PopSaveCurrentAttempt(GameState state, float endPercent)
         {
-            CreateSessionIfNotExists(state);
-            CreateAttemptIfNotExists(state);
-            CurrentAttempt.EndPercent = endPercent;
-            CurrentSession.AddAttempt(CurrentAttempt);
-            OnAttemptAdded?.Invoke(CurrentAttempt);
+            if (!state.LoadedLevel.IsPractice)
+            {
+                CreateSessionIfNotExists(state);
+                CreateAttemptIfNotExists(state);
+                CurrentAttempt.EndPercent = endPercent;
+                CurrentSession.AddAttempt(CurrentAttempt);
+                OnAttemptAdded?.Invoke(CurrentAttempt);
+            }
             CurrentAttempt = null;
         }
 
