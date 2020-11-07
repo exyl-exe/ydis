@@ -9,8 +9,33 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
 {
     public class SessionFilterViewModel : BaseViewModel
     {
-        public bool ShowNormal { get; set; }
-        public bool ShowCopy { get; set; }
+        private bool _showNormal;
+        public bool ShowNormal
+        {
+            get
+            {
+                return _showNormal;
+            }
+            set
+            {
+                _showNormal = value;
+                OnFilterChanges?.Invoke();
+            }
+        }
+
+        private bool _showCopy;
+        public bool ShowCopy
+        {
+            get
+            {
+                return _showCopy;
+            }
+            set
+            {
+                _showCopy = value;
+                OnFilterChanges?.Invoke();
+            }
+        }
 
         public delegate void OnFilterChangesCallback();
         public event OnFilterChangesCallback OnFilterChanges;
@@ -18,7 +43,7 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         public SessionFilterViewModel()
         {
             ShowNormal = true;
-            ShowCopy = false;
+            ShowCopy = true; ;
         }
 
         public bool Matches(Session s)

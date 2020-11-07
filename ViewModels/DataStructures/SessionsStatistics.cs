@@ -10,7 +10,10 @@ namespace Whydoisuck.ViewModels.DataStructures
         private List<Session> Sessions { get; set; }
         private List<Range> Dividing { get; set; }
         private SessionFilterViewModel Filter { get; set; }
-        public List<LevelPartStatistics> Statistics { get; }
+        public List<LevelPartStatistics> Statistics { get; private set; }
+
+        public delegate void OnStatisticsChangeCallback();
+        public event OnStatisticsChangeCallback OnStatisticsChange;
 
         public SessionsStatistics(List<Session> sessions, SessionFilterViewModel filter, float defaultPartWidth)
         {
@@ -18,6 +21,7 @@ namespace Whydoisuck.ViewModels.DataStructures
             Filter = filter;
             Dividing = GetParts(defaultPartWidth);
             Statistics = GetStatistics();
+            Filter.OnFilterChanges += UpdateStatistics;
         }
 
         public SessionsStatistics(List<Session> sessions, float defaultPartWidth) : this(sessions, null, defaultPartWidth)
@@ -85,6 +89,12 @@ namespace Whydoisuck.ViewModels.DataStructures
                     attemptStartPartStats.ReachCount += session.Attempts.Count;
                 }
             }
+        }
+
+        private void UpdateStatistics()
+        {
+            Statistics = GetStatistics();
+            OnStatisticsChange?.Invoke();
         }
     }
 }

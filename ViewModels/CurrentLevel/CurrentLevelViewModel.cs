@@ -39,8 +39,8 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             Title = s.Level.Name;
             Autoguess = Recorder.Autoguess==null?"New group TODO":SessionGroup.GetDefaultGroupName(s.Level);//TODO
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
-            Graph = new LevelGraphViewModel(CurrentLevelStats.Statistics);//TODO
-            Datagrid = new LevelDataGridViewModel(CurrentLevelStats.Statistics);
+            Graph = new LevelGraphViewModel(CurrentLevelStats);//TODO
+            Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
             Update();
         }
 
@@ -58,8 +58,8 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         public void OnAttemptAddedToCurrent(Attempt a)
         {
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
-            Graph = new LevelGraphViewModel(CurrentLevelStats.Statistics);//TODO
-            Datagrid = new LevelDataGridViewModel(CurrentLevelStats.Statistics);
+            Graph = new LevelGraphViewModel(CurrentLevelStats);
+            Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
             Update();
         }
 

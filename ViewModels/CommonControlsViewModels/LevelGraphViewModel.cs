@@ -12,15 +12,22 @@ using Whydoisuck.ViewModels.DataStructures;
 
 namespace Whydoisuck.ViewModels.CommonControlsViewModels
 {
-    public class LevelGraphViewModel
+    public class LevelGraphViewModel : BaseViewModel
     {
-        private List<LevelPartStatistics> Statistics { get; set; }
+        private SessionsStatistics Statistics { get; set; }
         public List<LevelPartDataPoint> Points { get; set; }
 
-        public LevelGraphViewModel(List<LevelPartStatistics> statistics)
+        public LevelGraphViewModel(SessionsStatistics statistics)
         {
             Statistics = statistics;
-            Points = GetPoints(statistics);
+            Points = GetPoints(statistics.Statistics);
+            Statistics.OnStatisticsChange += Update;
+        }
+
+        private void Update()
+        {
+            Points = GetPoints(Statistics.Statistics);
+            OnPropertyChanged(nameof(Points));
         }
 
         private List<LevelPartDataPoint> GetPoints(List<LevelPartStatistics> stats)

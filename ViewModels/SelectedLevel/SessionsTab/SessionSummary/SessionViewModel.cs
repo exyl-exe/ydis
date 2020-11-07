@@ -26,8 +26,8 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             Header = new SessionHeaderViewModel(Session);
             var l = new List<Session> { Session };
             var stats = new SessionsStatistics(l, 1f);
-            Graph = new LevelGraphViewModel(stats.Statistics);
-            Datagrid = new LevelDataGridViewModel(stats.Statistics);
+            Graph = new LevelGraphViewModel(stats);
+            Datagrid = new LevelDataGridViewModel(stats);
         }
     }
 }

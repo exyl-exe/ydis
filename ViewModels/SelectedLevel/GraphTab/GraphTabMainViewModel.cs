@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,8 @@ namespace Whydoisuck.ViewModels.SelectedLevel.GraphTab
         {
             Filter = new SessionFilterViewModel();
             GroupStats = new SessionsStatistics(g.GroupSessions, Filter, 1f);
-            DataGrid = new LevelDataGridViewModel(GroupStats.Statistics);
-            Graph = new LevelGraphViewModel(GroupStats.Statistics);
+            DataGrid = new LevelDataGridViewModel(GroupStats);
+            Graph = new LevelGraphViewModel(GroupStats);
         }
     }
 }

@@ -10,7 +10,13 @@
         x:Name="CurrentLevelScrollViewer">
         <StackPanel x:Name="LevelInfoStack"
                 Orientation="Vertical">
-            
+            <Border x:Name="SessionFilterPanel"
+                Margin="5"
+                Background="DarkViolet"
+                BorderBrush="PaleVioletRed"
+                BorderThickness="1">
+                <common:SessionFilterPanel DataContext="{Binding Filter}"/>
+            </Border>
             <Border x:Name="GroupGraphBorder"
                 Margin="5"
                 Background="DarkViolet"

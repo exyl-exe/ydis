@@ -152,6 +152,9 @@
     <Compile Include="Views\CommonControls\PercentRangeSlider.xaml.cs">
       <DependentUpon>PercentRangeSlider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CommonControls\SessionFilterPanel.xaml.cs">
+      <DependentUpon>SessionFilterPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CurrentLevel\CurrentLevelView.xaml.cs">
       <DependentUpon>CurrentLevelView.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommonControls\PercentRangeSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommonControls\SessionFilterPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

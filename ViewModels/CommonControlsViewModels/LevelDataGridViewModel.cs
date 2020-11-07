@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,18 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
     public class LevelDataGridViewModel : BaseViewModel
     {
         public List<LevelPartStatistics> SessionStats { get; set; }
-        public LevelDataGridViewModel(List<LevelPartStatistics> stats)
+        private SessionsStatistics Stats { get; set; }
+        public LevelDataGridViewModel(SessionsStatistics stats)
         {
-            SessionStats = FilterOutRedondantParts(stats);
+            Stats = stats;
+            SessionStats = FilterOutRedondantParts(stats.Statistics);
+            Stats.OnStatisticsChange += Update;
+        }
+
+        private void Update()
+        {
+            SessionStats = FilterOutRedondantParts(Stats.Statistics);
+            OnPropertyChanged(nameof(SessionStats));
         }
 
         public List<LevelPartStatistics> FilterOutRedondantParts(List<LevelPartStatistics> stats)
