@@ -32,6 +32,10 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "StartTime")] public DateTime StartTime { get; set; }
         /// <summary>
+        /// How long was the session
+        /// </summary>
+        [JsonProperty(PropertyName = "Duration")] public TimeSpan Duration{ get; set; }
+        /// <summary>
         /// Percent the attempts in the session were starting at
         /// </summary>
         [JsonProperty(PropertyName = "StartPercent")] public float StartPercent { get; set; }

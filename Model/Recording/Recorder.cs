@@ -121,6 +121,7 @@ namespace Whydoisuck.DataSaving
             //  -The current level is unknown (= The level was left before it finished loading)
             //  -There are not attempts in the session (= useless data)
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
+            CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
             Manager.SaveSession(CurrentSession);
             SerializationManager.SerializeSessionManager(Manager);
 
