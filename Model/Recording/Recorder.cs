@@ -139,20 +139,23 @@ namespace Whydoisuck.DataSaving
         // Saves a losing attempt in the current session, and remove current attempt from recorder
         private void PopSaveLosingAttempt(GameState state)
         {
-            CreateSessionIfNotExists(state);
-            CreateAttemptIfNotExists(state);
-            CurrentAttempt.EndPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
-            CurrentSession.AddAttempt(CurrentAttempt);
-            OnAttemptAdded?.Invoke(CurrentAttempt);
-            CurrentAttempt = null;
+            var endPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
+            PopSaveCurrentAttempt(state, endPercent);
         }
 
         // Saves a winning attempt in the current session, and remove current attempt from recorder
         private void PopSaveWinningAttempt(GameState state)
         {
+            var endPercent = 100;
+            PopSaveCurrentAttempt(state, endPercent);
+        }
+
+        // Saves the current attempt with the specified end percent
+        private void PopSaveCurrentAttempt(GameState state, float endPercent)
+        {
             CreateSessionIfNotExists(state);
             CreateAttemptIfNotExists(state);
-            CurrentAttempt.EndPercent = 100;
+            CurrentAttempt.EndPercent = endPercent;
             CurrentSession.AddAttempt(CurrentAttempt);
             OnAttemptAdded?.Invoke(CurrentAttempt);
             CurrentAttempt = null;
