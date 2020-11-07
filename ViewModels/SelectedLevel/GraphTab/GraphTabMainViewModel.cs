@@ -14,10 +14,12 @@ namespace Whydoisuck.ViewModels.SelectedLevel.GraphTab
         private SessionsStatistics GroupStats { get; set; }
         public LevelDataGridViewModel DataGrid { get; set; }
         public LevelGraphViewModel Graph { get; set; }
+        public SessionFilterViewModel Filter { get; set; }
 
         public GraphTabMainViewModel(SessionGroup g)
         {
-            GroupStats = new SessionsStatistics(g.GroupSessions, 1f);
+            Filter = new SessionFilterViewModel();
+            GroupStats = new SessionsStatistics(g.GroupSessions, Filter, 1f);
             DataGrid = new LevelDataGridViewModel(GroupStats.Statistics);
             Graph = new LevelGraphViewModel(GroupStats.Statistics);
         }

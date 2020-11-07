@@ -102,6 +102,7 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\SessionFilterViewModel.cs" />
     <Compile Include="ViewModels\DataStructures\LevelPartStatistics.cs" />
     <Compile Include="ViewModels\DataStructures\Range.cs" />
     <Compile Include="ViewModels\DataStructures\SessionsStatistics.cs" />
