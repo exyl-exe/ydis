@@ -12,10 +12,17 @@ using Whydoisuck.ViewModels.DataStructures;
 
 namespace Whydoisuck.ViewModels.CommonControlsViewModels
 {
+    /// <summary>
+    /// View model for a graph showing statistics about a level
+    /// </summary>
     public class LevelGraphViewModel : BaseViewModel
     {
-        private SessionsStatistics Statistics { get; set; }
+        /// <summary>
+        /// Points in the graph.
+        /// </summary>
         public List<LevelPartDataPoint> Points { get; set; }
+        // Statistics depicted by the graph.
+        private SessionsStatistics Statistics { get; set; }
 
         public LevelGraphViewModel(SessionsStatistics statistics)
         {
@@ -24,12 +31,14 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
             Statistics.OnStatisticsChange += Update;
         }
 
+        // Notifies the view about a change
         private void Update()
         {
             Points = GetPoints(Statistics.Statistics);
             OnPropertyChanged(nameof(Points));
         }
 
+        // Creates points for the given statistics
         private List<LevelPartDataPoint> GetPoints(List<LevelPartStatistics> stats)
         {
             var res = new List<LevelPartDataPoint>();

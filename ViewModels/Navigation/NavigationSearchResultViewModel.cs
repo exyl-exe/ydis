@@ -9,10 +9,20 @@ using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.Navigation
 {
+    /// <summary>
+    /// View model for one result of the group search in the navigation panel
+    /// </summary>
     public class NavigationSearchResultViewModel
     {
+        /// <summary>
+        /// Command that switched the main view when the search result is clicked
+        /// </summary>
         public NavigatorCommand UpdateCommand { get; set; }
+        /// <summary>
+        /// Group the selected level view should be about once the search result is clicked
+        /// </summary>
         public SessionGroup Group { get; set; }
+        // ViewModel the main view should switch to
         private SelectedLevelViewModel SelectedView { get; set; }
 
         public NavigationSearchResultViewModel(SessionGroup group, MainWindowViewModel mainView, SelectedLevelViewModel selectedView)
@@ -22,6 +32,9 @@ namespace Whydoisuck.ViewModels.Navigation
             UpdateCommand = new NavigatorCommand(mainView, selectedView);
         }
 
+        /// <summary>
+        /// Updates the corresponding selected view view model to match the session group.
+        /// </summary>
         public void Update()
         {
             SelectedView.Update();

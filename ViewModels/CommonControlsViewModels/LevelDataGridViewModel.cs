@@ -8,10 +8,18 @@ using Whydoisuck.ViewModels.DataStructures;
 
 namespace Whydoisuck.ViewModels.CommonControlsViewModels
 {
+    /// <summary>
+    /// View model for a datagrid about statistics of a level
+    /// </summary>
     public class LevelDataGridViewModel : BaseViewModel
     {
+        /// <summary>
+        /// List of statistics per part that will be shown in the grid.
+        /// </summary>
         public List<LevelPartStatistics> SessionStats { get; set; }
+        // Statistics about a level
         private SessionsStatistics Stats { get; set; }
+
         public LevelDataGridViewModel(SessionsStatistics stats)
         {
             Stats = stats;
@@ -19,13 +27,15 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
             Stats.OnStatisticsChange += Update;
         }
 
+        // Notifies the view that there was change
         private void Update()
         {
             SessionStats = FilterOutRedondantParts(Stats.Statistics);
             OnPropertyChanged(nameof(SessionStats));
         }
 
-        public List<LevelPartStatistics> FilterOutRedondantParts(List<LevelPartStatistics> stats)
+        // Filters parts based on their relevance
+        private List<LevelPartStatistics> FilterOutRedondantParts(List<LevelPartStatistics> stats)
         {
             var res = new List<LevelPartStatistics>();
             if (stats.Count > 0)

@@ -8,10 +8,14 @@ using Whydoisuck.ViewModels.DataStructures;
 
 namespace Whydoisuck.ViewModels.CommonControlsViewModels
 {
+    /// <summary>
+    /// Model for on point in the statistics graph.
+    /// </summary>
     public class LevelPartDataPoint : IDataPointProvider
     {
-        private DataPoint Point { get; set; }
-        private LevelPartStatistics Stats { get; set; }
+        /// <summary>
+        /// Tooltip information for this point
+        /// </summary>
         public string Tooltip {
             get
             {
@@ -19,17 +23,30 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
             }
         }
 
+        // Actual point on the graph
+        private DataPoint Point { get; set; }
+        // Statistics depicted by the point
+        private LevelPartStatistics Stats { get; set; }
+
         public LevelPartDataPoint(LevelPartStatistics stats)
         {
             Stats = stats;
             Point = new DataPoint(stats.PercentRange.Start, stats.PassRate);
         }
 
+        /// <summary>
+        /// Gets the data point for the associated statistics.
+        /// </summary>
+        /// <returns>The data point</returns>
         public DataPoint GetDataPoint()
         {
             return Point;
         }
 
+        /// <summary>
+        /// Gets the tooltip text for the current point.
+        /// </summary>
+        /// <returns>The text that should be in the tooltip.</returns>
         public string GetText()
         {
             return  $"{Stats.PercentRange.Start}%-{Stats.PercentRange.End}%\n"
