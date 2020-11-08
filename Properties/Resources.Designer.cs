@@ -22,7 +22,7 @@ namespace Whydoisuck.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Whydoisuck.Properties {
         ///   Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Whydoisuck.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,192 @@ namespace Whydoisuck.Properties {
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Why do i suck.
+        /// </summary>
+        public static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Attempt {0}.
+        /// </summary>
+        public static string AttemptListNumberFormat {
+            get {
+                return ResourceManager.GetString("AttemptListNumberFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0:F0}%.
+        /// </summary>
+        public static string AttemptListPercentFormat {
+            get {
+                return ResourceManager.GetString("AttemptListPercentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à none.
+        /// </summary>
+        public static string CurrentLevelGroupDefault {
+            get {
+                return ResourceManager.GetString("CurrentLevelGroupDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Level group : .
+        /// </summary>
+        public static string CurrentLevelGroupLabel {
+            get {
+                return ResourceManager.GetString("CurrentLevelGroupLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à new group.
+        /// </summary>
+        public static string CurrentLevelGroupNew {
+            get {
+                return ResourceManager.GetString("CurrentLevelGroupNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Current session.
+        /// </summary>
+        public static string CurrentLevelNavButton {
+            get {
+                return ResourceManager.GetString("CurrentLevelNavButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Not playing any level.
+        /// </summary>
+        public static string CurrentLevelTitleDefault {
+            get {
+                return ResourceManager.GetString("CurrentLevelTitleDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Show start position runs.
+        /// </summary>
+        public static string FilterPanelCopyCheckbox {
+            get {
+                return ResourceManager.GetString("FilterPanelCopyCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Show normal mode runs.
+        /// </summary>
+        public static string FilterPanelNormalCheckbox {
+            get {
+                return ResourceManager.GetString("FilterPanelNormalCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Statistics.
+        /// </summary>
+        public static string SelectedLevelGraphTab {
+            get {
+                return ResourceManager.GetString("SelectedLevelGraphTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Sessions.
+        /// </summary>
+        public static string SelectedLevelSessionsTab {
+            get {
+                return ResourceManager.GetString("SelectedLevelSessionsTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Show all attempts.
+        /// </summary>
+        public static string SessionViewShowAttempts {
+            get {
+                return ResourceManager.GetString("SessionViewShowAttempts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Show summary.
+        /// </summary>
+        public static string SessionViewShowStats {
+            get {
+                return ResourceManager.GetString("SessionViewShowStats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Percent.
+        /// </summary>
+        public static string StatsDeathColTitle {
+            get {
+                return ResourceManager.GetString("StatsDeathColTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Percent.
+        /// </summary>
+        public static string StatsGraphXAxis {
+            get {
+                return ResourceManager.GetString("StatsGraphXAxis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pass rate.
+        /// </summary>
+        public static string StatsGraphYAxis {
+            get {
+                return ResourceManager.GetString("StatsGraphYAxis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Times reached.
+        /// </summary>
+        public static string StatsPassRateColTitle {
+            get {
+                return ResourceManager.GetString("StatsPassRateColTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Death count.
+        /// </summary>
+        public static string StatsPercentColTitle {
+            get {
+                return ResourceManager.GetString("StatsPercentColTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pass rate.
+        /// </summary>
+        public static string StatsReachColTitle {
+            get {
+                return ResourceManager.GetString("StatsReachColTitle", resourceCulture);
             }
         }
     }

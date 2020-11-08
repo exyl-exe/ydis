@@ -34,7 +34,7 @@ namespace Whydoisuck.ViewModels.DataStructures
         {
             var res = new List<Range>();
             var currentPartStart = 0f;//TODO const
-            while(currentPartStart < 100f+partWidth)
+            while(currentPartStart < 100f+partWidth)//TODO const
             {
                 res.Add(new Range(currentPartStart, currentPartStart + partWidth));
                 currentPartStart += partWidth;

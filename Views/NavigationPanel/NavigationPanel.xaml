@@ -4,13 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:uc="clr-namespace:Whydoisuck.Views.NavigationPanel"
+             xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel x:Name="NavigationDockPanel">
         <Button x:Name="CurrentLevelNavigationButton"
                 DockPanel.Dock="Top"
                 Command="{Binding GoToCurrentCommand}">
-            Current level TODO
+            <TextBlock Text="{x:Static props:Resources.CurrentLevelNavButton}"/>
         </Button>
         <uc:NavigationSearchPanel
             DataContext="{Binding SearchView}">

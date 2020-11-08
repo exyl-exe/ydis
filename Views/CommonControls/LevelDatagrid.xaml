@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Whydoisuck.Views.CommonControls"
+             xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DataGrid Name="LevelData"
@@ -14,22 +15,22 @@
               AutoGenerateColumns="False">
         <DataGrid.Columns>
             <DataGridTextColumn IsReadOnly="True"
-                                Header="Percent"
+                                Header="{x:Static props:Resources.StatsPercentColTitle}"
                                 Binding="{Binding PercentRange.Start}"
                                 Width="*"/>
             
             <DataGridTextColumn IsReadOnly="True"
-                                Header="Times reached"
+                                Header="{x:Static props:Resources.StatsReachColTitle}"
                                 Binding="{Binding ReachCount}"
                                 Width="*"/>
             
             <DataGridTextColumn IsReadOnly="True"
-                                Header="Death count"
+                                Header="{x:Static props:Resources.StatsDeathColTitle}"
                                 Binding="{Binding DeathCount}"
                                 Width="*"/>
             
             <DataGridTextColumn IsReadOnly="True"
-                                Header="Pass rate"
+                                Header="{x:Static props:Resources.StatsPassRateColTitle}"
                                 Binding="{Binding PassRate}"
                                 Width="*"/>
         </DataGrid.Columns>

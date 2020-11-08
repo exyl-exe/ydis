@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Whydoisuck.Views.CommonControls"
+             xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -14,12 +15,14 @@
         <StackPanel Grid.Column="0"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
-            <CheckBox IsChecked="{Binding ShowNormal, Mode=TwoWay}">TODO Show normal mode runs</CheckBox>
+            <CheckBox IsChecked="{Binding ShowNormal, Mode=TwoWay}"
+                      Content="{x:Static props:Resources.FilterPanelNormalCheckbox}"/>
         </StackPanel>
         <StackPanel Grid.Column="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
-            <CheckBox IsChecked="{Binding ShowCopy, Mode=TwoWay}">TODO Show copy runs</CheckBox>
+            <CheckBox IsChecked="{Binding ShowCopy, Mode=TwoWay}"
+                      Content="{x:Static props:Resources.FilterPanelCopyCheckbox}"/>
         </StackPanel>
     </Grid>
 </UserControl>

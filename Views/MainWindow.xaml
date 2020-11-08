@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:navigationpanel="clr-namespace:Whydoisuck.Views.NavigationPanel"
         xmlns:currentlevel="clr-namespace:Whydoisuck.Views.Currentlevel"
+        xmlns:props="clr-namespace:Whydoisuck.Properties"
         mc:Ignorable="d"
-        Title="Why do I suck TODO" Height="980" Width="860">
+        Title="{x:Static props:Resources.AppTitle}"
+        Width="860" Height="900">
     <DockPanel Name="mainView"
           Background="Violet">
         <navigationpanel:NavigationPanel

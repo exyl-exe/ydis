@@ -20,7 +20,7 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             MainView = mainWindow;
             GoToCurrentCommand = new NavigatorCommand(mainWindow, new CurrentLevelViewModel(mainWindow.Recorder));
-            SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);//TODO
+            SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
         }
     }

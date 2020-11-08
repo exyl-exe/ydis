@@ -16,8 +16,8 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
 
     public class AttemptViewModel : BaseViewModel
     {
-        public string Number => "Attempt " + Attempt.Number;//TODO hardcoded string
-        public string Percent => Attempt.EndPercent + "%";//TODO hardcoded string
+        public string Number => string.Format(Properties.Resources.AttemptListNumberFormat, Attempt.Number);
+        public string Percent => string.Format(Properties.Resources.AttemptListPercentFormat, Attempt.EndPercent);
         private Attempt Attempt { get; set; }
 
         public AttemptViewModel(Attempt a)

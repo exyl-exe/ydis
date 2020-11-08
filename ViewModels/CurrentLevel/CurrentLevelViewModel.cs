@@ -16,17 +16,14 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         private Session Session { get; set; }
         private SessionsStatistics CurrentLevelStats { get; set; }
         public string Title { get; set; }
-        public string Autoguess { get; set; }//TODO
+        public string Autoguess { get; set; }
         public LevelGraphViewModel Graph { get; set; }
         public LevelDataGridViewModel Datagrid { get; set; }
 
         public CurrentLevelViewModel(Recorder recorder)
         {
             Recorder = recorder;
-            Session = null;
-            CurrentLevelStats = null;
-            Title = "Not playing any level TODO";//TODO
-            Autoguess = "None TODO";//TODO
+            SetDefaulProperties();
 
             Recorder.OnAttemptAdded += OnAttemptAddedToCurrent;
             Recorder.OnNewCurrentSessionInitialized += OnNewCurrentSession;
@@ -37,21 +34,18 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         {
             Session = s;
             Title = s.Level.Name;
-            Autoguess = Recorder.Autoguess==null?"New group TODO":SessionGroup.GetDefaultGroupName(s.Level);//TODO
+            Autoguess = Recorder.Autoguess==null?
+                Properties.Resources.CurrentLevelGroupNew
+                :SessionGroup.GetDefaultGroupName(s.Level);
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
-            Graph = new LevelGraphViewModel(CurrentLevelStats);//TODO
+            Graph = new LevelGraphViewModel(CurrentLevelStats);//TODO generating everything is bad
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
             Update();
         }
 
         public void OnQuitCurrentSession(Session s)
         {
-            Session = null;
-            CurrentLevelStats = null;
-            Graph = null;
-            Datagrid = null;
-            Title = "Not playing any level TODO";//TODO
-            Autoguess = "None TODO";//TODO
+            SetDefaulProperties();
             Update();
         }
 
@@ -61,6 +55,16 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             Graph = new LevelGraphViewModel(CurrentLevelStats);
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
             Update();
+        }
+
+        private void SetDefaulProperties()
+        {
+            Session = null;
+            CurrentLevelStats = null;
+            Graph = null;
+            Datagrid = null;
+            Title = Properties.Resources.CurrentLevelTitleDefault;
+            Autoguess = Properties.Resources.CurrentLevelGroupDefault;
         }
 
         private void Update()
