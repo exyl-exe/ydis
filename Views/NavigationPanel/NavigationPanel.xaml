@@ -12,10 +12,6 @@
                 Command="{Binding GoToCurrentCommand}">
             Current level TODO
         </Button>
-        <Button x:Name="Settings"
-                DockPanel.Dock="Bottom">
-            SETTING TODO
-        </Button>
         <uc:NavigationSearchPanel
             DataContext="{Binding SearchView}">
         </uc:NavigationSearchPanel>
