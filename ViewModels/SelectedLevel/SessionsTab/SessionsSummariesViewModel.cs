@@ -13,7 +13,6 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         private SessionGroup Group { get; set; }
         private SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
         public List<DaySummaryViewModel> SortedSummaries => Summaries.Values.Reverse().ToList();
-        public PercentRangeSliderViewModel SelectRange { get; set; }
 
         private SessionsTabMainViewModel Parent { get; set; }
 
@@ -21,8 +20,6 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         {
             Parent = parent;
             Group = g;
-            SelectRange = new PercentRangeSliderViewModel();
-            SelectRange.OnRangeChanged += Update;
             Summaries = CreateSummaries();
         }
 
@@ -43,31 +40,6 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
                 }
             }
             return res;
-        }
-
-        private void UpdateSummaries()
-        {
-            foreach (var summary in Summaries.Values)
-            {
-                foreach (var sessionModel in summary.SortedSessions)
-                {
-                    if (SelectRange.Range.Contains(sessionModel.Session.StartPercent))
-                    {
-                        sessionModel.Visible = true;
-                    }
-                    else
-                    {
-                        sessionModel.Visible = false;
-                    }
-                }
-                summary.UpdateVisibility();
-            }
-            OnPropertyChanged(nameof(SortedSummaries));
-        }
-
-        private void Update(object sender, EventArgs e)
-        {
-            UpdateSummaries();
         }
     }
 }

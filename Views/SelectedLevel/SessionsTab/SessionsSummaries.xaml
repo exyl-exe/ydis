@@ -9,17 +9,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
-            <Border x:Name="RangeBorder"
-                Margin="5"
-                Background="DarkViolet"
-                BorderBrush="PaleVioletRed"
-                BorderThickness="1">
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Left">TODO Starting Between</TextBlock>
-                    <common:PercentRangeSlider DataContext="{Binding SelectRange}"></common:PercentRangeSlider>
-                </DockPanel>
-            </Border>
-            <Separator BorderBrush="Aquamarine" BorderThickness="1"/>
             <ItemsControl ItemsSource="{Binding SortedSummaries}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
