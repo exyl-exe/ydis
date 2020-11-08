@@ -24,11 +24,13 @@
             <oxy:LinearAxis Position="Bottom"
                             Minimum="0"
                             Maximum="100"
-                            IsZoomEnabled="False"/>
+                            IsZoomEnabled="False"
+                            IsPanEnabled="False"/>
             <oxy:LinearAxis Position="Left"
                             Minimum="0"
                             Maximum="100"
-                            IsZoomEnabled="False"/>
+                            IsZoomEnabled="False"
+                            IsPanEnabled="False"/>
         </common:OxyPlotTooltipHover.Axes>
         <common:OxyPlotTooltipHover.Series>
             <oxy:LineSeries
