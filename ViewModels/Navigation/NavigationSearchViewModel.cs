@@ -79,7 +79,9 @@ namespace Whydoisuck.ViewModels.Navigation
         // Updates matching search result and notifies the change.
         private void UpdateSearchResults()
         {
-            SearchResults = AllResults.Where(result => result.Group.GroupName.ToLower().Trim().StartsWith(_search.ToLower().Trim())).ToList();
+            SearchResults = AllResults.Where(result => result.ResultText.ToLower().Trim().StartsWith(_search.ToLower().Trim()))
+                                      .OrderBy(res => res.Group.GroupName)
+                                      .ToList();
             OnPropertyChanged(nameof(SearchResults));
         }
     }

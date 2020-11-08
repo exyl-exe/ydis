@@ -22,6 +22,11 @@ namespace Whydoisuck.ViewModels.Navigation
         /// Group the selected level view should be about once the search result is clicked
         /// </summary>
         public SessionGroup Group { get; set; }
+        /// <summary>
+        /// How the group name shoudl be displayed in the search result
+        /// </summary>
+        public string ResultText => Group.GroupName;
+
         // ViewModel the main view should switch to
         private SelectedLevelViewModel SelectedView { get; set; }
 
