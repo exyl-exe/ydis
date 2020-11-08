@@ -132,11 +132,15 @@
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionButtonViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsSummariesViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsTabMainViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\AttemptListViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionViewModel.cs" />
     <Compile Include="Views\Commands\GoBackCommand.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\Commands\ViewSessionCommand.cs" />
+    <Compile Include="Views\CommonControls\AttemptList.xaml.cs">
+      <DependentUpon>AttemptList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommonControls\LevelDatagrid.xaml.cs">
       <DependentUpon>LevelDatagrid.xaml</DependentUpon>
     </Compile>
@@ -194,6 +198,10 @@
     <Compile Include="Views\SelectedLevel\SessionsTab\SessionSummary\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\CommonControls\AttemptList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommonControls\LevelDatagrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

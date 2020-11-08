@@ -21,7 +21,9 @@ namespace Whydoisuck.ViewModels.DataStructures
             Filter = filter;
             Dividing = GetParts(defaultPartWidth);
             Statistics = GetStatistics();
-            Filter.OnFilterChanges += UpdateStatistics;
+            if(Filter != null) {
+                Filter.OnFilterChanges += UpdateStatistics;
+            }
         }
 
         public SessionsStatistics(List<Session> sessions, float defaultPartWidth) : this(sessions, null, defaultPartWidth)

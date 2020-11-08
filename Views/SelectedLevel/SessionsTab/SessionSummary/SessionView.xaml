@@ -26,7 +26,9 @@
                 <local:SessionHeader DataContext="{Binding Header}"></local:SessionHeader>
             </DockPanel>
             <common:LevelGraph DataContext="{Binding Graph}"/>
-            <common:LevelDatagrid DataContext="{Binding Datagrid}"/>
+            <Button Margin="5">View details TODO</Button>
+            <!--<common:LevelDatagrid DataContext="{Binding Datagrid}"/>-->
+            <common:AttemptList DataContext="{Binding AttemptList}"></common:AttemptList>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

@@ -17,6 +17,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
         public SessionHeaderViewModel Header { get; }
         public LevelGraphViewModel Graph { get; }
         public LevelDataGridViewModel Datagrid { get; }
+        public AttemptListViewModel AttemptList { get; }
         public GoBackCommand GoBack { get; }
 
         public SessionViewModel(SessionsTabMainViewModel parent, Session s)
@@ -28,6 +29,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             var stats = new SessionsStatistics(l, 1f);
             Graph = new LevelGraphViewModel(stats);
             Datagrid = new LevelDataGridViewModel(stats);
+            AttemptList = new AttemptListViewModel(s.Attempts);
         }
     }
 }
