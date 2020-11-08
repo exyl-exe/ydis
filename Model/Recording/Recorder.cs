@@ -18,11 +18,6 @@ namespace Whydoisuck.DataSaving
     public class Recorder
     {
         /// <summary>
-        /// Current session manager, used by the recorder
-        /// </summary>
-        public SessionManager Manager { get; set; }
-
-        /// <summary>
         /// Current session on the currently played level.
         /// </summary>
         public Session CurrentSession { get; set; }
@@ -68,6 +63,11 @@ namespace Whydoisuck.DataSaving
 
         private Attempt CurrentAttempt { get; set; }
 
+        /// <summary>
+        /// Current session manager, used by the recorder
+        /// </summary>
+        private SessionManager Manager => SessionManager.Instance;
+
         public Recorder()
         {
             GameWatcher.OnLevelEntered += CreateNewSession;
@@ -84,7 +84,6 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public void StartRecording()
         {
-            Manager = SerializationManager.DeserializeSessionManager();
             GameWatcher.StartWatching();
         }
 
@@ -94,7 +93,7 @@ namespace Whydoisuck.DataSaving
         public void StopRecording()
         {
             GameWatcher.StopWatching();
-            SerializationManager.SerializeSessionManager(Manager);
+            Manager.Save();
         }
 
         // Called when entering a level, ensure a session is created before an attempt needs to be saved
@@ -120,12 +119,12 @@ namespace Whydoisuck.DataSaving
             //  -no session were created (= software launched while playing a level, and no attempts have been played before exiting)
             //  -The current level is unknown (= The level was left before it finished loading)
             //  -There are not attempts in the session (= useless data)
+            OnQuitCurrentSession?.Invoke(CurrentSession);
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
             Manager.SaveSession(CurrentSession);
             SerializationManager.SerializeSessionManager(Manager);
 
-            OnQuitCurrentSession?.Invoke(CurrentSession);
             CurrentSession = null;
             CurrentAttempt = null;
         }

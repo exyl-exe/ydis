@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Model.DataStructures;
@@ -10,10 +11,29 @@ using Whydoisuck.Model.DataStructures;
 namespace Whydoisuck.DataSaving
 {
     /// <summary>
-    /// This class manages which group a session belongs to
+    /// This class manages which group a session belongs to.
+    /// Only one instance can exist at a given time.
     /// </summary>
     public class SessionManager : IWDISSerializable
     {
+        private static SessionManager _instance;
+
+        /// <summary>
+        /// Sole instance of the session manager.
+        /// </summary>
+        public static SessionManager Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new SessionManager();
+                    SerializationManager.DeserializeSessionManager(_instance);
+                }
+                return _instance;
+            }
+        }
+
         /// <summary>
         /// List of all groups
         /// </summary>
@@ -29,9 +49,21 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public event OnGroupUpdatedCallback OnGroupUpdated;
 
-        public SessionManager()
+        //private because only one instance of the class can exist
+        private SessionManager()
         {
             Groups = new List<SessionGroup>();
+        }
+
+        /// <summary>
+        /// Saves the session manager on the disk.
+        /// </summary>
+        public void Save()
+        {
+            if (_instance != null)
+            {
+                SerializationManager.SerializeSessionManager(_instance);
+            }
         }
 
         /// <summary>

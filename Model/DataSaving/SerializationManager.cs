@@ -79,15 +79,11 @@ namespace Whydoisuck.DataSaving
         /// Loads the manager from the file on the disk
         /// </summary>
         /// <returns>The loaded session manager</returns>
-        public static SessionManager DeserializeSessionManager()
+        public static void DeserializeSessionManager(SessionManager manager)
         {
-            if (!SafeFile.Exists(IndexFilePath))
+            if (SafeFile.Exists(IndexFilePath))
             {
-                return new SessionManager();
-            }
-            else
-            {
-                return Deserialize<SessionManager>(IndexFilePath);
+                JsonConvert.PopulateObject(GetObject(IndexFilePath), manager);
             }
         }
 
@@ -116,10 +112,15 @@ namespace Whydoisuck.DataSaving
             return item;
         }
 
+        private static string GetObject(string filePath)
+        {
+            return SafeFile.ReadAllText(filePath);
+        }
+
         // Gets the path of the directory of a group.
         private static string GetGroupDirectoryPath(SessionGroup group)
         {
-            var path = SafePath.Combine(SAVE_DIR, group.GroupName + SafePath.DirectorySeparator);
+            var path = SafePath.Combine(SAVE_DIR, group.GroupName.Trim() + SafePath.DirectorySeparator);
             return path;
         }
 
