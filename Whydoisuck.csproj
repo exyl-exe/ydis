@@ -126,13 +126,14 @@
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchResultViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchViewModel.cs" />
+    <Compile Include="ViewModels\ReplaceableViewViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\DaySummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\GraphTab\GraphTabMainViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SelectedLevelViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionButtonViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsSummariesViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsTabMainViewModel.cs" />
-    <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\AttemptListViewModel.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\AttemptListViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionViewModel.cs" />
     <Compile Include="Views\Commands\GoBackCommand.cs" />

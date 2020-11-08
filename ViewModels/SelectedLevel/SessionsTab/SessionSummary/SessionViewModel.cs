@@ -11,14 +11,19 @@ using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
 {
-    public class SessionViewModel : BaseViewModel
+    public class SessionViewModel : BaseViewModel, ReplaceableViewViewModel
     {
         private Session Session { get; }
         public SessionHeaderViewModel Header { get; }
         public LevelGraphViewModel Graph { get; }
-        public LevelDataGridViewModel Datagrid { get; }
-        public AttemptListViewModel AttemptList { get; }
         public GoBackCommand GoBack { get; }
+        public BaseViewModel CurrentView { get; set; }
+        public NavigatorCommand SwitchCommand { get; set; }
+        private LevelDataGridViewModel Datagrid { get; }
+        private AttemptListViewModel AttemptList { get; }
+        private NavigatorCommand AttemptsSummaryCommand { get; }
+        private NavigatorCommand AttemptsDetailsCommand { get; }
+        private bool ShowingDetails { get; set; }
 
         public SessionViewModel(SessionsTabMainViewModel parent, Session s)
         {
@@ -28,8 +33,24 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             var l = new List<Session> { Session };
             var stats = new SessionsStatistics(l, 1f);
             Graph = new LevelGraphViewModel(stats);
+
             Datagrid = new LevelDataGridViewModel(stats);
             AttemptList = new AttemptListViewModel(s.Attempts);
+            AttemptsSummaryCommand = new NavigatorCommand(this, Datagrid);
+            AttemptsDetailsCommand = new NavigatorCommand(this, AttemptList);
+
+            ShowingDetails = false;
+            CurrentView = Datagrid;
+            SwitchCommand = AttemptsDetailsCommand;
+        }
+
+        public void ReplaceView(BaseViewModel m)
+        {
+            CurrentView = m;
+            SwitchCommand = ShowingDetails ? AttemptsDetailsCommand : AttemptsSummaryCommand;
+            ShowingDetails = !ShowingDetails;
+            OnPropertyChanged(nameof(CurrentView));
+            OnPropertyChanged(nameof(SwitchCommand));
         }
     }
 }

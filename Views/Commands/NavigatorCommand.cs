@@ -13,10 +13,10 @@ namespace Whydoisuck.Views.Commands
     public class NavigatorCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private MainWindowViewModel ViewModel { get; set; }
+        private ReplaceableViewViewModel ViewModel { get; set; }
         private BaseViewModel ViewToNavigateTo { get; set; }
 
-        public NavigatorCommand(MainWindowViewModel viewModel, BaseViewModel newView)
+        public NavigatorCommand(ReplaceableViewViewModel viewModel, BaseViewModel newView)
         {
             this.ViewModel = viewModel;
             this.ViewToNavigateTo = newView;
@@ -29,7 +29,7 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            ViewModel.ReplaceMainView(ViewToNavigateTo);
+            ViewModel.ReplaceView(ViewToNavigateTo);
         }
     }
 }

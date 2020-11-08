@@ -12,7 +12,7 @@
         <navigationpanel:NavigationPanel
             DockPanel.Dock="Left"
             DataContext="{Binding NavigationPanel}"/>
-        <ContentControl Content="{Binding CurrentMainView}">
+        <ContentControl Content="{Binding CurrentView}">
 
         </ContentControl>
     </DockPanel>

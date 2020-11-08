@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Whydoisuck"
              xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.CurrentLevel"
+             xmlns:commonVM="clr-namespace:Whydoisuck.ViewModels.CommonControlsViewModels"
              xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel"
              xmlns:sessionVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary"
              xmlns:sessionTabVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab"
              xmlns:currentView="clr-namespace:Whydoisuck.Views.Currentlevel"
              xmlns:selectedView="clr-namespace:Whydoisuck.Views.SelectedLevel"
-             xmlns:selectedViewSessionsTab="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab" xmlns:sessionsummary="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary"
+             xmlns:selectedViewSessionsTab="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab" xmlns:sessionsummary="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary" xmlns:commoncontrols="clr-namespace:Whydoisuck.Views.CommonControls"
              StartupUri="pack:Views/MainWindow.xaml">
     <Application.Resources>
         <DataTemplate DataType="{x:Type currentLevelVM:CurrentLevelViewModel}">
@@ -22,6 +23,12 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type sessionVM:SessionViewModel}">
             <sessionsummary:SessionView></sessionsummary:SessionView>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type commonVM:AttemptListViewModel}">
+            <commoncontrols:AttemptList></commoncontrols:AttemptList>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type commonVM:LevelDataGridViewModel}">
+            <commoncontrols:LevelDatagrid></commoncontrols:LevelDatagrid>
         </DataTemplate>
     </Application.Resources>
 </Application>

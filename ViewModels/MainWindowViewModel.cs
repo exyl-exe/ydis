@@ -11,23 +11,23 @@ using Whydoisuck.Views.Currentlevel;
 
 namespace Whydoisuck.ViewModels
 {
-    public class MainWindowViewModel : BaseViewModel
+    public class MainWindowViewModel : BaseViewModel, ReplaceableViewViewModel
     {
 		public NavigationPanelViewModel NavigationPanel { get; set; }
-		public BaseViewModel CurrentMainView { get; set; }
+		public BaseViewModel CurrentView { get; set; }
 		public Recorder Recorder { get; set; }
 
 		public MainWindowViewModel(Recorder recorder)
 		{
 			Recorder = recorder;
 			NavigationPanel = new NavigationPanelViewModel(this);
-			CurrentMainView = new CurrentLevelViewModel(recorder);
+			CurrentView = new CurrentLevelViewModel(recorder);
 		}
 
-		public void ReplaceMainView(BaseViewModel m)
+		public void ReplaceView(BaseViewModel m)
 		{
-			CurrentMainView = m;
-			OnPropertyChanged(nameof(CurrentMainView));
+			CurrentView = m;
+			OnPropertyChanged(nameof(CurrentView));
 		}
 	}
 }
