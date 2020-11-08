@@ -29,6 +29,18 @@ namespace Whydoisuck.DataSaving
         const string INDEX_FILE_NAME = "indexedLevels.wdis";
 
         /// <summary>
+        /// Initializes folders and files on the disk so that the session manager
+        /// can work properly.
+        /// </summary>
+        public static void Init()
+        {
+            if (!SafeDirectory.Exists(SAVE_DIR))
+            {
+                SafeDirectory.CreateDirectory(SAVE_DIR);
+            }
+        }
+
+        /// <summary>
         /// Saves a session on the disk
         /// </summary>
         /// <param name="group">The group the session belongs to</param>

@@ -52,6 +52,7 @@ namespace Whydoisuck.DataSaving
         //private because only one instance of the class can exist
         private SessionManager()
         {
+            SerializationManager.Init();
             Groups = new List<SessionGroup>();
         }
 
