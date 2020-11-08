@@ -13,9 +13,26 @@
                         BorderThickness="0"
                         Background="Transparent">
         <oxy:TrackerControl.Content>
-            <TextBlock
-                Background="Aqua"
-                Text="{Binding Item.Tooltip}"/>
+            <Border BorderBrush="Black"
+                    BorderThickness="1"
+                    Background="Green">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Text="{Binding Item.PercentRange}"/>
+                    <TextBlock Grid.Row="1"
+                               Text="{Binding Item.Reachs}"/>
+                    <TextBlock Grid.Row="2"
+                               Text="{Binding Item.Deaths}"/>
+                    <TextBlock Grid.Row="3"
+                               Text="{Binding Item.PassRate}"/>
+                </Grid>
+            </Border>
         </oxy:TrackerControl.Content>
     </oxy:TrackerControl>
 </UserControl>

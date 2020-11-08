@@ -14,14 +14,21 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
     public class LevelPartDataPoint : IDataPointProvider
     {
         /// <summary>
-        /// Tooltip information for this point
+        /// How the percent range will be displayed
         /// </summary>
-        public string Tooltip {
-            get
-            {
-                return GetText();
-            }
-        }
+        public string PercentRange => string.Format(Properties.Resources.TooltipPercentFormat, Stats.PercentRange.Start, Stats.PercentRange.End);
+        /// <summary>
+        /// How the reach count will be displayed
+        /// </summary>
+        public string Reachs => string.Format(Properties.Resources.TooltipReachCountFormat, Stats.ReachCount);
+        /// <summary>
+        /// How the percent range will be displayed
+        /// </summary>
+        public string Deaths => string.Format(Properties.Resources.TooltipDeathCountFormat, Stats.DeathCount);
+        /// <summary>
+        /// How the percent range will be displayed
+        /// </summary>
+        public string PassRate => string.Format(Properties.Resources.TooltipPassRateFormat, Stats.PassRate);
 
         // Actual point on the graph
         private DataPoint Point { get; set; }
@@ -41,18 +48,6 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         public DataPoint GetDataPoint()
         {
             return Point;
-        }
-
-        /// <summary>
-        /// Gets the tooltip text for the current point.
-        /// </summary>
-        /// <returns>The text that should be in the tooltip.</returns>
-        public string GetText()
-        {
-            return  $"{Stats.PercentRange.Start}%-{Stats.PercentRange.End}%\n"
-                    + $"Reached {Stats.ReachCount} times\n"
-                    + $"Died {Stats.DeathCount} times\n"
-                    + $"{Stats.PassRate}% pass rate";
         }
     }
 }

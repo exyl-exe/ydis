@@ -266,5 +266,41 @@ namespace Whydoisuck.Properties {
                 return ResourceManager.GetString("StatsReachColTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Died {0} times.
+        /// </summary>
+        public static string TooltipDeathCountFormat {
+            get {
+                return ResourceManager.GetString("TooltipDeathCountFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0:F0}% pass rate.
+        /// </summary>
+        public static string TooltipPassRateFormat {
+            get {
+                return ResourceManager.GetString("TooltipPassRateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0:F0}%-{1:F0}%.
+        /// </summary>
+        public static string TooltipPercentFormat {
+            get {
+                return ResourceManager.GetString("TooltipPercentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reached {0} times.
+        /// </summary>
+        public static string TooltipReachCountFormat {
+            get {
+                return ResourceManager.GetString("TooltipReachCountFormat", resourceCulture);
+            }
+        }
     }
 }

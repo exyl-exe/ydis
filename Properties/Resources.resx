@@ -191,4 +191,20 @@
   <data name="StatsReachColTitle" xml:space="preserve">
     <value>Pass rate</value>
   </data>
+  <data name="TooltipDeathCountFormat" xml:space="preserve">
+    <value>Died {0} times</value>
+    <comment>Format</comment>
+  </data>
+  <data name="TooltipPassRateFormat" xml:space="preserve">
+    <value>{0:F0}% pass rate</value>
+    <comment>Format</comment>
+  </data>
+  <data name="TooltipPercentFormat" xml:space="preserve">
+    <value>{0:F0}%-{1:F0}%</value>
+    <comment>Format</comment>
+  </data>
+  <data name="TooltipReachCountFormat" xml:space="preserve">
+    <value>Reached {0} times</value>
+    <comment>Format</comment>
+  </data>
 </root>
