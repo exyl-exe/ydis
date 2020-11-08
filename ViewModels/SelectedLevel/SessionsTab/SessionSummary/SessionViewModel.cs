@@ -11,18 +11,42 @@ using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
 {
-    public class SessionViewModel : BaseViewModel, ReplaceableViewViewModel
+    /// <summary>
+    /// View model for the detailled summary of one session
+    /// </summary>
+    public class SessionViewModel : BaseViewModel, IReplaceableViewViewModel
     {
-        private Session Session { get; }
+        /// <summary>
+        /// Header of the session summary.
+        /// </summary>
         public SessionHeaderViewModel Header { get; }
+        /// <summary>
+        /// Graph of the statistics of the session.
+        /// </summary>
         public LevelGraphViewModel Graph { get; }
-        public GoBackCommand GoBack { get; }
+        /// <summary>
+        /// Currently dsplayed attempts summary. Can be a summary per percent or a list of attempts ordered by number.
+        /// </summary>
         public BaseViewModel CurrentView { get; set; }
+        /// <summary>
+        /// Command to cange the way attempts are displayed.
+        /// </summary>
         public NavigatorCommand SwitchCommand { get; set; }
+        /// <summary>
+        /// Command to close the session summary.
+        /// </summary>
+        public GoBackCommand GoBack { get; }
+        // Session summarized
+        private Session Session { get; }
+        // Model for displaying the attempts grouped by %
         private LevelDataGridViewModel Datagrid { get; }
+        // Model for displaying the attempts in a simple list
         private AttemptListViewModel AttemptList { get; }
+        // Command to switch the way attempts are displayed to a summary.
         private NavigatorCommand AttemptsSummaryCommand { get; }
+        // Command to switch the way attempts are displayed to a list.
         private NavigatorCommand AttemptsDetailsCommand { get; }
+        // Wether attempts are displayed are a list or not.
         private bool ShowingDetails { get; set; }
 
         public SessionViewModel(SessionsTabMainViewModel parent, Session s)
@@ -44,6 +68,10 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             SwitchCommand = AttemptsDetailsCommand;
         }
 
+        /// <summary>
+        /// Used to change how attempts are displayed.
+        /// </summary>
+        /// <param name="m">The model of the view part that will dsplay attempts.</param>
         public void ReplaceView(BaseViewModel m)
         {
             CurrentView = m;

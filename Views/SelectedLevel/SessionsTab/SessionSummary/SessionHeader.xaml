@@ -11,16 +11,16 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="{Binding Session.Level.Name}"/>
+        <TextBlock Grid.Row="0" Text="{Binding LevelName}"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding Session.StartTime.TimeOfDay, StringFormat={}{0:hh}h{0:mm}}"></TextBlock>
-            <TextBlock Grid.Column="1" Text="{Binding Session.StartPercent, StringFormat={}from {0:0.##}%}"></TextBlock>
-            <TextBlock Grid.Column="2" Text="{Binding Session.Attempts.Count, StringFormat={}{0} attempts}"></TextBlock>
+            <TextBlock Grid.Column="0" Text="{Binding StartingTime}"></TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding StartPercent}"></TextBlock>
+            <TextBlock Grid.Column="2" Text="{Binding AttemptCount}"></TextBlock>
         </Grid>
     </Grid>
 </UserControl>

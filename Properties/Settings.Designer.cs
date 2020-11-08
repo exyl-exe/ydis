@@ -31,5 +31,17 @@ namespace Whydoisuck.Properties {
                 return ((int)(this["ScanRate"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public double PercentWidth {
+            get {
+                return ((double)(this["PercentWidth"]));
+            }
+            set {
+                this["PercentWidth"] = value;
+            }
+        }
     }
 }

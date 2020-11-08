@@ -8,10 +8,18 @@ using System.Windows.Controls;
 
 namespace Whydoisuck.ViewModels
 {
+    /// <summary>
+    /// Base view model for every viewmodel.
+    /// Can be used to notify views about a change.
+    /// </summary>
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Notifies the view that the given property has been updated.
+        /// </summary>
+        /// <param name="propertyName">The name of the updated property.</param>
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

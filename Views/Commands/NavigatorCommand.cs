@@ -13,10 +13,10 @@ namespace Whydoisuck.Views.Commands
     public class NavigatorCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private ReplaceableViewViewModel ViewModel { get; set; }
+        private IReplaceableViewViewModel ViewModel { get; set; }
         private BaseViewModel ViewToNavigateTo { get; set; }
 
-        public NavigatorCommand(ReplaceableViewViewModel viewModel, BaseViewModel newView)
+        public NavigatorCommand(IReplaceableViewViewModel viewModel, BaseViewModel newView)
         {
             this.ViewModel = viewModel;
             this.ViewToNavigateTo = newView;

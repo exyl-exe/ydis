@@ -8,13 +8,22 @@ using Whydoisuck.ViewModels.CommonControlsViewModels;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
 {
+    /// <summary>
+    /// View model for the view with a list of summaries per day of a group.
+    /// </summary>
     public class SessionsSummariesViewModel : BaseViewModel
     {
-        private SessionGroup Group { get; set; }
-        private SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
+        /// <summary>
+        /// List of view models for each day, ordered by descending date.
+        /// </summary>
         public List<DaySummaryViewModel> SortedSummaries => Summaries.Values.Reverse().ToList();
 
+        //Parent view, needed to be able to switch the view.
         private SessionsTabMainViewModel Parent { get; set; }
+        //List of summaries of the group.
+        private SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
+        //Group that is summarized.
+        private SessionGroup Group { get; set; }
 
         public SessionsSummariesViewModel(SessionsTabMainViewModel parent, SessionGroup g)
         {
@@ -23,6 +32,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
             Summaries = CreateSummaries();
         }
 
+        //Creates summaries for the group.
         private SortedList<DateTime, DaySummaryViewModel> CreateSummaries()
         {
             var res = new SortedList<DateTime, DaySummaryViewModel>();

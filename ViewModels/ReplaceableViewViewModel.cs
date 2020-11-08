@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace Whydoisuck.ViewModels
 {
-    public interface ReplaceableViewViewModel
+    /// <summary>
+    /// Interface for viewmodels of views which have a part than can be swapped.
+    /// </summary>
+    public interface IReplaceableViewViewModel
     {
-        BaseViewModel CurrentView { get; set; }
-
+        /// <summary>
+        /// Method to change a part of the view
+        /// </summary>
+        /// <param name="m">New model of the transformables part of the view</param>
         void ReplaceView(BaseViewModel m);
     }
 }

@@ -10,9 +10,15 @@ using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
 {
+    /// <summary>
+    /// View model for buttons that open a detailled summary of a session
+    /// </summary>
     public class SessionButtonViewModel : BaseViewModel
     {
         private bool _visible;
+        /// <summary>
+        /// Wether the button should be displayed or not
+        /// </summary>
         public bool Visible
         {
             get
@@ -28,8 +34,17 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
             }
         }
 
+        /// <summary>
+        /// Session that this button will open a summary of
+        /// </summary>
         public Session Session { get; }
+        /// <summary>
+        /// Visibility for WPF controls.
+        /// </summary>
         public Visibility Visibility => Visible ? Visibility.Visible : Visibility.Collapsed;
+        /// <summary>
+        /// Command that opens the summary of a session
+        /// </summary>
         public ICommand ViewSessionCommand { get; set; }
 
         public SessionButtonViewModel(SessionsTabMainViewModel parent, Session session)

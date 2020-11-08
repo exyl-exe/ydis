@@ -12,13 +12,28 @@ using Whydoisuck.Views.NavigationPanel;
 
 namespace Whydoisuck.ViewModels.Navigation
 {
+    /// <summary>
+    /// View model for the search in the navigation panel
+    /// </summary>
     public class NavigationSearchViewModel : BaseViewModel
     {
+        /// <summary>
+        /// Navigation panel, used to be able to switch views.
+        /// </summary>
         public NavigationPanelViewModel ParentNavigationPanel { get; set; }
+        /// <summary>
+        /// All possible results for the search
+        /// </summary>
         public List<NavigationSearchResultViewModel> AllResults { get; set; }
+        /// <summary>
+        /// Results matching the search
+        /// </summary>
         public List<NavigationSearchResultViewModel> SearchResults { get; set; }
 
         private string _search;
+        /// <summary>
+        /// What's typed in the search bar.
+        /// </summary>
         public string Search {
             get {
                 return _search;
@@ -33,7 +48,6 @@ namespace Whydoisuck.ViewModels.Navigation
             }
         }
 
-
         public NavigationSearchViewModel(NavigationPanelViewModel ParentNavigationPanel, List<SessionGroup> groups)
         {
             this.ParentNavigationPanel = ParentNavigationPanel;
@@ -44,6 +58,10 @@ namespace Whydoisuck.ViewModels.Navigation
             UpdateSearchResults();
         }
 
+        /// <summary>
+        /// Updates the search result corresponding to a given group.
+        /// </summary>
+        /// <param name="group">Group to update</param>
         public void UpdateGroup(SessionGroup group)
         {
             var existingResult = AllResults.Find(res => res.Group.Equals(group));
@@ -58,6 +76,7 @@ namespace Whydoisuck.ViewModels.Navigation
             UpdateSearchResults();
         }
 
+        // Updates matching search result and notifies the change.
         private void UpdateSearchResults()
         {
             SearchResults = AllResults.Where(result => result.Group.GroupName.ToLower().Trim().StartsWith(_search.ToLower().Trim())).ToList();

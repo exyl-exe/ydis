@@ -15,7 +15,7 @@ namespace Whydoisuck.DataSaving
     /// <summary>
     /// Saves data on the disk based on what happens in the game
     /// </summary>
-    public class Recorder
+    public class Recorder //TODO make it a singleton class ?
     {
         /// <summary>
         /// Current session on the currently played level.
