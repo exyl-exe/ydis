@@ -67,7 +67,10 @@ namespace Whydoisuck.Model.DataStructures
         /// <returns>The default file name for this session</returns>
         public string GetDefaultSessionFileName()
         {
-            return $"{Level.Name}" + (Level.Revision == 0 ? "" : $" rev{Level.Revision}");
+            return string.Format("{0} {1:yyyy'_'MM'_'dd} {2:hh'h'mm}",
+                Level.Name + (Level.Revision == 0 ? "" : $"_rev{Level.Revision}"),
+                StartTime.Date,
+                StartTime.TimeOfDay);
         }
 
         /// <summary>
