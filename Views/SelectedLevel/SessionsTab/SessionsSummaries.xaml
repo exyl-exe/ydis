@@ -20,7 +20,7 @@
                 </DockPanel>
             </Border>
             <Separator BorderBrush="Aquamarine" BorderThickness="1"/>
-            <ItemsControl ItemsSource="{Binding Summaries.Values}">
+            <ItemsControl ItemsSource="{Binding SortedSummaries}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:DaySummary DataContext="{Binding}"></local:DaySummary>

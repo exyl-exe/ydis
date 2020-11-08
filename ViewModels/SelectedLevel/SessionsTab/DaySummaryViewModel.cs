@@ -15,8 +15,11 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         public Visibility SummaryVisibility => Sessions.Values.Where(svm => svm.Visible).Count() > 0 ?
                                         Visibility.Visible
                                         : Visibility.Collapsed;
-        public SortedList<TimeSpan, SessionButtonViewModel> Sessions { get; }
         public DateTime Day { get; set; }
+
+        public List<SessionButtonViewModel> SortedSessions => Sessions.Values.Reverse().ToList();
+
+        private SortedList<TimeSpan, SessionButtonViewModel> Sessions { get; }
 
         private SessionsTabMainViewModel Parent { get; set; }
 

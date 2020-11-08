@@ -14,7 +14,7 @@
                     Visibility="{Binding SummaryVisibility}">
             <TextBlock x:Name="DayTitle" Text="{Binding Day, StringFormat={}{0:dd/MM/yyyy}}"></TextBlock>
             <Separator BorderBrush="Green" BorderThickness="1"></Separator>
-            <ItemsControl ItemsSource="{Binding Sessions.Values}">
+            <ItemsControl ItemsSource="{Binding SortedSessions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:SessionButton DataContext="{Binding}"></local:SessionButton>

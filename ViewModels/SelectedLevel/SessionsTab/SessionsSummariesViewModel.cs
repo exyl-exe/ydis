@@ -11,7 +11,8 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
     public class SessionsSummariesViewModel : BaseViewModel
     {
         private SessionGroup Group { get; set; }
-        public SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
+        private SortedList<DateTime, DaySummaryViewModel> Summaries { get; }
+        public List<DaySummaryViewModel> SortedSummaries => Summaries.Values.Reverse().ToList();
         public PercentRangeSliderViewModel SelectRange { get; set; }
 
         private SessionsTabMainViewModel Parent { get; set; }
@@ -48,7 +49,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         {
             foreach (var summary in Summaries.Values)
             {
-                foreach (var sessionModel in summary.Sessions.Values)
+                foreach (var sessionModel in summary.SortedSessions)
                 {
                     if (SelectRange.Range.Contains(sessionModel.Session.StartPercent))
                     {
@@ -61,7 +62,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
                 }
                 summary.UpdateVisibility();
             }
-            OnPropertyChanged(nameof(Summaries));
+            OnPropertyChanged(nameof(SortedSummaries));
         }
 
         private void Update(object sender, EventArgs e)
