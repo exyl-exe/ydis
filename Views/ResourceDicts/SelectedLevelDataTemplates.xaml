@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:commonVM="clr-namespace:Whydoisuck.ViewModels.CommonControlsViewModels"
+                    xmlns:sessionVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary"
+                    xmlns:sessionTabVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab"
+                    xmlns:selectedViewSessionsTab="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab"
+                    xmlns:sessionsummary="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary"
+                    xmlns:commoncontrols="clr-namespace:Whydoisuck.Views.CommonControls">
+    <DataTemplate DataType="{x:Type sessionTabVM:SessionsSummariesViewModel}">
+        <selectedViewSessionsTab:SessionsSummaries></selectedViewSessionsTab:SessionsSummaries>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type sessionVM:SessionViewModel}">
+        <sessionsummary:SessionView></sessionsummary:SessionView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type commonVM:AttemptListViewModel}">
+        <commoncontrols:AttemptList></commoncontrols:AttemptList>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type commonVM:LevelDataGridViewModel}">
+        <commoncontrols:LevelDatagrid></commoncontrols:LevelDatagrid>
+    </DataTemplate>
+</ResourceDictionary>

@@ -12,20 +12,20 @@
         x:Name="CurrentLevelScrollViewer">
         <StackPanel x:Name="LevelInfoStack"
                 Orientation="Vertical">
-            <Border x:Name="TitleBorder"
-                Margin="5"
-                Background="DarkViolet"
-                BorderBrush="PaleVioletRed"
-                BorderThickness="1">
-                <TextBlock x:Name="LevelTitle"
-                           Text="{Binding Title}"/>
-            </Border>
+            
+            <TextBlock x:Name="LevelTitle"
+                       Margin="15"
+                       Style="{StaticResource TitleStyle}"
+                       Text="{Binding Title}"/>
+            
             <Border x:Name="GroupAutoguessBorder"
-                Margin="5"
-                Background="DarkViolet"
-                BorderBrush="PaleVioletRed"
-                BorderThickness="1">
-                <StackPanel Orientation="Horizontal">
+                Margin="15,0,15,15"
+                Style="{StaticResource SubtitleStyle}">
+                
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,3,0,0">
                     <TextBlock x:Name="GroupAutoguessLabel"
                                Text="{x:Static props:Resources.CurrentLevelGroupLabel}"/>
                     <TextBlock x:Name="GroupAutoguess"

@@ -10,7 +10,7 @@
         Title="{x:Static props:Resources.AppTitle}"
         Width="860" Height="900">
     <DockPanel Name="mainView"
-          Background="Violet">
+          Background="{StaticResource AppBackgroundColor}">
         <navigationpanel:NavigationPanel
             DockPanel.Dock="Left"
             DataContext="{Binding NavigationPanel}"/>

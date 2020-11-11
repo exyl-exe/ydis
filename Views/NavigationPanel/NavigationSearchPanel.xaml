@@ -8,13 +8,29 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel x:Name="LevelSearchDockPanel">
         <DockPanel x:Name="SearchBar"
-                   DockPanel.Dock="Top">
-            <TextBlock x:Name="SearchIcon"
-                       DockPanel.Dock="Right">
-                TODOLOUPE
-            </TextBlock>
+                   DockPanel.Dock="Top"
+                   Margin="2"
+                   Background="{StaticResource EntryColor}">
+            
+            <Image x:Name="SearchIcon"
+                   Margin="5"
+                   Width="24"
+                   Height="24"
+                   DockPanel.Dock="Right"
+                   Source="{StaticResource searchIcon}"/>
+
             <TextBox x:Name="SearchTextBox"
-                     Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+                     Margin="2,2,2,3"
+                     Padding="2,0,2,0"
+                     CaretBrush="{StaticResource TextColor}"
+                     Foreground="{StaticResource TextColor}"
+                     Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
+                     Background="Transparent"
+                     BorderThickness="0,0,0,1"
+                     VerticalContentAlignment="Center"
+                     FontSize="15">
+            </TextBox>
+
         </DockPanel>
         <ScrollViewer x:Name="ResultsScrollViewer"
                       VerticalScrollBarVisibility="Disabled"

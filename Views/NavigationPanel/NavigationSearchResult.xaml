@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.NavigationPanel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Button Padding="5" Command="{Binding UpdateCommand}" CommandParameter="switch">
+    <Button Command="{Binding UpdateCommand}"
+            Style="{StaticResource NavigationButtonStyle}">
         <TextBlock Text="{Binding ResultText}"/>
     </Button>
 </UserControl>
