@@ -17,7 +17,7 @@ namespace Whydoisuck.Model.MemoryReading
         /// <summary>
         /// Base address of the main module of the read process
         /// </summary>
-        public IntPtr MainModuleAddr { get { return Process == null ? IntPtr.Zero : Process.MainModule.BaseAddress; } }
+        public IntPtr MainModuleAddr { get { return Process == null || Process.MainModule==null ? IntPtr.Zero : Process.MainModule.BaseAddress; } }
 
         /// <summary>
         /// Boolean true if the read process is opened, false if it has terminated
