@@ -9,7 +9,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DataGrid Name="LevelData"
               ItemsSource="{Binding SessionStats}"
-              Background="Teal"
+              Style="{StaticResource StatisticsDatagrid}"
+              CanUserReorderColumns="False"
+              CanUserResizeColumns="False"
               CanUserAddRows="False"
               CanUserDeleteRows="False"
               AutoGenerateColumns="False">
@@ -18,17 +20,17 @@
                                 Header="{x:Static props:Resources.StatsPercentColTitle}"
                                 Binding="{Binding PercentRange.Start}"
                                 Width="*"/>
-            
+
             <DataGridTextColumn IsReadOnly="True"
                                 Header="{x:Static props:Resources.StatsReachColTitle}"
                                 Binding="{Binding ReachCount}"
                                 Width="*"/>
-            
+
             <DataGridTextColumn IsReadOnly="True"
                                 Header="{x:Static props:Resources.StatsDeathColTitle}"
                                 Binding="{Binding DeathCount}"
                                 Width="*"/>
-            
+
             <DataGridTextColumn IsReadOnly="True"
                                 Header="{x:Static props:Resources.StatsPassRateColTitle}"
                                 Binding="{Binding PassRate}"

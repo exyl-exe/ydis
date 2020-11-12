@@ -32,21 +32,14 @@
                                Text="{Binding Autoguess}"/>
                 </StackPanel>
             </Border>
-            
+
             <common:LevelGraph x:Name="CurrentLevelGraphBorder"
                                Margin="15,5,15,15"
-                               DataContext="{Binding Graph}">
-                
-            </common:LevelGraph>
-                <Border x:Name="CurrentLevelDatagridBorder"
-                Margin="5"
-                Background="DarkViolet"
-                BorderBrush="PaleVioletRed"
-                BorderThickness="1">
-                <common:LevelDatagrid DataContext="{Binding Datagrid}">
-                    
-                </common:LevelDatagrid>
-            </Border>
+                               DataContext="{Binding Graph}"/>
+
+            <common:LevelDatagrid x:Name="CurrentLevelDatagrid"
+                                  Margin="15,5,15,15"
+                                  DataContext="{Binding Datagrid}"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

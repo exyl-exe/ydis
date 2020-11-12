@@ -26,7 +26,7 @@
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
 
-    <FontFamily x:Key="DefaultFont">Banschrift</FontFamily>
+    <FontFamily x:Key="DefaultFont">Corbel</FontFamily>
 
     <Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
@@ -52,6 +52,64 @@
         <Setter Property="TextBlock.FontSize" Value="25"/>
         <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="StatisticsDatagridHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="FontSize" Value="17"/>
+    </Style>
+
+    <Style x:Key="StatisticsDatagridCellStyle" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Margin" Value="0,1,0,1"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border Padding="0,5,0,5" 
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="{StaticResource ElementSeparatorColor}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          Margin="0,0,0,2"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StatisticsDatagridRowStyle"  TargetType="{x:Type DataGridRow}">
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StatisticsDatagrid" TargetType="DataGrid">
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource StatisticsDatagridHeaderStyle}"/>
+        <Setter Property="CellStyle" Value="{StaticResource StatisticsDatagridCellStyle}"/>
+        <Setter Property="RowStyle" Value="{StaticResource StatisticsDatagridRowStyle}"/>
     </Style>
 
     <Style x:Key="NavigationButtonStyle" TargetType="Button">
