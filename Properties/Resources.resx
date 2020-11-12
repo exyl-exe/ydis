@@ -149,6 +149,15 @@
   <data name="FilterPanelNormalCheckbox" xml:space="preserve">
     <value>Show normal mode runs</value>
   </data>
+  <data name="GraphPassRateAxisTitle" xml:space="preserve">
+    <value>Pass rate</value>
+  </data>
+  <data name="GraphPercentAxisTitle" xml:space="preserve">
+    <value>Level %</value>
+  </data>
+  <data name="GraphTitleCurrentSession" xml:space="preserve">
+    <value>Current session</value>
+  </data>
   <data name="SelectedLevelGraphTab" xml:space="preserve">
     <value>Statistics</value>
   </data>
@@ -174,22 +183,16 @@
     <value>Show summary</value>
   </data>
   <data name="StatsDeathColTitle" xml:space="preserve">
-    <value>Percent</value>
-  </data>
-  <data name="StatsGraphXAxis" xml:space="preserve">
-    <value>Percent</value>
-  </data>
-  <data name="StatsGraphYAxis" xml:space="preserve">
-    <value>Pass rate</value>
-  </data>
-  <data name="StatsPassRateColTitle" xml:space="preserve">
-    <value>Times reached</value>
-  </data>
-  <data name="StatsPercentColTitle" xml:space="preserve">
     <value>Death count</value>
   </data>
-  <data name="StatsReachColTitle" xml:space="preserve">
+  <data name="StatsPassRateColTitle" xml:space="preserve">
     <value>Pass rate</value>
+  </data>
+  <data name="StatsPercentColTitle" xml:space="preserve">
+    <value>Percent</value>
+  </data>
+  <data name="StatsReachColTitle" xml:space="preserve">
+    <value>Reach count</value>
   </data>
   <data name="TooltipDeathCountFormat" xml:space="preserve">
     <value>Died {0} times</value>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:props="clr-namespace:Whydoisuck.Properties"
              xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
              xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d" 
@@ -10,35 +11,61 @@
     <common:OxyPlotTooltipHover
         x:Name="LevelPlot"
         Height="500"
-        Background="Transparent"
-        TitleColor="ForestGreen"
+        Padding="5,5,15,10"
+        Background="{StaticResource GraphBackgroundColor}"
         PlotAreaBorderThickness="1,0,1,1"
-        PlotAreaBorderColor="AliceBlue"
-        LegendTextColor="Aquamarine">
+        TitleColor="{StaticResource GraphTextColor}"
+        LegendTextColor="{StaticResource GraphTextColor}"
+        LegendTitleColor="{StaticResource GraphTextColor}"
+        TextColor="{StaticResource GraphTextColor}"
+        PlotAreaBorderColor="{StaticResource GraphAxisColor}"
+        Title="{Binding GraphTitle}">
         <common:OxyPlotTooltipHover.DefaultTrackerTemplate>
             <ControlTemplate>
                 <common:LevelGraphTracker></common:LevelGraphTracker>
             </ControlTemplate>
         </common:OxyPlotTooltipHover.DefaultTrackerTemplate>
         <common:OxyPlotTooltipHover.Axes>
-            <oxy:LinearAxis Position="Bottom"
+            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
+                            TitleFontSize="15"
+                            Position="Bottom"
                             Minimum="0"
                             Maximum="100"
+                            MajorStep="10"
+                            MinorStep="5"
                             IsZoomEnabled="False"
-                            IsPanEnabled="False"/>
-            <oxy:LinearAxis Position="Left"
+                            IsPanEnabled="False"
+                            MajorGridlineStyle="Solid"
+                            TicklineColor="{StaticResource GraphAxisColor}"
+                            AxislineColor="{StaticResource GraphAxisColor}"
+                            MajorGridlineColor="{StaticResource GraphMarkColor}"
+                            MinorGridlineColor="{StaticResource GraphAxisColor}"
+                            ExtraGridlineColor="{StaticResource GraphAxisColor}"/>
+
+            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPassRateAxisTitle}"
+                            TitleFontSize="15"
+                            Position="Left"
                             Minimum="0"
                             Maximum="100"
+                            MajorStep="10"
+                            MinorStep="5"
                             IsZoomEnabled="False"
-                            IsPanEnabled="False"/>
+                            IsPanEnabled="False"
+                            MajorGridlineStyle="Solid"
+                            TicklineColor="{StaticResource GraphAxisColor}"
+                            AxislineColor="{StaticResource GraphAxisColor}"
+                            MajorGridlineColor="{StaticResource GraphMarkColor}"
+                            MinorGridlineColor="{StaticResource GraphAxisColor}"
+                            ExtraGridlineColor="{StaticResource GraphAxisColor}"/>
         </common:OxyPlotTooltipHover.Axes>
         <common:OxyPlotTooltipHover.Series>
             <oxy:LineSeries
                 ItemsSource="{Binding Points}"
-                StrokeThickness="4"
-                Color="Magenta" 
-                MarkerFill="Yellow" 
-                MarkerType="Triangle"></oxy:LineSeries>
+                StrokeThickness="3"
+                Color="{StaticResource GraphLineColor}" 
+                MarkerFill="{StaticResource GraphLineColor}"
+                MarkerSize="3"
+                MarkerType="Circle"></oxy:LineSeries>
         </common:OxyPlotTooltipHover.Series>
     </common:OxyPlotTooltipHover>
 </UserControl>

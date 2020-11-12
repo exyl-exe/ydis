@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.DataStructures;
 
 namespace Whydoisuck.ViewModels.CommonControlsViewModels
@@ -21,6 +22,12 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         /// Points in the graph.
         /// </summary>
         public List<LevelPartDataPoint> Points { get; set; }
+
+        /// <summary>
+        /// Title of the graph
+        /// </summary>
+        public string GraphTitle => Resources.GraphTitleCurrentSession; // TODO
+
         // Statistics depicted by the graph.
         private SessionsStatistics Statistics { get; set; }
 

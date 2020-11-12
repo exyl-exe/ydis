@@ -151,6 +151,33 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pass rate.
+        /// </summary>
+        public static string GraphPassRateAxisTitle {
+            get {
+                return ResourceManager.GetString("GraphPassRateAxisTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Level %.
+        /// </summary>
+        public static string GraphPercentAxisTitle {
+            get {
+                return ResourceManager.GetString("GraphPercentAxisTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Current session.
+        /// </summary>
+        public static string GraphTitleCurrentSession {
+            get {
+                return ResourceManager.GetString("GraphTitleCurrentSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Statistics.
         /// </summary>
         public static string SelectedLevelGraphTab {
@@ -214,7 +241,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Percent.
+        ///   Recherche une chaîne localisée semblable à Death count.
         /// </summary>
         public static string StatsDeathColTitle {
             get {
@@ -223,25 +250,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Percent.
-        /// </summary>
-        public static string StatsGraphXAxis {
-            get {
-                return ResourceManager.GetString("StatsGraphXAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pass rate.
-        /// </summary>
-        public static string StatsGraphYAxis {
-            get {
-                return ResourceManager.GetString("StatsGraphYAxis", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Times reached.
         /// </summary>
         public static string StatsPassRateColTitle {
             get {
@@ -250,7 +259,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Death count.
+        ///   Recherche une chaîne localisée semblable à Percent.
         /// </summary>
         public static string StatsPercentColTitle {
             get {
@@ -259,7 +268,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Pass rate.
+        ///   Recherche une chaîne localisée semblable à Reach count.
         /// </summary>
         public static string StatsReachColTitle {
             get {
