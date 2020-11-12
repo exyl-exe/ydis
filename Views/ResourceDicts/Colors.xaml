@@ -34,6 +34,7 @@
 
     <Style x:Key="TooltipTextStyle" TargetType="Border">
         <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="TextBlock.FontSize" Value="15"/>
     </Style>
 
     <Style x:Key="TitleStyle" TargetType="TextBlock">
@@ -119,7 +120,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="TextBlock.FontSize" Value="15"/>
+        <Setter Property="TextBlock.FontSize" Value="17"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
