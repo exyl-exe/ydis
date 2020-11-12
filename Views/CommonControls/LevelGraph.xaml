@@ -11,15 +11,16 @@
     <common:OxyPlotTooltipHover
         x:Name="LevelPlot"
         Height="500"
-        Padding="5,5,15,10"
+        Padding="5,10,20,5"
+        Title="{Binding GraphTitle}"
+        TitlePadding="10"
         Background="{StaticResource GraphBackgroundColor}"
         PlotAreaBorderThickness="1,0,1,1"
         TitleColor="{StaticResource GraphTextColor}"
         LegendTextColor="{StaticResource GraphTextColor}"
         LegendTitleColor="{StaticResource GraphTextColor}"
         TextColor="{StaticResource GraphTextColor}"
-        PlotAreaBorderColor="{StaticResource GraphAxisColor}"
-        Title="{Binding GraphTitle}">
+        PlotAreaBorderColor="{StaticResource GraphAxisColor}">
         <common:OxyPlotTooltipHover.DefaultTrackerTemplate>
             <ControlTemplate>
                 <common:LevelGraphTracker></common:LevelGraphTracker>
@@ -28,6 +29,7 @@
         <common:OxyPlotTooltipHover.Axes>
             <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
                             TitleFontSize="15"
+                            AxisTitleDistance="10"
                             Position="Bottom"
                             Minimum="0"
                             Maximum="100"
@@ -44,9 +46,10 @@
 
             <oxy:LinearAxis Title="{x:Static props:Resources.GraphPassRateAxisTitle}"
                             TitleFontSize="15"
+                            AxisTitleDistance="10"
                             Position="Left"
                             Minimum="0"
-                            Maximum="100"
+                            Maximum="100.1"
                             MajorStep="10"
                             MinorStep="5"
                             IsZoomEnabled="False"

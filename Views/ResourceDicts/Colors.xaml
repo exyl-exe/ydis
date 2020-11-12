@@ -13,6 +13,7 @@
     <SolidColorBrush x:Key="EntryColor" Color="#232628"/>
 
     <SolidColorBrush x:Key="GraphBackgroundColor" Color="#303436"/>
+    <SolidColorBrush x:Key="TooltipBackgroundColor" Color="#252325"/>
     <Color x:Key="GraphTextColor">#dae0e3</Color>
     <Color x:Key="GraphAxisColor">#b0b4b6</Color>
     <Color x:Key="GraphMarkColor">#484952</Color>
@@ -29,6 +30,10 @@
 
     <Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
+    </Style>
+
+    <Style x:Key="TooltipTextStyle" TargetType="Border">
+        <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
     </Style>
 
     <Style x:Key="TitleStyle" TargetType="TextBlock">

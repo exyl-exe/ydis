@@ -13,25 +13,26 @@
                         BorderThickness="0"
                         Background="Transparent">
         <oxy:TrackerControl.Content>
-            <Border BorderBrush="Black"
+            <Border Background="{StaticResource TooltipBackgroundColor}"
+                    BorderBrush="{StaticResource ElementSeparatorColor}"
+                    Style="{StaticResource TooltipTextStyle}"
                     BorderThickness="1"
-                    Background="Green">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
+                    Padding="5">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock HorizontalAlignment="Center"
+                               Margin="0,0,0,0"
                                Text="{Binding Item.PercentRange}"/>
-                    <TextBlock Grid.Row="1"
+                    <Separator BorderBrush="{StaticResource ElementSeparatorColor}"></Separator>
+                    <TextBlock HorizontalAlignment="Center"
+                               Margin="0,3,0,0"
                                Text="{Binding Item.Reachs}"/>
-                    <TextBlock Grid.Row="2"
+                    <TextBlock HorizontalAlignment="Center"
+                               Margin="0,3,0,0"
                                Text="{Binding Item.Deaths}"/>
-                    <TextBlock Grid.Row="3"
+                    <TextBlock HorizontalAlignment="Center"
+                               Margin="0,3,0,0"
                                Text="{Binding Item.PassRate}"/>
-                </Grid>
+                </StackPanel>
             </Border>
         </oxy:TrackerControl.Content>
     </oxy:TrackerControl>
