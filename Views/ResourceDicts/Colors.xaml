@@ -26,7 +26,8 @@
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
 
-    <FontFamily x:Key="DefaultFont">Corbel</FontFamily>
+    <sys:String x:Key="DefaultFontName">Gadugi</sys:String>
+    <FontFamily x:Key="DefaultFont">Gadugi</FontFamily>
 
     <Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
@@ -39,6 +40,7 @@
 
     <Style x:Key="TitleStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="Padding" Value="5"/>
@@ -54,7 +56,7 @@
         <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
     </Style>
-
+    
     <Style x:Key="StatisticsDatagridHeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="Padding" Value="3"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -62,6 +64,7 @@
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="FontSize" Value="17"/>
     </Style>
 
@@ -69,6 +72,7 @@
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="Margin" Value="0,1,0,1"/>
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Template">
             <Setter.Value>

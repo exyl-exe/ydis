@@ -14,8 +14,9 @@
         Padding="5,10,20,5"
         Title="{Binding GraphTitle}"
         TitlePadding="10"
-        Background="{StaticResource GraphBackgroundColor}"
         PlotAreaBorderThickness="1,0,1,1"
+        TitleFont="{StaticResource DefaultFontName}"
+        Background="{StaticResource GraphBackgroundColor}"
         TitleColor="{StaticResource GraphTextColor}"
         LegendTextColor="{StaticResource GraphTextColor}"
         LegendTitleColor="{StaticResource GraphTextColor}"
@@ -28,7 +29,9 @@
         </common:OxyPlotTooltipHover.DefaultTrackerTemplate>
         <common:OxyPlotTooltipHover.Axes>
             <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
+                            TitleFont="{StaticResource DefaultFontName}"
                             TitleFontSize="15"
+                            Font="{StaticResource DefaultFontName}"
                             AxisTitleDistance="10"
                             Position="Bottom"
                             Minimum="0"
@@ -44,8 +47,10 @@
                             MinorGridlineColor="{StaticResource GraphAxisColor}"
                             ExtraGridlineColor="{StaticResource GraphAxisColor}"/>
 
-            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPassRateAxisTitle}"
+            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
+                            TitleFont="{StaticResource DefaultFontName}"
                             TitleFontSize="15"
+                            Font="{StaticResource DefaultFontName}"
                             AxisTitleDistance="10"
                             Position="Left"
                             Minimum="0"

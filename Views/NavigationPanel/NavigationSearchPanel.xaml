@@ -22,6 +22,7 @@
             <TextBox x:Name="SearchTextBox"
                      Margin="2,2,2,3"
                      Padding="2,0,2,0"
+                     FontFamily="{StaticResource DefaultFont}"
                      CaretBrush="{StaticResource TextColor}"
                      Foreground="{StaticResource TextColor}"
                      Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
