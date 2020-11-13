@@ -10,18 +10,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <common:OxyPlotTooltipHover
         x:Name="LevelPlot"
+        Style="{StaticResource StatisticsGraphStyle}"
         Height="500"
-        Padding="5,10,20,5"
-        Title="{Binding GraphTitle}"
-        TitlePadding="10"
-        PlotAreaBorderThickness="1,0,1,1"
-        TitleFont="{StaticResource DefaultFontName}"
-        Background="{StaticResource GraphBackgroundColor}"
-        TitleColor="{StaticResource GraphTextColor}"
-        LegendTextColor="{StaticResource GraphTextColor}"
-        LegendTitleColor="{StaticResource GraphTextColor}"
-        TextColor="{StaticResource GraphTextColor}"
-        PlotAreaBorderColor="{StaticResource GraphAxisColor}">
+        Title="{Binding GraphTitle}">
         <common:OxyPlotTooltipHover.DefaultTrackerTemplate>
             <ControlTemplate>
                 <common:LevelGraphTracker></common:LevelGraphTracker>
@@ -29,42 +20,25 @@
         </common:OxyPlotTooltipHover.DefaultTrackerTemplate>
         <common:OxyPlotTooltipHover.Axes>
             <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
-                            TitleFont="{StaticResource DefaultFontName}"
-                            TitleFontSize="15"
-                            Font="{StaticResource DefaultFontName}"
-                            AxisTitleDistance="10"
+                            Style="{StaticResource StatisticsGraphAxisStyle}"
                             Position="Bottom"
                             Minimum="0"
                             Maximum="100"
                             MajorStep="10"
                             MinorStep="5"
                             IsZoomEnabled="False"
-                            IsPanEnabled="False"
-                            MajorGridlineStyle="Solid"
-                            TicklineColor="{StaticResource GraphAxisColor}"
-                            AxislineColor="{StaticResource GraphAxisColor}"
-                            MajorGridlineColor="{StaticResource GraphMarkColor}"
-                            MinorGridlineColor="{StaticResource GraphAxisColor}"
-                            ExtraGridlineColor="{StaticResource GraphAxisColor}"/>
+                            IsPanEnabled="False"/>
 
             <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
-                            TitleFont="{StaticResource DefaultFontName}"
-                            TitleFontSize="15"
-                            Font="{StaticResource DefaultFontName}"
-                            AxisTitleDistance="10"
+                            Style="{StaticResource StatisticsGraphAxisStyle}"
                             Position="Left"
                             Minimum="0"
                             Maximum="100.1"
                             MajorStep="10"
                             MinorStep="5"
                             IsZoomEnabled="False"
-                            IsPanEnabled="False"
-                            MajorGridlineStyle="Solid"
-                            TicklineColor="{StaticResource GraphAxisColor}"
-                            AxislineColor="{StaticResource GraphAxisColor}"
-                            MajorGridlineColor="{StaticResource GraphMarkColor}"
-                            MinorGridlineColor="{StaticResource GraphAxisColor}"
-                            ExtraGridlineColor="{StaticResource GraphAxisColor}"/>
+                            IsPanEnabled="False"/>
+            
         </common:OxyPlotTooltipHover.Axes>
         <common:OxyPlotTooltipHover.Series>
             <oxy:LineSeries

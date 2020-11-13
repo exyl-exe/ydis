@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
+                    xmlns:oxy="http://oxyplot.org/wpf"
                     xmlns:local="clr-namespace:Whydoisuck.Views">
     <SolidColorBrush x:Key="TextColor" Color="#dae0e3"/>
     <SolidColorBrush x:Key="AppBackgroundColor" Color="#464b4e"/>
@@ -18,10 +20,6 @@
     <Color x:Key="GraphAxisColor">#b0b4b6</Color>
     <Color x:Key="GraphMarkColor">#484952</Color>
     <Color x:Key="GraphLineColor">#00cde6</Color>
-    <!--
-    <SolidColorBrush x:Key="GraphAxisColor" Color="#b0b4b6"/>
-    <SolidColorBrush x:Key="GraphMarkColor" Color="#646769"/>
-    <SolidColorBrush x:Key="GraphLineColor" Color="#00cde6"/>-->
 
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
@@ -92,6 +90,32 @@
                 <Setter Property="Background" Value="{x:Null}" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="StatisticsGraphStyle" TargetType="common:OxyPlotTooltipHover">
+        <Setter Property="Padding" Value="5,10,20,5"/>
+        <Setter Property="TitlePadding" Value="10"/>
+        <Setter Property="PlotAreaBorderThickness" Value="1,0,1,1"/>
+        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
+        <Setter Property="Background" Value="{StaticResource GraphBackgroundColor}"/>
+        <Setter Property="TitleColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="LegendTextColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="LegendTitleColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="TextColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="PlotAreaBorderColor" Value="{StaticResource GraphAxisColor}"/>
+    </Style>
+
+    <Style x:Key="StatisticsGraphAxisStyle" TargetType="oxy:LinearAxis">
+        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
+        <Setter Property="TitleFontSize" Value="15"/>
+        <Setter Property="Font" Value="{StaticResource DefaultFontName}"/>
+        <Setter Property="AxisTitleDistance" Value="10"/>
+        <Setter Property="MajorGridlineStyle" Value="Solid"/>
+        <Setter Property="TicklineColor" Value="{StaticResource GraphAxisColor}"/>
+        <Setter Property="AxislineColor" Value="{StaticResource GraphAxisColor}"/>
+        <Setter Property="MajorGridlineColor" Value="{StaticResource GraphMarkColor}"/>
+        <Setter Property="MinorGridlineColor" Value="{StaticResource GraphAxisColor}"/>
+        <Setter Property="ExtraGridlineColor" Value="{StaticResource GraphAxisColor}"/>
     </Style>
 
     <Style x:Key="StatisticsDatagridRowStyle"  TargetType="{x:Type DataGridRow}">
