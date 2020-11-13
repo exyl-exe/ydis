@@ -10,7 +10,7 @@
     <DataGrid Name="LevelData"
               ItemsSource="{Binding SessionStats}"
               Style="{StaticResource StatisticsDatagrid}"
-              CanUserReorderColumns="False"
+              CanUserReorderColumns="True"
               CanUserResizeColumns="False"
               CanUserAddRows="False"
               CanUserDeleteRows="False"

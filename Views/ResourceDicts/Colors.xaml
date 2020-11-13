@@ -21,8 +21,15 @@
     <Color x:Key="GraphMarkColor">#484952</Color>
     <Color x:Key="GraphLineColor">#00cde6</Color>
 
+    <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity=".3"/>
+    <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#303436"/>
+
+
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
+
+    <BitmapImage x:Key="upArrowIcon"
+                 UriSource="/Views/Images/upArrowIcon.png"/>
 
     <sys:String x:Key="DefaultFontName">Gadugi</sys:String>
     <FontFamily x:Key="DefaultFont">Gadugi</FontFamily>
@@ -54,16 +61,91 @@
         <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
     </Style>
-    
+
+    <Style x:Key="StatisticsGraphStyle" TargetType="common:OxyPlotTooltipHover">
+        <Setter Property="Padding" Value="5,10,20,5"/>
+        <Setter Property="TitlePadding" Value="10"/>
+        <Setter Property="PlotAreaBorderThickness" Value="1,0,1,1"/>
+        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
+        <Setter Property="Background" Value="{StaticResource GraphBackgroundColor}"/>
+        <Setter Property="TitleColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="LegendTextColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="LegendTitleColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="TextColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="PlotAreaBorderColor" Value="{StaticResource GraphAxisColor}"/>
+    </Style>
+
+    <Style x:Key="StatisticsGraphAxisStyle" TargetType="oxy:LinearAxis">
+        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
+        <Setter Property="TitleFontSize" Value="15"/>
+        <Setter Property="Font" Value="{StaticResource DefaultFontName}"/>
+        <Setter Property="AxisTitleDistance" Value="10"/>
+        <Setter Property="MajorGridlineStyle" Value="Solid"/>
+        <Setter Property="TicklineColor" Value="{StaticResource GraphAxisColor}"/>
+        <Setter Property="AxislineColor" Value="{StaticResource GraphAxisColor}"/>
+        <Setter Property="MajorGridlineColor" Value="{StaticResource GraphMarkColor}"/>
+        <Setter Property="MinorGridlineColor" Value="{StaticResource GraphAxisColor}"/>
+        <Setter Property="ExtraGridlineColor" Value="{StaticResource GraphAxisColor}"/>
+    </Style>
+
     <Style x:Key="StatisticsDatagridHeaderStyle" TargetType="DataGridColumnHeader">
-        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Padding" Value="3,3,3,3"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="FontSize" Value="17"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                    <Border x:Name="HeaderContainer"
+                            BorderThickness="0,0,0,3"
+                            BorderBrush="{StaticResource ElementSeparatorColor}"
+                            Padding="1,4,1,4"
+                            Background="{StaticResource DatagridHeaderBackgroundColor}">
+                        
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="0,0,6,2"/>
+
+                            <Image x:Name="SortIcon"
+                               DockPanel.Dock="Right"
+                               Source="{StaticResource upArrowIcon}"
+                               HorizontalAlignment="Right" VerticalAlignment="Center"
+                               Visibility="Hidden"/>
+
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="SortDirection" Value="Ascending">
+                            <Setter TargetName="SortIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="SortIcon" Property="RenderTransformOrigin">
+                                <Setter.Value>
+                                    <Point X="0.5" Y="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="SortIcon" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleY="-1"></ScaleTransform>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="SortDirection" Value="Descending">
+                            <Setter TargetName="SortIcon"
+                                    Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="HeaderContainer" 
+                                    Property="Background" Value="{StaticResource DatagridHeaderHighlightColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="StatisticsDatagridCellStyle" TargetType="{x:Type DataGridCell}">
@@ -92,32 +174,6 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="StatisticsGraphStyle" TargetType="common:OxyPlotTooltipHover">
-        <Setter Property="Padding" Value="5,10,20,5"/>
-        <Setter Property="TitlePadding" Value="10"/>
-        <Setter Property="PlotAreaBorderThickness" Value="1,0,1,1"/>
-        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
-        <Setter Property="Background" Value="{StaticResource GraphBackgroundColor}"/>
-        <Setter Property="TitleColor" Value="{StaticResource GraphTextColor}"/>
-        <Setter Property="LegendTextColor" Value="{StaticResource GraphTextColor}"/>
-        <Setter Property="LegendTitleColor" Value="{StaticResource GraphTextColor}"/>
-        <Setter Property="TextColor" Value="{StaticResource GraphTextColor}"/>
-        <Setter Property="PlotAreaBorderColor" Value="{StaticResource GraphAxisColor}"/>
-    </Style>
-
-    <Style x:Key="StatisticsGraphAxisStyle" TargetType="oxy:LinearAxis">
-        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
-        <Setter Property="TitleFontSize" Value="15"/>
-        <Setter Property="Font" Value="{StaticResource DefaultFontName}"/>
-        <Setter Property="AxisTitleDistance" Value="10"/>
-        <Setter Property="MajorGridlineStyle" Value="Solid"/>
-        <Setter Property="TicklineColor" Value="{StaticResource GraphAxisColor}"/>
-        <Setter Property="AxislineColor" Value="{StaticResource GraphAxisColor}"/>
-        <Setter Property="MajorGridlineColor" Value="{StaticResource GraphMarkColor}"/>
-        <Setter Property="MinorGridlineColor" Value="{StaticResource GraphAxisColor}"/>
-        <Setter Property="ExtraGridlineColor" Value="{StaticResource GraphAxisColor}"/>
-    </Style>
-
     <Style x:Key="StatisticsDatagridRowStyle"  TargetType="{x:Type DataGridRow}">
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
@@ -130,15 +186,20 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="DropHeaderStyle" TargetType="{x:Type Separator}">
+        <Setter Property="Background"  Value="{StaticResource ElementSeparatorColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
+    </Style>
+
     <Style x:Key="StatisticsDatagrid" TargetType="DataGrid">
         <Setter Property="RowHeaderWidth" Value="0"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="GridLinesVisibility" Value="None"/>
-        <Setter Property="Padding" Value="5"/>
         <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
         <Setter Property="ColumnHeaderStyle" Value="{StaticResource StatisticsDatagridHeaderStyle}"/>
         <Setter Property="CellStyle" Value="{StaticResource StatisticsDatagridCellStyle}"/>
         <Setter Property="RowStyle" Value="{StaticResource StatisticsDatagridRowStyle}"/>
+        <Setter Property="DropLocationIndicatorStyle" Value="{StaticResource DropHeaderStyle}"/>
     </Style>
 
     <Style x:Key="NavigationButtonStyle" TargetType="Button">
