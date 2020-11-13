@@ -37,9 +37,12 @@
                                Margin="15,5,15,15"
                                DataContext="{Binding Graph}"/>
 
-            <common:LevelDatagrid x:Name="CurrentLevelDatagrid"
-                                  Margin="15,5,15,15"
-                                  DataContext="{Binding Datagrid}"/>
+            <Border Background="{StaticResource PanelBackgroundColor}"
+                    Margin="15,5,15,15">
+                <common:LevelDatagrid x:Name="CurrentLevelDatagrid"
+                                      Margin="5"
+                                      DataContext="{Binding Datagrid}"/>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

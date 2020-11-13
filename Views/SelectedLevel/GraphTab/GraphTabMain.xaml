@@ -17,9 +17,12 @@
             <common:LevelGraph Margin="15,0,15,15"
                                DataContext="{Binding Graph}"/>
 
-            <common:LevelDatagrid Margin="15,0,15,15"
-                                  DataContext="{Binding DataGrid}"/>
             
+            <Border Background="{StaticResource PanelBackgroundColor}"
+                    Margin="15,5,15,15">
+                <common:LevelDatagrid Margin="5"
+                                  DataContext="{Binding DataGrid}"/>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
