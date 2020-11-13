@@ -4,6 +4,7 @@
                     xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
                     xmlns:oxy="http://oxyplot.org/wpf"
                     xmlns:local="clr-namespace:Whydoisuck.Views">
+    
     <SolidColorBrush x:Key="TextColor" Color="#dae0e3"/>
     <SolidColorBrush x:Key="AppBackgroundColor" Color="#464b4e"/>
     <SolidColorBrush x:Key="PanelBackgroundColor" Color="#303436"/>
@@ -13,6 +14,8 @@
     <SolidColorBrush x:Key="SelectedColor" Color="#b0b4b6" Opacity=".3"/>
     <SolidColorBrush x:Key="HoverColor" Color="#4a4f51"/>
     <SolidColorBrush x:Key="EntryColor" Color="#232628"/>
+
+    <SolidColorBrush x:Key="SearchBarUnderline" Color="#3d8ed1"/>
 
     <SolidColorBrush x:Key="CheckBoxBorderColor" Color="#787b7c"/>
     <SolidColorBrush x:Key="CheckBoxHighlightBorderColor" Color="#bbbbbb"/>
@@ -321,7 +324,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="NavigationButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="3,2,3,0"></Setter>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>

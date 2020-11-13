@@ -29,7 +29,7 @@
                             IsZoomEnabled="False"
                             IsPanEnabled="False"/>
 
-            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
+            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPassRateAxisTitle}"
                             Style="{StaticResource StatisticsGraphAxisStyle}"
                             Position="Left"
                             Minimum="0"
