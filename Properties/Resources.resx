@@ -144,10 +144,10 @@
     <value>Not playing any level</value>
   </data>
   <data name="FilterPanelCopyCheckbox" xml:space="preserve">
-    <value>Show start position runs</value>
+    <value>Show start position attempts</value>
   </data>
   <data name="FilterPanelNormalCheckbox" xml:space="preserve">
-    <value>Show normal mode runs</value>
+    <value>Show normal mode attempts</value>
   </data>
   <data name="GraphPassRateAxisTitle" xml:space="preserve">
     <value>Pass rate</value>

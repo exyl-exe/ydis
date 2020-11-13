@@ -7,22 +7,26 @@
              xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-            <CheckBox IsChecked="{Binding ShowNormal, Mode=TwoWay}"
+    <Border Background="{StaticResource PanelBackgroundColor}"
+            Padding="10">
+        <Grid Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="0"
+                      Style="{StaticResource FilterCheckboxStyle}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      IsChecked="{Binding ShowNormal, Mode=TwoWay}"
                       Content="{x:Static props:Resources.FilterPanelNormalCheckbox}"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-            <CheckBox IsChecked="{Binding ShowCopy, Mode=TwoWay}"
+
+            <CheckBox Grid.Column="1"
+                      Style="{StaticResource FilterCheckboxStyle}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      IsChecked="{Binding ShowCopy, Mode=TwoWay}"
                       Content="{x:Static props:Resources.FilterPanelCopyCheckbox}"/>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

@@ -133,7 +133,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Show start position runs.
+        ///   Recherche une chaîne localisée semblable à Show start position attempts.
         /// </summary>
         public static string FilterPanelCopyCheckbox {
             get {
@@ -142,7 +142,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Show normal mode runs.
+        ///   Recherche une chaîne localisée semblable à Show normal mode attempts.
         /// </summary>
         public static string FilterPanelNormalCheckbox {
             get {

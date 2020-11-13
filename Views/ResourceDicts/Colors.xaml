@@ -14,6 +14,11 @@
     <SolidColorBrush x:Key="HoverColor" Color="#4a4f51"/>
     <SolidColorBrush x:Key="EntryColor" Color="#232628"/>
 
+    <SolidColorBrush x:Key="CheckBoxBorderColor" Color="#787b7c"/>
+    <SolidColorBrush x:Key="CheckBoxHighlightBorderColor" Color="#bbbbbb"/>
+    <SolidColorBrush x:Key="CheckBoxFillColor" Color="#232628"/>
+    <SolidColorBrush x:Key="CheckBoxMarkColor" Color="#00bde6"/>
+
     <SolidColorBrush x:Key="GraphBackgroundColor" Color="#303436"/>
     <SolidColorBrush x:Key="TooltipBackgroundColor" Color="#252325"/>
     <Color x:Key="GraphTextColor">#dae0e3</Color>
@@ -266,6 +271,57 @@
         </Setter>
     </Style>
 
+    <Style x:Key="FilterCheckboxStyle" TargetType="CheckBox">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border x:Name="CheckBoxBorder"
+                                Margin="0,0,7,0"
+                                DockPanel.Dock="Left"
+                                BorderBrush="{StaticResource CheckBoxBorderColor}"
+                                BorderThickness="1"
+                                Background="{StaticResource CheckBoxFillColor}">
+                            <Rectangle x:Name="CheckBoxMark"
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="2"
+                                       Width="15" Height="15"
+                                       Fill="{StaticResource CheckBoxMarkColor}"
+                                       Stroke="{StaticResource CheckBoxMarkColor}"/>
+                        </Border>
+                        <ContentPresenter>
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckBoxMark"
+                                    Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="CheckBoxMark"
+                                    Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="CheckBoxBorder"
+                                    Property="BorderBrush" Value="{StaticResource CheckBoxHighlightBorderColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="NavigationButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="3,2,3,0"></Setter>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
