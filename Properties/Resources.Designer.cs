@@ -70,11 +70,29 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à End percent.
+        /// </summary>
+        public static string AttemptListEndPercentHeader {
+            get {
+                return ResourceManager.GetString("AttemptListEndPercentHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Attempt {0}.
         /// </summary>
         public static string AttemptListNumberFormat {
             get {
                 return ResourceManager.GetString("AttemptListNumberFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Number.
+        /// </summary>
+        public static string AttemptListNumberHeader {
+            get {
+                return ResourceManager.GetString("AttemptListNumberHeader", resourceCulture);
             }
         }
         

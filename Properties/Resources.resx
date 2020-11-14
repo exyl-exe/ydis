@@ -120,9 +120,15 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Why do i suck</value>
   </data>
+  <data name="AttemptListEndPercentHeader" xml:space="preserve">
+    <value>End percent</value>
+  </data>
   <data name="AttemptListNumberFormat" xml:space="preserve">
     <value>Attempt {0}</value>
     <comment>Format</comment>
+  </data>
+  <data name="AttemptListNumberHeader" xml:space="preserve">
+    <value>Number</value>
   </data>
   <data name="AttemptListPercentFormat" xml:space="preserve">
     <value>{0:F0}%</value>

@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer>
         <StackPanel Orientation="Vertical"
-                    Background="LightGoldenrodYellow">
+                    Background="Transparent">
             <DockPanel>
                 <Button x:Name="GoBackButton"
                         DockPanel.Dock="Left"
@@ -19,13 +19,18 @@
                 </Button>
                 <local:SessionHeader DataContext="{Binding Header}"></local:SessionHeader>
             </DockPanel>
-            <common:LevelGraph DataContext="{Binding Graph}"/>
-            <Button Margin="5"
+            <common:LevelGraph Margin="15"
+                               DataContext="{Binding Graph}"/>
+            <Button Margin="15,0,15,15"
                     Padding="5"
                     Command="{Binding SwitchCommand}">
                 <TextBlock Text="{x:Static props:Resources.SessionViewShowAttempts}"/>
             </Button>
-            <ContentControl Content="{Binding CurrentView}"></ContentControl>
+            <Border Background="{StaticResource PanelBackgroundColor}"
+                    Margin="15,0,15,15">
+                <ContentControl Content="{Binding CurrentView}"
+                                Margin="5"/>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

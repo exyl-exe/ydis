@@ -29,12 +29,13 @@
     <Color x:Key="GraphMarkColor">#484952</Color>
     <Color x:Key="GraphLineColor">#00cde6</Color>
 
-    <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity=".3"/>
-    <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#303436"/>
+    <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity="0.2"/>
+    <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#282828"/>
 
     <SolidColorBrush x:Key="SessionButtonHighlightColor" Color="#bbbbbb"/>
     <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#3e4549"/>
 
+    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>
 
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
@@ -113,23 +114,25 @@
                     <Border x:Name="HeaderContainer"
                             BorderThickness="0,0,0,3"
                             BorderBrush="{StaticResource ElementSeparatorColor}"
-                            Padding="1,4,1,4"
-                            Background="{StaticResource DatagridHeaderBackgroundColor}">
-                        
-                        <StackPanel Orientation="Horizontal"
+                            Padding="1,1,1,4">
+                        <Border x:Name="HeaderBackgroundPanel"
+                                Padding="1"
+                                Background="{StaticResource HeaderBackgroundColor}">
+                            <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Margin="0,0,6,2"/>
+                                          Margin="0,2,0,4"/>
 
-                            <Image x:Name="SortIcon"
+                                <Image x:Name="SortIcon"
                                DockPanel.Dock="Right"
                                Source="{StaticResource upArrowIcon}"
                                HorizontalAlignment="Right" VerticalAlignment="Center"
                                Visibility="Hidden"/>
 
-                        </StackPanel>
+                            </StackPanel>
+                        </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="SortDirection" Value="Ascending">
@@ -150,7 +153,7 @@
                                     Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="HeaderContainer" 
+                            <Setter TargetName="HeaderBackgroundPanel" 
                                     Property="Background" Value="{StaticResource DatagridHeaderHighlightColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
