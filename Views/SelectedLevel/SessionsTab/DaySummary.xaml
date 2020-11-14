@@ -9,16 +9,18 @@
     
     <Border Margin="15"
             Background="{StaticResource PanelBackgroundColor}"
-            Padding="5">
+            Padding="1,2,1,4">
         <StackPanel x:Name="DaySessionsStackPanel"
                     Visibility="{Binding SummaryVisibility}">
-            <TextBlock x:Name="DayTitle" Text="{Binding HeaderText}"
-                       Margin="5,0,0,0"
+            <TextBlock x:Name="DayTitle"
+                       Text="{Binding HeaderText}"
+                       Margin="10,3,0,0"
                        FontSize="20"></TextBlock>
             <Separator BorderBrush="{StaticResource ElementSeparatorColor}"
-                       Margin="0,5,0,10"
+                       Margin="5"
                        BorderThickness="1"/>
-            <ItemsControl ItemsSource="{Binding SortedSessions}">
+            <ItemsControl ItemsSource="{Binding SortedSessions}"
+                          Margin="2,0,2,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:SessionButton DataContext="{Binding}"></local:SessionButton>

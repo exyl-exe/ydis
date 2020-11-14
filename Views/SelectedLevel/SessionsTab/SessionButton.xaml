@@ -10,17 +10,21 @@
             Style="{StaticResource SessionButtonStyle}"
             Visibility="{Binding Visibility}"
             Command="{Binding ViewSessionCommand}">
-        <Grid HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch"
-              Background="AliceBlue">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding Session.StartTime.TimeOfDay, StringFormat={}{0:hh}h{0:mm}}"></TextBlock>
-            <TextBlock Grid.Column="1" Text="{Binding Session.StartPercent, StringFormat={}from {0:0.##}%}"></TextBlock>
-            <TextBlock Grid.Column="2" Text="{Binding Session.Attempts.Count, StringFormat={}{0} attempts}"></TextBlock>
+            <TextBlock Grid.Column="0"
+                       Text="{Binding Session.StartTime.TimeOfDay, StringFormat={}{0:hh}h{0:mm}}"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding Session.StartPercent, StringFormat={}from {0:0.##}%}"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="2"
+                       Text="{Binding Session.Attempts.Count, StringFormat={}{0} attempts}"
+                       HorizontalAlignment="Center"/>
         </Grid>
     </Button>
 </UserControl>

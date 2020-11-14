@@ -32,6 +32,7 @@
     <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity=".3"/>
     <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#303436"/>
 
+    <SolidColorBrush x:Key="SessionButtonHighlightColor" Color="#bbbbbb"/>
     <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#3e4549"/>
 
 
@@ -337,48 +338,53 @@
         <Setter Property="TextBlock.FontSize" Value="17"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
+                <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}">
                         <ContentPresenter
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="5,8,5,5"></ContentPresenter>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource SelectedColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource SelectedColor}"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <Style x:Key="SessionButtonStyle" TargetType="Button">
-        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="Margin" Value="5,4,5,4"></Setter>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="Background" Value="{StaticResource SessionButtonBackgroundColor}"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="TextBlock.FontSize" Value="18"/>
+        <Setter Property="FontSize" Value="15"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}">
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="SessionBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource SessionButtonBackgroundColor}"
+                            HorizontalAlignment="Stretch">
                         <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Margin="5,8,5,5"></ContentPresenter>
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Margin="3"></ContentPresenter>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SessionBorder"
+                                    Property="BorderThickness" Value="1"/>
+                            <Setter TargetName="SessionBorder"
+                                    Property="BorderBrush" Value="{StaticResource SessionButtonHighlightColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="BorderBrush" Value="{StaticResource SelectedColor}"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>
