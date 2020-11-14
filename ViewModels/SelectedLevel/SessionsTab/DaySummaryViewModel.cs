@@ -24,10 +24,10 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
                                         Visibility.Visible
                                         : Visibility.Collapsed;
 
-        /// <summary>
+        public string HeaderText => String.Format(Properties.Resources.DaySummaryHeaderFormat, Day);
+
         /// Day that is summarized.s
-        /// </summary>
-        public DateTime Day { get; set; }
+        private DateTime Day { get; set; }
 
         /// <summary>
         /// Sessions that took place that day, ordered by descending date.

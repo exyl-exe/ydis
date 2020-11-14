@@ -143,6 +143,10 @@
   <data name="CurrentLevelTitleDefault" xml:space="preserve">
     <value>Not playing any level</value>
   </data>
+  <data name="DaySummaryHeaderFormat" xml:space="preserve">
+    <value>{0:dd/MM/yyyy}</value>
+    <comment>Format</comment>
+  </data>
   <data name="FilterPanelCopyCheckbox" xml:space="preserve">
     <value>Show start position attempts</value>
   </data>

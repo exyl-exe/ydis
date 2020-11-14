@@ -32,6 +32,8 @@
     <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity=".3"/>
     <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#303436"/>
 
+    <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#3e4549"/>
+
 
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
@@ -348,6 +350,34 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource SelectedColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SessionButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Background" Value="{StaticResource SessionButtonBackgroundColor}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="TextBlock.FontSize" Value="18"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="5,8,5,5"></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="{StaticResource SelectedColor}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

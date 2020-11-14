@@ -133,6 +133,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0:dd/MM/yyyy}.
+        /// </summary>
+        public static string DaySummaryHeaderFormat {
+            get {
+                return ResourceManager.GetString("DaySummaryHeaderFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Show start position attempts.
         /// </summary>
         public static string FilterPanelCopyCheckbox {

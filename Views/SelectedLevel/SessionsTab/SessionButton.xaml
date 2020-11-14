@@ -7,9 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Button HorizontalContentAlignment="Stretch"
+            Style="{StaticResource SessionButtonStyle}"
             Visibility="{Binding Visibility}"
             Command="{Binding ViewSessionCommand}">
-        <Grid>
+        <Grid HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Background="AliceBlue">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
