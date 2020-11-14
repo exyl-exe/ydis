@@ -232,6 +232,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0:dd/MM/yyyy} {0:HH}h{0:mm}.
+        /// </summary>
+        public static string SessionHeaderStartTimeFormat {
+            get {
+                return ResourceManager.GetString("SessionHeaderStartTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à from {0:0.##}%.
         /// </summary>
         public static string SessionStartPercentFormat {

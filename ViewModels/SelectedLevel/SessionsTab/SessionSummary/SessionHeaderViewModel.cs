@@ -19,15 +19,7 @@ namespace Whydoisuck.ViewModels.SessionSummary
         /// <summary>
         /// How the starting time of the session
         /// </summary>
-        public string StartingTime => string.Format(Properties.Resources.SessionStartTimeFormat, Session.StartTime.TimeOfDay);
-        /// <summary>
-        /// How the start percent of the session
-        /// </summary>
-        public string StartPercent => string.Format(Properties.Resources.SessionStartPercentFormat, Session.StartPercent);
-        /// <summary>
-        /// How the attempt count is displayed
-        /// </summary>
-        public string AttemptCount => string.Format(Properties.Resources.SessionAttemptCountFormat, Session.Attempts.Count);
+        public string StartingTime => string.Format(Properties.Resources.SessionHeaderStartTimeFormat, Session.StartTime);
 
         // Session summarized.
         private Session Session { get; set; }

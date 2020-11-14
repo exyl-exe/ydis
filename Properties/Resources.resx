@@ -178,6 +178,10 @@
     <value>{0} attempts</value>
     <comment>Format</comment>
   </data>
+  <data name="SessionHeaderStartTimeFormat" xml:space="preserve">
+    <value>{0:dd/MM/yyyy} {0:HH}h{0:mm}</value>
+    <comment>Format</comment>
+  </data>
   <data name="SessionStartPercentFormat" xml:space="preserve">
     <value>from {0:0.##}%</value>
     <comment>Format</comment>

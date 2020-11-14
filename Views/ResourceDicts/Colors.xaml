@@ -37,6 +37,8 @@
 
     <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>
 
+    <SolidColorBrush x:Key="SwitchViewButtonHighlightColor" Color="#666666"/>
+
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
 
@@ -384,6 +386,35 @@
                                     Property="BorderThickness" Value="1"/>
                             <Setter TargetName="SessionBorder"
                                     Property="BorderBrush" Value="{StaticResource SessionButtonHighlightColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ViewChangeButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="3,2,3,0"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="TextBlock.FontSize" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="5"></ContentPresenter>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background" Value="{StaticResource SwitchViewButtonHighlightColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
