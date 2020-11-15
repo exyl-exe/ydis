@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="TextColor" Color="#dae0e3"/>
+    <SolidColorBrush x:Key="AppBackgroundColor" Color="#464b4e"/>
+    <SolidColorBrush x:Key="PanelBackgroundColor" Color="#303436"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#b0b4b6"/>
+    <SolidColorBrush x:Key="PanelSeparatorColor" Color="#b0b4b6"/>
+    <SolidColorBrush x:Key="ElementSeparatorColor" Color="#787b7c"/>
+    <SolidColorBrush x:Key="SelectedColor" Color="#b0b4b6" Opacity=".3"/>
+    <SolidColorBrush x:Key="HoverColor" Color="#4a4f51"/>
+    <SolidColorBrush x:Key="EntryColor" Color="#232628"/>
+
+    <SolidColorBrush x:Key="SearchBarUnderline" Color="#3d8ed1"/>
+
+    <SolidColorBrush x:Key="CheckBoxBorderColor" Color="#787b7c"/>
+    <SolidColorBrush x:Key="CheckBoxHighlightBorderColor" Color="#bbbbbb"/>
+    <SolidColorBrush x:Key="CheckBoxFillColor" Color="#232628"/>
+    <SolidColorBrush x:Key="CheckBoxMarkColor" Color="#00bde6"/>
+
+    <SolidColorBrush x:Key="GraphBackgroundColor" Color="#303436"/>
+    <SolidColorBrush x:Key="TooltipBackgroundColor" Color="#252325"/>
+    <Color x:Key="GraphTextColor">#dae0e3</Color>
+    <Color x:Key="GraphAxisColor">#b0b4b6</Color>
+    <Color x:Key="GraphMarkColor">#484952</Color>
+    <Color x:Key="GraphLineColor">#00cde6</Color>
+
+    <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity="0.2"/>
+    <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#282828"/>
+
+    <SolidColorBrush x:Key="SessionButtonHighlightColor" Color="#bbbbbb"/>
+    <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#3e4549"/>
+
+    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>
+
+    <SolidColorBrush x:Key="SwitchViewButtonHighlightColor" Color="#666666"/>
+</ResourceDictionary>

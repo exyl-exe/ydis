@@ -6,7 +6,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Views/ResourceDicts/Colors.xaml"/>
+                <ResourceDictionary Source="Views/Images/Images.xaml"/>
+                <ResourceDictionary Source="Views/Styles/Colors.xaml"/>
+                <ResourceDictionary Source="Views/Styles/Styles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/GraphStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/DatagridStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/FilteringPanelStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/NavigationPanelStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/SessionTabStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/SessionViewStyles.xaml"/>
                 <ResourceDictionary Source="Views/ResourceDicts/NavigatorDataTemplates.xaml"/>
                 <ResourceDictionary Source="Views/ResourceDicts/SelectedLevelDataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
