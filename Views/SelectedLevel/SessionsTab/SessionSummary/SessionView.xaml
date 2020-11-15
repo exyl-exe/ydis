@@ -14,8 +14,15 @@
             <DockPanel Margin="15">
                 <Button x:Name="GoBackButton"
                         DockPanel.Dock="Left"
-                        Command="{Binding GoBack}">
-                    <TextBlock Text="TODO go back"/>
+                        Command="{Binding GoBack}"
+                        Height="60"
+                        Margin="0,0,10,0">
+                    <Border Background="{StaticResource PanelBackgroundColor}"
+                            Padding="15"
+                            BorderBrush="{StaticResource ElementSeparatorColor}"
+                            BorderThickness="1">
+                        <Image Source="{StaticResource goBackIcon}"/>
+                    </Border>
                 </Button>
                 <local:SessionHeader DataContext="{Binding Header}"></local:SessionHeader>
             </DockPanel>

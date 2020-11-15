@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
 using Whydoisuck.ViewModels.DataStructures;
 using Whydoisuck.ViewModels.SessionSummary;
@@ -56,8 +57,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             Header = new SessionHeaderViewModel(Session);
             var l = new List<Session> { Session };
             var stats = new SessionsStatistics(l, 1f);
-            Graph = new LevelGraphViewModel(stats);
-
+            Graph = new LevelGraphViewModel(stats, Resources.GraphTitleIndividualSession);
             Datagrid = new LevelDataGridViewModel(stats);
             AttemptList = new AttemptListViewModel(s.Attempts);
             AttemptsSummaryCommand = new NavigatorCommand(this, Datagrid);

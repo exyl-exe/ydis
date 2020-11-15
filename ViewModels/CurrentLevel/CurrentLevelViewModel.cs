@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
 using Whydoisuck.ViewModels.DataStructures;
 
@@ -60,7 +61,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
                 Properties.Resources.CurrentLevelGroupNew
                 :SessionGroup.GetDefaultGroupName(s.Level);
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
-            Graph = new LevelGraphViewModel(CurrentLevelStats);//TODO generating everything is bad
+            Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
             Update();
         }
@@ -82,7 +83,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         public void OnAttemptAddedToCurrent(Attempt a)
         {
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
-            Graph = new LevelGraphViewModel(CurrentLevelStats);
+            Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
             Update();
         }

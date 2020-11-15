@@ -26,14 +26,15 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         /// <summary>
         /// Title of the graph
         /// </summary>
-        public string GraphTitle => Resources.GraphTitleCurrentSession; // TODO
+        public string GraphTitle { get; private set; }
 
         // Statistics depicted by the graph.
         private SessionsStatistics Statistics { get; set; }
 
-        public LevelGraphViewModel(SessionsStatistics statistics)
+        public LevelGraphViewModel(SessionsStatistics statistics, string title)
         {
             Statistics = statistics;
+            GraphTitle = title;
             Points = GetPoints(statistics.Statistics);
             Statistics.OnStatisticsChange += Update;
         }

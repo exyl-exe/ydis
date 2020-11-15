@@ -358,5 +358,8 @@
   <ItemGroup>
     <Resource Include="Views\Images\upArrowIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\goBackIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,4 +5,7 @@
 
     <BitmapImage x:Key="upArrowIcon"
                  UriSource="/Views/Images/upArrowIcon.png"/>
+
+    <BitmapImage x:Key="goBackIcon"
+                 UriSource="/Views/Images/goBackIcon.png"/>
 </ResourceDictionary>

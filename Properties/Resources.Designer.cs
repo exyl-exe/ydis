@@ -205,6 +205,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Session statistics.
+        /// </summary>
+        public static string GraphTitleIndividualSession {
+            get {
+                return ResourceManager.GetString("GraphTitleIndividualSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Overall statistics.
+        /// </summary>
+        public static string GraphTitleOverall {
+            get {
+                return ResourceManager.GetString("GraphTitleOverall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Statistics.
         /// </summary>
         public static string SelectedLevelGraphTab {

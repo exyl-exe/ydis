@@ -168,6 +168,12 @@
   <data name="GraphTitleCurrentSession" xml:space="preserve">
     <value>Current session</value>
   </data>
+  <data name="GraphTitleIndividualSession" xml:space="preserve">
+    <value>Session statistics</value>
+  </data>
+  <data name="GraphTitleOverall" xml:space="preserve">
+    <value>Overall statistics</value>
+  </data>
   <data name="SelectedLevelGraphTab" xml:space="preserve">
     <value>Statistics</value>
   </data>
