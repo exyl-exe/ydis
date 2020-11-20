@@ -10,24 +10,24 @@
     <oxy:TrackerControl Position="{Binding Position}"
                         VerticalLineVisibility="Collapsed"
                         HorizontalLineVisibility="Collapsed"
-                        BorderThickness="0"
-                        Background="Transparent">
+                        Background="Transparent"
+                        BorderThickness="0">
         <oxy:TrackerControl.Content>
             <Border Style="{StaticResource TooltipStyle}">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock HorizontalAlignment="Center"
-                               Margin="0,0,0,0"
-                               Text="{Binding Item.PercentRange}"/>
-                    <Separator BorderBrush="{StaticResource ElementSeparatorColor}"></Separator>
-                    <TextBlock HorizontalAlignment="Center"
+                    <TextBlock Text="{Binding Item.PercentRange}"
+                               Margin="0,0,0,0"                          
+                               HorizontalAlignment="Center"/>
+                    <Separator BorderBrush="{StaticResource ElementSeparatorColor}"/>
+                    <TextBlock Text="{Binding Item.Reachs}"
                                Margin="0,3,0,0"
-                               Text="{Binding Item.Reachs}"/>
-                    <TextBlock HorizontalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Item.Deaths}"
                                Margin="0,3,0,0"
-                               Text="{Binding Item.Deaths}"/>
-                    <TextBlock HorizontalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Item.PassRate}"
                                Margin="0,3,0,0"
-                               Text="{Binding Item.PassRate}"/>
+                               HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
         </oxy:TrackerControl.Content>

@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.SelectedLevel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Button HorizontalContentAlignment="Stretch"
-            Style="{StaticResource SessionButtonStyle}"
-            Visibility="{Binding Visibility}"
-            Command="{Binding ViewSessionCommand}">
+    <Button Style="{StaticResource SessionButtonStyle}"
+            Command="{Binding ViewSessionCommand}"
+            HorizontalContentAlignment="Stretch"
+            Visibility="{Binding Visibility}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

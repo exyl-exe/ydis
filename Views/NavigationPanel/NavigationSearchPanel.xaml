@@ -10,19 +10,19 @@
         <Border DockPanel.Dock="Top"
                 Style="{StaticResource NavigationSearchAreaStyle}">
             <Border x:Name="UnderlineColor"
+                    Style="{StaticResource NavigationSearchBoxBorderStyle}"
                     Margin="5"
-                    BorderThickness="0,0,0,1"
-                    Style="{StaticResource NavigationSearchBoxBorderStyle}">
+                    BorderThickness="0,0,0,1">
                 <DockPanel x:Name="SearchBar">
                     <Image x:Name="SearchIcon"
-                           Margin="5"
+                           DockPanel.Dock="Right"
+                           Source="{StaticResource searchIcon}"
                            Width="24"
                            Height="24"
-                           DockPanel.Dock="Right"
-                           Source="{StaticResource searchIcon}"/>
+                           Margin="5"/>
                     <TextBox x:Name="SearchTextBox"
-                             Style="{StaticResource NavigationTextBoxStyle}"
-                             Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}">
+                             Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource NavigationTextBoxStyle}">
                     </TextBox>
                 </DockPanel>
             </Border>
@@ -33,7 +33,7 @@
             <ItemsControl ItemsSource="{Binding SearchResults}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:NavigationSearchResult DataContext="{Binding}"></local:NavigationSearchResult>
+                        <local:NavigationSearchResult DataContext="{Binding}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -7,23 +7,22 @@
 
     <Style x:Key="SessionButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="5,4,5,4"></Setter>
-        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-        <Setter Property="Background" Value="{StaticResource SessionButtonBackgroundColor}"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Background" Value="{StaticResource SessionButtonBackgroundColor}"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="SessionBorder"
+                            HorizontalAlignment="Stretch"
                             Background="{TemplateBinding Background}"
                             BorderThickness="1"
-                            BorderBrush="{StaticResource SessionButtonBackgroundColor}"
-                            HorizontalAlignment="Stretch">
-                        <ContentPresenter
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Margin="3"></ContentPresenter>
+                            BorderBrush="{StaticResource SessionButtonBackgroundColor}">
+                        <ContentPresenter Margin="3"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

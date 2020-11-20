@@ -5,9 +5,9 @@
                     xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.CurrentLevel"
                     xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel">
     <DataTemplate DataType="{x:Type currentLevelVM:CurrentLevelViewModel}">
-        <currentView:CurrentLevelView></currentView:CurrentLevelView>
+        <currentView:CurrentLevelView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type selectedLevelVM:SelectedLevelViewModel}">
-        <selectedView:SelectedLevelView></selectedView:SelectedLevelView>
+        <selectedView:SelectedLevelView/>
     </DataTemplate>
 </ResourceDictionary>

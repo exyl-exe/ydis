@@ -8,14 +8,13 @@
              xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
-    <common:OxyPlotTooltipHover
-        x:Name="LevelPlot"
-        Style="{StaticResource StatisticsGraphStyle}"
-        Height="500"
-        Title="{Binding GraphTitle}">
+    <common:OxyPlotTooltipHover x:Name="LevelPlot"
+                                Title="{Binding GraphTitle}"
+                                Height="500"
+                                Style="{StaticResource StatisticsGraphStyle}">
         <common:OxyPlotTooltipHover.DefaultTrackerTemplate>
             <ControlTemplate>
-                <common:LevelGraphTracker></common:LevelGraphTracker>
+                <common:LevelGraphTracker/>
             </ControlTemplate>
         </common:OxyPlotTooltipHover.DefaultTrackerTemplate>
         <common:OxyPlotTooltipHover.Axes>
@@ -38,11 +37,10 @@
                             MinorStep="5"
                             IsZoomEnabled="False"
                             IsPanEnabled="False"/>
-            
         </common:OxyPlotTooltipHover.Axes>
         <common:OxyPlotTooltipHover.Series>
             <oxy:LineSeries ItemsSource="{Binding Points}"
-                Style="{StaticResource StatisticsGraphSeriesStyle}"></oxy:LineSeries>
+                            Style="{StaticResource StatisticsGraphSeriesStyle}"/>
         </common:OxyPlotTooltipHover.Series>
     </common:OxyPlotTooltipHover>
 </UserControl>

@@ -2,22 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="ViewChangeButtonStyle" TargetType="Button">
-        <Setter Property="Margin" Value="3,2,3,0"></Setter>
-        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Margin" Value="3,2,3,0"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="TextBlock.FontSize" Value="20"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="ButtonBorder"
                             Background="{TemplateBinding Background}">
-                        <ContentPresenter
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="5"></ContentPresenter>
+                        <ContentPresenter Margin="5"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -40,8 +39,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="ButtonBorder"
-                            Background="{StaticResource PanelBackgroundColor}"
                             Padding="15"
+                            Background="{StaticResource PanelBackgroundColor}"
                             BorderBrush="{StaticResource ElementSeparatorColor}"
                             BorderThickness="1">
                         <Image Source="{StaticResource goBackIcon}"/>

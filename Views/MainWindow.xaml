@@ -9,13 +9,13 @@
         mc:Ignorable="d"
         Title="{x:Static props:Resources.AppTitle}"
         Width="860" Height="900">
-    <DockPanel Name="mainView"
-          Background="{StaticResource AppBackgroundColor}">
-        <navigationpanel:NavigationPanel
-            DockPanel.Dock="Left"
-            DataContext="{Binding NavigationPanel}"/>
-        <ContentControl Content="{Binding CurrentView}">
+    
+    <DockPanel Background="{StaticResource AppBackgroundColor}">
+        
+        <navigationpanel:NavigationPanel  DockPanel.Dock="Left"
+                                          DataContext="{Binding NavigationPanel}"/>
+        
+        <ContentControl Content="{Binding CurrentView}"/>
 
-        </ContentControl>
     </DockPanel>
 </Window>

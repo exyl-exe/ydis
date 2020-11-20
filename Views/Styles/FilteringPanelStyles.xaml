@@ -9,16 +9,16 @@
                 <ControlTemplate TargetType="CheckBox">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Border x:Name="CheckBoxBorder"
-                                Margin="0,0,7,0"
                                 DockPanel.Dock="Left"
+                                Margin="0,0,7,0"
+                                Background="{StaticResource CheckBoxFillColor}"
                                 BorderBrush="{StaticResource CheckBoxBorderColor}"
-                                BorderThickness="1"
-                                Background="{StaticResource CheckBoxFillColor}">
+                                BorderThickness="1">
                             <Rectangle x:Name="CheckBoxMark"
+                                       Width="15" Height="15"
+                                       Margin="2"
                                        VerticalAlignment="Stretch"
                                        HorizontalAlignment="Stretch"
-                                       Margin="2"
-                                       Width="15" Height="15"
                                        Fill="{StaticResource CheckBoxMarkColor}"
                                        Stroke="{StaticResource CheckBoxMarkColor}"/>
                         </Border>
@@ -27,8 +27,8 @@
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="15"/>
                                     <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+                                    <Setter Property="FontSize" Value="15"/>
                                 </Style>
                             </ContentPresenter.Resources>
                         </ContentPresenter>

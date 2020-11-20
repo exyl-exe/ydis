@@ -4,34 +4,33 @@
         <Setter Property="Padding" Value="3,3,3,3"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
         <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="FontSize" Value="17"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                     <Border x:Name="HeaderContainer"
+                            Padding="1,1,1,4"
                             BorderThickness="0,0,0,3"
-                            BorderBrush="{StaticResource ElementSeparatorColor}"
-                            Padding="1,1,1,4">
+                            BorderBrush="{StaticResource ElementSeparatorColor}">
                         <Border x:Name="HeaderBackgroundPanel"
                                 Padding="1"
                                 Background="{StaticResource HeaderBackgroundColor}">
                             <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Center">
-                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Margin="5,2,0,4"/>
-
+                                        HorizontalAlignment="Center">
+                                <ContentPresenter Margin="5,2,0,4" 
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                 <Image x:Name="SortIcon"
                                        DockPanel.Dock="Right"
                                        Margin="5,0,0,0"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
                                        Source="{StaticResource upArrowIcon}"
-                                       HorizontalAlignment="Right" VerticalAlignment="Center"
                                        Visibility="Hidden"/>
-
                             </StackPanel>
                         </Border>
                     </Border>
@@ -64,9 +63,9 @@
     </Style>
 
     <Style x:Key="StatisticsDatagridCellStyle" TargetType="{x:Type DataGridCell}">
-        <Setter Property="Background" Value="{x:Null}" />
-        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="Margin" Value="0,1,0,1"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Template">
@@ -75,24 +74,24 @@
                     <Border Padding="0,5,0,5" 
                             BorderThickness="0,0,0,1"
                             BorderBrush="{StaticResource ElementSeparatorColor}">
-                        <ContentPresenter VerticalAlignment="Center"
-                                          HorizontalAlignment="Center"
-                                          Margin="0,0,0,2"/>
+                        <ContentPresenter Margin="0,0,0,2" 
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="Background" Value="{x:Null}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="StatisticsDatagridRowStyle"  TargetType="{x:Type DataGridRow}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
-        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{x:Null}" />
@@ -107,13 +106,13 @@
     </Style>
 
     <Style x:Key="StatisticsDatagrid" TargetType="DataGrid">
-        <Setter Property="RowHeaderWidth" Value="0"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="GridLinesVisibility" Value="None"/>
-        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
         <Setter Property="ColumnHeaderStyle" Value="{StaticResource StatisticsDatagridHeaderStyle}"/>
         <Setter Property="CellStyle" Value="{StaticResource StatisticsDatagridCellStyle}"/>
         <Setter Property="RowStyle" Value="{StaticResource StatisticsDatagridRowStyle}"/>
         <Setter Property="DropLocationIndicatorStyle" Value="{StaticResource DropHeaderStyle}"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 </ResourceDictionary>

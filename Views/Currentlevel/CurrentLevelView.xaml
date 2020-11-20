@@ -8,40 +8,34 @@
              xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer 
-        x:Name="CurrentLevelScrollViewer">
+    <ScrollViewer x:Name="CurrentLevelScrollViewer">
         <StackPanel x:Name="LevelInfoStack"
-                Orientation="Vertical">
-            
+                    Orientation="Vertical">
             <TextBlock x:Name="LevelTitle"
-                       Margin="15"
+                       Text="{Binding Title}"
                        Style="{StaticResource TitleStyle}"
-                       Text="{Binding Title}"/>
-
+                       Margin="15"/>
             <Border x:Name="GroupAutoguessBorder"
-                Margin="15,0,15,15"
-                Style="{StaticResource SubtitleStyle}">
-
+                    Style="{StaticResource SubtitleStyle}"
+                    Margin="15,0,15,15">
                 <StackPanel Orientation="Horizontal"
+                            Margin="0,3,0,0"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="0,3,0,0">
+                            VerticalAlignment="Center">
                     <TextBlock x:Name="GroupAutoguessLabel"
                                Text="{x:Static props:Resources.CurrentLevelGroupLabel}"/>
                     <TextBlock x:Name="GroupAutoguess"
                                Text="{Binding Autoguess}"/>
                 </StackPanel>
             </Border>
-
             <common:LevelGraph x:Name="CurrentLevelGraphBorder"
-                               Margin="15,5,15,15"
-                               DataContext="{Binding Graph}"/>
-
-            <Border Background="{StaticResource PanelBackgroundColor}"
-                    Margin="15,5,15,15">
+                               DataContext="{Binding Graph}"
+                               Margin="15,5,15,15"/>
+            <Border Margin="15,5,15,15"
+                    Background="{StaticResource PanelBackgroundColor}">
                 <common:LevelDatagrid x:Name="CurrentLevelDatagrid"
-                                      Margin="5"
-                                      DataContext="{Binding Datagrid}"/>
+                                      DataContext="{Binding Datagrid}"
+                                      Margin="5"/>
             </Border>
         </StackPanel>
     </ScrollViewer>

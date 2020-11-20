@@ -7,11 +7,11 @@
              xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border BorderBrush="{StaticResource PanelSeparatorColor}"
+    <Border Width="200"
             BorderThickness="0,0,2,0"
-            Width="200">
+            BorderBrush="{StaticResource PanelSeparatorColor}">
         <DockPanel x:Name="NavigationDockPanel"
-               Background="{StaticResource PanelBackgroundColor}">
+                   Background="{StaticResource PanelBackgroundColor}">
             <StackPanel DockPanel.Dock="Top"
                         Orientation="Vertical">
                 <Button x:Name="CurrentLevelNavigationButton"
@@ -21,9 +21,7 @@
                 </Button>
                 <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
             </StackPanel>
-            <uc:NavigationSearchPanel
-                DataContext="{Binding SearchView}">
-            </uc:NavigationSearchPanel>
+            <uc:NavigationSearchPanel DataContext="{Binding SearchView}"/>
         </DockPanel>
     </Border>
 </UserControl>

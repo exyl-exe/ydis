@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:Whydoisuck.Views">
-   
+
     <sys:String x:Key="DefaultFontName">Gadugi</sys:String>
     <FontFamily x:Key="DefaultFont">Gadugi</FontFamily>
 
@@ -19,27 +19,27 @@
     </Style> 
 
     <Style x:Key="TitleStyle" TargetType="TextBlock">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-        <Setter Property="Padding" Value="5"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="TextAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="SubtitleStyle" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
         <Setter Property="TextBlock.FontSize" Value="25"/>
         <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="HeaderStyle" TargetType="TabItem">
-        <Setter Property="Background" Value="{StaticResource AppBackgroundColor}"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+        <Setter Property="Background" Value="{StaticResource AppBackgroundColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
@@ -48,10 +48,10 @@
                             BorderBrush="{StaticResource PanelSeparatorColor}"
                             BorderThickness="0,0,0,1">
                         <ContentPresenter x:Name="ContentSite"
+                                          Margin="10,2"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
                                           ContentSource="Header"
-                                          Margin="10,2"
                                           TextElement.FontSize="20"/>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -68,7 +68,7 @@
 
     <Style TargetType="TabControl">
         <Style.Resources>
-            <Style BasedOn="{StaticResource HeaderStyle}" TargetType="{x:Type TabItem}"></Style>
+            <Style BasedOn="{StaticResource HeaderStyle}" TargetType="{x:Type TabItem}"/>
         </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
@@ -89,11 +89,12 @@
 
                         <Border x:Name="Border"
                                 Grid.Row="1"
+                                Background="Transparent"
                                 BorderThickness="0,1,0,0"
-                                BorderBrush="{StaticResource PanelSeparatorColor}"
-                                Background="Transparent">
-
+                                BorderBrush="{StaticResource PanelSeparatorColor}">
+                            
                             <ContentPresenter ContentSource="SelectedContent"/>
+                            
                         </Border>
                     </Grid>
                 </ControlTemplate>

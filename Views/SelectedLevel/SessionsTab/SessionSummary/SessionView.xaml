@@ -14,25 +14,25 @@
             <DockPanel Margin="15"
                        Background="{StaticResource HeaderBackgroundColor}">
                 <Button x:Name="GoBackButton"
-                        Margin="5"
-                        Style="{StaticResource GoBackButtonStyle}"
                         DockPanel.Dock="Left"
-                        Command="{Binding GoBack}">
+                        Command="{Binding GoBack}"
+                        Style="{StaticResource GoBackButtonStyle}"
+                        Margin="5">
                 </Button>
-                <local:SessionHeader DataContext="{Binding Header}"></local:SessionHeader>
+                <local:SessionHeader DataContext="{Binding Header}"/>
             </DockPanel>
             <common:LevelGraph Margin="15,0,15,15"
                                DataContext="{Binding Graph}"/>
-            
-            <Button Margin="15,0,15,15"
-                    Padding="5"
-                    Command="{Binding SwitchCommand}"
-                    Style="{StaticResource ViewChangeButtonStyle}">
+
+            <Button Command="{Binding SwitchCommand}"
+                    Style="{StaticResource ViewChangeButtonStyle}"
+                    Margin="15,0,15,15"
+                    Padding="5">
                 <TextBlock Text="{x:Static props:Resources.SessionViewShowAttempts}"/>
             </Button>
-            
-            <Border Background="{StaticResource PanelBackgroundColor}"
-                    Margin="15,0,15,15">
+
+            <Border Margin="15,0,15,15"
+                    Background="{StaticResource PanelBackgroundColor}">
                 <ContentControl Content="{Binding CurrentView}"
                                 Margin="5"/>
             </Border>

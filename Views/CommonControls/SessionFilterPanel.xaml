@@ -7,26 +7,25 @@
              xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="{StaticResource PanelBackgroundColor}"
-            Padding="10">
+    <Border Padding="10"
+            Background="{StaticResource PanelBackgroundColor}">
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <CheckBox Grid.Column="0"
-                      Style="{StaticResource FilterCheckboxStyle}"
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
+                      Content="{x:Static props:Resources.FilterPanelNormalCheckbox}"
                       IsChecked="{Binding ShowNormal, Mode=TwoWay}"
-                      Content="{x:Static props:Resources.FilterPanelNormalCheckbox}"/>
-
-            <CheckBox Grid.Column="1"
                       Style="{StaticResource FilterCheckboxStyle}"
                       VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
+                      HorizontalAlignment="Center"/>
+            <CheckBox Grid.Column="1"
+                      Content="{x:Static props:Resources.FilterPanelCopyCheckbox}"
                       IsChecked="{Binding ShowCopy, Mode=TwoWay}"
-                      Content="{x:Static props:Resources.FilterPanelCopyCheckbox}"/>
+                      Style="{StaticResource FilterCheckboxStyle}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"/>
         </Grid>
     </Border>
 </UserControl>

@@ -4,10 +4,10 @@
                     xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls">
 
     <Style x:Key="TooltipStyle" TargetType="Border">
-        <Setter Property="Background" Value="{StaticResource TooltipBackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
-        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="5"/>
+        <Setter Property="Background" Value="{StaticResource TooltipBackgroundColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
         <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="TextBlock.FontSize" Value="15"/>
     </Style>
@@ -16,19 +16,19 @@
         <Setter Property="Padding" Value="5,10,20,5"/>
         <Setter Property="TitlePadding" Value="10"/>
         <Setter Property="PlotAreaBorderThickness" Value="1,0,1,1"/>
-        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
+        <Setter Property="PlotAreaBorderColor" Value="{StaticResource GraphAxisColor}"/>
         <Setter Property="Background" Value="{StaticResource GraphBackgroundColor}"/>
+        <Setter Property="TextColor" Value="{StaticResource GraphTextColor}"/>
+        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
         <Setter Property="TitleColor" Value="{StaticResource GraphTextColor}"/>
         <Setter Property="LegendTextColor" Value="{StaticResource GraphTextColor}"/>
         <Setter Property="LegendTitleColor" Value="{StaticResource GraphTextColor}"/>
-        <Setter Property="TextColor" Value="{StaticResource GraphTextColor}"/>
-        <Setter Property="PlotAreaBorderColor" Value="{StaticResource GraphAxisColor}"/>
     </Style>
 
     <Style x:Key="StatisticsGraphAxisStyle" TargetType="oxy:LinearAxis">
+        <Setter Property="Font" Value="{StaticResource DefaultFontName}"/>
         <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
         <Setter Property="TitleFontSize" Value="15"/>
-        <Setter Property="Font" Value="{StaticResource DefaultFontName}"/>
         <Setter Property="AxisTitleDistance" Value="10"/>
         <Setter Property="MajorGridlineStyle" Value="Solid"/>
         <Setter Property="TicklineColor" Value="{StaticResource GraphAxisColor}"/>

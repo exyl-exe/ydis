@@ -16,25 +16,22 @@
               CanUserDeleteRows="False"
               AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTextColumn IsReadOnly="True"
-                                Header="{x:Static props:Resources.StatsPercentColTitle}"
+            <DataGridTextColumn Header="{x:Static props:Resources.StatsPercentColTitle}"
                                 Binding="{Binding Start}"
-                                Width="*"/>
-
-            <DataGridTextColumn IsReadOnly="True"
-                                Header="{x:Static props:Resources.StatsReachColTitle}"
+                                Width="*"
+                                IsReadOnly="True"/>
+            <DataGridTextColumn Header="{x:Static props:Resources.StatsReachColTitle}"
                                 Binding="{Binding ReachCount}"
-                                Width="*"/>
-
-            <DataGridTextColumn IsReadOnly="True"
-                                Header="{x:Static props:Resources.StatsDeathColTitle}"
+                                Width="*"
+                                IsReadOnly="True"/>
+            <DataGridTextColumn Header="{x:Static props:Resources.StatsDeathColTitle}"
                                 Binding="{Binding DeathCount}"
-                                Width="*"/>
-
-            <DataGridTextColumn IsReadOnly="True"
-                                Header="{x:Static props:Resources.StatsPassRateColTitle}"
+                                Width="*"
+                                IsReadOnly="True"/>
+            <DataGridTextColumn Header="{x:Static props:Resources.StatsPassRateColTitle}"
                                 Binding="{Binding PassRate, StringFormat={x:Static props:Resources.StatsItemPassRateFormat}}"
-                                Width="*"/>
+                                Width="*"
+                                IsReadOnly="True"/>
         </DataGrid.Columns>
     </DataGrid>
 </UserControl>

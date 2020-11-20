@@ -10,17 +10,14 @@
                   Background="{StaticResource AppBackgroundColor}">
         <StackPanel x:Name="LevelInfoStack"
                 Orientation="Vertical">
-
-            <common:SessionFilterPanel Margin="15"
-                                       DataContext="{Binding Filter}"/>
-
-            <common:LevelGraph Margin="15,0,15,15"
-                               DataContext="{Binding Graph}"/>
-
-            <Border Background="{StaticResource PanelBackgroundColor}"
-                    Margin="15,5,15,15">
-                <common:LevelDatagrid Margin="5"
-                                  DataContext="{Binding DataGrid}"/>
+            <common:SessionFilterPanel DataContext="{Binding Filter}"
+                                       Margin="15"/>
+            <common:LevelGraph DataContext="{Binding Graph}"
+                               Margin="15,0,15,15"/>
+            <Border Margin="15,5,15,15"
+                    Background="{StaticResource PanelBackgroundColor}">
+                <common:LevelDatagrid DataContext="{Binding DataGrid}"
+                                      Margin="5"/>
             </Border>
         </StackPanel>
     </ScrollViewer>

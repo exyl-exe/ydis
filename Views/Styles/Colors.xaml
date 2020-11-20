@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Common colors -->
     <SolidColorBrush x:Key="TextColor" Color="#dae0e3"/>
     <SolidColorBrush x:Key="AppBackgroundColor" Color="#464b4e"/>
     <SolidColorBrush x:Key="PanelBackgroundColor" Color="#303436"/>
@@ -9,14 +10,18 @@
     <SolidColorBrush x:Key="SelectedColor" Color="#b0b4b6" Opacity=".3"/>
     <SolidColorBrush x:Key="HoverColor" Color="#4a4f51"/>
     <SolidColorBrush x:Key="EntryColor" Color="#232628"/>
+    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>
 
+    <!-- Navigation panel -->
     <SolidColorBrush x:Key="SearchBarUnderline" Color="#3d8ed1"/>
 
+    <!-- Filtering panel -->
     <SolidColorBrush x:Key="CheckBoxBorderColor" Color="#787b7c"/>
     <SolidColorBrush x:Key="CheckBoxHighlightBorderColor" Color="#bbbbbb"/>
     <SolidColorBrush x:Key="CheckBoxFillColor" Color="#232628"/>
     <SolidColorBrush x:Key="CheckBoxMarkColor" Color="#00bde6"/>
 
+    <!-- Graph colors -->
     <SolidColorBrush x:Key="GraphBackgroundColor" Color="#303436"/>
     <SolidColorBrush x:Key="TooltipBackgroundColor" Color="#252325"/>
     <Color x:Key="GraphTextColor">#dae0e3</Color>
@@ -24,13 +29,12 @@
     <Color x:Key="GraphMarkColor">#484952</Color>
     <Color x:Key="GraphLineColor">#00cde6</Color>
 
+    <!-- Datagrid colors-->
     <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity="0.2"/>
     <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#282828"/>
 
+    <!-- other colors -->
     <SolidColorBrush x:Key="ButtonHighlightColor" Color="#bbbbbb"/>
     <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#3e4549"/>
-
-    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>
-
     <SolidColorBrush x:Key="SwitchViewButtonHighlightColor" Color="#666666"/>
 </ResourceDictionary>

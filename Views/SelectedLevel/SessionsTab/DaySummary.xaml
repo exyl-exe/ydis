@@ -6,23 +6,23 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <Border Background="{StaticResource PanelBackgroundColor}"
-            Padding="1,2,1,4">
+
+    <Border Padding="1,2,1,4"
+            Background="{StaticResource PanelBackgroundColor}">
         <StackPanel x:Name="DaySessionsStackPanel"
                     Visibility="{Binding SummaryVisibility}">
             <TextBlock x:Name="DayTitle"
                        Text="{Binding HeaderText}"
-                       Margin="10,3,0,0"
-                       Style="{StaticResource DaySummaryTitleStyle}"></TextBlock>
-            <Separator BorderBrush="{StaticResource ElementSeparatorColor}"
-                       Margin="5"
-                       BorderThickness="1"/>
+                       Style="{StaticResource DaySummaryTitleStyle}"
+                       Margin="10,3,0,0"/>
+            <Separator Margin="5"
+                       BorderThickness="1"
+                       BorderBrush="{StaticResource ElementSeparatorColor}"/>
             <ItemsControl ItemsSource="{Binding SortedSessions}"
                           Margin="2,0,2,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:SessionButton DataContext="{Binding}"></local:SessionButton>
+                        <local:SessionButton DataContext="{Binding}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

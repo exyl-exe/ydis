@@ -10,17 +10,19 @@
             Background="{StaticResource HeaderBackgroundColor}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="Title" Grid.Row="0"
-                   HorizontalAlignment="Center"
-                   FontSize="25"
-                   Text="{Binding LevelName}"/>
-            <TextBlock x:Name="Subtitle" Grid.Row="1"
-                   HorizontalAlignment="Center"
-                   FontSize="20"
-                   Text="{Binding StartingTime}"/>
+            <TextBlock x:Name="Title"
+                       Grid.Row="0"
+                       Text="{Binding LevelName}"
+                       HorizontalAlignment="Center"
+                       FontSize="25"/>
+            <TextBlock x:Name="Subtitle"
+                       Grid.Row="1"
+                       Text="{Binding StartingTime}"
+                       HorizontalAlignment="Center"
+                       FontSize="20"/>
         </Grid>
     </Border>
 </UserControl>
