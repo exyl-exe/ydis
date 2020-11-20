@@ -87,6 +87,7 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\LevelDatagridItemViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\AttemptViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\SessionFilterViewModel.cs" />
     <Compile Include="ViewModels\DataStructures\LevelPartStatistics.cs" />

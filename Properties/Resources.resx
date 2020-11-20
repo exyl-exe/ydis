@@ -217,6 +217,10 @@
   <data name="StatsDeathColTitle" xml:space="preserve">
     <value>Death count</value>
   </data>
+  <data name="StatsItemPassRateFormat" xml:space="preserve">
+    <value>{0:0.##}%</value>
+    <comment>Format</comment>
+  </data>
   <data name="StatsPassRateColTitle" xml:space="preserve">
     <value>Pass rate</value>
   </data>

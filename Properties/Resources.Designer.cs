@@ -331,6 +331,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0:0.##}%.
+        /// </summary>
+        public static string StatsItemPassRateFormat {
+            get {
+                return ResourceManager.GetString("StatsItemPassRateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pass rate.
         /// </summary>
         public static string StatsPassRateColTitle {

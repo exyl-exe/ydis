@@ -14,9 +14,12 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
     public class LevelDataGridViewModel : BaseViewModel
     {
         /// <summary>
-        /// List of statistics per part that will be shown in the grid.
+        /// View model for each displayed item
         /// </summary>
-        public List<LevelPartStatistics> SessionStats { get; set; }
+        public List<LevelDatagridItemViewModel> Items { get; private set; }
+
+        // List of statistics per part that will be shown in the grid.
+        private List<LevelPartStatistics> SessionStats { get; set; }
         // Statistics about a level
         private SessionsStatistics Stats { get; set; }
 
@@ -24,6 +27,7 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         {
             Stats = stats;
             SessionStats = FilterOutRedondantParts(stats.Statistics);
+            Items = GenerateDisplayedItems();
             Stats.OnStatisticsChange += Update;
         }
 
@@ -31,7 +35,14 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         private void Update()
         {
             SessionStats = FilterOutRedondantParts(Stats.Statistics);
+            Items = GenerateDisplayedItems();
             OnPropertyChanged(nameof(SessionStats));
+        }
+
+        private List<LevelDatagridItemViewModel> GenerateDisplayedItems()
+        {
+            if (SessionStats == null) return null;
+            return SessionStats.Select(i => new LevelDatagridItemViewModel(i)).ToList();
         }
 
         // Filters parts based on their relevance
