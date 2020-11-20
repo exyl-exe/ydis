@@ -17,13 +17,13 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="{Binding Session.StartTime.TimeOfDay, StringFormat={}{0:hh}h{0:mm}}"
+                       Text="{Binding Time}"
                        HorizontalAlignment="Center"/>
             <TextBlock Grid.Column="1"
-                       Text="{Binding Session.StartPercent, StringFormat={}from {0:0.##}%}"
+                       Text="{Binding Start}"
                        HorizontalAlignment="Center"/>
             <TextBlock Grid.Column="2"
-                       Text="{Binding Session.Attempts.Count, StringFormat={}{0} attempts}"
+                       Text="{Binding AttemptCount}"
                        HorizontalAlignment="Center"/>
         </Grid>
     </Button>

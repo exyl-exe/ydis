@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Properties;
 using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
@@ -45,6 +46,10 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         /// Command that opens the summary of a session
         /// </summary>
         public ICommand ViewSessionCommand { get; set; }
+
+        public string Time => string.Format(Resources.SessionButtonTimeFormat, Session.StartTime.TimeOfDay);
+        public string Start => string.Format(Resources.SessionButtonStartFormat, Session.StartPercent);
+        public string AttemptCount => string.Format(Resources.SessionButtonCountFormat, Session.Attempts.Count);
 
         public SessionButtonViewModel(SessionsTabMainViewModel parent, Session session)
         {

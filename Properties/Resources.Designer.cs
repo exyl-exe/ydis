@@ -250,6 +250,33 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0} attempts.
+        /// </summary>
+        public static string SessionButtonCountFormat {
+            get {
+                return ResourceManager.GetString("SessionButtonCountFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à from {0:0.##}%.
+        /// </summary>
+        public static string SessionButtonStartFormat {
+            get {
+                return ResourceManager.GetString("SessionButtonStartFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à {0:hh}h{0:mm}.
+        /// </summary>
+        public static string SessionButtonTimeFormat {
+            get {
+                return ResourceManager.GetString("SessionButtonTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à {0:dd/MM/yyyy} {0:HH}h{0:mm}.
         /// </summary>
         public static string SessionHeaderStartTimeFormat {
