@@ -25,7 +25,6 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
             {
                 return _visible;
             }
-
             set
             {
                 _visible = value;

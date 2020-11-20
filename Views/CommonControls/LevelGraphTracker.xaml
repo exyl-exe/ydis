@@ -13,11 +13,7 @@
                         BorderThickness="0"
                         Background="Transparent">
         <oxy:TrackerControl.Content>
-            <Border Background="{StaticResource TooltipBackgroundColor}"
-                    BorderBrush="{StaticResource ElementSeparatorColor}"
-                    Style="{StaticResource TooltipTextStyle}"
-                    BorderThickness="1"
-                    Padding="5">
+            <Border Style="{StaticResource TooltipStyle}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock HorizontalAlignment="Center"
                                Margin="0,0,0,0"

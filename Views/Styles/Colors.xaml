@@ -27,7 +27,7 @@
     <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity="0.2"/>
     <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#282828"/>
 
-    <SolidColorBrush x:Key="SessionButtonHighlightColor" Color="#bbbbbb"/>
+    <SolidColorBrush x:Key="ButtonHighlightColor" Color="#bbbbbb"/>
     <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#3e4549"/>
 
     <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>

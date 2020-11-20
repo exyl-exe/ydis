@@ -12,7 +12,8 @@
             <ItemsControl ItemsSource="{Binding SortedSummaries}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:DaySummary DataContext="{Binding}"></local:DaySummary>
+                        <local:DaySummary Margin="15"
+                                          DataContext="{Binding}"></local:DaySummary>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

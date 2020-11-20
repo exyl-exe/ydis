@@ -7,15 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
-    <Border Margin="15"
-            Background="{StaticResource PanelBackgroundColor}"
+    <Border Background="{StaticResource PanelBackgroundColor}"
             Padding="1,2,1,4">
         <StackPanel x:Name="DaySessionsStackPanel"
                     Visibility="{Binding SummaryVisibility}">
             <TextBlock x:Name="DayTitle"
                        Text="{Binding HeaderText}"
                        Margin="10,3,0,0"
-                       FontSize="20"></TextBlock>
+                       Style="{StaticResource DaySummaryTitleStyle}"></TextBlock>
             <Separator BorderBrush="{StaticResource ElementSeparatorColor}"
                        Margin="5"
                        BorderThickness="1"/>

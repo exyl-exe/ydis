@@ -11,18 +11,13 @@
     <ScrollViewer>
         <StackPanel Orientation="Vertical"
                     Background="Transparent">
-            <DockPanel Margin="15">
+            <DockPanel Margin="15"
+                       Background="{StaticResource HeaderBackgroundColor}">
                 <Button x:Name="GoBackButton"
+                        Margin="5"
+                        Style="{StaticResource GoBackButtonStyle}"
                         DockPanel.Dock="Left"
-                        Command="{Binding GoBack}"
-                        Height="60"
-                        Margin="0,0,10,0">
-                    <Border Background="{StaticResource PanelBackgroundColor}"
-                            Padding="15"
-                            BorderBrush="{StaticResource ElementSeparatorColor}"
-                            BorderThickness="1">
-                        <Image Source="{StaticResource goBackIcon}"/>
-                    </Border>
+                        Command="{Binding GoBack}">
                 </Button>
                 <local:SessionHeader DataContext="{Binding Header}"></local:SessionHeader>
             </DockPanel>

@@ -41,13 +41,8 @@
             
         </common:OxyPlotTooltipHover.Axes>
         <common:OxyPlotTooltipHover.Series>
-            <oxy:LineSeries
-                ItemsSource="{Binding Points}"
-                StrokeThickness="3"
-                Color="{StaticResource GraphLineColor}" 
-                MarkerFill="{StaticResource GraphLineColor}"
-                MarkerSize="3"
-                MarkerType="Circle"></oxy:LineSeries>
+            <oxy:LineSeries ItemsSource="{Binding Points}"
+                Style="{StaticResource StatisticsGraphSeriesStyle}"></oxy:LineSeries>
         </common:OxyPlotTooltipHover.Series>
     </common:OxyPlotTooltipHover>
 </UserControl>

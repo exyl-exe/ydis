@@ -23,13 +23,14 @@
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Margin="0,2,0,4"/>
+                                          Margin="5,2,0,4"/>
 
                                 <Image x:Name="SortIcon"
-                               DockPanel.Dock="Right"
-                               Source="{StaticResource upArrowIcon}"
-                               HorizontalAlignment="Right" VerticalAlignment="Center"
-                               Visibility="Hidden"/>
+                                       DockPanel.Dock="Right"
+                                       Margin="5,0,0,0"
+                                       Source="{StaticResource upArrowIcon}"
+                                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden"/>
 
                             </StackPanel>
                         </Border>
