@@ -36,7 +36,7 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         {
             SessionStats = FilterOutRedondantParts(Stats.Statistics);
             Items = GenerateDisplayedItems();
-            OnPropertyChanged(nameof(SessionStats));
+            OnPropertyChanged(nameof(Items));
         }
 
         private List<LevelDatagridItemViewModel> GenerateDisplayedItems()
