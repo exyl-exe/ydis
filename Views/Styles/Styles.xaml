@@ -24,14 +24,14 @@
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
-        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Background" Value="{StaticResource HeaderBackgroundColor}"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
     </Style>
 
     <Style x:Key="SubtitleStyle" TargetType="Border">
         <Setter Property="Padding" Value="5"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Background" Value="{StaticResource HeaderBackgroundColor}"/>
         <Setter Property="TextBlock.FontSize" Value="25"/>
         <Setter Property="TextBlock.Foreground" Value="{StaticResource TextColor}"/>
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
@@ -44,7 +44,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
                     <Border x:Name="TabHeader"
-                            Background="{StaticResource PanelBackgroundColor}"
+                            Background="{StaticResource HeaderBackgroundColor}"
                             BorderBrush="{StaticResource PanelSeparatorColor}"
                             BorderThickness="0,0,0,1">
                         <ContentPresenter x:Name="ContentSite"
