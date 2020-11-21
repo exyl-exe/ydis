@@ -8,7 +8,9 @@
              xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer x:Name="MainScrollViewer"
+                  MouseWheel="ScrollViewer_MouseWheel"
+                  VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical"
                     Background="Transparent">
             <DockPanel Margin="15"
@@ -34,6 +36,7 @@
             <Border Margin="15,0,15,15"
                     Background="{StaticResource PanelBackgroundColor}">
                 <ContentControl Content="{Binding CurrentView}"
+                                PreviewMouseWheel="ScrollViewer_MouseWheel"
                                 Margin="5"/>
             </Border>
         </StackPanel>

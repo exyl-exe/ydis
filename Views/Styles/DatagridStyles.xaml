@@ -112,7 +112,6 @@
         <Setter Property="DropLocationIndicatorStyle" Value="{StaticResource DropHeaderStyle}"/>
         <Setter Property="RowHeaderWidth" Value="0"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
-        <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="GridLinesVisibility" Value="None"/>
         <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
         <Setter Property="BorderThickness" Value="0"/>

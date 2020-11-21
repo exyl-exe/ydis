@@ -24,5 +24,12 @@ namespace Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary
         {
             InitializeComponent();
         }
+
+        private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = MainScrollViewer;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }
