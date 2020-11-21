@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Views/Images/Images.xaml"/>
                 <ResourceDictionary Source="Views/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Views/Styles/Styles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/ScrollBarStyle.xaml"/>
                 <ResourceDictionary Source="Views/Styles/GraphStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/DatagridStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/FilteringPanelStyles.xaml"/>

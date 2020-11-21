@@ -7,7 +7,7 @@
              xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical">
             <ItemsControl ItemsSource="{Binding SortedSummaries}">
                 <ItemsControl.ItemTemplate>

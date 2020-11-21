@@ -11,7 +11,12 @@
     <SolidColorBrush x:Key="HoverColor" Color="#4a4f51"/>
     <SolidColorBrush x:Key="EntryColor" Color="#232628"/>
     <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>
-
+    
+    <!-- Scrollbar -->
+    <SolidColorBrush x:Key="ScrollBarBackgroundColor" Color="#282828"/>
+    <SolidColorBrush x:Key="ScrollBarThumbColor" Color="#484d50"/>
+    <SolidColorBrush x:Key="ScrollBarHighlighColor" Color="#909293"/>
+    
     <!-- Navigation panel -->
     <SolidColorBrush x:Key="SearchBarUnderline" Color="#3d8ed1"/>
 

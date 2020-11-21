@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer x:Name="CurrentLevelScrollViewer"
-                  Background="{StaticResource AppBackgroundColor}">
+                  Background="{StaticResource AppBackgroundColor}"
+                  VerticalScrollBarVisibility="Auto">
         <StackPanel x:Name="LevelInfoStack"
                 Orientation="Vertical">
             <common:SessionFilterPanel DataContext="{Binding Filter}"
