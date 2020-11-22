@@ -72,7 +72,7 @@ namespace Whydoisuck.DataSaving
             var files = SafeDirectory.GetFiles(folderPath);//TODO maybe keep a list of session files ?
             foreach (var file in files)
             {
-                var session = Deserialize<Session>(file);
+                var session = (Session)Deserialize(file, new Session());
                 res.Add(session);
             }
             return res;
@@ -116,9 +116,8 @@ namespace Whydoisuck.DataSaving
         /// <typeparam name="T">Type of the saved object</typeparam>
         /// <param name="filePath">Path to the file</param>
         /// <returns>The loaded object</returns>
-        public static T Deserialize<T>(string filePath) where T : IWDISSerializable, new()
+        public static IWDISSerializable Deserialize(string filePath, IWDISSerializable item)
         {
-            var item = new T();
             var value = SafeFile.ReadAllText(filePath);
             item.Deserialize(value);
             return item;
