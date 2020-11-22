@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.Currentlevel
 {
     /// <summary>
-    /// Logique d'interaction pour CurrentLevelView.xaml
+    /// Code-behind for CurrentLevelView.xaml
     /// </summary>
     public partial class CurrentLevelView : UserControl
     {

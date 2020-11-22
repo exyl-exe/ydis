@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.NavigationPanel
 {
     /// <summary>
-    /// Logique d'interaction pour NavigationSearchResult.xaml
+    /// Code-behind for NavigationSearchResult.xaml
     /// </summary>
     public partial class NavigationSearchResult : UserControl
     {

@@ -21,7 +21,7 @@ using Whydoisuck.Views.SelectedLevel;
 namespace Whydoisuck.Views.NavigationPanel
 {
     /// <summary>
-    /// Logique d'interaction pour LevelSearchPanel.xaml
+    /// Code-behind for LevelSearchPanel.xaml
     /// </summary>
     public partial class NavigationSearchPanel : UserControl
     {

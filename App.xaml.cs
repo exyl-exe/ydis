@@ -9,7 +9,7 @@ using System.Windows;
 namespace Whydoisuck
 {
     /// <summary>
-    /// Logique d'interaction pour App.xaml
+    /// Code-behind for app.xaml
     /// </summary>
     public partial class App : Application
     {

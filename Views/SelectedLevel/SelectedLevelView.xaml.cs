@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.SelectedLevel
 {
     /// <summary>
-    /// Logique d'interaction pour SelectedLevelView.xaml
+    /// Code-behind for SelectedLevelView.xaml
     /// </summary>
     public partial class SelectedLevelView : UserControl
     {

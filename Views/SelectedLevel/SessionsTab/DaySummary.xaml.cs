@@ -18,7 +18,7 @@ using Whydoisuck.Views.Commands;
 namespace Whydoisuck.Views.SelectedLevel.SessionsTab
 {
     /// <summary>
-    /// Logique d'interaction pour DaySummary.xaml
+    /// Code-behind for DaySummary.xaml
     /// </summary>
     public partial class DaySummary : UserControl
     {

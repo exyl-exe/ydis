@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.CommonControls
 {
     /// <summary>
-    /// Logique d'interaction pour SessionFilterPanel.xaml
+    /// Code-behind for SessionFilterPanel.xaml
     /// </summary>
     public partial class SessionFilterPanel : UserControl
     {

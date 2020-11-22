@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.CommonControls
 {
     /// <summary>
-    /// Logique d'interaction pour LevelDatagrid.xaml
+    /// Code-behind for LevelDatagrid.xaml
     /// </summary>
     public partial class LevelDatagrid : UserControl
     {

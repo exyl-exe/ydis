@@ -11,10 +11,18 @@ using Whydoisuck.Views.SelectedLevel;
 
 namespace Whydoisuck.Views.Commands
 {
+    /// <summary>
+    /// Command opening the view displaying information about one specific session
+    /// </summary>
     public class ViewSessionCommand : ICommand
     {
+        /// <summary>
+        /// Invoked when the command is enabled/disabled
+        /// </summary>
         public event EventHandler CanExecuteChanged;
+        // The session that will be opened
         private Session Session { get; set; }
+        // The parent view, where the session details will be displayed
         private SessionsTabMainViewModel SessionsTab { get; set; }
 
         public ViewSessionCommand(SessionsTabMainViewModel parent, Session s)

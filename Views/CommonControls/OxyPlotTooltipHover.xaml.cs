@@ -17,7 +17,8 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.CommonControls
 {
     /// <summary>
-    /// Additional layer for Plot, so that tooltip is displayed on hover
+    /// Code-behind for OxyPlotTooltipHover.xaml
+    /// Wrapper of OxyPlot Plot, so it can be used as a control while using a custom tracker.
     /// </summary>
     public partial class OxyPlotTooltipHover : OxyPlot.Wpf.Plot
     {

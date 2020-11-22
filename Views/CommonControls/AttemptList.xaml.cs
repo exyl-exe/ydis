@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.CommonControls
 {
     /// <summary>
-    /// Logique d'interaction pour AttemptList.xaml
+    /// Code-behind for AttemptList.xaml
     /// </summary>
     public partial class AttemptList : UserControl
     {

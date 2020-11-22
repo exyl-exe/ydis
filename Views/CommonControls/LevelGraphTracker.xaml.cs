@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.CommonControls
 {
     /// <summary>
-    /// Logique d'interaction pour LevelGraphTracker.xaml
+    /// Code-behind for LevelGraphTracker.xaml
     /// </summary>
     public partial class LevelGraphTracker : UserControl
     {

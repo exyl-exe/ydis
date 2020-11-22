@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.SelectedLevel.GraphTab
 {
     /// <summary>
-    /// Logique d'interaction pour GraphTab.xaml
+    /// Code-behind for GraphTab.xaml
     /// </summary>
     public partial class GraphTabMain : UserControl
     {

@@ -18,7 +18,7 @@ using Whydoisuck.ViewModels.CommonControlsViewModels;
 namespace Whydoisuck.Views.CommonControls
 {
     /// <summary>
-    /// Logique d'interaction pour LevelGraph.xaml
+    /// Code-behind for LevelGraph.xaml
     /// </summary>
     public partial class LevelGraph : UserControl
     {

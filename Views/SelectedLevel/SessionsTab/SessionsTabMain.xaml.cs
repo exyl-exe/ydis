@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.SelectedLevel.SessionsTab
 {
     /// <summary>
-    /// Logique d'interaction pour SessionsTab.xaml
+    /// Code-behind for SessionsTab.xaml
     /// </summary>
     public partial class SessionsTabMain : UserControl
     {
