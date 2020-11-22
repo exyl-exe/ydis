@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Media.TextFormatting;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Utilities;
 
@@ -23,6 +24,10 @@ namespace Whydoisuck.Model.DataStructures
         /// List of individual levels (aka copies) the sessions were played on.
         /// </summary>
         [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
+        /// <summary>
+        /// When the level of the group was last played
+        /// </summary>
+        [JsonProperty(PropertyName = "LastPlayed")] public DateTime LastPlayedTime { get; set; }
 
         // false if the sessions weren't loaded yet
         // exists to avoid loading every session in a group if they are not accessed
@@ -60,6 +65,18 @@ namespace Whydoisuck.Model.DataStructures
         }
 
         /// <summary>
+        /// Adds a session to the group and saves it on the disk. 
+        /// </summary>
+        /// <param name="session">Session to add and serialize</param>
+        public void AddAndSerializeSession(Session session)
+        {
+            if (LastPlayedTime < session.StartTime) LastPlayedTime = session.StartTime;
+            session.SessionName = GetAvailaibleSessionName(session);
+            GroupSessions.Add(session);
+            SerializationManager.SerializeSession(this, session);
+        }
+
+        /// <summary>
         /// Checks if an individual level is already in the group.
         /// It means some sessions in the group were played on the level.
         /// </summary>
@@ -94,17 +111,6 @@ namespace Whydoisuck.Model.DataStructures
             {
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Adds a session to the group and saves it on the disk. 
-        /// </summary>
-        /// <param name="session">Session to add and serialize</param>
-        public void AddAndSerializeSession(Session session)
-        {
-            session.SessionName = GetAvailaibleSessionName(session);
-            GroupSessions.Add(session);
-            SerializationManager.SerializeSession(this, session);
         }
 
         /// <summary>

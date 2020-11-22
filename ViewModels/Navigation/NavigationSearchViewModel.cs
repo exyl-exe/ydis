@@ -80,7 +80,7 @@ namespace Whydoisuck.ViewModels.Navigation
         private void UpdateSearchResults()
         {
             SearchResults = AllResults.Where(result => result.ResultText.ToLower().Trim().StartsWith(_search.ToLower().Trim()))
-                                      .OrderBy(res => res.Group.GroupName)
+                                      .OrderByDescending(res => res.Group.LastPlayedTime)
                                       .ToList();
             OnPropertyChanged(nameof(SearchResults));
         }
