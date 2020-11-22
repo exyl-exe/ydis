@@ -23,9 +23,9 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public SessionGroup Group { get; set; }
         /// <summary>
-        /// How the group name shoudl be displayed in the search result
+        /// How the group name should be displayed in the search result
         /// </summary>
-        public string ResultText => Group.GroupName;
+        public string ResultText => Group.GroupName;//TODO displayed name
 
         // ViewModel the main view should switch to
         private SelectedLevelViewModel SelectedView { get; set; }

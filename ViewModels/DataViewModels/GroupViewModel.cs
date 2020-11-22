@@ -15,7 +15,19 @@ namespace Whydoisuck.ViewModels.DataViewModels
         /// <summary>
         /// Name of the group.
         /// </summary>
-        public string GroupName => Group.GroupName;
+        public string GroupName
+        {
+            get
+            {
+                return Group.DisplayedName;
+            } set
+            {
+                if (value.Trim().Length > 0)
+                {
+                    Group.DisplayedName = value;
+                }
+            }
+        }
         private SessionGroup Group { get; set; }
 
         public GroupViewModel(SessionGroup group)

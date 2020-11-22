@@ -21,6 +21,10 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "GroupName")] public string GroupName { get; set; }
         /// <summary>
+        /// Name of the level that is displayed
+        /// </summary>
+        [JsonProperty(PropertyName = "DisplayedName")] public string DisplayedName { get; set; }
+        /// <summary>
         /// When the level of the group was last played
         /// </summary>
         [JsonProperty(PropertyName = "LastPlayed")] public DateTime LastPlayedTime { get; set; }
@@ -60,6 +64,7 @@ namespace Whydoisuck.Model.DataStructures
         public SessionGroup(string name)
         {
             GroupName = name;
+            DisplayedName = name;
             Levels = new List<Level>();
             GroupSessions = new List<Session>();
         }

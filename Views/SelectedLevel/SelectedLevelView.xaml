@@ -11,11 +11,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <TextBlock x:Name="GroupName"
+        <!--<TextBlock x:Name="GroupName"
                    DockPanel.Dock="Top"
                    Margin="15,15,15,15"
                    Text="{Binding Group.GroupName}"
-                   Style="{StaticResource TitleStyle}"/>
+                   Style="{StaticResource TitleStyle}"/>-->
+        <TextBox x:Name="GroupName"
+                   DockPanel.Dock="Top"
+                   Margin="15,15,15,15"
+                   Text="{Binding Group.GroupName, Mode=TwoWay}"/>
         
         <TabControl x:Name="SelectedLevelNavigationTabs">
             <TabItem x:Name="GraphTab"

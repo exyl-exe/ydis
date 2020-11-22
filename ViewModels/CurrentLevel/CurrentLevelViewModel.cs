@@ -43,7 +43,6 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         {
             Recorder = recorder;
             SetDefaulProperties();
-
             Recorder.OnAttemptAdded += OnAttemptAddedToCurrent;
             Recorder.OnNewCurrentSessionInitialized += OnNewCurrentSession;
             Recorder.OnQuitCurrentSession += OnQuitCurrentSession;
@@ -59,7 +58,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             Title = s.Level.Name;
             Autoguess = Recorder.Autoguess==null?
                         Resources.CurrentLevelGroupNew
-                        :Recorder.Autoguess.GroupName;
+                        :Recorder.Autoguess.DisplayedName;
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
             Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
