@@ -366,5 +366,8 @@
   <ItemGroup>
     <Resource Include="Views\Images\goBackIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\editIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

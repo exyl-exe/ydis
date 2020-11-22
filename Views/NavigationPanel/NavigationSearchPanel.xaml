@@ -25,7 +25,7 @@
                            Margin="5"/>
                     <TextBox x:Name="SearchTextBox"
                              Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource NavigationTextBoxStyle}">
+                             Style="{StaticResource SimpleTextBoxStyle}">
                     </TextBox>
                 </DockPanel>
             </Border>

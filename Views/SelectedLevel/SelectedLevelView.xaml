@@ -11,15 +11,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <!--<TextBlock x:Name="GroupName"
-                   DockPanel.Dock="Top"
-                   Margin="15,15,15,15"
-                   Text="{Binding Group.GroupName}"
-                   Style="{StaticResource TitleStyle}"/>-->
-        <TextBox x:Name="GroupName"
-                   DockPanel.Dock="Top"
-                   Margin="15,15,15,15"
-                   Text="{Binding Group.GroupName, Mode=TwoWay}"/>
+        <Border Background="{StaticResource HeaderBackgroundColor}"
+                DockPanel.Dock="Top"
+                Margin="15,15,15,15"
+                Padding="3,3,3,2">
+            <DockPanel HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch">
+                <Image Source="{StaticResource editIcon}"
+                       DockPanel.Dock="Right"
+                       Height="40"
+                       Margin="5,0,0,0"/>
+                <TextBox x:Name="GroupName"
+                         TextAlignment="Center"
+                         MaxLength="30"
+                         Text="{Binding Group.GroupName, Mode=TwoWay}"                     
+                         Style="{StaticResource BigFontTextBoxStyle}">
+                    <TextBox.RenderTransform>
+                        <TranslateTransform X="20"/>
+                    </TextBox.RenderTransform>
+                </TextBox>
+            </DockPanel>
+        </Border>
+        
         
         <TabControl x:Name="SelectedLevelNavigationTabs">
             <TabItem x:Name="GraphTab"

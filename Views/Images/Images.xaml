@@ -8,4 +8,7 @@
 
     <BitmapImage x:Key="goBackIcon"
                  UriSource="/Views/Images/goBackIcon.png"/>
+
+    <BitmapImage x:Key="editIcon"
+                 UriSource="/Views/Images/editIcon.png"/>
 </ResourceDictionary>
