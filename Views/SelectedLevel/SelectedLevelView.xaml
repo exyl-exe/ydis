@@ -22,10 +22,11 @@
                        Height="40"
                        Margin="5,0,0,0"/>
                 <TextBox x:Name="GroupName"
-                         TextAlignment="Center"
-                         MaxLength="30"
                          Text="{Binding Group.GroupName, Mode=TwoWay}"                     
-                         Style="{StaticResource BigFontTextBoxStyle}">
+                         Style="{StaticResource BigFontTextBoxStyle}"
+                         KeyDown="GroupName_KeyDown"
+                         MaxLength="30"
+                         TextAlignment="Center">
                     <TextBox.RenderTransform>
                         <TranslateTransform X="20"/>
                     </TextBox.RenderTransform>

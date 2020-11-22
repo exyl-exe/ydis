@@ -24,5 +24,20 @@ namespace Whydoisuck.Views.SelectedLevel
         {
             InitializeComponent();
         }
+
+        // To lose focus on enter
+        private void GroupName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                if (e.Key == Key.Return)
+                {
+                    if (e.Key == Key.Enter)
+                    {
+                        textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    }
+                }
+            }
+        }
     }
 }
