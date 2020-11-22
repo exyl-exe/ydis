@@ -58,8 +58,8 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             Session = s;
             Title = s.Level.Name;
             Autoguess = Recorder.Autoguess==null?
-                Properties.Resources.CurrentLevelGroupNew
-                :SessionGroup.GetDefaultGroupName(s.Level);
+                        Resources.CurrentLevelGroupNew
+                        :SessionGroup.GetDefaultGroupName(s.Level);
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
             Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
@@ -95,8 +95,8 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             CurrentLevelStats = null;
             Graph = null;
             Datagrid = null;
-            Title = Properties.Resources.CurrentLevelTitleDefault;
-            Autoguess = Properties.Resources.CurrentLevelGroupDefault;
+            Title = Resources.CurrentLevelTitleDefault;
+            Autoguess = Resources.CurrentLevelGroupDefault;
         }
 
         // Notifies the view that the viewmodel changed.

@@ -138,10 +138,10 @@
     <value>none</value>
   </data>
   <data name="CurrentLevelGroupLabel" xml:space="preserve">
-    <value>Level group : </value>
+    <value>Folder : </value>
   </data>
   <data name="CurrentLevelGroupNew" xml:space="preserve">
-    <value>new group</value>
+    <value>new folder</value>
   </data>
   <data name="CurrentLevelNavButton" xml:space="preserve">
     <value>Current session</value>

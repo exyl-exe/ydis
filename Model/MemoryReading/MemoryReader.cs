@@ -17,7 +17,19 @@ namespace Whydoisuck.Model.MemoryReading
         /// <summary>
         /// Base address of the main module of the read process
         /// </summary>
-        public IntPtr MainModuleAddr { get { return Process == null || Process.MainModule==null ? IntPtr.Zero : Process.MainModule.BaseAddress; } }
+        public IntPtr MainModuleAddr {
+            get {
+                try
+                {
+                    //This line sometimes crash when the game is opened and I can't understand why
+                    return (Process == null || Process.MainModule == null) ? IntPtr.Zero : Process.MainModule.BaseAddress;
+                } catch
+                {
+                    return IntPtr.Zero;
+                }
+                
+            }
+        }
 
         /// <summary>
         /// Boolean true if the read process is opened, false if it has terminated
