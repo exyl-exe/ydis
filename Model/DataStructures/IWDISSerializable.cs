@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,21 @@ namespace Whydoisuck.Model.DataStructures
     /// </summary>
     public abstract class IWDISSerializable
     {
-        [JsonProperty(PropertyName = "Version")] const int Version = 1;//TODO config?
+        [JsonIgnore] public const string VersionPropertyName = "Version";
+        [JsonIgnore] public const int CurrentVersion = 2;
+        [JsonProperty(PropertyName = VersionPropertyName)] const int Version = CurrentVersion;//TODO config?
+
+        /// <summary>
+        /// Checks if a version of an object is compatible with the current version
+        /// </summary>
+        /// <param name="version">The version to check compatibility for</param>
+        /// <returns>Wether the given version is compatible with the current version</returns>
+        public abstract bool CurrentVersionCompatible(int version);
+        /// <summary>
+        /// Updates an old version of a IWDISSerializable object
+        /// </summary>
+        /// <param name="oldObject">The object to update</param>
+        public abstract void UpdateOldVersion(ref JObject oldObject);
         /// <summary>
         /// Serializes the object in the JSON format.
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -89,6 +90,42 @@ namespace Whydoisuck.Model.DataStructures
         public override void Deserialize(string value)
         {
             JsonConvert.PopulateObject(value, this);
+        }
+
+        // TODO find a way to make it static so that it's not duplicated for each instance
+        /// <summary>
+        /// Checks the version of a session.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public override bool CurrentVersionCompatible(int version)
+        {
+            switch (IWDISSerializable.CurrentVersion)
+            {
+                case 2:
+                    return version <= 2;
+                default:
+                    // Prevents forgetting to update the converter
+                    throw new NotImplementedException();
+            }
+        }
+
+        // TODO find a way to make it static so that it's not duplicated for each instance
+        /// <summary>
+        /// Updates an old session object
+        /// </summary>
+        /// <param name="oldObject">the object to update</param>
+        public override void UpdateOldVersion(ref JObject oldObject)
+        {
+            var version = (int)oldObject[IWDISSerializable.VersionPropertyName];
+            while (!CurrentVersionCompatible(version))
+            {
+                switch (version)
+                {
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

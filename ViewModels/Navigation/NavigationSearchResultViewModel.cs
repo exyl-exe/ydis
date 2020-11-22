@@ -25,7 +25,7 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <summary>
         /// How the group name should be displayed in the search result
         /// </summary>
-        public string ResultText => Group.GroupName;//TODO displayed name
+        public string ResultText => Group.DisplayedName;
 
         // ViewModel the main view should switch to
         private SelectedLevelViewModel SelectedView { get; set; }

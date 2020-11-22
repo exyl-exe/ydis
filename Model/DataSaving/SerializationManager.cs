@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,7 +49,7 @@ namespace Whydoisuck.DataSaving
         public static void SerializeSession(SessionGroup group, Session session)
         {
             var path = SafePath.Combine(GetGroupDirectoryPath(group), GetSessionFileName(session));
-            Serialize(session, path);
+            Serialize(path, session);
         }
 
         /// <summary>
@@ -84,7 +85,7 @@ namespace Whydoisuck.DataSaving
         /// <param name="manager"></param>
         public static void SerializeSessionManager(SessionManager manager)
         {
-            Serialize(manager, IndexFilePath);
+            Serialize(IndexFilePath, manager);
         }
 
         /// <summary>
@@ -95,16 +96,16 @@ namespace Whydoisuck.DataSaving
         {
             if (SafeFile.Exists(IndexFilePath))
             {
-                JsonConvert.PopulateObject(GetObject(IndexFilePath), manager);
+                Deserialize(IndexFilePath, manager);
             }
         }
 
         /// <summary>
         /// Saves a serializable object to a given file path
         /// </summary>
-        /// <param name="item">The object to serialize</param>
         /// <param name="filePath">Where the object will be saved</param>
-        public static void Serialize(IWDISSerializable item, string filePath)
+        /// <param name="item">The object to serialize</param>
+        public static void Serialize(string filePath, IWDISSerializable item)
         {
             var serializedItem = item.Serialize();
             SafeFile.WriteAllText(filePath, serializedItem);
@@ -113,19 +114,20 @@ namespace Whydoisuck.DataSaving
         /// <summary>
         /// Loads an object from it's file on the disk
         /// </summary>
-        /// <typeparam name="T">Type of the saved object</typeparam>
         /// <param name="filePath">Path to the file</param>
         /// <returns>The loaded object</returns>
         public static IWDISSerializable Deserialize(string filePath, IWDISSerializable item)
         {
             var value = SafeFile.ReadAllText(filePath);
-            item.Deserialize(value);
+            //Updating the object if needed
+            var jo = JObject.Parse(value);
+            if(!item.CurrentVersionCompatible((int)jo[IWDISSerializable.VersionPropertyName]))
+            {
+                item.UpdateOldVersion(ref jo);
+                SafeFile.WriteAllText(filePath, jo.ToString());
+            }
+            item.Deserialize(jo.ToString());
             return item;
-        }
-
-        private static string GetObject(string filePath)
-        {
-            return SafeFile.ReadAllText(filePath);
         }
 
         // Gets the path of the directory of a group.
