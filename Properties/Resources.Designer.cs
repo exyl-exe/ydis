@@ -61,7 +61,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Why do i suck.
+        ///   Looks up a localized string similar to Why do I suck.
         /// </summary>
         public static string AppTitle {
             get {
