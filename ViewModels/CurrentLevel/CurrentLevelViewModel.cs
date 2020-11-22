@@ -59,7 +59,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             Title = s.Level.Name;
             Autoguess = Recorder.Autoguess==null?
                         Resources.CurrentLevelGroupNew
-                        :SessionGroup.GetDefaultGroupName(s.Level);
+                        :Recorder.Autoguess.GroupName;
             CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
             Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
