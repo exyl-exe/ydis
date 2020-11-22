@@ -12,7 +12,7 @@ namespace Whydoisuck.ViewModels.Navigation
     /// <summary>
     /// View model for one result of the group search in the navigation panel
     /// </summary>
-    public class NavigationSearchResultViewModel
+    public class NavigationSearchResultViewModel : BaseViewModel
     {
         /// <summary>
         /// Command that switched the main view when the search result is clicked
@@ -33,6 +33,7 @@ namespace Whydoisuck.ViewModels.Navigation
         public NavigationSearchResultViewModel(SessionGroup group, MainWindowViewModel mainView, SelectedLevelViewModel selectedView)
         {
             Group = group;
+            Group.OnDisplayedNameChanges += UpdateName;
             SelectedView = selectedView;
             UpdateCommand = new NavigatorCommand(mainView, selectedView);
         }
@@ -43,6 +44,11 @@ namespace Whydoisuck.ViewModels.Navigation
         public void Update()
         {
             SelectedView.Update();
+        }
+
+        private void UpdateName()
+        {
+            OnPropertyChanged(nameof(ResultText));
         }
     }
 }

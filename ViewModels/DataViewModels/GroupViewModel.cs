@@ -33,6 +33,13 @@ namespace Whydoisuck.ViewModels.DataViewModels
         public GroupViewModel(SessionGroup group)
         {
             Group = group;
+            Group.OnDisplayedNameChanges += UpdateName;
+        }
+
+        // Called to update elements using displayed name
+        private void UpdateName()
+        {
+            OnPropertyChanged(nameof(GroupName));
         }
     }
 }

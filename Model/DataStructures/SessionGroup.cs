@@ -23,7 +23,17 @@ namespace Whydoisuck.Model.DataStructures
         /// <summary>
         /// Name of the level that is displayed
         /// </summary>
-        [JsonProperty(PropertyName = "DisplayedName")] public string DisplayedName { get; set; }
+        [JsonProperty(PropertyName = "DisplayedName")] public string DisplayedName {
+            get
+            {
+                return displayedName;
+            }
+            set
+            {
+                displayedName = value;
+                OnDisplayedNameChanges?.Invoke();
+            }
+        }
         /// <summary>
         /// When the level of the group was last played
         /// </summary>
@@ -33,16 +43,28 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
 
+        /// <summary>
+        /// Delegate for callbacks when the displayed name is updated
+        /// </summary>
+        public delegate void UpdateDelegate();
+        /// <summary>
+        /// Invoked when the displayed name changes
+        /// </summary>
+        public event UpdateDelegate OnDisplayedNameChanges;
+
         // false if the sessions weren't loaded yet
         // exists to avoid loading every session in a group if they are not accessed
         [JsonIgnore] private bool _loaded = false;
         // List of sessions in the group, null if not loaded.
         [JsonIgnore] private List<Session> groupSessions;
+        //displayed name property
+        [JsonIgnore] private string displayedName;
 
         /// <summary>
         /// List of all the sessions played on the level.
         /// </summary>
-        [JsonIgnore] public List<Session> GroupSessions
+        [JsonIgnore]
+        public List<Session> GroupSessions
         {
             get
             {
