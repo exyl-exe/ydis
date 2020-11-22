@@ -30,7 +30,7 @@
                     Style="{StaticResource ViewChangeButtonStyle}"
                     Margin="15,0,15,15"
                     Padding="5">
-                <TextBlock Text="{x:Static props:Resources.SessionViewShowAttempts}"/>
+                <TextBlock Text="{Binding CurrentButtonText}"/>
             </Button>
 
             <Border Margin="15,0,15,15"

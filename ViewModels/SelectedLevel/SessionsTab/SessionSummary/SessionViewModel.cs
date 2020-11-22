@@ -30,6 +30,10 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
         /// </summary>
         public BaseViewModel CurrentView { get; set; }
         /// <summary>
+        /// Text of the button that switches the attempt display mode
+        /// </summary>
+        public string CurrentButtonText => ShowingDetails ? Resources.SessionViewShowStats : Resources.SessionViewShowAttempts;
+        /// <summary>
         /// Command to cange the way attempts are displayed.
         /// </summary>
         public NavigatorCommand SwitchCommand { get; set; }
@@ -79,6 +83,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             ShowingDetails = !ShowingDetails;
             OnPropertyChanged(nameof(CurrentView));
             OnPropertyChanged(nameof(SwitchCommand));
+            OnPropertyChanged(nameof(CurrentButtonText));
         }
     }
 }
