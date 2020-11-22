@@ -21,13 +21,13 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "GroupName")] public string GroupName { get; set; }
         /// <summary>
-        /// List of individual levels (aka copies) the sessions were played on.
-        /// </summary>
-        [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
-        /// <summary>
         /// When the level of the group was last played
         /// </summary>
         [JsonProperty(PropertyName = "LastPlayed")] public DateTime LastPlayedTime { get; set; }
+        /// <summary>
+        /// List of individual levels (aka copies) the sessions were played on.
+        /// </summary>
+        [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
 
         // false if the sessions weren't loaded yet
         // exists to avoid loading every session in a group if they are not accessed
