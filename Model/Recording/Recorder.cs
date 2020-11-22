@@ -43,7 +43,7 @@ namespace Whydoisuck.DataSaving
         /// <param name="session">The current session</param>
         public delegate void SessionCallback(Session session);
         /// <summary>
-        /// Delegare for callbacks when a new attempt is created
+        /// Delegate for callbacks when a new attempt is created
         /// </summary>
         /// <param name="attempt">The created attempt</param>
         public delegate void AttemptCallback(Attempt attempt);
