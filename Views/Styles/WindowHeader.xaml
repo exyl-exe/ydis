@@ -11,7 +11,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}">
                         <Image Source="{StaticResource minIcon}"
-                               Height="32"/>
+                               Height="25"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -32,7 +32,7 @@
                     <Border Background="{TemplateBinding Background}">
                         <Image x:Name="maxIconImage"
                                Source="{StaticResource maxIcon}"
-                               Height="32"/>
+                               Height="25"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -57,7 +57,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}">
                         <Image Source="{StaticResource closeIcon}"
-                               Height="32"/>
+                               Height="25"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -75,7 +75,7 @@
                 <shell:WindowChrome NonClientFrameEdges="None"
                                     GlassFrameThickness="0"
                                     ResizeBorderThickness="7"
-                                    CaptionHeight="50"
+                                    CaptionHeight="32"
                                     CornerRadius="0"/>
             </Setter.Value>
         </Setter>
@@ -89,14 +89,15 @@
                             <Border BorderThickness="0,0,0,1"
                                     BorderBrush="{StaticResource PanelSeparatorColor}"
                                     DockPanel.Dock="Top">
-                                <DockPanel Margin="5"
-                                            Height="50">
+                                <DockPanel Margin="5,0,0,0"
+                                            Height="37">
                                     <Image DockPanel.Dock="Left"
-                                           Source="{StaticResource wdisIcon}"/>
+                                           Source="{StaticResource wdisIcon}"
+                                           Height="32"/>
                                     <local:WindowChromeCommands DockPanel.Dock="Right"/>
                                     <TextBlock Text="{TemplateBinding Title}"
-                                               Margin="10,0,0,0"
-                                               FontSize="25"
+                                               Margin="6,0,0,0"
+                                               FontSize="18"
                                                Foreground="{StaticResource TextColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Stretch"/>
