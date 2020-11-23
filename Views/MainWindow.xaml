@@ -8,6 +8,8 @@
         xmlns:props="clr-namespace:Whydoisuck.Properties"
         mc:Ignorable="d"
         Title="{x:Static props:Resources.AppTitle}"
+        WindowStyle="None"
+        Style="{StaticResource WDISWindow}"
         Width="860" Height="900">
     
     <DockPanel Background="{StaticResource AppBackgroundColor}">
