@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Width="215"
-            BorderThickness="0,0,2,0"
+            BorderThickness="0,0,1,0"
             BorderBrush="{StaticResource PanelSeparatorColor}">
         <DockPanel x:Name="NavigationDockPanel"
                    Background="{StaticResource PanelBackgroundColor}">

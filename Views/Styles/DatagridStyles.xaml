@@ -1,10 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
     <Style x:Key="StatisticsDatagridHeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="Padding" Value="3,3,3,3"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
         <Setter Property="BorderBrush" Value="{StaticResource ElementSeparatorColor}"/>
         <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
         <Setter Property="FontSize" Value="17"/>
@@ -13,7 +14,7 @@
                 <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                     <Border x:Name="HeaderContainer"
                             Padding="1,1,1,4"
-                            BorderThickness="0,0,0,3"
+                            BorderThickness="0,0,0,2"
                             BorderBrush="{StaticResource ElementSeparatorColor}">
                         <Border x:Name="HeaderBackgroundPanel"
                                 Padding="1"
