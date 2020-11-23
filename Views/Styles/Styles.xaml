@@ -64,14 +64,18 @@
                             Background="{StaticResource HeaderBackgroundColor}"
                             BorderBrush="{StaticResource PanelSeparatorColor}"
                             BorderThickness="0,0,0,1">
-                        <ContentPresenter x:Name="ContentSite"
-                                          Margin="10,2"
+                        <ContentPresenter Margin="10,2"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
                                           ContentSource="Header"
                                           TextElement.FontSize="20"/>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger SourceName="TabHeader"
+                                 Property="IsMouseOver" Value="True">
+                            <Setter TargetName="TabHeader"
+                                    Property="Background" Value="{StaticResource TabItemHighlightColor}"/>
+                        </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="TabHeader"
                                     Property="BorderThickness" Value="1,1,1,0" />

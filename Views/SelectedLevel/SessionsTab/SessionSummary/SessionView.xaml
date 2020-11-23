@@ -21,7 +21,12 @@
                         Style="{StaticResource GoBackButtonStyle}"
                         Margin="5">
                 </Button>
-                <local:SessionHeader DataContext="{Binding Header}"/>
+                <Border>
+                    <Border.RenderTransform>
+                        <TranslateTransform X="-20"/>
+                    </Border.RenderTransform>
+                    <local:SessionHeader DataContext="{Binding Header}"/>
+                </Border>
             </DockPanel>
             <common:LevelGraph Margin="15,0,15,15"
                                DataContext="{Binding Graph}"/>

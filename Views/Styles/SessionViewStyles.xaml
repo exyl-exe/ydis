@@ -6,7 +6,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}"/>
+        <Setter Property="Background" Value="{StaticResource SwitchViewButtonBackgroundColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="TextBlock.FontSize" Value="20"/>
         <Setter Property="Template">

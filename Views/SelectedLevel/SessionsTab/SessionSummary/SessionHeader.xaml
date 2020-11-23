@@ -6,8 +6,7 @@
              xmlns:local="Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Padding="0,5,0,5"
-            Background="{StaticResource HeaderBackgroundColor}">
+    <Border Padding="0,5,0,5">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

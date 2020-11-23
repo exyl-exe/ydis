@@ -14,9 +14,10 @@
     <SolidColorBrush x:Key="ElementSeparatorColor" Color="#787b7c"/>
     <SolidColorBrush x:Key="SelectedColor" Color="#b0b4b6" Opacity=".3"/>
     <SolidColorBrush x:Key="HoverColor" Color="#4a4f51"/>
-    <SolidColorBrush x:Key="EntryColor" Color="#232628"/>
-    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#282828"/>
-    
+    <SolidColorBrush x:Key="EntryColor" Color="#252525"/>
+    <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#262829"/>
+    <SolidColorBrush x:Key="TabItemHighlightColor" Color="#303030"/>
+
     <!-- Scrollbar -->
     <SolidColorBrush x:Key="ScrollBarBackgroundColor" Color="#282828"/>
     <SolidColorBrush x:Key="ScrollBarThumbColor" Color="#484d50"/>
@@ -41,10 +42,13 @@
 
     <!-- Datagrid colors-->
     <SolidColorBrush x:Key="DatagridHeaderHighlightColor" Color="#b0b4b6" Opacity="0.2"/>
-    <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#282828"/>
+    <SolidColorBrush x:Key="DatagridHeaderBackgroundColor" Color="#262829"/>
+
+    <!-- Session View colors -->
+    <SolidColorBrush x:Key="SwitchViewButtonHighlightColor" Color="#313232"/>
+    <SolidColorBrush x:Key="SwitchViewButtonBackgroundColor" Color="#262829"/>
 
     <!-- other colors -->
     <SolidColorBrush x:Key="ButtonHighlightColor" Color="#bbbbbb"/>
-    <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#3e4549"/>
-    <SolidColorBrush x:Key="SwitchViewButtonHighlightColor" Color="#666666"/>
+    <SolidColorBrush x:Key="SessionButtonBackgroundColor" Color="#404547"/>
 </ResourceDictionary>
