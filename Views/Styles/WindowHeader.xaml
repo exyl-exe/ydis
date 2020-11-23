@@ -2,6 +2,73 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:shell="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
                     xmlns:local="clr-namespace:Whydoisuck.Views">
+
+    <Style x:Key="WindowMinimizeButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Image Source="{StaticResource minIcon}"
+                               Height="32"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ChromeHighlightColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="WindowSizeButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Image x:Name="maxIconImage"
+                               Source="{StaticResource maxIcon}"
+                               Height="32"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ChromeHighlightColor}"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                     Value="Maximized">
+                            <Setter TargetName="maxIconImage"
+                                    Property="Source" Value="{StaticResource unmaxIcon}"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="WindowCloseButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <Image Source="{StaticResource closeIcon}"
+                               Height="32"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ChromeCloseColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="WDISWindow" TargetType="local:MainWindow">
         <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
@@ -15,23 +82,25 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:MainWindow">
-                    <Border Background="{StaticResource HeaderBackgroundColor}"
+                    <Border Background="{StaticResource ChromeBackgroundColor}"
                             BorderThickness="0.8"
                             BorderBrush="{StaticResource PanelSeparatorColor}">
                         <DockPanel>
                             <Border BorderThickness="0,0,0,1"
-                                    BorderBrush="{StaticResource PanelSeparatorColor}"  DockPanel.Dock="Top">
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="5"
+                                    BorderBrush="{StaticResource PanelSeparatorColor}"
+                                    DockPanel.Dock="Top">
+                                <DockPanel Margin="5"
                                             Height="50">
-                                    <Image Source="{StaticResource wdisIcon}"/>
+                                    <Image DockPanel.Dock="Left"
+                                           Source="{StaticResource wdisIcon}"/>
+                                    <local:WindowChromeCommands DockPanel.Dock="Right"/>
                                     <TextBlock Text="{TemplateBinding Title}"
                                                Margin="10,0,0,0"
-                                               FontSize="30"
+                                               FontSize="25"
                                                Foreground="{StaticResource TextColor}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Stretch"/>
-                                </StackPanel>
+                                </DockPanel>
                             </Border>
                             <Border Margin="0">
                                 <ContentPresenter Content="{TemplateBinding Content}"/>

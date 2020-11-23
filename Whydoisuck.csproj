@@ -150,6 +150,7 @@
     <Compile Include="Views\CurrentLevel\CurrentLevelView.xaml.cs">
       <DependentUpon>CurrentLevelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs" />
     <Compile Include="Views\NavigationPanel\NavigationSearchPanel.xaml.cs">
       <DependentUpon>NavigationSearchPanel.xaml</DependentUpon>
     </Compile>
@@ -186,9 +187,16 @@
     <Compile Include="Views\SelectedLevel\SessionsTab\SessionSummary\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowChromeCommands.xaml.cs">
+      <DependentUpon>WindowChromeCommands.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Images\Images.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Styles\DatagridStyles.xaml">
       <SubType>Designer</SubType>
@@ -258,20 +266,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\MemoryReading\GDMemoryReader.cs" />
     <Compile Include="Model\MemoryReading\MemoryReader.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Views\NavigationPanel\NavigationSearchResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -321,6 +321,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Styles\WindowHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowChromeCommands.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -381,6 +385,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\Images\wdisIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\closeIcon.png" />
+    <Resource Include="Views\Images\maxIcon.png" />
+    <Resource Include="Views\Images\minIcon.png" />
+    <Resource Include="Views\Images\unmaxIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

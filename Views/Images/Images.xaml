@@ -3,7 +3,19 @@
    
     <BitmapImage x:Key="wdisIcon"
                  UriSource="/Views/Images/wdisIcon.ico"/>
+
+    <BitmapImage x:Key="closeIcon"
+                 UriSource="/Views/Images/closeIcon.png"/>
+
+    <BitmapImage x:Key="maxIcon"
+                 UriSource="/Views/Images/maxIcon.png"/>
+
+    <BitmapImage x:Key="unmaxIcon"
+                 UriSource="/Views/Images/unmaxIcon.png"/>
     
+    <BitmapImage x:Key="minIcon"
+                 UriSource="/Views/Images/minIcon.png"/>
+
     <BitmapImage x:Key="searchIcon"
                  UriSource="/Views/Images/searchIcon.png"/>
 

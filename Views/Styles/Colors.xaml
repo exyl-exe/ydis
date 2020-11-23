@@ -1,5 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Window header -->
+    <SolidColorBrush x:Key="ChromeBackgroundColor" Color="#171717"/>
+    <SolidColorBrush x:Key="ChromeHighlightColor" Color="#b0b4b6" Opacity=".3"/>
+    <SolidColorBrush x:Key="ChromeCloseColor" Color="#ff0000" Opacity=".5"/>
+
     <!-- Common colors -->
     <SolidColorBrush x:Key="TextColor" Color="#dae0e3"/>
     <SolidColorBrush x:Key="AppBackgroundColor" Color="#464b4e"/>
