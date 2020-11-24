@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
@@ -14,7 +15,14 @@ namespace Whydoisuck.ViewModels.DataStructures
         /// Statistics about every part of the level
         /// </summary>
         public List<LevelPartStatistics> Statistics { get; private set; }
-
+        /// <summary>
+        /// Total playtime in the sessions
+        /// </summary>
+        public TimeSpan PlayTime { get; set; }
+        /// <summary>
+        /// Total attempts in the sessions
+        /// </summary>
+        public int TotalAttempts { get; set; }
         /// <summary>
         /// Delegate for callbacks when the statistics are updated.
         /// </summary>
@@ -39,6 +47,8 @@ namespace Whydoisuck.ViewModels.DataStructures
             Filter = filter;
             Dividing = GetParts(defaultPartWidth);
             Statistics = GetStatistics();
+            PlayTime = new TimeSpan(sessions.Sum(s => s.Duration.Ticks));
+            TotalAttempts = sessions.Sum(s => s.Attempts.Count());
             if(Filter != null) {
                 Filter.OnFilterChanges += UpdateStatistics;
             }
