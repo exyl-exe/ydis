@@ -7,7 +7,7 @@ using Whydoisuck.DataSaving;
 using Whydoisuck.ViewModels.CurrentLevel;
 using Whydoisuck.ViewModels.Navigation;
 using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.Views.Currentlevel;
+using Whydoisuck.Views.CurrentLevel;
 
 namespace Whydoisuck.ViewModels
 {

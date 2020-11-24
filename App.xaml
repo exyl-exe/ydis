@@ -14,11 +14,13 @@
                 <ResourceDictionary Source="Views/Styles/GraphStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/DatagridStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/FilteringPanelStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/CurrentLevelStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/NavigationPanelStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/SessionTabStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/SessionViewStyles.xaml"/>
                 <ResourceDictionary Source="Views/ResourceDicts/NavigatorDataTemplates.xaml"/>
                 <ResourceDictionary Source="Views/ResourceDicts/SelectedLevelDataTemplates.xaml"/>
+                <ResourceDictionary Source="Views/ResourceDicts/CurrentLevelDataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

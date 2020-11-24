@@ -134,6 +134,10 @@
     <value>{0:F0}%</value>
     <comment>Format</comment>
   </data>
+  <data name="AuthorFormat" xml:space="preserve">
+    <value>Whydoisuck {0} by exyl</value>
+    <comment>Format</comment>
+  </data>
   <data name="CurrentLevelGroupDefault" xml:space="preserve">
     <value>none</value>
   </data>
@@ -145,6 +149,12 @@
   </data>
   <data name="CurrentLevelNavButton" xml:space="preserve">
     <value>Current session</value>
+  </data>
+  <data name="CurrentLevelNotPlayingText" xml:space="preserve">
+    <value>Exiting the level will save the session in a folder containing all sessions played on it, including copies. By clicking on the corresponding folder on the left, you can view statistics about the level.</value>
+  </data>
+  <data name="CurrentLevelNotPlayingTitle" xml:space="preserve">
+    <value>You can start playing a level, every attempt spent on it is going to be registered !</value>
   </data>
   <data name="CurrentLevelTitleDefault" xml:space="preserve">
     <value>Not playing any level</value>
@@ -158,6 +168,12 @@
   </data>
   <data name="FilterPanelNormalCheckbox" xml:space="preserve">
     <value>Show normal mode attempts</value>
+  </data>
+  <data name="GithubLabel" xml:space="preserve">
+    <value>Latest releases</value>
+  </data>
+  <data name="GithubLink" xml:space="preserve">
+    <value>https://github.com/exyl-exe/whydoisuck/releases</value>
   </data>
   <data name="GraphPassRateAxisTitle" xml:space="preserve">
     <value>Pass rate</value>
@@ -253,5 +269,8 @@
   <data name="TooltipReachCountFormat" xml:space="preserve">
     <value>Reached {0} times</value>
     <comment>Format</comment>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>1.0</value>
   </data>
 </root>

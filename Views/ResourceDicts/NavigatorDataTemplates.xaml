@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:selectedView="clr-namespace:Whydoisuck.Views.SelectedLevel"
-                    xmlns:currentView="clr-namespace:Whydoisuck.Views.Currentlevel"
+                    xmlns:currentView="clr-namespace:Whydoisuck.Views.CurrentLevel"
                     xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.CurrentLevel"
                     xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel">
     <DataTemplate DataType="{x:Type currentLevelVM:CurrentLevelViewModel}">

@@ -21,27 +21,22 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         /// </summary>
         public string Title { get; set; }
         /// <summary>
-        /// Name of the group this session will belong to.
+        /// View model for the current part of the view to display
+        /// depending on if the user's playing a level or not
         /// </summary>
-        public string Autoguess { get; set; }
-        /// <summary>
-        /// Statistics about the current session, as a graph
-        /// </summary>
-        public LevelGraphViewModel Graph { get; set; }
-        /// <summary>
-        /// Statistics about the current session, as a grid
-        /// </summary>
-        public LevelDataGridViewModel Datagrid { get; set; }
+        public BaseViewModel CurrentView { get; private set; }
         // Recorder managing the current session
         private Recorder Recorder { get; set; }
-        // current session object
-        private Session Session { get; set; }
-        // statistics about the current session
-        private SessionsStatistics CurrentLevelStats { get; set; }
+        // View model for the place holder
+        private CurrentLevelPlaceholderViewModel Placeholder { get; set; }
+        // View model for statistics about the current session
+        private CurrentLevelStatisticsViewModel Statistics { get; set; }
 
         public CurrentLevelViewModel(Recorder recorder)
         {
             Recorder = recorder;
+            Placeholder = new CurrentLevelPlaceholderViewModel();
+            Statistics = new CurrentLevelStatisticsViewModel();
             SetDefaulProperties();
             Recorder.OnAttemptAdded += OnAttemptAddedToCurrent;
             Recorder.OnNewCurrentSessionInitialized += OnNewCurrentSession;
@@ -54,14 +49,13 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         /// <param name="s">The session created by the recorder</param>
         public void OnNewCurrentSession(Session s)
         {
-            Session = s;
-            Title = s.Level.Name;
-            Autoguess = Recorder.Autoguess==null?
-                        Resources.CurrentLevelGroupNew
-                        :Recorder.Autoguess.DisplayedName;
-            CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
-            Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
-            Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
+            CurrentView = Statistics;
+            Statistics.SetSession(s);
+            var autoguess = Recorder.Autoguess == null ?
+                            Resources.CurrentLevelGroupNew
+                            : Recorder.Autoguess.DisplayedName;
+            Statistics.SetAutoguess(autoguess);
+            Title = s.Level.Name;                       
             Update();
         }
 
@@ -81,30 +75,22 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         /// <param name="a"></param>
         public void OnAttemptAddedToCurrent(Attempt a)
         {
-            CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
-            Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
-            Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
+            Statistics.RefreshStats();
             Update();
         }
 
         // Resets the properties, to clean up between two sessions.
         private void SetDefaulProperties()
         {
-            Session = null;
-            CurrentLevelStats = null;
-            Graph = null;
-            Datagrid = null;
+            CurrentView = Placeholder;
             Title = Resources.CurrentLevelTitleDefault;
-            Autoguess = Resources.CurrentLevelGroupDefault;
         }
 
         // Notifies the view that the viewmodel changed.
         private void Update()
         {
             OnPropertyChanged(nameof(Title));
-            OnPropertyChanged(nameof(Autoguess));
-            OnPropertyChanged(nameof(Graph));
-            OnPropertyChanged(nameof(Datagrid));
+            OnPropertyChanged(nameof(CurrentView));
         }
     }
 }

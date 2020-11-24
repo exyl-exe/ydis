@@ -91,6 +91,8 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelDatagridItemViewModel.cs" />
+    <Compile Include="ViewModels\CurrentLevel\CurrentLevelPlaceholderViewModel.cs" />
+    <Compile Include="ViewModels\CurrentLevel\CurrentLevelStatisticsViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\AttemptViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\SessionFilterViewModel.cs" />
     <Compile Include="ViewModels\DataStructures\LevelPartStatistics.cs" />
@@ -147,6 +149,12 @@
     <Compile Include="Views\CommonControls\SessionFilterPanel.xaml.cs">
       <DependentUpon>SessionFilterPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CurrentLevel\CurrentLevelPlaceholder.xaml.cs">
+      <DependentUpon>CurrentLevelPlaceholder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CurrentLevel\CurrentLevelStatistics.xaml.cs">
+      <DependentUpon>CurrentLevelStatistics.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CurrentLevel\CurrentLevelView.xaml.cs">
       <DependentUpon>CurrentLevelView.xaml</DependentUpon>
     </Compile>
@@ -190,6 +198,14 @@
     <Compile Include="Views\WindowChromeCommands.xaml.cs">
       <DependentUpon>WindowChromeCommands.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\CurrentLevel\CurrentLevelPlaceholder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CurrentLevel\CurrentLevelStatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Images\Images.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,7 +214,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ResourceDicts\CurrentLevelDataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Styles\DatagridStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\CurrentLevelStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

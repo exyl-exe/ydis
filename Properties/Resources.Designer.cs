@@ -106,6 +106,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Whydoisuck {0} by exyl.
+        /// </summary>
+        public static string AuthorFormat {
+            get {
+                return ResourceManager.GetString("AuthorFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to none.
         /// </summary>
         public static string CurrentLevelGroupDefault {
@@ -142,6 +151,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exiting the level will save the session in a folder containing all sessions played on it, including copies. By clicking on the corresponding folder on the left, you can view statistics about the level..
+        /// </summary>
+        public static string CurrentLevelNotPlayingText {
+            get {
+                return ResourceManager.GetString("CurrentLevelNotPlayingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can start playing a level, every attempt spent on it is going to be registered !.
+        /// </summary>
+        public static string CurrentLevelNotPlayingTitle {
+            get {
+                return ResourceManager.GetString("CurrentLevelNotPlayingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not playing any level.
         /// </summary>
         public static string CurrentLevelTitleDefault {
@@ -174,6 +201,24 @@ namespace Whydoisuck.Properties {
         public static string FilterPanelNormalCheckbox {
             get {
                 return ResourceManager.GetString("FilterPanelNormalCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest releases.
+        /// </summary>
+        public static string GithubLabel {
+            get {
+                return ResourceManager.GetString("GithubLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/exyl-exe/whydoisuck/releases.
+        /// </summary>
+        public static string GithubLink {
+            get {
+                return ResourceManager.GetString("GithubLink", resourceCulture);
             }
         }
         
@@ -417,6 +462,15 @@ namespace Whydoisuck.Properties {
         public static string TooltipReachCountFormat {
             get {
                 return ResourceManager.GetString("TooltipReachCountFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.0.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }

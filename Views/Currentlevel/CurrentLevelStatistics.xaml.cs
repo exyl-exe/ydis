@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.CurrentLevel
 {
     /// <summary>
-    /// Code-behind for CurrentLevelView.xaml
+    /// Interaction logic for CurrentLevelStatistics.xaml
     /// </summary>
-    public partial class CurrentLevelView : UserControl
+    public partial class CurrentLevelStatistics : UserControl
     {
-        public CurrentLevelView()
+        public CurrentLevelStatistics()
         {
             InitializeComponent();
         }

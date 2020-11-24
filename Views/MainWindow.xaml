@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:navigationpanel="clr-namespace:Whydoisuck.Views.NavigationPanel"
-        xmlns:currentlevel="clr-namespace:Whydoisuck.Views.Currentlevel"
+        xmlns:currentlevel="clr-namespace:Whydoisuck.Views.CurrentLevel"
         xmlns:props="clr-namespace:Whydoisuck.Properties"
         mc:Ignorable="d"
         Title="{x:Static props:Resources.AppTitle}"
