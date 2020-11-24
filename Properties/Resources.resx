@@ -165,6 +165,10 @@
   <data name="GraphPercentAxisTitle" xml:space="preserve">
     <value>Level %</value>
   </data>
+  <data name="GraphPlayTimeFormat" xml:space="preserve">
+    <value>Play time : {0:hh}h {0:mm}m {0:ss}s</value>
+    <comment>Format</comment>
+  </data>
   <data name="GraphTitleCurrentSession" xml:space="preserve">
     <value>Current session</value>
   </data>
@@ -173,6 +177,10 @@
   </data>
   <data name="GraphTitleOverall" xml:space="preserve">
     <value>Overall statistics</value>
+  </data>
+  <data name="GraphTotalAttemptFormat" xml:space="preserve">
+    <value>{0} attempts</value>
+    <comment>Format</comment>
   </data>
   <data name="SelectedLevelGraphTab" xml:space="preserve">
     <value>Statistics</value>

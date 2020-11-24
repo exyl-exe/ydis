@@ -8,17 +8,35 @@
              xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
-    <common:OxyPlotTooltipHover x:Name="LevelPlot"
-                                Title="{Binding GraphTitle}"
-                                Height="500"
-                                Style="{StaticResource StatisticsGraphStyle}">
-        <common:OxyPlotTooltipHover.DefaultTrackerTemplate>
-            <ControlTemplate>
-                <common:LevelGraphTracker/>
-            </ControlTemplate>
-        </common:OxyPlotTooltipHover.DefaultTrackerTemplate>
-        <common:OxyPlotTooltipHover.Axes>
-            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
+    <DockPanel>
+        <Border DockPanel.Dock="Top"
+                Background="{StaticResource PanelBackgroundColor}"
+                Padding="10">
+            <StackPanel Orientation="Vertical"
+                        Background="{StaticResource HeaderBackgroundColor}">
+                <TextBlock Text="{Binding GraphTitle}"
+                           Style="{StaticResource GraphTitleStyle}"
+                           Margin="0,8,0,5"/>
+                <UniformGrid Columns="2"
+                             Rows="1"
+                             Margin="20,0,20,8">
+                    <TextBlock Text="{Binding PlayTimeText}"
+                               Style="{StaticResource GraphSubtitleStyle}"/>
+                    <TextBlock Text="{Binding AttemptCountText}"
+                               Style="{StaticResource GraphSubtitleStyle}"/>
+                </UniformGrid>
+            </StackPanel>
+        </Border>
+        <common:OxyPlotTooltipHover x:Name="LevelPlot"
+                                    Height="500"
+                                    Style="{StaticResource StatisticsGraphStyle}">
+            <common:OxyPlotTooltipHover.DefaultTrackerTemplate>
+                <ControlTemplate>
+                    <common:LevelGraphTracker/>
+                </ControlTemplate>
+            </common:OxyPlotTooltipHover.DefaultTrackerTemplate>
+            <common:OxyPlotTooltipHover.Axes>
+                <oxy:LinearAxis Title="{x:Static props:Resources.GraphPercentAxisTitle}"
                             Style="{StaticResource StatisticsGraphAxisStyle}"
                             Position="Bottom"
                             Minimum="0"
@@ -28,7 +46,7 @@
                             IsZoomEnabled="False"
                             IsPanEnabled="False"/>
 
-            <oxy:LinearAxis Title="{x:Static props:Resources.GraphPassRateAxisTitle}"
+                <oxy:LinearAxis Title="{x:Static props:Resources.GraphPassRateAxisTitle}"
                             Style="{StaticResource StatisticsGraphAxisStyle}"
                             Position="Left"
                             Minimum="0"
@@ -37,10 +55,11 @@
                             MinorStep="5"
                             IsZoomEnabled="False"
                             IsPanEnabled="False"/>
-        </common:OxyPlotTooltipHover.Axes>
-        <common:OxyPlotTooltipHover.Series>
-            <oxy:LineSeries ItemsSource="{Binding Points}"
+            </common:OxyPlotTooltipHover.Axes>
+            <common:OxyPlotTooltipHover.Series>
+                <oxy:LineSeries ItemsSource="{Binding Points}"
                             Style="{StaticResource StatisticsGraphSeriesStyle}"/>
-        </common:OxyPlotTooltipHover.Series>
-    </common:OxyPlotTooltipHover>
+            </common:OxyPlotTooltipHover.Series>
+        </common:OxyPlotTooltipHover>
+    </DockPanel>
 </UserControl>

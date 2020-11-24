@@ -22,16 +22,16 @@ namespace Whydoisuck.Views.CommonControls
     /// </summary>
     public partial class OxyPlotTooltipHover : OxyPlot.Wpf.Plot
     {
-        private void InitController()
-        {
-            ActualController.UnbindMouseDown(OxyMouseButton.Left);
-            ActualController.BindMouseEnter(PlotCommands.HoverPointsOnlyTrack);
-        }
-
         public OxyPlotTooltipHover()
         {
             InitializeComponent();
             InitController();
+        }
+
+        private void InitController()
+        {
+            ActualController.UnbindMouseDown(OxyMouseButton.Left);
+            ActualController.BindMouseEnter(PlotCommands.HoverPointsOnlyTrack);
         }
     }
 }

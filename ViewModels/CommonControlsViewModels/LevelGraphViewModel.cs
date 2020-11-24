@@ -28,6 +28,16 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         /// </summary>
         public string GraphTitle { get; private set; }
 
+        /// <summary>
+        /// Text for time spent on the level
+        /// </summary>
+        public string PlayTimeText => string.Format(Resources.GraphPlayTimeFormat, Statistics.PlayTime);
+
+        /// <summary>
+        /// Text for total attempt count
+        /// </summary>
+        public string AttemptCountText => string.Format(Resources.GraphTotalAttemptFormat, Statistics.TotalAttempts);
+
         // Statistics depicted by the graph.
         private SessionsStatistics Statistics { get; set; }
 
@@ -44,6 +54,8 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         {
             Points = GetPoints(Statistics.Statistics);
             OnPropertyChanged(nameof(Points));
+            OnPropertyChanged(nameof(PlayTimeText));
+            OnPropertyChanged(nameof(AttemptCountText));
         }
 
         // Creates points for the given statistics

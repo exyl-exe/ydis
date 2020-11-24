@@ -79,7 +79,7 @@ namespace Whydoisuck.ViewModels.DataStructures
         /// Gets statistics about the level, taking into account filtering criteria.
         /// </summary>
         /// <returns>Statistics about each part of the level</returns>
-        public List<LevelPartStatistics> GetStatistics()
+        public List<LevelPartStatistics> GetStatistics() // TODO sessions as parameters
         {
             var res = new List<LevelPartStatistics>();
             // Sessions matching the filter
@@ -137,7 +137,10 @@ namespace Whydoisuck.ViewModels.DataStructures
         // Updates statistics and notify the change 
         private void UpdateStatistics()
         {
+            var sessions = Filter == null ? Sessions : Sessions.Where(s => Filter.Matches(s)).ToList();
             Statistics = GetStatistics();
+            PlayTime = new TimeSpan(sessions.Sum(s => s.Duration.Ticks));
+            TotalAttempts = sessions.Sum(s => s.Attempts.Count());
             OnStatisticsChange?.Invoke();
         }
     }

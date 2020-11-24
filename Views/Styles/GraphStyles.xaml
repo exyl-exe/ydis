@@ -12,15 +12,29 @@
         <Setter Property="TextBlock.FontSize" Value="15"/>
     </Style>
 
+    <Style x:Key="GraphTitleStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+    </Style>
+
+    <Style x:Key="GraphSubtitleStyle" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+    </Style>
+
     <Style x:Key="StatisticsGraphStyle" TargetType="common:OxyPlotTooltipHover">
         <Setter Property="Padding" Value="5,10,20,5"/>
-        <Setter Property="TitlePadding" Value="10"/>
         <Setter Property="PlotAreaBorderThickness" Value="1,0,1,1"/>
         <Setter Property="PlotAreaBorderColor" Value="{StaticResource GraphAxisColor}"/>
         <Setter Property="Background" Value="{StaticResource GraphBackgroundColor}"/>
         <Setter Property="TextColor" Value="{StaticResource GraphTextColor}"/>
-        <Setter Property="TitleFont" Value="{StaticResource DefaultFontName}"/>
-        <Setter Property="TitleColor" Value="{StaticResource GraphTextColor}"/>
         <Setter Property="LegendTextColor" Value="{StaticResource GraphTextColor}"/>
         <Setter Property="LegendTitleColor" Value="{StaticResource GraphTextColor}"/>
     </Style>

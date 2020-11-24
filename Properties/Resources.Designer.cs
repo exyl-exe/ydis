@@ -196,6 +196,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Play time : {0:hh}h {0:mm}m {0:ss}s.
+        /// </summary>
+        public static string GraphPlayTimeFormat {
+            get {
+                return ResourceManager.GetString("GraphPlayTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current session.
         /// </summary>
         public static string GraphTitleCurrentSession {
@@ -219,6 +228,15 @@ namespace Whydoisuck.Properties {
         public static string GraphTitleOverall {
             get {
                 return ResourceManager.GetString("GraphTitleOverall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} attempts.
+        /// </summary>
+        public static string GraphTotalAttemptFormat {
+            get {
+                return ResourceManager.GetString("GraphTotalAttemptFormat", resourceCulture);
             }
         }
         
