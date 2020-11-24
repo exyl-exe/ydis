@@ -158,6 +158,7 @@ namespace Whydoisuck.DataSaving
                 CreateAttemptIfNotExists(state);
                 CurrentAttempt.EndPercent = endPercent;
                 CurrentSession.AddAttempt(CurrentAttempt);
+                CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime; //Updating duration for UI
                 OnAttemptAdded?.Invoke(CurrentAttempt);
             }
             CurrentAttempt = null;
