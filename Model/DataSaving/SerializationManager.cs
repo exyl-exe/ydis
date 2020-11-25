@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Properties;
 using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
@@ -20,14 +21,14 @@ namespace Whydoisuck.DataSaving
         /// <summary>
         /// Directory where all of the data is saved.
         /// </summary>
-        public const string SAVE_DIR = "./records/";//TODO config ?
+        public static string SaveDirectory => Settings.Default.SavePath;
         /// <summary>
         /// Path for the file containing the session manager.
         /// </summary>
-        public static string IndexFilePath { get { return SafePath.Combine(SAVE_DIR, INDEX_FILE_NAME); } }
+        public static string IndexFilePath { get { return SafePath.Combine(SaveDirectory, IndexFileName); } }
 
         // name of the file containing the session manager
-        const string INDEX_FILE_NAME = "indexedLevels.wdis";
+        private static string IndexFileName => Settings.Default.IndexerFileName;
 
         /// <summary>
         /// Initializes folders and files on the disk so that the session manager
@@ -35,9 +36,9 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public static void Init()
         {
-            if (!SafeDirectory.Exists(SAVE_DIR))
+            if (!SafeDirectory.Exists(SaveDirectory))
             {
-                SafeDirectory.CreateDirectory(SAVE_DIR);
+                SafeDirectory.CreateDirectory(SaveDirectory);
             }
         }
 
@@ -133,7 +134,7 @@ namespace Whydoisuck.DataSaving
         // Gets the path of the directory of a group.
         private static string GetGroupDirectoryPath(SessionGroup group)
         {
-            var path = SafePath.Combine(SAVE_DIR, group.GroupName.Trim() + SafePath.DirectorySeparator);
+            var path = SafePath.Combine(SaveDirectory, group.GroupName.Trim() + SafePath.DirectorySeparator);
             return path;
         }
 

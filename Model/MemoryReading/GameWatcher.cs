@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
+using Whydoisuck.Properties;
 
 namespace Whydoisuck.Model.MemoryReading
 {
@@ -54,7 +55,7 @@ namespace Whydoisuck.Model.MemoryReading
         public static event GameInfoCallback OnPlayerSpawns;
 
         // Delay between every check of the game's state
-        private static int Delay => Properties.Settings.Default.ScanRate;//milliseconds
+        private static int Delay => Settings.Default.ScanRate;//milliseconds
         // Boolean true if the GameWatcher is active
         private static bool IsRecording { get; set; }
         // Reader to access the game's memory

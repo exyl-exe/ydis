@@ -28,7 +28,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel
         /// ViewModel for the sessions tab
         /// </summary>
         public SessionsTabMainViewModel Sessions { get; set; }
-
+        // Selected folder
         private SessionGroup SelectedLevel { get; set; }
 
         public SelectedLevelViewModel(SessionGroup g)
