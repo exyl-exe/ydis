@@ -187,6 +187,33 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occured, the application must stop. You may report this issue on the discord server..
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information about the error are logged in the folder: {0}.
+        /// </summary>
+        public static string ErrorMessageLogLocationFormat {
+            get {
+                return ResourceManager.GetString("ErrorMessageLogLocationFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorMessageTitle {
+            get {
+                return ResourceManager.GetString("ErrorMessageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show start position attempts.
         /// </summary>
         public static string FilterPanelCopyCheckbox {

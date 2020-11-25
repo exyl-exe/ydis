@@ -58,5 +58,14 @@ namespace Whydoisuck.Properties {
                 return ((string)(this["IndexerFileName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("./logs/")]
+        public string LogsPath {
+            get {
+                return ((string)(this["LogsPath"]));
+            }
+        }
     }
 }

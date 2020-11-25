@@ -90,6 +90,7 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
+    <Compile Include="Model\Utilities\ExceptionLogger.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelDatagridItemViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelPlaceholderViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelStatisticsViewModel.cs" />
@@ -160,7 +161,7 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="Views\NavigationPanel\NavigationSearchPanel.xaml.cs">
       <DependentUpon>NavigationSearchPanel.xaml</DependentUpon>
     </Compile>

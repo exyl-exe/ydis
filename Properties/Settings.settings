@@ -14,5 +14,8 @@
     <Setting Name="IndexerFileName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">indexedLevels.wdis</Value>
     </Setting>
+    <Setting Name="LogsPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">./logs/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

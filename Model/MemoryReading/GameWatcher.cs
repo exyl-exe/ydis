@@ -100,6 +100,14 @@ namespace Whydoisuck.Model.MemoryReading
             CurrentWatchThread.Join();
         }
 
+        /// <summary>
+        /// Called to stop watching the game's process. Returns before the gamewatcher actually stops.
+        /// </summary>
+        public static void StopWatchingAsync()
+        {
+            IsRecording = false;
+        }
+
         // Manages events based on the state of the game
         private static void UpdateState()
         {

@@ -96,6 +96,15 @@ namespace Whydoisuck.DataSaving
             Manager.Save();
         }
 
+        /// <summary>
+        /// Prevent the recorder from saving data.
+        /// </summary>
+        public void CrashRecorder()
+        {
+            //TODO prevent callbacks from being called
+            GameWatcher.StopWatchingAsync();
+        }
+
         // Called when entering a level, ensure a session is created before an attempt needs to be saved
         // However, while its metadata is fully loaded, the level is not
         // Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
