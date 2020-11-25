@@ -158,7 +158,9 @@
     <Compile Include="Views\CurrentLevel\CurrentLevelView.xaml.cs">
       <DependentUpon>CurrentLevelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Views\NavigationPanel\NavigationSearchPanel.xaml.cs">
       <DependentUpon>NavigationSearchPanel.xaml</DependentUpon>
     </Compile>
