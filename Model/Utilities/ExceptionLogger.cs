@@ -13,7 +13,7 @@ namespace Whydoisuck.Model.Utilities
     {
         private static string LogsPath => Settings.Default.LogsPath;
 
-        public static void Log(object sender, DispatcherUnhandledExceptionEventArgs e)
+        public static void Log(Exception e)
         {
             if (!SafeDirectory.Exists(LogsPath))
             {
@@ -26,9 +26,8 @@ namespace Whydoisuck.Model.Utilities
                 }
             }
             var fileName = string.Format("{0:yyyy}{0:mm}{0:dd}_{0:hh}{0:ss}{0:ffff}", DateTime.Now);
-            var text = e.Exception.Message + "\n" + e.Exception.StackTrace;
+            var text = e.Message + "\n" + e.StackTrace;
             SafeFile.WriteAllText(SafePath.Combine(LogsPath, fileName), text);
-            e.Handled = true;
         }
 
     }

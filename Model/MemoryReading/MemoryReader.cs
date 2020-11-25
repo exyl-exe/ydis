@@ -26,8 +26,7 @@ namespace Whydoisuck.Model.MemoryReading
                 } catch
                 {
                     return IntPtr.Zero;
-                }
-                
+                }                
             }
         }
 
