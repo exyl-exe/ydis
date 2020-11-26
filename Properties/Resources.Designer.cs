@@ -187,6 +187,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete group.
+        /// </summary>
+        public static string DeleteGroupButtonText {
+            get {
+                return ResourceManager.GetString("DeleteGroupButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occured, the application must stop. You may report this issue on the discord server..
         /// </summary>
         public static string ErrorMessage {

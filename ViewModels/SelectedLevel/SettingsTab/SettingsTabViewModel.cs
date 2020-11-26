@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Properties;
 using Whydoisuck.Views.Commands;
 
 namespace Whydoisuck.ViewModels.SelectedLevel.SettingsTab
@@ -18,6 +19,11 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SettingsTab
         /// Command that deletes the group
         /// </summary>
         public DeleteGroupCommand DeleteGroup { get; private set; }
+
+        /// <summary>
+        /// Text for button deleting current group
+        /// </summary>
+        public string DeleteButtonText => Resources.DeleteGroupButtonText;
 
         // managed group
         private SessionGroup Group { get; set; }

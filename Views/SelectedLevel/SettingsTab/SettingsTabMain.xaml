@@ -6,9 +6,13 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.SelectedLevel.SettingsTab"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="{StaticResource PanelBackgroundColor}">
+    <Border Margin="15"
+            Background="{StaticResource PanelBackgroundColor}">
         <StackPanel>
-            <Button Content="Supprimer sauvagement" Command="{Binding DeleteGroup}"/>
+            <Button Content="{Binding DeleteButtonText}"
+                    Command="{Binding DeleteGroup}"
+                    Style="{StaticResource DeleteGroupButtonStyle}"
+                    Margin="15"/>
         </StackPanel>
     </Border>
 </UserControl>

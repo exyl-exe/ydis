@@ -163,6 +163,9 @@
     <value>{0:dd/MM/yyyy}</value>
     <comment>Format</comment>
   </data>
+  <data name="DeleteGroupButtonText" xml:space="preserve">
+    <value>Delete group</value>
+  </data>
   <data name="ErrorMessage" xml:space="preserve">
     <value>An error occured, the application must stop. You may report this issue on the discord server.</value>
   </data>
