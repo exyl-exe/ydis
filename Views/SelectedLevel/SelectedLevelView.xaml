@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.SelectedLevel"
              xmlns:graph="clr-namespace:Whydoisuck.Views.SelectedLevel.GraphTab"
              xmlns:sessions="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab"
+             xmlns:settings="clr-namespace:Whydoisuck.Views.SelectedLevel.SettingsTab"
              xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
              xmlns:props="clr-namespace:Whydoisuck.Properties"
              mc:Ignorable="d" 
@@ -39,12 +40,17 @@
             <TabItem x:Name="GraphTab"
                      Header="{x:Static props:Resources.SelectedLevelGraphTab}"
                      DataContext="{Binding GraphTab}">
-                <graph:GraphTabMain></graph:GraphTabMain>    
+                <graph:GraphTabMain/>
             </TabItem>
             <TabItem x:Name="SessionsTab"
                      Header="{x:Static props:Resources.SelectedLevelSessionsTab}"
                      DataContext="{Binding Sessions}">
-                <sessions:SessionsTabMain></sessions:SessionsTabMain>
+                <sessions:SessionsTabMain/>
+            </TabItem>
+            <TabItem x:Name="SettingsTab"
+                     Header="{x:Static props:Resources.SelectedLevelSettingsTab}"
+                     DataContext="{Binding Settings}">
+                <settings:SettingsTabView/>
             </TabItem>
         </TabControl>
     </DockPanel>

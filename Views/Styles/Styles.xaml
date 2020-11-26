@@ -63,7 +63,8 @@
                     <Border x:Name="TabHeader"
                             Background="{StaticResource HeaderBackgroundColor}"
                             BorderBrush="{StaticResource PanelSeparatorColor}"
-                            BorderThickness="0,0,0,1">
+                            BorderThickness="0,0,0,1"
+                            Margin="0,0,1,0">
                         <ContentPresenter Margin="10,2"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
@@ -79,7 +80,6 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="TabHeader"
                                     Property="BorderThickness" Value="1,1,1,0" />
-                            <Setter Property="Panel.ZIndex" Value="1"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -105,7 +105,7 @@
                                   Panel.ZIndex="1"
                                   Margin="5,0,5,-0.65"
                                   IsItemsHost="True"
-                                  KeyboardNavigation.TabIndex="1"
+                                  KeyboardNavigation.TabIndex="0"
                                   Background="Transparent"/>
 
                         <Border x:Name="Border"
@@ -113,9 +113,7 @@
                                 Background="Transparent"
                                 BorderThickness="0,1,0,0"
                                 BorderBrush="{StaticResource PanelSeparatorColor}">
-                            
                             <ContentPresenter ContentSource="SelectedContent"/>
-                            
                         </Border>
                     </Grid>
                 </ControlTemplate>

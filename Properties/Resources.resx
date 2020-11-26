@@ -214,6 +214,9 @@
   <data name="SelectedLevelSessionsTab" xml:space="preserve">
     <value>Sessions</value>
   </data>
+  <data name="SelectedLevelSettingsTab" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="SessionAttemptCountFormat" xml:space="preserve">
     <value>{0} attempts</value>
     <comment>Format</comment>

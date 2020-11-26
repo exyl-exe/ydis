@@ -8,6 +8,7 @@ using Whydoisuck.ViewModels.CommonControlsViewModels;
 using Whydoisuck.ViewModels.DataViewModels;
 using Whydoisuck.ViewModels.SelectedLevel.GraphTab;
 using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
+using Whydoisuck.ViewModels.SelectedLevel.SettingsTab;
 
 namespace Whydoisuck.ViewModels.SelectedLevel
 {
@@ -28,6 +29,10 @@ namespace Whydoisuck.ViewModels.SelectedLevel
         /// ViewModel for the sessions tab
         /// </summary>
         public SessionsTabMainViewModel Sessions { get; set; }
+        /// <summary>
+        /// View model for the settings of the group
+        /// </summary>
+        public SettingsTabViewModel Settings { get; set; }
         // Selected folder
         private SessionGroup SelectedLevel { get; set; }
 
@@ -36,6 +41,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel
             Group = new GroupViewModel(g);
             GraphTab = new GraphTabMainViewModel(g);
             Sessions = new SessionsTabMainViewModel(g);
+            Settings = new SettingsTabViewModel(g);
             SelectedLevel = g;
         }
 

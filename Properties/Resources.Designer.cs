@@ -331,6 +331,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SelectedLevelSettingsTab {
+            get {
+                return ResourceManager.GetString("SelectedLevelSettingsTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} attempts.
         /// </summary>
         public static string SessionAttemptCountFormat {
