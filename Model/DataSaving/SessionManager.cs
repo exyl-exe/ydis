@@ -49,6 +49,10 @@ namespace Whydoisuck.DataSaving
         /// Event invoked when a new group is added
         /// </summary>
         public event OnGroupUpdatedCallback OnGroupUpdated;
+        /// <summary>
+        /// Event invoked when a group is deleted
+        /// </summary>
+        public event OnGroupUpdatedCallback OnGroupDeleted;
 
         //private because only one instance of the class can exist
         private SessionManager()
@@ -148,6 +152,18 @@ namespace Whydoisuck.DataSaving
             newGroup.Levels.Add(level);
             SerializationManager.CreateGroupDirectory(newGroup);
             return newGroup;
+        }
+
+        /// <summary>
+        /// Deletes the given group and its data
+        /// </summary>
+        /// <param name="group">The group to delete</param>
+        public void DeleteGroup(SessionGroup group)
+        {
+            Groups.Remove(group);
+            SerializationManager.DeleteGroupDirectory(group);
+            Save();
+            OnGroupDeleted?.Invoke(group);
         }
 
         /// <summary>

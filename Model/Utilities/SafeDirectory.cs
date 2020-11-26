@@ -31,5 +31,10 @@ namespace Whydoisuck.Utilities
         {
             Directory.CreateDirectory(directoryPath);
         }
+
+        public static void DeleteDirectory(string directoryPath, bool recursiveDelete)
+        {
+            Directory.Delete(directoryPath, recursiveDelete);
+        }
     }
 }

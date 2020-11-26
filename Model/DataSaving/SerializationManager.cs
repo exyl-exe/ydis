@@ -63,6 +63,19 @@ namespace Whydoisuck.DataSaving
         }
 
         /// <summary>
+        /// Deletes the directory associated to a group and all of its content
+        /// </summary>
+        /// <param name="group"></param>
+        public static void DeleteGroupDirectory(SessionGroup group)
+        {
+            var path = GetGroupDirectoryPath(group);
+            if (SafeDirectory.Exists(path))
+            {
+                SafeDirectory.DeleteDirectory(path, true);
+            }
+        }
+
+        /// <summary>
         /// Loads the sessions of a group
         /// </summary>
         /// <param name="group">The group to load the sessions of</param>

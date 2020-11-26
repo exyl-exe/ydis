@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.SelectedLevel.SettingsTab"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock>
-            TODO SUPPRRPRPPRRP
-        </TextBlock>
-    </Grid>
+    <Border Background="{StaticResource PanelBackgroundColor}">
+        <StackPanel>
+            <Button Content="Supprimer sauvagement" Command="{Binding DeleteGroup}"/>
+        </StackPanel>
+    </Border>
 </UserControl>

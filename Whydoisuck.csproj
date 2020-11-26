@@ -130,6 +130,7 @@
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SettingsTab\SettingsTabViewModel.cs" />
+    <Compile Include="Views\Commands\DeleteGroupCommand.cs" />
     <Compile Include="Views\Commands\GoBackCommand.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\Commands\ViewSessionCommand.cs" />

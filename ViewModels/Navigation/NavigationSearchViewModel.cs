@@ -76,6 +76,20 @@ namespace Whydoisuck.ViewModels.Navigation
             UpdateSearchResults();
         }
 
+        /// <summary>
+        /// Deletes the search result about the given group
+        /// </summary>
+        /// <param name="group">deleted group</param>
+        public void DeleteGroup(SessionGroup group)
+        {
+            var existingResult = AllResults.Find(res => res.Group.Equals(group));
+            if(existingResult != null)
+            {
+                AllResults.Remove(existingResult);
+                UpdateSearchResults();
+            }
+        }
+
         // Updates matching search result and notifies the change.
         private void UpdateSearchResults()
         {

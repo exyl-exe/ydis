@@ -7,6 +7,7 @@ using Whydoisuck.DataSaving;
 using Whydoisuck.ViewModels.CurrentLevel;
 using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.Commands;
+using Whydoisuck.Views.CurrentLevel;
 
 namespace Whydoisuck.ViewModels.Navigation
 {
@@ -28,12 +29,13 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public NavigatorCommand GoToCurrentCommand { get; set; }
 
-        public NavigationPanelViewModel(MainWindowViewModel mainWindow)
+        public NavigationPanelViewModel(MainWindowViewModel mainWindow, CurrentLevelViewModel currentSession)
         {
             MainView = mainWindow;
-            GoToCurrentCommand = new NavigatorCommand(mainWindow, new CurrentLevelViewModel(mainWindow.Recorder));
+            GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
             SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
+            SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
         }
     }
 }
