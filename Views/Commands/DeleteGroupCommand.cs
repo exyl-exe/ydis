@@ -31,8 +31,8 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            var caption = string.Format(Resources.DeleteGroupCaptionFormat, Group.GroupName);
-            var content = string.Format(Resources.DeleteGroupContentFormat, Group.GroupName);
+            var caption = string.Format(Resources.DeleteGroupCaptionFormat, Group.DisplayedName);
+            var content = string.Format(Resources.DeleteGroupContentFormat, Group.DisplayedName);
             // lazyness, TODO custom dialog
             var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
             if(result == MessageBoxResult.Yes)
