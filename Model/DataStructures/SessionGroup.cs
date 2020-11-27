@@ -111,7 +111,7 @@ namespace Whydoisuck.Model.DataStructures
         /// <returns>True if the level is in the group, false otherwise</returns>
         public bool CouldContainLevel(Level level)
         {
-            return Levels.Any(l => l.CouldBeSameLevel(level));
+            return Levels.Any(l => l.ShouldBeGroupedWith(level));
         }
 
         /// <summary>

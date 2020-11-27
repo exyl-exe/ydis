@@ -124,69 +124,49 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         /// <param name="level">A level to compare this level to</param>
         /// <returns>True if the two levels would belong to the same group</returns>
-        public bool CouldBeSameLevel(Level level)
+        public bool ShouldBeGroupedWith(Level level)
         {
             if (level == null) return false;
-            if (IsOnline && level.IsOnline)
+
+            // If at least one is a copy, check if originalID/IDs match
+            // Also check for length to put in different groups modified copies
+            if(!IsOriginal || !level.IsOriginal)
+            {
+                return SamePhysicalLength(level) && FromSameLevel(level);
+            }
+
+            // If both are original levels, they won't be in the same group unless :
+            // They are actually just one level, which is uploaded
+            if(IsOnline && level.IsOnline)
             {
                 return ID == level.ID;
             }
 
-            if (FromSameLevel(level))
+            // One is a copy of the other, which isn't uploaded
+            // To check for copies of unuploaded level, length and music are compared
+            if(SamePhysicalLength(level) && SameMusic(level))
             {
                 return true;
             }
 
-            if (FromDifferentLevel(level))
-            {
-                return false;
-            }
-
-            if (SimilarName(level))
-            {
-                return true;
-            }
-
-            if (SameMusic(level) && SamePhysicalLength(level))
-            {
-                return true;
-            }
+            // If none of the condition matched then they are not in the same group
             return false;
         }
 
-        /// <summary>
-        /// Compares two levels to a sample.
-        /// </summary>
-        /// <param name="sample">The level to compare the levels to</param>
-        /// <param name="level1">One level</param>
-        /// <param name="level2">Another level</param>
-        /// <returns>1 if the first level is the most similar
-        /// -1 if the second level is the most similar
-        /// 0 if both levels are equally similar</returns>
-        public static int CompareToSample(Level sample, Level level1, Level level2)
+        // Returns true if two levels have the same length
+        private bool SamePhysicalLength(Level level)
         {
-            var idComp = CompareIDs(sample, level1, level2);
-            if (idComp != EQ) return idComp;
-
-            //TODO original ID > name
-            var namesComp = CompareNames(sample, level1, level2);
-            if (namesComp != EQ) return namesComp;
-
-            var originalIdComp = CompareOriginalIds(sample, level1, level2);
-            if (originalIdComp != EQ) return originalIdComp;
-
-            var musicComp = CompareMusicAndLength(sample, level1, level2);//not separated functions because these values alone don't seem very relevant
-            if (musicComp != EQ) return musicComp;
-
-            return EQ;
+            if (level == null) return false;
+            return Math.Abs(PhysicalLength - level.PhysicalLength) <= LENGTH_EPSILON;
         }
+
 
         // Returns true if two levels are copies of the same level.
         private bool FromSameLevel(Level level)
         {
             if (level == null) return false;
 
-            if (IsOriginal && !level.IsOriginal)
+            if (IsOriginal && IsOnline && !level.IsOriginal)
             {
                 if (ID == level.OriginalID)
                 {
@@ -194,7 +174,7 @@ namespace Whydoisuck.Model.DataStructures
                 }
             }
 
-            if (!IsOriginal && level.IsOriginal)
+            if (!IsOriginal && level.IsOriginal && level.IsOnline)
             {
                 if (OriginalID == level.ID)
                 {
@@ -207,44 +187,7 @@ namespace Whydoisuck.Model.DataStructures
                 return OriginalID == level.OriginalID;
             }
 
-            return ID != 0 && ID == level.ID;
-        }
-
-        //TODO merge with FromSameLevel and introduce undetermined return value
-        // Returns true if two levels are copies of the same level.
-        private bool FromDifferentLevel(Level level)
-        {
-            if (level == null) return true;
-
-            if (IsOriginal && !level.IsOriginal)
-            {
-                if (ID != level.OriginalID)
-                {
-                    return false;
-                }
-            }
-
-            if (!IsOriginal && level.IsOriginal)
-            {
-                if (OriginalID != level.ID)
-                {
-                    return false;
-                }
-            }
-
-            if (!IsOriginal && !level.IsOriginal)
-            {
-                return OriginalID != level.OriginalID;
-            }
-
             return false;
-        }
-
-        // Returns true if two levels have a similar name
-        private bool SimilarName(Level level)
-        {
-            if (level == null) return false;
-            return Name.ToLower().Contains(level.Name.ToLower()) || level.Name.ToLower().Contains(Name.ToLower());
         }
 
         // Returns true if two levels use the same music
@@ -275,11 +218,32 @@ namespace Whydoisuck.Model.DataStructures
             return false;
         }
 
-        // Returns true if two levels have the same length
-        private bool SamePhysicalLength(Level level)
+
+        /// <summary>
+        /// Compares two levels to a sample.
+        /// </summary>
+        /// <param name="sample">The level to compare the levels to</param>
+        /// <param name="level1">One level</param>
+        /// <param name="level2">Another level</param>
+        /// <returns>1 if the first level is the most similar
+        /// -1 if the second level is the most similar
+        /// 0 if both levels are equally similar</returns>
+        public static int CompareToSample(Level sample, Level level1, Level level2)
         {
-            if (level == null) return false;
-            return Math.Abs(PhysicalLength - level.PhysicalLength) <= LENGTH_EPSILON;
+            var idComp = CompareIDs(sample, level1, level2);
+            if (idComp != EQ) return idComp;
+
+            //TODO original ID > name
+            var namesComp = CompareNames(sample, level1, level2);
+            if (namesComp != EQ) return namesComp;
+
+            var originalIdComp = CompareOriginalIds(sample, level1, level2);
+            if (originalIdComp != EQ) return originalIdComp;
+
+            var musicComp = CompareMusicAndLength(sample, level1, level2);//not separated functions because these values alone don't seem very relevant
+            if (musicComp != EQ) return musicComp;
+
+            return EQ;
         }
 
         // Compares the IDs of two levels relative to a sample.
