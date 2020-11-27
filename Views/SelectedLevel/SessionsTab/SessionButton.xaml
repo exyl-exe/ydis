@@ -15,14 +15,18 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="{Binding Time}"
+                       Text="{Binding CopyName}"
                        HorizontalAlignment="Center"/>
             <TextBlock Grid.Column="1"
-                       Text="{Binding Start}"
+                       Text="{Binding Time}"
                        HorizontalAlignment="Center"/>
             <TextBlock Grid.Column="2"
+                       Text="{Binding Start}"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Grid.Column="3"
                        Text="{Binding AttemptCount}"
                        HorizontalAlignment="Center"/>
         </Grid>

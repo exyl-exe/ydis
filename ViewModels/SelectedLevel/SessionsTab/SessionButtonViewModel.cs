@@ -47,6 +47,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         /// </summary>
         public ICommand ViewSessionCommand { get; set; }
 
+        public string CopyName => Session.Level.Name;
         public string Time => string.Format(Resources.SessionButtonTimeFormat, Session.StartTime.TimeOfDay);
         public string Start => string.Format(Resources.SessionButtonStartFormat, Session.StartPercent);
         public string AttemptCount => string.Format(Resources.SessionButtonCountFormat, Session.Attempts.Count);
