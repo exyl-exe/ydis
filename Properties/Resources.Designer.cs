@@ -502,7 +502,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0:F0}% pass rate.
+        ///   Looks up a localized string similar to {0:0.##}% pass rate.
         /// </summary>
         public static string TooltipPassRateFormat {
             get {

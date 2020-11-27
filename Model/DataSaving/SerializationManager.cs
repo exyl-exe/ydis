@@ -57,9 +57,18 @@ namespace Whydoisuck.DataSaving
         /// Creates a directory for a given group
         /// </summary>
         /// <param name="group">The group to create a directory for</param>
-        public static void CreateGroupDirectory(SessionGroup group)
+        public static bool CreateGroupDirectory(SessionGroup group)
         {
-            SafeDirectory.CreateDirectory(GetGroupDirectoryPath(group));
+
+            var path = GetGroupDirectoryPath(group);
+            try
+            {
+                SafeDirectory.CreateDirectory(path);
+                return true;
+            } catch (IOException)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -147,7 +156,7 @@ namespace Whydoisuck.DataSaving
         // Gets the path of the directory of a group.
         private static string GetGroupDirectoryPath(SessionGroup group)
         {
-            var path = SafePath.Combine(SaveDirectory, group.GroupName.Trim() + SafePath.DirectorySeparator);
+            var path = SafePath.Combine(SaveDirectory, group.GroupName.Trim());
             return path;
         }
 

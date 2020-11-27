@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,6 +57,12 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public event OnGroupUpdatedCallback OnGroupDeleted;
 
+        /// <summary>
+        /// Suffix to try to fix invalid folder names
+        /// </summary>
+        private static string InvalidNameSuffix => "_def";
+
+
         //private because only one instance of the class can exist
         private SessionManager()
         {
@@ -98,7 +105,6 @@ namespace Whydoisuck.DataSaving
         /// <param name="level"></param>
         public void SortGroupsByClosestTo(Level level)
         {
-            //TODO giga bad because most similar level in group is computed several time
             Groups.Sort((entry1, entry2) => Level.CompareToSample(level, entry1.GetMostSimilarLevelInGroup(level), entry2.GetMostSimilarLevelInGroup(level)));
             Groups.Reverse();
         }
@@ -110,7 +116,8 @@ namespace Whydoisuck.DataSaving
         public void SaveSession(Session session)
         {
             var group = GetOrCreateGroup(session);
-            if (!group.GetMostSimilarLevelInGroup(session.Level).IsSameLevel(session.Level))
+            var mostSimilar = group.GetMostSimilarLevelInGroup(session.Level);
+            if (mostSimilar != null && !mostSimilar.IsSameLevel(session.Level))
             {
                 group.Levels.Add(session.Level);
             }
@@ -160,17 +167,20 @@ namespace Whydoisuck.DataSaving
         public SessionGroup CreateNewGroup(Level level)
         {
             var defaultGroupName = SessionGroup.GetDefaultGroupName(level);
-            var groupName = defaultGroupName;
-            var i = 2;
-            while (!IsGroupNameAvailable(groupName))
-            {
-                groupName = $"{defaultGroupName} ({i})";
-                i++;
-            }
+            var groupName = FindAvailableGroupName(defaultGroupName);            
             var newGroup = new SessionGroup(groupName);
             Groups.Add(newGroup);
+            var success = SerializationManager.CreateGroupDirectory(newGroup);
+            // This checks exists to try to correct a folder name if it's forbidden on windows
+            // for instance CON, AUX ...
+            // TODO Bad code
+            if (!success)
+            {
+                newGroup.GroupName = FindAvailableGroupName(groupName + InvalidNameSuffix);
+                success = SerializationManager.CreateGroupDirectory(newGroup);
+                if (!success) throw new Exception($"Invalid group name : '{newGroup.GroupName}'");
+            }
             newGroup.Levels.Add(level);
-            SerializationManager.CreateGroupDirectory(newGroup);
             return newGroup;
         }
 
@@ -208,12 +218,24 @@ namespace Whydoisuck.DataSaving
         {
             foreach (var group in Groups)
             {
-                if (group.GroupName.Equals(groupName))
+                if (group.GroupName.ToUpper().Equals(groupName.ToUpper()))
                 {
                     return false;
                 }
             }
             return true;
+        }
+
+        private string FindAvailableGroupName(string groupName)
+        {
+            var i = 2;
+            var availableName = groupName;
+            while (!IsGroupNameAvailable(groupName))
+            {
+                availableName = $"{groupName} ({i})";
+                i++;
+            }
+            return availableName;
         }
 
         // TODO find a way to make it static so that it's not duplicated for each instance

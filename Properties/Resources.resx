@@ -283,7 +283,7 @@
     <comment>Format</comment>
   </data>
   <data name="TooltipPassRateFormat" xml:space="preserve">
-    <value>{0:F0}% pass rate</value>
+    <value>{0:0.##}% pass rate</value>
     <comment>Format</comment>
   </data>
   <data name="TooltipPercentFormat" xml:space="preserve">
