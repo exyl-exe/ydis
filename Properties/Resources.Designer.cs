@@ -196,6 +196,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete {0}.
+        /// </summary>
+        public static string DeleteGroupCaptionFormat {
+            get {
+                return ResourceManager.GetString("DeleteGroupCaptionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the &quot;{0}&quot; folder ?.
+        /// </summary>
+        public static string DeleteGroupContentFormat {
+            get {
+                return ResourceManager.GetString("DeleteGroupContentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occured, the application must stop. You may report this issue on the discord server..
         /// </summary>
         public static string ErrorMessage {
