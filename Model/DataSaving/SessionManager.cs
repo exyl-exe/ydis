@@ -6,8 +6,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
 {
@@ -69,6 +71,24 @@ namespace Whydoisuck.DataSaving
             if (_instance != null)
             {
                 SerializationManager.SerializeSessionManager(_instance);
+            }
+        }
+
+        /// <summary>
+        /// TODO remove, debug function to test if group attribution is ok
+        /// from existing data
+        /// </summary>
+        public void Rebuild()
+        {
+            List<Session> sessions = this.Groups.SelectMany(g => g.GroupSessions).ToList();
+            List<SessionGroup> groups = new List<SessionGroup>(Groups);
+            foreach(var g in groups)
+            {
+                this.DeleteGroup(g);
+            }
+            foreach(var s in sessions)
+            {
+                this.SaveSession(s);
             }
         }
 

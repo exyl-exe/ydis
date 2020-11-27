@@ -137,6 +137,11 @@ namespace Whydoisuck.Model.DataStructures
                 return true;
             }
 
+            if (FromDifferentLevel(level))
+            {
+                return false;
+            }
+
             if (SimilarName(level))
             {
                 return true;
@@ -163,6 +168,7 @@ namespace Whydoisuck.Model.DataStructures
             var idComp = CompareIDs(sample, level1, level2);
             if (idComp != EQ) return idComp;
 
+            //TODO original ID > name
             var namesComp = CompareNames(sample, level1, level2);
             if (namesComp != EQ) return namesComp;
 
@@ -175,7 +181,7 @@ namespace Whydoisuck.Model.DataStructures
             return EQ;
         }
 
-        // Returns true if two levels are copyables from the same level.
+        // Returns true if two levels are copies of the same level.
         private bool FromSameLevel(Level level)
         {
             if (level == null) return false;
@@ -202,6 +208,36 @@ namespace Whydoisuck.Model.DataStructures
             }
 
             return ID != 0 && ID == level.ID;
+        }
+
+        //TODO merge with FromSameLevel and introduce undetermined return value
+        // Returns true if two levels are copies of the same level.
+        private bool FromDifferentLevel(Level level)
+        {
+            if (level == null) return true;
+
+            if (IsOriginal && !level.IsOriginal)
+            {
+                if (ID != level.OriginalID)
+                {
+                    return false;
+                }
+            }
+
+            if (!IsOriginal && level.IsOriginal)
+            {
+                if (OriginalID != level.ID)
+                {
+                    return false;
+                }
+            }
+
+            if (!IsOriginal && !level.IsOriginal)
+            {
+                return OriginalID != level.OriginalID;
+            }
+
+            return false;
         }
 
         // Returns true if two levels have a similar name
