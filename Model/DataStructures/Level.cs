@@ -70,11 +70,6 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "MusicOffset")] public float MusicOffset { get; set; }
 
-        //Constants for comparisons
-        const int GT = 1;
-        const int EQ = 0;
-        const int LT = -1;
-
         public Level() { }//for json deserializer
 
         public Level(GameState state)
@@ -166,6 +161,11 @@ namespace Whydoisuck.Model.DataStructures
         {
             if (level == null) return false;
 
+            if(IsOriginal && IsOnline && level.IsOriginal && level.IsOnline)
+            {
+                return ID == level.ID;
+            }
+
             if (IsOriginal && IsOnline && !level.IsOriginal)
             {
                 if (ID == level.OriginalID)
@@ -230,42 +230,42 @@ namespace Whydoisuck.Model.DataStructures
         /// 0 if both levels are equally similar</returns>
         public static int CompareToSample(Level sample, Level level1, Level level2)
         {
-            var idComp = CompareIDs(sample, level1, level2);
-            if (idComp != EQ) return idComp;
+            var id = CompareIDs(sample, level1, level2);
+            var origin = CompareOrigin(sample, level1, level2);
+            var length = CompareLength(sample, level1, level1);
+            var music = CompareMusic(sample, level1, level2);
+            var names = CompareNames(sample, level1, level2);
 
-            //TODO original ID > name
-            var namesComp = CompareNames(sample, level1, level2);
-            if (namesComp != EQ) return namesComp;
-
-            var originalIdComp = CompareOriginalIds(sample, level1, level2);
-            if (originalIdComp != EQ) return originalIdComp;
-
-            var musicComp = CompareMusicAndLength(sample, level1, level2);//not separated functions because these values alone don't seem very relevant
-            if (musicComp != EQ) return musicComp;
-
-            return EQ;
+            if (id != 0) return id;
+            if (origin != 0 && origin == length) return origin; //Same original level and same length
+            if (origin != 0) return origin;
+            if (length != 0) return length;
+            if (music != 0) return music;
+            if (names != 0) return names;
+            return 0;
         }
 
-        // Compares the IDs of two levels relative to a sample.
+        // Compares the original IDs and IDs of two levels relative to a sample.
+        // Only matches if the id is identical
         private static int CompareIDs(Level sample, Level level1, Level level2)
         {
-            if (!sample.IsOnline) return EQ;
+            var key1Matches = level1.IsOnline && sample.IsOnline && level1.ID == sample.ID;
+            var key2Matches = level2.IsOnline && sample.IsOnline && level2.ID == sample.ID;
+            var res = 0;
+            if (key1Matches) res += 1;
+            if (key2Matches) res -= 1;
+            return res;
+        }
 
-            var key1Matches = level1.ID == sample.ID;
-            var key2Matches = level2.ID == sample.ID;
-            if (key1Matches && key2Matches)
-            {
-                return EQ;
-            }
-            else if (key1Matches)
-            {
-                return GT;
-            }
-            else if (key2Matches)
-            {
-                return LT;
-            }
-            return EQ;
+        // Compares the original IDs and IDs of two levels relative to a sample.
+        private static int CompareOrigin(Level sample, Level level1, Level level2)
+        {
+            var key1Matches = level1.FromSameLevel(sample);
+            var key2Matches = level2.FromSameLevel(sample);
+            var res = 0;
+            if (key1Matches) res += 1;
+            if (key2Matches) res -= 1;
+            return res;
         }
 
         // Compares the names of two levels relative to a sample.
@@ -276,73 +276,32 @@ namespace Whydoisuck.Model.DataStructures
             var key2Name = level2.Name.ToLower();
             var key1Matches = key1Name.Contains(sampleName) || sampleName.Contains(key1Name);
             var key2Matches = key2Name.Contains(sampleName) || sampleName.Contains(key2Name);
-            if (key1Matches && key2Matches)
-            {
-                var lengthComp = Math.Abs(level1.Name.Length - sample.Name.Length) - Math.Abs(level2.Name.Length - sample.Name.Length);
-                if (lengthComp < 0)//oui
-                {
-                    return GT;
-                }
-                else if (lengthComp == 0)
-                {
-                    return EQ;
-                }
-                else
-                {
-                    return LT;
-                }
-            }
-            else if (key1Matches)
-            {
-                return GT;
-            }
-            else if (key2Matches)
-            {
-                return LT;
-            }
-            return EQ;
-        }
-
-        // Compares the original IDs of two levels relative to a sample.
-        private static int CompareOriginalIds(Level sample, Level level1, Level level2)
-        {
-            if (!sample.IsOnline && sample.IsOriginal) return EQ;//if the sample is not uploaded and is original, there is no need to check for original IDs of compared levels
-
-            var key1Matches = level1.FromSameLevel(sample);
-            var key2Matches = level2.FromSameLevel(sample);
-            if (key1Matches && key2Matches)
-            {
-                return EQ;
-            }
-            else if (key1Matches)
-            {
-                return GT;
-            }
-            else if (key2Matches)
-            {
-                return LT;
-            }
-            return EQ;
+            var res = 0;
+            if (key1Matches) res += 1;
+            if (key2Matches) res -= 1;
+            return res;
         }
 
         // Compares the musics of two levels relative to a sample.
-        private static int CompareMusicAndLength(Level sample, Level level1, Level level2)
+        private static int CompareMusic(Level sample, Level level1, Level level2)
         {
-            var key1Matches = level1.SameMusic(sample) && level1.SamePhysicalLength(sample);
-            var key2Matches = level2.SameMusic(sample) && level2.SamePhysicalLength(sample);
-            if (key1Matches && key2Matches)
-            {
-                return EQ;
-            }
-            else if (key1Matches)
-            {
-                return GT;
-            }
-            else if (key2Matches)
-            {
-                return LT;
-            }
-            return EQ;
+            var key1Matches = level1.SameMusic(sample);
+            var key2Matches = level2.SameMusic(sample);
+            var res = 0;
+            if (key1Matches) res += 1;
+            if (key2Matches) res -= 1;
+            return res;
+        }
+
+        // Compares the lengths of two levels relative to a sample.
+        private static int CompareLength(Level sample, Level level1, Level level2)
+        {
+            var key1Matches = level1.SamePhysicalLength(sample);
+            var key2Matches = level2.SamePhysicalLength(sample);
+            var res = 0;
+            if (key1Matches) res += 1;
+            if (key2Matches) res -= 1;
+            return res;
         }
     }
 }

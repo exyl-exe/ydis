@@ -22,7 +22,6 @@ namespace Whydoisuck.Views
             AppDomain.CurrentDomain.UnhandledException += ExceptionDomain;
             _recorder = new Recorder();
             _recorder.StartRecording();
-            //SessionManager.Instance.Rebuild();
             DataContext = new MainWindowViewModel(_recorder);
             InitializeComponent();
             Closing += ApplicationExit;
