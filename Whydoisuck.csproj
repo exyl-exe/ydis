@@ -115,6 +115,7 @@
     <Compile Include="ViewModels\CommonControlsViewModels\LevelPartDataPoint.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\GroupViewModel.cs" />
+    <Compile Include="ViewModels\DelayedViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchResultViewModel.cs" />

@@ -42,26 +42,8 @@ namespace Whydoisuck.Model.DataStructures
         /// List of individual levels (aka copies) the sessions were played on.
         /// </summary>
         [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
-
         /// <summary>
-        /// Delegate for callbacks when the displayed name is updated
-        /// </summary>
-        public delegate void UpdateDelegate();
-        /// <summary>
-        /// Invoked when the displayed name changes
-        /// </summary>
-        public event UpdateDelegate OnDisplayedNameChanges;
-
-        // false if the sessions weren't loaded yet
-        // exists to avoid loading every session in a group if they are not accessed
-        [JsonIgnore] private bool _loaded = false;
-        // List of sessions in the group, null if not loaded.
-        [JsonIgnore] private List<Session> groupSessions;
-        //displayed name property
-        [JsonIgnore] private string displayedName;
-
-        /// <summary>
-        /// List of all the sessions played on the level.
+        /// List of all the sessions in the folder.
         /// </summary>
         [JsonIgnore]
         public List<Session> GroupSessions
@@ -80,6 +62,24 @@ namespace Whydoisuck.Model.DataStructures
                 groupSessions = value;
             }
         }
+
+
+        /// <summary>
+        /// Delegate for callbacks when the displayed name is updated
+        /// </summary>
+        public delegate void UpdateDelegate();
+        /// <summary>
+        /// Invoked when the displayed name changes
+        /// </summary>
+        public event UpdateDelegate OnDisplayedNameChanges;
+
+        // false if the sessions weren't loaded yet
+        // exists to avoid loading every session in a group if they are not accessed
+        [JsonIgnore] private bool _loaded = false;
+        // List of sessions in the group, null if not loaded.
+        [JsonIgnore] private List<Session> groupSessions;
+        //displayed name property
+        [JsonIgnore] private string displayedName;
 
         public SessionGroup() { } //For json deserialization
 
