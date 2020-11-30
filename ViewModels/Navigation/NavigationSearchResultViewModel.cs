@@ -28,10 +28,11 @@ namespace Whydoisuck.ViewModels.Navigation
         public string ResultText => Group.DisplayedName;
 
         // ViewModel the main view should switch to
-        private SelectedLevelViewModel SelectedView { get; set; }
+        private DelayedViewModel SelectedView { get; set; }
 
-        public NavigationSearchResultViewModel(SessionGroup group, MainWindowViewModel mainView, SelectedLevelViewModel selectedView)
+        public NavigationSearchResultViewModel(SessionGroup group, MainWindowViewModel mainView)
         {
+            var selectedView = new DelayedViewModel(() => new SelectedLevelViewModel(group));
             Group = group;
             Group.OnDisplayedNameChanges += UpdateName;
             SelectedView = selectedView;
@@ -39,13 +40,14 @@ namespace Whydoisuck.ViewModels.Navigation
         }
 
         /// <summary>
-        /// Updates the corresponding selected view view model to match the session group.
+        /// Updates the corresponding view model to match the session group.
         /// </summary>
-        public void Update()
+        public override void UpdateFromModel()
         {
-            SelectedView.Update();
+            SelectedView.UpdateFromModel();
         }
 
+        // Updates the text to display for this seacrh result
         private void UpdateName()
         {
             OnPropertyChanged(nameof(ResultText));

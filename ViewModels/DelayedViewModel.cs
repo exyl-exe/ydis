@@ -46,5 +46,13 @@ namespace Whydoisuck.ViewModels
 			_viewModel = null;
 		}
 
+		public override void UpdateFromModel()
+		{
+			if (_loaded)
+			{
+				ViewModel.UpdateFromModel();
+			}
+		}
+
 	}
 }

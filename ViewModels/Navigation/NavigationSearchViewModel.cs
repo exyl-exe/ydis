@@ -53,7 +53,7 @@ namespace Whydoisuck.ViewModels.Navigation
             this.ParentNavigationPanel = ParentNavigationPanel;
             _search = "";
             AllResults = groups.Select(
-                g => new NavigationSearchResultViewModel(g, ParentNavigationPanel.MainView, new SelectedLevelViewModel(g))
+                g => new NavigationSearchResultViewModel(g, ParentNavigationPanel.MainView)
                 ).ToList();
             UpdateSearchResults();
         }
@@ -67,11 +67,11 @@ namespace Whydoisuck.ViewModels.Navigation
             var existingResult = AllResults.Find(res => res.Group.Equals(group));
             if(existingResult == null)
             {
-                var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView, new SelectedLevelViewModel(group));
+                var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView);
                 AllResults.Add(newGroup);
             } else
             {
-                existingResult.Update();
+                existingResult.UpdateFromModel();
             }
             UpdateSearchResults();
         }

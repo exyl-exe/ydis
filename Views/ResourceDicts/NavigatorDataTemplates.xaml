@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:selectedView="clr-namespace:Whydoisuck.Views.SelectedLevel"
                     xmlns:currentView="clr-namespace:Whydoisuck.Views.CurrentLevel"
+                    xmlns:VM="clr-namespace:Whydoisuck.ViewModels"
                     xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.CurrentLevel"
                     xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel">
     <DataTemplate DataType="{x:Type currentLevelVM:CurrentLevelViewModel}">
@@ -9,5 +10,8 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type selectedLevelVM:SelectedLevelViewModel}">
         <selectedView:SelectedLevelView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type VM:DelayedViewModel}">
+        <ContentControl Content="{Binding ViewModel}"/>
     </DataTemplate>
 </ResourceDictionary>

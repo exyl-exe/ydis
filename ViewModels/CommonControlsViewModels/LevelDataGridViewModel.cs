@@ -31,7 +31,7 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
             Stats.OnStatisticsChange += Update;
         }
 
-        // Notifies the view that there was change
+        // Notifies the view that there were changes
         private void Update()
         {
             SessionStats = FilterOutRedondantParts(Stats.Statistics);

@@ -24,5 +24,10 @@ namespace Whydoisuck.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        /// <summary>
+        /// Method to resfresh the view model, to adapt to changes made to the model
+        /// </summary>
+        public virtual void UpdateFromModel() { }
     }
 }

@@ -26,8 +26,8 @@ namespace Whydoisuck.Views.Commands
 
         public NavigatorCommand(IReplaceableViewViewModel viewModel, BaseViewModel newView)
         {
-            this.ViewModel = viewModel;
-            this.ViewToNavigateTo = newView;
+            ViewModel = viewModel;
+            ViewToNavigateTo = newView;
         }
 
         public bool CanExecute(object parameter)
