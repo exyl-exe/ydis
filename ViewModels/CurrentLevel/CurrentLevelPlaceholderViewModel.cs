@@ -28,6 +28,10 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         /// Releases link
         /// </summary>
         public string GithubContentText => Resources.GithubLink;
+
+        public string DiscordText => Resources.DiscordLabel;
+        public string DiscordLink => Resources.DiscordLink;
+
         /// <summary>
         /// Footer content (author + version)
         /// </summary>

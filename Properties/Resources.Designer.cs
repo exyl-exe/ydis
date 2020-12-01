@@ -160,7 +160,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can start playing a level, every attempt spent on it is going to be registered !.
+        ///   Looks up a localized string similar to Thanks for using Whydoisuck, your attempts are now going to be registered !.
         /// </summary>
         public static string CurrentLevelNotPlayingTitle {
             get {
@@ -210,6 +210,24 @@ namespace Whydoisuck.Properties {
         public static string DeleteGroupContentFormat {
             get {
                 return ResourceManager.GetString("DeleteGroupContentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggest features and report issues.
+        /// </summary>
+        public static string DiscordLabel {
+            get {
+                return ResourceManager.GetString("DiscordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://discord.gg/fgYUcqd4Mk.
+        /// </summary>
+        public static string DiscordLink {
+            get {
+                return ResourceManager.GetString("DiscordLink", resourceCulture);
             }
         }
         

@@ -52,6 +52,25 @@
                              Foreground="{StaticResource TextColor}"/>
                 </DockPanel>
             </Border>
+            <Border Background="{StaticResource PanelBackgroundColor}"
+                Margin="15">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top"
+                               Text="{Binding DiscordText}"
+                               Style="{StaticResource InfoPanelTitleStyle}"
+                               Margin="10"/>
+                    <TextBox Margin="0,0,0,10"
+                             Text="{Binding DiscordLink, Mode=OneTime}"
+                             IsReadOnly="True"
+                             FontSize="22"
+                             TextWrapping="Wrap"
+                             TextAlignment="Center"
+                             VerticalAlignment="Top"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Foreground="{StaticResource TextColor}"/>
+                </DockPanel>
+            </Border>
         </StackPanel>
     </DockPanel>
 </UserControl>

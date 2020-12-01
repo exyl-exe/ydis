@@ -43,6 +43,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel
             Sessions = new SessionsTabMainViewModel(g);
             Settings = new SettingsTabViewModel(g);
             SelectedLevel = g;
+            SelectedLevel.OnSessionsChange += Update;
         }
 
         /// <summary>

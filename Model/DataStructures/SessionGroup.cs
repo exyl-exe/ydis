@@ -73,6 +73,10 @@ namespace Whydoisuck.Model.DataStructures
         /// Invoked when the displayed name changes
         /// </summary>
         public event UpdateDelegate OnDisplayedNameChanges;
+        /// <summary>
+        /// Invoked when a session is added or removed from the group
+        /// </summary>
+        public event UpdateDelegate OnSessionsChange;
 
         // false if the sessions weren't loaded yet
         // exists to avoid loading every session in a group if they are not accessed
@@ -102,6 +106,7 @@ namespace Whydoisuck.Model.DataStructures
             session.SessionName = GetAvailaibleSessionName(session);
             GroupSessions.Add(session);
             SerializationManager.SerializeSession(this, session);
+            OnSessionsChange?.Invoke();
         }
 
         /// <summary>
