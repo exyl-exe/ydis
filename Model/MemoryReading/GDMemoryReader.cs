@@ -98,7 +98,7 @@ namespace Whydoisuck.Model.MemoryReading
             try
             {
                 // Tests if the process is opened, and if the game has loaded
-                if (!Reader.IsProcessOpened || Reader.Process.MainModule == null)
+                if (!Reader.IsProcessOpened || Reader.MainModuleAddr == IntPtr.Zero)
                 {
                     return null;
                 }

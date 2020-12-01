@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -18,15 +19,28 @@ namespace Whydoisuck.Model.MemoryReading
         /// Base address of the main module of the read process
         /// </summary>
         public IntPtr MainModuleAddr {
-            get {
-                try
+            get
+            {
+                if(Process != null)
                 {
-                    //This line sometimes crash when the game is opened and I can't understand why
-                    return (Process == null || Process.MainModule == null) ? IntPtr.Zero : Process.MainModule.BaseAddress;
-                } catch
+                    if (!_mainModuleLoaded)
+                    {
+                        var mainModule = Process.MainModule;
+                        if (mainModule != null)
+                        {
+                            _mainModuleLoaded = true;
+                            _mainModuleAddress = mainModule.BaseAddress;
+                            mainModule.Disposed += ResetBaseAddress;
+                        } else
+                        {
+                            _mainModuleAddress = IntPtr.Zero;
+                        }
+                    }
+                    return _mainModuleAddress;
+                } else
                 {
                     return IntPtr.Zero;
-                }                
+                }             
             }
         }
 
@@ -51,6 +65,10 @@ namespace Whydoisuck.Model.MemoryReading
 
         // Handle for the current process
         private IntPtr ProcessHandle { get; set; }
+        // MainModuleAddress is stored for performance (avoiding sys calls)
+        private IntPtr _mainModuleAddress = IntPtr.Zero;
+        // Wether the main module is loaded or not
+        private bool _mainModuleLoaded = false;
 
         /// <summary>
         /// Attaches itself to a process with the given name
@@ -139,6 +157,13 @@ namespace Whydoisuck.Model.MemoryReading
         public float ReadFloat(int address)
         {
             return BitConverter.ToSingle(ReadBytes(address, 4), 0);
+        }
+
+        // Called to update the main module address when the module is unloaded
+        private void ResetBaseAddress(object sender, EventArgs e)
+        {
+            _mainModuleLoaded = false;
+            _mainModuleAddress = IntPtr.Zero;
         }
     }
 }
