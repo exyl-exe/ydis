@@ -30,7 +30,7 @@ namespace Whydoisuck.Model.MemoryReading
         /// <summary>
         /// Event invoked when a level is exited in-game
         /// </summary>
-        public static event LevelInfoCallback OnLevelExited;
+        public static event GameInfoCallback OnLevelExited;
         /// <summary>
         /// Event invoked when the current level has finished loading.
         /// It ensures its length, the player object and some other values are initialized.
@@ -138,9 +138,9 @@ namespace Whydoisuck.Model.MemoryReading
         // in order to invoke the OnLevelExited event if needed.
         private static void HandleLevelExited(GameState previousState, GameState currentState)
         {
-            if (currentState.LevelMetadata == null && previousState.LevelMetadata != null)
+            if(previousState.PlayerObject!=null && currentState.PlayerObject == null)
             {
-                OnLevelExited?.Invoke(previousState.LevelMetadata);
+                OnLevelExited?.Invoke(previousState);
             }
         }
 
