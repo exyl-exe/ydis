@@ -31,7 +31,7 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         /// <summary>
         /// Text for time spent on the level
         /// </summary>
-        public string PlayTimeText => string.Format(Resources.GraphPlayTimeFormat, Statistics.PlayTime);
+        public string PlayTimeText => string.Format(Resources.GraphPlayTimeFormat, Statistics.PlayTime, (int)Statistics.PlayTime.TotalHours);
 
         /// <summary>
         /// Text for total attempt count

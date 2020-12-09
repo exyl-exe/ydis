@@ -209,7 +209,7 @@
     <value>Level %</value>
   </data>
   <data name="GraphPlayTimeFormat" xml:space="preserve">
-    <value>Play time : {0:hh}h {0:mm}m {0:ss}s</value>
+    <value>Play time : {1:D2}h {0:mm}m {0:ss}s</value>
     <comment>Format</comment>
   </data>
   <data name="GraphTitleCurrentSession" xml:space="preserve">

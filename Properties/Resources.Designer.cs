@@ -313,7 +313,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Play time : {0:hh}h {0:mm}m {0:ss}s.
+        ///   Looks up a localized string similar to Play time : {1:D2}h {0:mm}m {0:ss}s.
         /// </summary>
         public static string GraphPlayTimeFormat {
             get {
