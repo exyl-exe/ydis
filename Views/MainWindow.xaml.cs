@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -15,19 +16,39 @@ namespace Whydoisuck.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Recorder _recorder;
+        private Recorder _recorder;
+        private static Mutex _mutex;
         public MainWindow()
         {
             Application.Current.DispatcherUnhandledException += ExceptionApp;
             AppDomain.CurrentDomain.UnhandledException += ExceptionDomain;
+            _mutex = new Mutex(true, "GDWhyDoISuckMutex", out var createdNew);
+            if (createdNew)
+            {
+                Closing += FreeMutex;
+                Init();
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void FreeMutex(object sender, CancelEventArgs e)
+        {
+            _mutex?.Close();
+        }
+
+        private void Init()
+        {
             _recorder = new Recorder();
             _recorder.StartRecording();
             DataContext = new MainWindowViewModel(_recorder);
             InitializeComponent();
-            Closing += ApplicationExit;
+            Closing += StopWDIS;
         }
 
-        private void ApplicationExit(object sender, EventArgs e)
+        private void StopWDIS(object sender, EventArgs e)
         {
             _recorder?.StopRecording();
         }
@@ -48,7 +69,7 @@ namespace Whydoisuck.Views
             try
             {
                 ExceptionLogger.Log(e);
-                Closing -= ApplicationExit;
+                Closing -= StopWDIS;
                 _recorder?.CrashRecorder();
                 string msg = string.Format("{0}\n{1}", Properties.Resources.ErrorMessage,
                                                        string.Format(Properties.Resources.ErrorMessageLogLocationFormat, Settings.Default.LogsPath));
