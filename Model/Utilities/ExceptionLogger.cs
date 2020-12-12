@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Whydoisuck.Properties;
-using Whydoisuck.Utilities;
 
 namespace Whydoisuck.Model.Utilities
 {
@@ -15,11 +15,11 @@ namespace Whydoisuck.Model.Utilities
 
         public static void Log(Exception e)
         {
-            if (!SafeDirectory.Exists(LogsPath))
+            if (!Directory.Exists(LogsPath))
             {
                 try
                 {
-                    SafeDirectory.CreateDirectory(LogsPath);
+                    Directory.CreateDirectory(LogsPath);
                 } catch
                 {
                     //Invalid folder, unlucky
@@ -27,7 +27,7 @@ namespace Whydoisuck.Model.Utilities
             }
             var fileName = string.Format("{0:yyyy}{0:mm}{0:dd}_{0:hh}{0:ss}{0:ffff}", DateTime.Now);
             var text = e.Message + "\n" + e.StackTrace;
-            SafeFile.WriteAllText(SafePath.Combine(LogsPath, fileName), text);
+            File.WriteAllText(Path.Combine(LogsPath, fileName), text);
         }
 
     }

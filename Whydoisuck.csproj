@@ -171,9 +171,6 @@
     <Compile Include="Views\NavigationPanel\NavigationPanel.xaml.cs">
       <DependentUpon>NavigationPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Utilities\SafeDirectory.cs" />
-    <Compile Include="Model\Utilities\SafeFile.cs" />
-    <Compile Include="Model\Utilities\SafePath.cs" />
     <Compile Include="Views\NavigationPanel\NavigationSearchResult.xaml.cs">
       <DependentUpon>NavigationSearchResult.xaml</DependentUpon>
     </Compile>

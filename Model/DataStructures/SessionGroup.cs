@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
 using Whydoisuck.DataSaving;
-using Whydoisuck.Utilities;
 
 namespace Whydoisuck.Model.DataStructures
 {

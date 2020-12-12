@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Properties;
-using Whydoisuck.Utilities;
 
 namespace Whydoisuck.DataSaving
 {
@@ -25,7 +24,7 @@ namespace Whydoisuck.DataSaving
         /// <summary>
         /// Path for the file containing the session manager.
         /// </summary>
-        public static string IndexFilePath { get { return SafePath.Combine(SaveDirectory, IndexFileName); } }
+        public static string IndexFilePath { get { return Path.Combine(SaveDirectory, IndexFileName); } }
 
         // name of the file containing the session manager
         private static string IndexFileName => Settings.Default.IndexerFileName;
@@ -36,9 +35,9 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public static void Init()
         {
-            if (!SafeDirectory.Exists(SaveDirectory))
+            if (!Directory.Exists(SaveDirectory))
             {
-                SafeDirectory.CreateDirectory(SaveDirectory);
+                Directory.CreateDirectory(SaveDirectory);
             }
         }
 
@@ -49,7 +48,7 @@ namespace Whydoisuck.DataSaving
         /// <param name="session">The session to save</param>
         public static void SerializeSession(SessionGroup group, Session session)
         {
-            var path = SafePath.Combine(GetGroupDirectoryPath(group), GetSessionFileName(session));
+            var path = Path.Combine(GetGroupDirectoryPath(group), GetSessionFileName(session));
             Serialize(path, session);
         }
 
@@ -63,7 +62,7 @@ namespace Whydoisuck.DataSaving
             var path = GetGroupDirectoryPath(group);
             try
             {
-                SafeDirectory.CreateDirectory(path);
+                Directory.CreateDirectory(path);
                 return true;
             } catch (IOException)
             {
@@ -78,9 +77,9 @@ namespace Whydoisuck.DataSaving
         public static void DeleteGroupDirectory(SessionGroup group)
         {
             var path = GetGroupDirectoryPath(group);
-            if (SafeDirectory.Exists(path))
+            if (Directory.Exists(path))
             {
-                SafeDirectory.DeleteDirectory(path, true);
+                Directory.Delete(path, true);
             }
         }
 
@@ -93,7 +92,7 @@ namespace Whydoisuck.DataSaving
         {
             var res = new List<Session>();
             var folderPath = GetGroupDirectoryPath(group);
-            var files = SafeDirectory.GetFiles(folderPath);//TODO maybe keep a list of session files ?
+            var files = Directory.GetFiles(folderPath);//TODO maybe keep a list of session files ?
             foreach (var file in files)
             {
                 var session = (Session)Deserialize(file, new Session());
@@ -117,7 +116,7 @@ namespace Whydoisuck.DataSaving
         /// <returns>The loaded session manager</returns>
         public static void DeserializeSessionManager(SessionManager manager)
         {
-            if (SafeFile.Exists(IndexFilePath))
+            if (File.Exists(IndexFilePath))
             {
                 Deserialize(IndexFilePath, manager);
             }
@@ -131,7 +130,7 @@ namespace Whydoisuck.DataSaving
         public static void Serialize(string filePath, IWDISSerializable item)
         {
             var serializedItem = item.Serialize();
-            SafeFile.WriteAllText(filePath, serializedItem);
+            File.WriteAllText(filePath, serializedItem);
         }
 
         /// <summary>
@@ -141,13 +140,13 @@ namespace Whydoisuck.DataSaving
         /// <returns>The loaded object</returns>
         public static IWDISSerializable Deserialize(string filePath, IWDISSerializable item)
         {
-            var value = SafeFile.ReadAllText(filePath);
+            var value = File.ReadAllText(filePath);
             //Updating the object if needed
             var jo = JObject.Parse(value);
             if(!item.CurrentVersionCompatible((int)jo[IWDISSerializable.VersionPropertyName]))
             {
                 item.UpdateOldVersion(ref jo);
-                SafeFile.WriteAllText(filePath, jo.ToString());
+                File.WriteAllText(filePath, jo.ToString());
             }
             item.Deserialize(jo.ToString());
             return item;
@@ -156,7 +155,7 @@ namespace Whydoisuck.DataSaving
         // Gets the path of the directory of a group.
         private static string GetGroupDirectoryPath(SessionGroup group)
         {
-            var path = SafePath.Combine(SaveDirectory, group.GroupName.Trim());
+            var path = Path.Combine(SaveDirectory, group.GroupName.Trim());
             return path;
         }
 
