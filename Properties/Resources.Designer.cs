@@ -187,7 +187,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete group.
+        ///   Looks up a localized string similar to Delete folder.
         /// </summary>
         public static string DeleteGroupButtonText {
             get {
@@ -376,7 +376,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Folder settings.
         /// </summary>
         public static string SelectedLevelSettingsTab {
             get {
@@ -462,6 +462,15 @@ namespace Whydoisuck.Properties {
         public static string SessionViewShowStats {
             get {
                 return ResourceManager.GetString("SessionViewShowStats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsButton {
+            get {
+                return ResourceManager.GetString("SettingsButton", resourceCulture);
             }
         }
         

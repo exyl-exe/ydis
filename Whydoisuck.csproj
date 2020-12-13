@@ -131,6 +131,7 @@
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SettingsTab\SettingsTabViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="Views\Commands\DeleteGroupCommand.cs" />
     <Compile Include="Views\Commands\GoBackCommand.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
@@ -201,6 +202,9 @@
     <Compile Include="Views\SelectedLevel\SettingsTab\SettingsTabMain.xaml.cs">
       <DependentUpon>SettingsTabMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowChromeCommands.xaml.cs">
       <DependentUpon>WindowChromeCommands.xaml</DependentUpon>
     </Compile>
@@ -225,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SelectedLevel\SettingsTab\SettingsTabMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -430,5 +438,6 @@
     <Resource Include="Views\Images\minIcon.png" />
     <Resource Include="Views\Images\unmaxIcon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

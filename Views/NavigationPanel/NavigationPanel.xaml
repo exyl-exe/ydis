@@ -21,6 +21,11 @@
                 </Button>
                 <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
             </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom">
+                <Button Style="{StaticResource SettingsButtonStyle}"
+                        Content="{Binding SettingsButtonText}"
+                        Command="{Binding SettingsCommand}"/>
+            </StackPanel>
             <uc:NavigationSearchPanel DataContext="{Binding SearchView}"/>
         </DockPanel>
     </Border>

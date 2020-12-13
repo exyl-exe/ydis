@@ -164,7 +164,7 @@
     <comment>Format</comment>
   </data>
   <data name="DeleteGroupButtonText" xml:space="preserve">
-    <value>Delete group</value>
+    <value>Delete folder</value>
   </data>
   <data name="DeleteGroupCaptionFormat" xml:space="preserve">
     <value>Delete {0}</value>
@@ -232,7 +232,7 @@
     <value>Sessions</value>
   </data>
   <data name="SelectedLevelSettingsTab" xml:space="preserve">
-    <value>Settings</value>
+    <value>Folder settings</value>
   </data>
   <data name="SessionAttemptCountFormat" xml:space="preserve">
     <value>{0} attempts</value>
@@ -267,6 +267,9 @@
   </data>
   <data name="SessionViewShowStats" xml:space="preserve">
     <value>Show summary</value>
+  </data>
+  <data name="SettingsButton" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="StatsDeathColTitle" xml:space="preserve">
     <value>Death count</value>
