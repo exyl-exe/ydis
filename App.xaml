@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="Views/Styles/CurrentLevelStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/SettingsTabStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/NavigationPanelStyles.xaml"/>
+                <ResourceDictionary Source="Views/Styles/SettingsStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/SessionTabStyles.xaml"/>
                 <ResourceDictionary Source="Views/Styles/SessionViewStyles.xaml"/>
                 <ResourceDictionary Source="Views/ResourceDicts/NavigatorDataTemplates.xaml"/>

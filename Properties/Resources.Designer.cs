@@ -475,6 +475,51 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatically start when Geometry Dash is launched.
+        /// </summary>
+        public static string SettingsOnStart {
+            get {
+                return ResourceManager.GetString("SettingsOnStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save files location.
+        /// </summary>
+        public static string SettingsSaveLocation {
+            get {
+                return ResourceManager.GetString("SettingsSaveLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory scanning mode.
+        /// </summary>
+        public static string SettingsScanRate {
+            get {
+                return ResourceManager.GetString("SettingsScanRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls how much time there is between two consecutive scans of the game&apos;s memory. A longer delay means better performance at the cost of accuracy in some edge cases..
+        /// </summary>
+        public static string SettingsScanRateDesc {
+            get {
+                return ResourceManager.GetString("SettingsScanRateDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application settings.
+        /// </summary>
+        public static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Death count.
         /// </summary>
         public static string StatsDeathColTitle {

@@ -271,6 +271,21 @@
   <data name="SettingsButton" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SettingsOnStart" xml:space="preserve">
+    <value>Automatically start when Geometry Dash is launched</value>
+  </data>
+  <data name="SettingsSaveLocation" xml:space="preserve">
+    <value>Save files location</value>
+  </data>
+  <data name="SettingsScanRate" xml:space="preserve">
+    <value>Memory scanning mode</value>
+  </data>
+  <data name="SettingsScanRateDesc" xml:space="preserve">
+    <value>Controls how much time there is between two consecutive scans of the game's memory. A longer delay means better performance at the cost of accuracy in some edge cases.</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Application settings</value>
+  </data>
   <data name="StatsDeathColTitle" xml:space="preserve">
     <value>Death count</value>
   </data>

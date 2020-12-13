@@ -6,25 +6,56 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.AppSettings"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Margin="15">
-        <TextBlock>TODO Application settings</TextBlock>
-        <Border Margin="0,0,0,15">
+    <StackPanel Margin="15"
+                Background="{StaticResource PanelBackgroundColor}">
+        <TextBlock Text="{Binding TitleText}"
+                   Style="{StaticResource TitleStyle}"
+                   Margin="0,0,0,15"/>
+        <Border Margin="15,0,15,15">
             <DockPanel>
-                <TextBlock DockPanel.Dock="Left">TODO Scan frequency (higher value = better performance but less accuracy)</TextBlock>
-                <Slider Minimum="5" Maximum="100"></Slider>
+                <TextBlock DockPanel.Dock="Left"                        
+                           Text="{Binding ScanRateText}"
+                           Style="{StaticResource SettingsTextStyle}"
+                           Margin="0,0,15,0"/>
+                <ComboBox>
+                    <ComboBoxItem>
+                        <TextBlock>
+                            TODOAccuracy over performance
+                        </TextBlock>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <TextBlock>
+                            TODOPerformance over accuracy
+                        </TextBlock>
+                    </ComboBoxItem>
+                </ComboBox>
             </DockPanel>
         </Border>
-        <Border Margin="0,0,0,15">
-            <DockPanel>
-                <Button DockPanel.Dock="Right">TODO</Button>
-                <TextBlock Text="TODOSave files : C:\Programs\Saves"/>
-            </DockPanel>
+        <Border Margin="15,0,15,15">
+            <StackPanel>
+                <TextBlock Text="{Binding SaveLocationText}"
+                           Style="{StaticResource SettingsTextStyle}"/>
+                <DockPanel>
+                    <Button DockPanel.Dock="Right"
+                            Style="{StaticResource SettingsViewButtonStyle}">
+                        <Image Source="{StaticResource editIcon}"
+                               Width="20"
+                               Height="20"/>
+                    </Button>
+                    <Viewbox Margin="5"
+                             MaxHeight="20"
+                             HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding SaveLocation}"
+                                   Style="{StaticResource SettingsTextStyle}"/>
+                    </Viewbox>
+                </DockPanel>
+            </StackPanel>
         </Border>
-        <Border>
+        <Border Margin="15,0,15,15">
             <DockPanel>
                 <CheckBox DockPanel.Dock="Right"
-                          HorizontalAlignment="Center"
-                          Style="{StaticResource FilterCheckboxStyle}">TODOAutomatically start when Geometry Dash is launched</CheckBox>
+                          Style="{StaticResource SettingsCheckboxStyle}"
+                          Content="{Binding StartUpText}"/>
             </DockPanel>
         </Border>
     </StackPanel>
