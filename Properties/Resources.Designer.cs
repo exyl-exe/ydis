@@ -484,20 +484,20 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privilege accuracy over performance.
+        /// </summary>
+        public static string SettingsPerformanceMode {
+            get {
+                return ResourceManager.GetString("SettingsPerformanceMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save files location.
         /// </summary>
         public static string SettingsSaveLocation {
             get {
                 return ResourceManager.GetString("SettingsSaveLocation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Memory scanning mode.
-        /// </summary>
-        public static string SettingsScanRate {
-            get {
-                return ResourceManager.GetString("SettingsScanRate", resourceCulture);
             }
         }
         

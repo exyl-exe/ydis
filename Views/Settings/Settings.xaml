@@ -16,7 +16,8 @@
                 <DockPanel Margin="15,0,15,15">
                     <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
                               DockPanel.Dock="Right"/>
-                    <TextBlock Style="{StaticResource SettingsTextStyle}">TODOPrivilege accuracy over performance</TextBlock>
+                    <TextBlock Text="{Binding PerformanceModeText}"
+                               Style="{StaticResource SettingsTextStyle}"/>
                 </DockPanel>
                 <Border Margin="15,0,15,15">
                     <StackPanel>

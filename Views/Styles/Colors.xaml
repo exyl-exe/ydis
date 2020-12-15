@@ -27,6 +27,10 @@
     <!-- Navigation panel -->
     <SolidColorBrush x:Key="SearchBarUnderline" Color="#3d8ed1"/>
 
+    <!-- Settings panel -->
+    <SolidColorBrush x:Key="SettingsButtonBorderColor" Color="#787b7c"/>
+    <SolidColorBrush x:Key="SettingsButtonHighlightBorderColor" Color="#bbbbbb"/>
+    
     <!-- Filtering panel -->
     <SolidColorBrush x:Key="CheckBoxBorderColor" Color="#787b7c"/>
     <SolidColorBrush x:Key="CheckBoxHighlightBorderColor" Color="#bbbbbb"/>

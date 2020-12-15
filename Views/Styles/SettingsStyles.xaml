@@ -17,7 +17,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="ButtonBackground"
                             Background="{StaticResource HeaderBackgroundColor}"
-                            BorderBrush="{StaticResource PanelSeparatorColor}"
+                            BorderBrush="{StaticResource SettingsButtonBorderColor}"
                             BorderThickness="1">
                         <ContentPresenter
                             Margin="5"
@@ -27,7 +27,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBackground"
-                                    Property="BorderBrush" Value="{StaticResource SelectedColor}"/>
+                                    Property="BorderBrush" Value="{StaticResource SettingsButtonHighlightBorderColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

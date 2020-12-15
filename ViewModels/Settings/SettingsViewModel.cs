@@ -12,7 +12,7 @@ namespace Whydoisuck.ViewModels.AppSettings
     public class SettingsViewModel : BaseViewModel
     {
         public string TitleText => Resources.SettingsTitle;
-        public string ScanRateText => Resources.SettingsScanRate;
+        public string PerformanceModeText => Resources.SettingsPerformanceMode;
         public string SaveLocation => Path.GetFullPath(SerializationManager.SaveDirectory);
         public string SaveLocationText => Resources.SettingsSaveLocation;
         public string StartUpText => Resources.SettingsOnStart;
