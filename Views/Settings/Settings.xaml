@@ -12,47 +12,42 @@
                    Style="{StaticResource TitleStyle}"
                    Margin="0,0,0,15"/>
         <Viewbox>
-            <Grid HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical" Grid.Column="0">
-                    <DockPanel Margin="15,0,15,15">
-                        <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <DockPanel Margin="15,0,15,15">
+                    <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
                               DockPanel.Dock="Right"/>
-                        <TextBlock Style="{StaticResource SettingsTextStyle}">TODOPrivilege accuracy over performance</TextBlock>
-                    </DockPanel>
-                    <Border Margin="15,0,15,15">
-                        <StackPanel>
-                            <TextBlock Text="{Binding SaveLocationText}"
+                    <TextBlock Style="{StaticResource SettingsTextStyle}">TODOPrivilege accuracy over performance</TextBlock>
+                </DockPanel>
+                <Border Margin="15,0,15,15">
+                    <StackPanel>
+                        <TextBlock Text="{Binding SaveLocationText}"
                            Style="{StaticResource SettingsTextStyle}"/>
-                            <DockPanel>
-                                <Button DockPanel.Dock="Right"
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right"
                                 Margin="5,0,0,0"
                                 Style="{StaticResource SettingsViewButtonStyle}">
-                                    <Image Source="{StaticResource editIcon}"
+                                <Image Source="{StaticResource editIcon}"
                                        Width="20"
                                        Height="20"/>
-                                </Button>
-                                <Viewbox Margin="5"
-                             MaxHeight="20"
-                             HorizontalAlignment="Left">
-                                    <TextBlock Text="{Binding SaveLocation}"
-                                   Style="{StaticResource SettingsTextStyle}"/>
-                                </Viewbox>
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border Margin="15,0,15,15">
-                        <DockPanel>
-                            <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
-                              DockPanel.Dock="Right"/>
-                            <TextBlock Text="{Binding StartUpText}"
-                               Style="{StaticResource SettingsTextStyle}"/>
+                            </Button>
+                            <Viewbox Margin="5"
+                                     MaxHeight="20"
+                                     HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding SaveLocation}"
+                                           Style="{StaticResource SettingsTextStyle}"/>
+                            </Viewbox>
                         </DockPanel>
-                    </Border>
-                </StackPanel>
-            </Grid>
+                    </StackPanel>
+                </Border>
+                <Border Margin="15,0,15,15">
+                    <DockPanel>
+                        <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
+                              DockPanel.Dock="Right"/>
+                        <TextBlock Text="{Binding StartUpText}"
+                               Style="{StaticResource SettingsTextStyle}"/>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
         </Viewbox>
         
     </StackPanel>
