@@ -41,32 +41,20 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
-                    <DockPanel VerticalAlignment="Center">
-                        <Border x:Name="CheckBoxBorder"
+                    <Border x:Name="CheckBoxBorder"
                                 DockPanel.Dock="Right"
-                                Margin="7,0,0,0"
+                                Margin="0"
                                 Background="{StaticResource CheckBoxFillColor}"
                                 BorderBrush="{StaticResource CheckBoxBorderColor}"
                                 BorderThickness="1">
-                            <Rectangle x:Name="CheckBoxMark"
+                        <Rectangle x:Name="CheckBoxMark"
                                        Width="25" Height="25"
                                        Margin="2"
                                        VerticalAlignment="Stretch"
                                        HorizontalAlignment="Stretch"
                                        Fill="{StaticResource CheckBoxMarkColor}"
                                        Stroke="{StaticResource CheckBoxMarkColor}"/>
-                        </Border>
-                        <ContentPresenter>
-                            <ContentPresenter.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
-                                    <Setter Property="HorizontalAlignment" Value="Left"/>
-                                    <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-                                    <Setter Property="FontSize" Value="20"/>
-                                </Style>
-                            </ContentPresenter.Resources>
-                        </ContentPresenter>
-                    </DockPanel>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="CheckBoxMark"

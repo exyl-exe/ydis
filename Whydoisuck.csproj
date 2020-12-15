@@ -442,6 +442,5 @@
     <Resource Include="Views\Images\minIcon.png" />
     <Resource Include="Views\Images\unmaxIcon.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
