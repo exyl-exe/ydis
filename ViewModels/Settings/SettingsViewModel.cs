@@ -13,8 +13,10 @@ namespace Whydoisuck.ViewModels.AppSettings
     {
         public string TitleText => Resources.SettingsTitle;
         public string PerformanceModeText => Resources.SettingsPerformanceMode;
+        public string PerformanceModeDesc => Resources.SettingsPerformanceModeDesc;
         public string SaveLocation => Path.GetFullPath(SerializationManager.SaveDirectory);
         public string SaveLocationText => Resources.SettingsSaveLocation;
         public string StartUpText => Resources.SettingsOnStart;
+        public string StartUpDesc => Resources.SettingsOnStartDesc;
     }
 }

@@ -484,11 +484,30 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Whydoisuck will be automatically opened when Geometry Dash launched.
+        ///This requires a very light process to run as a background task..
+        /// </summary>
+        public static string SettingsOnStartDesc {
+            get {
+                return ResourceManager.GetString("SettingsOnStartDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Privilege accuracy over performance.
         /// </summary>
         public static string SettingsPerformanceMode {
             get {
                 return ResourceManager.GetString("SettingsPerformanceMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enhances accuracy but consumes (slightly) more CPU..
+        /// </summary>
+        public static string SettingsPerformanceModeDesc {
+            get {
+                return ResourceManager.GetString("SettingsPerformanceModeDesc", resourceCulture);
             }
         }
         

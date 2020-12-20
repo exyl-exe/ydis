@@ -1,9 +1,8 @@
 ﻿<UserControl x:Class="Whydoisuck.Views.AppSettings.Settings"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Whydoisuck.Views.AppSettings"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Margin="15"
@@ -13,16 +12,8 @@
                    Margin="0,0,0,15"/>
         <Viewbox MaxHeight="300" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical">
-                <DockPanel Margin="15,0,15,15">
-                    <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
-                              DockPanel.Dock="Right"/>
-                    <TextBlock Text="{Binding PerformanceModeText}"
-                               Style="{StaticResource SettingsTextStyle}"/>
-                </DockPanel>
                 <Border Margin="15,0,15,15">
                     <StackPanel>
-                        <TextBlock Text="{Binding SaveLocationText}"
-                           Style="{StaticResource SettingsTextStyle}"/>
                         <DockPanel>
                             <Button DockPanel.Dock="Right"
                                 Margin="5,0,0,0"
@@ -31,21 +22,41 @@
                                        Width="20"
                                        Height="20"/>
                             </Button>
-                            <Viewbox Margin="5"
-                                     MaxHeight="20"
-                                     HorizontalAlignment="Left">
-                                        <TextBlock Text="{Binding SaveLocation}"
-                                           Style="{StaticResource SettingsTextStyle}"/>
-                            </Viewbox>
+                            <TextBlock Text="{Binding SaveLocationText}"
+                                       Style="{StaticResource SettingsTextStyle}"/>
                         </DockPanel>
+                        <Viewbox Margin="3,2,0,0"
+                                 MaxHeight="20"
+                                 HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding SaveLocation}"
+                                           Style="{StaticResource SettingsTextStyle}"/>
+                        </Viewbox>
                     </StackPanel>
                 </Border>
-                <Border Margin="15,0,15,15">
+                <Border Margin="15,5,15,15">
                     <DockPanel>
-                        <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
+                        <DockPanel DockPanel.Dock="Top">
+                            <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
                               DockPanel.Dock="Right"/>
-                        <TextBlock Text="{Binding StartUpText}"
+                            <TextBlock Text="{Binding StartUpText}"
                                Style="{StaticResource SettingsTextStyle}"/>
+                        </DockPanel>
+                        <TextBlock Margin="3,2,0,0"
+                                   Text="{Binding StartUpDesc}"
+                                   Style="{StaticResource SettingsSecondaryTextStyle}"/>
+                    </DockPanel>
+                </Border>
+                <Border Margin="15,5,15,15">
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top">
+                            <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
+                              DockPanel.Dock="Right"/>
+                            <TextBlock Text="{Binding PerformanceModeText}"
+                               Style="{StaticResource SettingsTextStyle}"/>
+                        </DockPanel>
+                        <TextBlock Margin="3,0,0,0"
+                                   Text="{Binding PerformanceModeDesc}"
+                                   Style="{StaticResource SettingsSecondaryTextStyle}"/>
                     </DockPanel>
                 </Border>
             </StackPanel>
