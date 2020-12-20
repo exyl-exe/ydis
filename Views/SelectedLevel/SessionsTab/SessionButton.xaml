@@ -17,18 +17,22 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"
-                       Text="{Binding CopyName}"
+            <Viewbox Grid.Column="0">
+                <TextBlock Text="{Binding CopyName}"
                        HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="1"
-                       Text="{Binding Time}"
+            </Viewbox>
+            <Viewbox Grid.Column="1">
+                <TextBlock Text="{Binding Time}"
                        HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="2"
-                       Text="{Binding Start}"
+            </Viewbox>
+            <Viewbox Grid.Column="2">
+                <TextBlock Text="{Binding Start}"
                        HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="3"
-                       Text="{Binding AttemptCount}"
+            </Viewbox>
+            <Viewbox Grid.Column="3">
+                <TextBlock Text="{Binding AttemptCount}"
                        HorizontalAlignment="Center"/>
+            </Viewbox>
         </Grid>
     </Button>
 </UserControl>
