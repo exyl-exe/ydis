@@ -11,8 +11,8 @@
         <TextBlock Text="{Binding TitleText}"
                    Style="{StaticResource TitleStyle}"
                    Margin="0,0,0,15"/>
-        <Viewbox>
-            <StackPanel Orientation="Vertical" Grid.Column="0">
+        <Viewbox MaxHeight="300" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical">
                 <DockPanel Margin="15,0,15,15">
                     <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
                               DockPanel.Dock="Right"/>
