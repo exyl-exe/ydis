@@ -67,5 +67,14 @@ namespace Whydoisuck.Properties {
                 return ((string)(this["LogsPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int AttachRate {
+            get {
+                return ((int)(this["AttachRate"]));
+            }
+        }
     }
 }

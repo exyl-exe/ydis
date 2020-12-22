@@ -17,5 +17,8 @@
     <Setting Name="LogsPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">./logs/</Value>
     </Setting>
+    <Setting Name="AttachRate" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

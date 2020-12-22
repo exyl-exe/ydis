@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,6 +57,8 @@ namespace Whydoisuck.Model.MemoryReading
 
         // Delay between every check of the game's state
         private static int Delay => Settings.Default.ScanRate;//milliseconds
+        // Delay between every attach attempt
+        private static int AttachDelay => Settings.Default.AttachRate;//TODO
         // Boolean true if the GameWatcher is active
         private static bool IsRecording { get; set; }
         // Reader to access the game's memory
@@ -86,8 +89,16 @@ namespace Whydoisuck.Model.MemoryReading
         {
             while (IsRecording)
             {
-                Thread.Sleep(Delay);
-                UpdateState();
+                // Attaches the reader to the process before reading memory values
+                if (Reader.IsGDOpened || Reader.TryAttachToGD())
+                {
+                    while (Reader.IsGDOpened && IsRecording)
+                    {
+                        UpdateState();
+                        Thread.Sleep(Delay);
+                    }
+                }                
+                Thread.Sleep(AttachDelay);
             }
         }
 
@@ -111,13 +122,6 @@ namespace Whydoisuck.Model.MemoryReading
         // Manages events based on the state of the game
         private static void UpdateState()
         {
-            // Try to initialize the reader if it's not attached to a process
-            if (!Reader.IsGDOpened)
-            {
-                var initialized = Reader.TryAttachToGD();
-                if (!initialized) return;
-            }
-
             // First time reading the game's state
             if (PreviousState == null)
             {
