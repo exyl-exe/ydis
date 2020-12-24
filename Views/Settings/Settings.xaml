@@ -16,8 +16,9 @@
                     <StackPanel>
                         <DockPanel>
                             <Button DockPanel.Dock="Right"
-                                Margin="5,0,0,0"
-                                Style="{StaticResource SettingsViewButtonStyle}">
+                                    Command="{Binding BrowseCommand}"
+                                    Margin="5,0,0,0"
+                                    Style="{StaticResource SettingsViewButtonStyle}">
                                 <Image Source="{StaticResource editIcon}"
                                        Width="20"
                                        Height="20"/>

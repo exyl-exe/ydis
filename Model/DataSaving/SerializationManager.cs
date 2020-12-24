@@ -13,14 +13,28 @@ using Whydoisuck.Properties;
 namespace Whydoisuck.DataSaving
 {
     /// <summary>
-    /// Manages serialization of differents objects.
+    /// Manages serialization of differents objects in a given directory
     /// </summary>
     public static class SerializationManager
     {
+        private static string _saveDirectory = null;
         /// <summary>
         /// Directory where all of the data is saved.
         /// </summary>
-        public static string SaveDirectory => Settings.Default.SavePath;
+        public static string SaveDirectory {
+            get
+            {
+                if(_saveDirectory == null)
+                {
+                    _saveDirectory = "./records/";//TODO
+                }
+                return _saveDirectory;
+            }
+            set
+            {
+                _saveDirectory = value;
+            }
+        }
         /// <summary>
         /// Path for the file containing the session manager.
         /// </summary>
@@ -53,12 +67,20 @@ namespace Whydoisuck.DataSaving
         }
 
         /// <summary>
+        /// Moves current data to another folder
+        /// </summary>
+        /// <param name="path"></param>
+        public static void MigrateData(string newPath)
+        {
+            //TODO
+        }
+
+        /// <summary>
         /// Creates a directory for a given group
         /// </summary>
         /// <param name="group">The group to create a directory for</param>
         public static bool CreateGroupDirectory(SessionGroup group)
         {
-
             var path = GetGroupDirectoryPath(group);
             try
             {

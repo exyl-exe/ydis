@@ -358,6 +358,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move existing data.
+        /// </summary>
+        public static string MigrateDataCaption {
+            get {
+                return ResourceManager.GetString("MigrateDataCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to move existing data ? It will be merged with the save files at the given location..
+        /// </summary>
+        public static string MigrateDataContent {
+            get {
+                return ResourceManager.GetString("MigrateDataContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statistics.
         /// </summary>
         public static string SelectedLevelGraphTab {
@@ -620,7 +638,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.0.
+        ///   Looks up a localized string similar to 1.1.
         /// </summary>
         public static string Version {
             get {

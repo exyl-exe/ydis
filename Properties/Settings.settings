@@ -8,9 +8,6 @@
     <Setting Name="PercentWidth" Type="System.Double" Scope="Application">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="SavePath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">./records/</Value>
-    </Setting>
     <Setting Name="IndexerFileName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">indexedLevels.wdis</Value>
     </Setting>

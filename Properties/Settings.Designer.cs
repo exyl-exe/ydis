@@ -43,15 +43,6 @@ namespace Whydoisuck.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("./records/")]
-        public string SavePath {
-            get {
-                return ((string)(this["SavePath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("indexedLevels.wdis")]
         public string IndexerFileName {
             get {
