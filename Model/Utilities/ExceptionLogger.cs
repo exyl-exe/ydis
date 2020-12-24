@@ -11,7 +11,7 @@ namespace Whydoisuck.Model.Utilities
 {
     public static class ExceptionLogger
     {
-        private static string LogsPath => Settings.Default.LogsPath;
+        private static string LogsPath => WDISSettings.LogsPath;
 
         public static void Log(Exception e)
         {

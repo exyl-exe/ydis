@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
@@ -34,7 +35,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.GraphTab
         public GraphTabMainViewModel(SessionGroup g)
         {
             Filter = new SessionFilterViewModel();
-            GroupStats = new SessionsStatistics(g.GroupSessions, Filter, Settings.Default.PercentWidth);
+            GroupStats = new SessionsStatistics(g.GroupSessions, Filter, WDISSettings.DefaultPartWidth);
             DataGrid = new LevelDataGridViewModel(GroupStats);
             Graph = new LevelGraphViewModel(GroupStats, Resources.GraphTitleOverall);
         }

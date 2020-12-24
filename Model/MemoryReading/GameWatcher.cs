@@ -56,9 +56,9 @@ namespace Whydoisuck.Model.MemoryReading
         public static event GameInfoCallback OnPlayerSpawns;
 
         // Delay between every check of the game's state
-        private static int Delay => Settings.Default.ScanRate;//milliseconds
+        private static int Delay => WDISSettings.ScanPeriod;//milliseconds
         // Delay between every attach attempt
-        private static int AttachDelay => Settings.Default.AttachRate;//TODO
+        private static int AttachDelay => WDISSettings.AttachPeriod;
         // Boolean true if the GameWatcher is active
         private static bool IsRecording { get; set; }
         // Reader to access the game's memory

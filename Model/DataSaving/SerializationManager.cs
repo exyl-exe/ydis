@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Properties;
 
@@ -26,7 +27,7 @@ namespace Whydoisuck.DataSaving
             {
                 if(_saveDirectory == null)
                 {
-                    _saveDirectory = "./records/";//TODO
+                    _saveDirectory = WDISSettings.DefaultSavePath;//TODO
                 }
                 return _saveDirectory;
             }
@@ -41,7 +42,7 @@ namespace Whydoisuck.DataSaving
         public static string IndexFilePath { get { return Path.Combine(SaveDirectory, IndexFileName); } }
 
         // name of the file containing the session manager
-        private static string IndexFileName => Settings.Default.IndexerFileName;
+        private static string IndexFileName => WDISSettings.SaveManagerFileName;
 
         /// <summary>
         /// Initializes folders and files on the disk so that the session manager

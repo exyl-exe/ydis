@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Whydoisuck.DataSaving;
+using Whydoisuck.Model;
 using Whydoisuck.Model.Utilities;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels;
@@ -72,7 +73,7 @@ namespace Whydoisuck.Views
                 Closing -= StopWDIS;
                 _recorder?.CrashRecorder();
                 string msg = string.Format("{0}\n{1}", Properties.Resources.ErrorMessage,
-                                                       string.Format(Properties.Resources.ErrorMessageLogLocationFormat, Settings.Default.LogsPath));
+                                                       string.Format(Properties.Resources.ErrorMessageLogLocationFormat, WDISSettings.LogsPath));
                 //Thread needed because sometimes the message box is not displayed                
                 MessageBox.Show(Application.Current.MainWindow, msg, Properties.Resources.ErrorMessageTitle);
             }
