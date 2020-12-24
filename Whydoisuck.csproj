@@ -101,6 +101,7 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
     <Compile Include="Model\Utilities\ExceptionLogger.cs" />
+    <Compile Include="Model\WDISSettings.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelDatagridItemViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelPlaceholderViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelStatisticsViewModel.cs" />
