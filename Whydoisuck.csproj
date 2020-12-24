@@ -111,7 +111,7 @@
     <Compile Include="ViewModels\DataStructures\Range.cs" />
     <Compile Include="ViewModels\DataStructures\SessionsStatistics.cs" />
     <Compile Include="Model\DataStructures\IWDISSerializable.cs" />
-    <Compile Include="Model\DataSaving\SerializationManager.cs" />
+    <Compile Include="Model\DataSaving\SessionManagerSerializer.cs" />
     <Compile Include="Model\DataSaving\SessionManager.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GameState.cs" />
     <Compile Include="Model\DataStructures\Attempt.cs" />

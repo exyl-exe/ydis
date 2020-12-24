@@ -18,7 +18,7 @@ namespace Whydoisuck.Model.DataStructures
         /// <summary>
         /// Name of the session
         /// </summary>
-        [JsonProperty(PropertyName ="SessionName")] public string SessionName { get; set; }
+        [JsonProperty(PropertyName ="SessionName")] public string SessionName { get; set; }//TODO might be shit
         /// <summary>
         /// Level the session was played on
         /// </summary>

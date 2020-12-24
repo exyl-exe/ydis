@@ -3,12 +3,14 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
 
 namespace Whydoisuck.DataSaving
@@ -31,7 +33,6 @@ namespace Whydoisuck.DataSaving
                 if(_instance == null)
                 {
                     _instance = new SessionManager();
-                    SerializationManager.DeserializeSessionManager(_instance);
                 }
                 return _instance;
             }
@@ -41,6 +42,9 @@ namespace Whydoisuck.DataSaving
         /// List of all groups
         /// </summary>
         [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
+        
+        // Manager of the save files on the disk
+        private SessionManagerSerializer Serializer { get; set; }
 
         /// <summary>
         /// Delegate for callbacks when a group is updated
@@ -55,18 +59,33 @@ namespace Whydoisuck.DataSaving
         /// Event invoked when a group is deleted
         /// </summary>
         public event OnGroupUpdatedCallback OnGroupDeleted;
-
+        
         /// <summary>
         /// Suffix to try to fix invalid folder names
         /// </summary>
         private static string InvalidNameSuffix => "_def";
 
+        /// <summary>
+        /// Path of the saves directory
+        /// </summary>
+        public string SavesDirectory => Serializer.SaveDirectory;
+
 
         //private because only one instance of the class can exist
         private SessionManager()
         {
-            SerializationManager.Init();
-            Groups = new List<SessionGroup>();
+            Serializer = new SessionManagerSerializer(WDISSettings.DefaultSavePath);
+            if (File.Exists(Serializer.IndexFilePath))
+            {
+                Serializer.Deserialize(Serializer.IndexFilePath, this);//TODO don't pass path here
+                foreach(var g in Groups)
+                {
+                    g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
+                }
+            } else
+            {
+                Groups = new List<SessionGroup>();
+            }
         }
 
         /// <summary>
@@ -76,27 +95,9 @@ namespace Whydoisuck.DataSaving
         {
             if (_instance != null)
             {
-                SerializationManager.SerializeSessionManager(_instance);
+                Serializer.Serialize(Serializer.IndexFilePath, this);//TODO don't pass path here
             }
-        }
-
-        /// <summary>
-        /// TODO remove, debug function to test if group attribution is ok
-        /// from existing data
-        /// </summary>
-        public void Rebuild()
-        {
-            List<Session> sessions = this.Groups.SelectMany(g => g.GroupSessions).ToList();
-            List<SessionGroup> groups = new List<SessionGroup>(Groups);
-            foreach(var g in groups)
-            {
-                this.DeleteGroup(g);
-            }
-            foreach(var s in sessions)
-            {
-                this.SaveSession(s);
-            }
-        }
+        }        
 
         /// <summary>
         /// Sorts groups depending on which is most likely to contain a given level
@@ -114,13 +115,17 @@ namespace Whydoisuck.DataSaving
         /// <param name="session">The session to save</param>
         public void SaveSession(Session session)
         {
+            // Updating session manager instance
             var group = GetOrCreateGroup(session);
             var mostSimilar = group.GetMostSimilarLevelInGroup(session.Level);
             if (mostSimilar != null && !mostSimilar.IsSameLevel(session.Level))
             {
                 group.Levels.Add(session.Level);
             }
-            group.AddAndSerializeSession(session);
+            group.AddSession(session);
+            // Saving session on the disk
+            Serializer.SerializeSession(group, session);
+            Save();
             OnGroupUpdated?.Invoke(group);
         }
 
@@ -167,16 +172,16 @@ namespace Whydoisuck.DataSaving
         {
             var defaultGroupName = SessionGroup.GetDefaultGroupName(level);
             var groupName = FindAvailableGroupName(defaultGroupName);            
-            var newGroup = new SessionGroup(groupName);
+            var newGroup = new SessionGroup(groupName, (someGroup) => Serializer.LoadGroupSessions(someGroup));
             Groups.Add(newGroup);
-            var success = SerializationManager.CreateGroupDirectory(newGroup);
+            var success = Serializer.CreateGroupDirectory(newGroup);
             // This checks exists to try to correct a folder name if it's forbidden on windows
             // for instance CON, AUX ...
             // TODO Bad code
             if (!success)
             {
                 newGroup.GroupName = FindAvailableGroupName(groupName + InvalidNameSuffix);
-                success = SerializationManager.CreateGroupDirectory(newGroup);
+                success = Serializer.CreateGroupDirectory(newGroup);
                 if (!success) throw new Exception($"Invalid group name : '{newGroup.GroupName}'");
             }
             newGroup.Levels.Add(level);
@@ -190,28 +195,10 @@ namespace Whydoisuck.DataSaving
         public void DeleteGroup(SessionGroup group)
         {
             Groups.Remove(group);
-            SerializationManager.DeleteGroupDirectory(group);
+            Serializer.DeleteGroupDirectory(group);
             Save();
             OnGroupDeleted?.Invoke(group);
-        }
-
-        /// <summary>
-        /// Serializes the session manager.
-        /// </summary>
-        /// <returns>A string containing a json object matching the manager.</returns>
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Deserializes the session manager.
-        /// </summary>
-        /// <param name="value">A string containing a json object matching a manager.</param>
-        public override void Deserialize(string value)
-        {
-            JsonConvert.PopulateObject(value, this);
-        }
+        }        
 
         private bool IsGroupNameAvailable(string groupName)
         {
@@ -237,7 +224,24 @@ namespace Whydoisuck.DataSaving
             return availableName;
         }
 
-        // TODO find a way to make it static so that it's not duplicated for each instance
+        /// <summary>
+        /// Serializes the session manager.
+        /// </summary>
+        /// <returns>A string containing a json object matching the manager.</returns>
+        public override string Serialize()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Deserializes the session manager.
+        /// </summary>
+        /// <param name="value">A string containing a json object matching a manager.</param>
+        public override void Deserialize(string value)
+        {
+            JsonConvert.PopulateObject(value, this);
+        }
+
         /// <summary>
         /// Checks the version of a session manager.
         /// </summary>
@@ -256,7 +260,6 @@ namespace Whydoisuck.DataSaving
         }
 
 
-        // TODO find a way to make it static so that it's not duplicated for each instance
         /// <summary>
         /// Updates an old sessionmanager object
         /// </summary>

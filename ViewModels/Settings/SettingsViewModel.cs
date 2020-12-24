@@ -37,7 +37,7 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// <summary>
         /// Save files path
         /// </summary>
-        public string SaveLocation => Path.GetFullPath(SerializationManager.SaveDirectory);
+        public string SaveLocation => Path.GetFullPath(SessionManager.Instance.SavesDirectory);
         /// <summary>
         /// Save files location selector command
         /// </summary>
@@ -54,17 +54,6 @@ namespace Whydoisuck.ViewModels.AppSettings
         public SettingsViewModel()
         {
             BrowseCommand = new FolderBrowserCommand(this);
-        }
-
-        public void SetSavePath(string path)
-        {
-            SerializationManager.SaveDirectory = path;
-            OnPropertyChanged(nameof(SaveLocation));
-        }
-        public void MigrateData(string path)
-        {
-            SerializationManager.MigrateData(path);
-            OnPropertyChanged(nameof(SaveLocation));
         }
     }
 }

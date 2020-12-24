@@ -142,7 +142,6 @@ namespace Whydoisuck.DataSaving
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
             Manager.SaveSession(CurrentSession);
-            SerializationManager.SerializeSessionManager(Manager);
             CurrentSession = null;
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;

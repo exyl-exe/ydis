@@ -80,6 +80,7 @@ namespace Whydoisuck.Model.DataStructures
         // false if the sessions weren't loaded yet
         // exists to avoid loading every session in a group if they are not accessed
         [JsonIgnore] private bool _loaded = false;
+        [JsonIgnore] private Func<SessionGroup,List<Session>> _loader;
         // List of sessions in the group, null if not loaded.
         [JsonIgnore] private List<Session> groupSessions;
         //displayed name property
@@ -87,24 +88,31 @@ namespace Whydoisuck.Model.DataStructures
 
         public SessionGroup() { } //For json deserialization
 
-        public SessionGroup(string name)
+        public SessionGroup(string name, Func<SessionGroup,List<Session>> sessionsLoader)
         {
             GroupName = name;
             DisplayedName = name;
             Levels = new List<Level>();
-            GroupSessions = new List<Session>();
+            _loader = sessionsLoader;
         }
 
         /// <summary>
-        /// Adds a session to the group and saves it on the disk. 
+        /// Sets a method to call when the group needs to be loaded
         /// </summary>
-        /// <param name="session">Session to add and serialize</param>
-        public void AddAndSerializeSession(Session session)
+        public void SetLoader(Func<SessionGroup, List<Session>> loader)
+        {
+            _loader = loader;
+        }
+
+        /// <summary>
+        /// Adds a session to the group. 
+        /// </summary>
+        /// <param name="session">Session to add</param>
+        public void AddSession(Session session)
         {
             if (LastPlayedTime < session.StartTime) LastPlayedTime = session.StartTime;
             session.SessionName = GetAvailaibleSessionName(session);
             GroupSessions.Add(session);
-            SerializationManager.SerializeSession(this, session);
             OnSessionsChange?.Invoke();
         }
 
@@ -186,7 +194,7 @@ namespace Whydoisuck.Model.DataStructures
         // Load sessions in the group. Needed because of how sessions are saved.
         private void LoadSessions()
         {
-            groupSessions = SerializationManager.LoadGroupSessions(this);
+            groupSessions = _loader(this);
         }
     }
 }

@@ -36,10 +36,10 @@ namespace Whydoisuck.Views.Commands
             var migrateData = ShowMigrateDialog();
             if (migrateData)
             {
-                AppSettings.MigrateData(path);
+                //TODO
             } else
             {
-                AppSettings.SetSavePath(path);
+                //TODO
             }
         }
 
