@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Model.Utilities;
 using Whydoisuck.Properties;
 
 namespace Whydoisuck.DataSaving
@@ -22,7 +24,7 @@ namespace Whydoisuck.DataSaving
         /// <summary>
         /// Directory where all of the data is saved.
         /// </summary>
-        public string SaveDirectory {
+        public string SavesDirectory {
             get
             {
                 if(_saveDirectory == null)
@@ -39,7 +41,7 @@ namespace Whydoisuck.DataSaving
         /// <summary>
         /// Path for the file containing the session manager.
         /// </summary>
-        public string IndexFilePath { get { return Path.Combine(SaveDirectory, IndexFileName); } }
+        public string IndexFilePath { get { return Path.Combine(SavesDirectory, IndexFileName); } }
 
         // name of the file containing the session manager
         private string IndexFileName => WDISSettings.SaveManagerFileName;
@@ -50,10 +52,10 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public SessionManagerSerializer(string saveDir)
         {
-            SaveDirectory = saveDir;
-            if (!Directory.Exists(SaveDirectory))
+            SavesDirectory = saveDir;
+            if (!Directory.Exists(SavesDirectory))
             {
-                Directory.CreateDirectory(SaveDirectory);
+                Directory.CreateDirectory(SavesDirectory);
             }
         }
 
@@ -83,6 +85,13 @@ namespace Whydoisuck.DataSaving
             {
                 return false;
             }
+        }
+
+        public void CopyGroupDirectory(string originalGroupName, string targetPath, string newGroupName)
+        {
+            var oldPath = GetGroupDirectoryPath(SavesDirectory, originalGroupName);
+            var newPath = GetGroupDirectoryPath(targetPath, newGroupName);
+            DirectoryUtilities.Copy(oldPath, newPath, true);
         }
 
         /// <summary>
@@ -151,7 +160,13 @@ namespace Whydoisuck.DataSaving
         // Gets the path of the directory of a group.
         private string GetGroupDirectoryPath(SessionGroup group)
         {
-            var path = Path.Combine(SaveDirectory, group.GroupName.Trim());
+            return GetGroupDirectoryPath(SavesDirectory, group.GroupName);
+        }
+
+        // Gets the path of the directory of a group, with a given a root.
+        private string GetGroupDirectoryPath(string rootPath, string groupName)
+        {
+            var path = Path.Combine(rootPath, groupName.Trim());
             return path;
         }
 

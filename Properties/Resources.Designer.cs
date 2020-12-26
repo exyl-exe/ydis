@@ -367,11 +367,12 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to move existing data ? It will be merged with the save files at the given location..
+        ///   Looks up a localized string similar to Do you want to move current data ? It will be merged with the save files at the given location :
+        ///{0}.
         /// </summary>
-        public static string MigrateDataContent {
+        public static string MigrateDataContentFormat {
             get {
-                return ResourceManager.GetString("MigrateDataContent", resourceCulture);
+                return ResourceManager.GetString("MigrateDataContentFormat", resourceCulture);
             }
         }
         

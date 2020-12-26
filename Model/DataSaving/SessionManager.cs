@@ -32,7 +32,7 @@ namespace Whydoisuck.DataSaving
             {
                 if(_instance == null)
                 {
-                    _instance = new SessionManager();
+                    _instance = new SessionManager(WDISSettings.DefaultSavePath);
                 }
                 return _instance;
             }
@@ -42,7 +42,7 @@ namespace Whydoisuck.DataSaving
         /// List of all groups
         /// </summary>
         [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
-        
+
         // Manager of the save files on the disk
         private SessionManagerSerializer Serializer { get; set; }
 
@@ -68,23 +68,75 @@ namespace Whydoisuck.DataSaving
         /// <summary>
         /// Path of the saves directory
         /// </summary>
-        public string SavesDirectory => Serializer.SaveDirectory;
+        [JsonIgnore] public string SavesDirectory => Serializer.SavesDirectory;
 
 
         //private because only one instance of the class can exist
-        private SessionManager()
+        private SessionManager(string path)
         {
-            Serializer = new SessionManagerSerializer(WDISSettings.DefaultSavePath);
+            Init(path);
+        }
+
+        private void Init(string path)
+        {
+            Serializer = new SessionManagerSerializer(path);
             if (File.Exists(Serializer.IndexFilePath))
             {
                 Serializer.Deserialize(Serializer.IndexFilePath, this);//TODO don't pass path here
-                foreach(var g in Groups)
+                foreach (var g in Groups)
                 {
                     g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
                 }
-            } else
+            }
+            else
             {
                 Groups = new List<SessionGroup>();
+            }
+        }
+
+        /// <summary>
+        /// Moves where the data is stored (without moving existing data)
+        /// </summary>
+        public void SetRoot(string path)
+        {
+            if (path == SavesDirectory) return;
+            foreach(var g in Groups)
+            {
+                OnGroupDeleted?.Invoke(g);
+            }
+            Groups.Clear();
+            Init(path);
+            foreach (var g in Groups)
+            {
+                OnGroupUpdated?.Invoke(g);
+            }
+        }
+
+        /// <summary>
+        /// Moves current data to another location, and merges it with existing data in the given location
+        /// </summary>
+        /// <param name="path"></param>
+        public void SetRootAndMerge(string path)
+        {
+            if (path == SavesDirectory) return;
+            var otherData = new SessionManager(path);
+            foreach(var g in Groups)
+            {
+                var originalName = g.GroupName;
+                var newName = otherData.FindAvailableGroupName(originalName);
+                g.GroupName = newName;
+                Serializer.CopyGroupDirectory(originalName, path, newName);
+            }
+            Groups.AddRange(otherData.Groups);
+            Serializer = new SessionManagerSerializer(path);
+            foreach (var g in Groups)
+            {
+                g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
+            }
+            Save();
+            foreach (var newGroup in otherData.Groups)
+            {
+                OnGroupUpdated?.Invoke(newGroup);
             }
         }
 
@@ -93,10 +145,7 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public void Save()
         {
-            if (_instance != null)
-            {
-                Serializer.Serialize(Serializer.IndexFilePath, this);//TODO don't pass path here
-            }
+            Serializer.Serialize(Serializer.IndexFilePath, this);//TODO don't pass path here
         }        
 
         /// <summary>
@@ -216,7 +265,7 @@ namespace Whydoisuck.DataSaving
         {
             var i = 2;
             var availableName = groupName;
-            while (!IsGroupNameAvailable(groupName))
+            while (!IsGroupNameAvailable(availableName))
             {
                 availableName = $"{groupName} ({i})";
                 i++;

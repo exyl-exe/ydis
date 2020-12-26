@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.AppSettings;
+using Whydoisuck.DataSaving;
 
 namespace Whydoisuck.Views.Commands
 {
@@ -32,14 +33,14 @@ namespace Whydoisuck.Views.Commands
         public void Execute(object parameter)
         {
             var path = ShowFolderPicker();
-            if (path == null) return;            
-            var migrateData = ShowMigrateDialog();
+            if (path == null || path == SessionManager.Instance.SavesDirectory) return;            
+            var migrateData = ShowMigrateDialog(path);
             if (migrateData)
             {
-                //TODO
+                SessionManager.Instance.SetRootAndMerge(path);
             } else
             {
-                //TODO
+                SessionManager.Instance.SetRoot(path);
             }
         }
 
@@ -59,10 +60,10 @@ namespace Whydoisuck.Views.Commands
             }
         }
 
-        public bool ShowMigrateDialog()
+        public bool ShowMigrateDialog(string newPath)
         {
             var caption = Resources.MigrateDataCaption;
-            var content = Resources.MigrateDataContent;
+            var content = string.Format(Resources.MigrateDataContentFormat, newPath);
             var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             return result == MessageBoxResult.Yes;
         }

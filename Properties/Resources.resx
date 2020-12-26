@@ -228,8 +228,10 @@
   <data name="MigrateDataCaption" xml:space="preserve">
     <value>Move existing data</value>
   </data>
-  <data name="MigrateDataContent" xml:space="preserve">
-    <value>Do you want to move existing data ? It will be merged with the save files at the given location.</value>
+  <data name="MigrateDataContentFormat" xml:space="preserve">
+    <value>Do you want to move current data ? It will be merged with the save files at the given location :
+{0}</value>
+    <comment>Format</comment>
   </data>
   <data name="SelectedLevelGraphTab" xml:space="preserve">
     <value>Statistics</value>
