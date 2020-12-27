@@ -531,7 +531,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save files location.
+        ///   Looks up a localized string similar to Change save files location.
         /// </summary>
         public static string SettingsSaveLocation {
             get {

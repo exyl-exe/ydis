@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model;
+using Whydoisuck.Model.UserSettings;
 using Whydoisuck.Model.Utilities;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels;

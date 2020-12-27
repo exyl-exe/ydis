@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Model.UserSettings;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
 using Whydoisuck.ViewModels.DataStructures;

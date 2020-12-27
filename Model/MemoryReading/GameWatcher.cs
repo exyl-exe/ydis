@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
+using Whydoisuck.Model.UserSettings;
 using Whydoisuck.Properties;
 
 namespace Whydoisuck.Model.MemoryReading

@@ -27,4 +27,7 @@
 
     <BitmapImage x:Key="editIcon"
                  UriSource="/Views/Images/editIcon.png"/>
+
+    <BitmapImage x:Key="openFolderIcon"
+                 UriSource="/Views/Images/openFolder.png"/>
 </ResourceDictionary>

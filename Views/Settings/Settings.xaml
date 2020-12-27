@@ -18,13 +18,15 @@
                             <Button DockPanel.Dock="Right"
                                     Command="{Binding BrowseCommand}"
                                     Margin="5,0,0,0"
-                                    Style="{StaticResource SettingsViewButtonStyle}">
-                                <Image Source="{StaticResource editIcon}"
-                                       Width="20"
-                                       Height="20"/>
+                                    Style="{StaticResource SettingsSelectFolderStyle}">
+                                <Image Source="{StaticResource openFolderIcon}"
+                                       Margin="3"
+                                       Width="35"
+                                       Height="35"/>
                             </Button>
                             <TextBlock Text="{Binding SaveLocationText}"
-                                       Style="{StaticResource SettingsTextStyle}"/>
+                                       Style="{StaticResource SettingsTextStyle}"
+                                       VerticalAlignment="Center"/>
                         </DockPanel>
                         <Viewbox Margin="3,2,0,0"
                                  MaxHeight="20"

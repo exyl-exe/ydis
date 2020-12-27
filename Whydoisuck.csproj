@@ -100,9 +100,10 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
+    <Compile Include="Model\UserSettings\SerializedSettings.cs" />
     <Compile Include="Model\Utilities\DirectoryUtilities.cs" />
     <Compile Include="Model\Utilities\ExceptionLogger.cs" />
-    <Compile Include="Model\WDISSettings.cs" />
+    <Compile Include="Model\UserSettings\WDISSettings.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelDatagridItemViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelPlaceholderViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelStatisticsViewModel.cs" />
@@ -454,6 +455,9 @@
     <Resource Include="Views\Images\maxIcon.png" />
     <Resource Include="Views\Images\minIcon.png" />
     <Resource Include="Views\Images\unmaxIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\openFolder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

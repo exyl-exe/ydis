@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Whydoisuck.Model.UserSettings;
 using Whydoisuck.Properties;
 
 namespace Whydoisuck.Model.Utilities

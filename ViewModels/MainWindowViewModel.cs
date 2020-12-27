@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Model.UserSettings;
 using Whydoisuck.ViewModels.CurrentLevel;
 using Whydoisuck.ViewModels.Navigation;
 using Whydoisuck.ViewModels.SelectedLevel;

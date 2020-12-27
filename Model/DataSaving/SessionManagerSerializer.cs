@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Model.UserSettings;
 using Whydoisuck.Model.Utilities;
 using Whydoisuck.Properties;
 
@@ -29,7 +30,7 @@ namespace Whydoisuck.DataSaving
             {
                 if(_saveDirectory == null)
                 {
-                    _saveDirectory = WDISSettings.DefaultSavePath;
+                    _saveDirectory = WDISSettings.SavesPath;
                 }
                 return _saveDirectory;
             }

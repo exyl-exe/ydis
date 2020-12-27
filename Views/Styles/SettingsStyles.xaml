@@ -12,6 +12,32 @@
         <Setter Property="FontSize" Value="16"/>
     </Style>
 
+    <Style x:Key="SettingsSelectFolderStyle" TargetType="Button">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBackground"
+                            Background="{StaticResource HeaderBackgroundColor}"
+                            BorderBrush="{StaticResource SettingsButtonBorderColor}"
+                            BorderThickness="1">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBackground"
+                                    Property="BorderBrush" Value="{StaticResource SettingsButtonHighlightBorderColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="SettingsViewButtonStyle" TargetType="Button">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>

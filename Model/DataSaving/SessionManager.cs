@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Model.UserSettings;
 
 namespace Whydoisuck.DataSaving
 {
@@ -32,7 +33,7 @@ namespace Whydoisuck.DataSaving
             {
                 if(_instance == null)
                 {
-                    _instance = new SessionManager(WDISSettings.DefaultSavePath);
+                    _instance = new SessionManager(WDISSettings.SavesPath);
                 }
                 return _instance;
             }
