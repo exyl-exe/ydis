@@ -40,9 +40,9 @@
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top">
                             <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
-                              DockPanel.Dock="Right"/>
+                                      DockPanel.Dock="Right"/>
                             <TextBlock Text="{Binding StartUpText}"
-                               Style="{StaticResource SettingsTextStyle}"/>
+                                       Style="{StaticResource SettingsTextStyle}"/>
                         </DockPanel>
                         <TextBlock Margin="3,2,0,0"
                                    Text="{Binding StartUpDesc}"
@@ -52,10 +52,11 @@
                 <Border Margin="15,5,15,15">
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top">
-                            <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
-                              DockPanel.Dock="Right"/>
+                            <CheckBox IsChecked="{Binding EnhanceAccuracy, Mode=TwoWay}"
+                                      Style="{StaticResource SettingsCheckboxStyle}"
+                                      DockPanel.Dock="Right"/>
                             <TextBlock Text="{Binding PerformanceModeText}"
-                               Style="{StaticResource SettingsTextStyle}"/>
+                                       Style="{StaticResource SettingsTextStyle}"/>
                         </DockPanel>
                         <TextBlock Margin="3,0,0,0"
                                    Text="{Binding PerformanceModeDesc}"

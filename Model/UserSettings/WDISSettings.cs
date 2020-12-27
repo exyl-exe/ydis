@@ -16,6 +16,15 @@ namespace Whydoisuck.Model.UserSettings
     public static class WDISSettings
     {
         /// <summary>
+        /// Scan period when privileging performance
+        /// </summary>
+        public const int PERFORMANCE_PERIOD = 100;
+        /// <summary>
+        /// Scan period when privileing accuracy
+        /// </summary>
+        public const int ACCURACY_PERIOD = 10;
+
+        /// <summary>
         /// Default folder for data saving
         /// </summary>
         public static string SavesPath {

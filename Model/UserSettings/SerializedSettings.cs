@@ -19,6 +19,6 @@ namespace Whydoisuck.Model.UserSettings
         /// <summary>
         /// How many milliseconds there are between each scan of the game's memory
         /// </summary>
-        [JsonProperty(PropertyName = "ScanPeriod")] public int ScanPeriod { get; set; } = 10;
+        [JsonProperty(PropertyName = "ScanPeriod")] public int ScanPeriod { get; set; } = WDISSettings.PERFORMANCE_PERIOD;
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.AppSettings;
 using Whydoisuck.DataSaving;
+using Whydoisuck.Model.UserSettings;
 
 namespace Whydoisuck.Views.Commands
 {
@@ -33,7 +34,8 @@ namespace Whydoisuck.Views.Commands
         public void Execute(object parameter)
         {
             var path = ShowFolderPicker();
-            if (path == null || path == SessionManager.Instance.SavesDirectory) return;            
+            if (path == null || path == SessionManager.Instance.SavesDirectory) return;
+            WDISSettings.SavesPath = path;
             var migrateData = ShowMigrateDialog(path);
             if (migrateData)
             {
