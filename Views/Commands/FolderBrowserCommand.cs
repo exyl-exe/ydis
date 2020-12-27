@@ -10,6 +10,8 @@ using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.AppSettings;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.UserSettings;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Whydoisuck.Views.Commands
 {
@@ -19,11 +21,11 @@ namespace Whydoisuck.Views.Commands
     public class FolderBrowserCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private SettingsViewModel AppSettings { get; set; }
+        private Action<string> Callback { get; set; }
 
-        public FolderBrowserCommand(SettingsViewModel settings)
+        public FolderBrowserCommand(Action<string> OnSelectCallback)
         {
-            AppSettings = settings;
+            Callback = OnSelectCallback;
         }
 
         public bool CanExecute(object parameter)
@@ -33,21 +35,6 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            var path = ShowFolderPicker();
-            if (path == null || path == SessionManager.Instance.SavesDirectory) return;
-            WDISSettings.SavesPath = path;
-            var migrateData = ShowMigrateDialog(path);
-            if (migrateData)
-            {
-                SessionManager.Instance.SetRootAndMerge(path);
-            } else
-            {
-                SessionManager.Instance.SetRoot(path);
-            }
-        }
-
-        public string ShowFolderPicker()
-        {
             var dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
             dialog.EnsurePathExists = true;
@@ -55,19 +42,11 @@ namespace Whydoisuck.Views.Commands
             if (res == CommonFileDialogResult.Ok)
             {
                 var path = dialog.FileName;
-                return path;
+                Callback(path);
             } else
             {
-                return null;
+                Callback(null);
             }
-        }
-
-        public bool ShowMigrateDialog(string newPath)
-        {
-            var caption = Resources.MigrateDataCaption;
-            var content = string.Format(Resources.MigrateDataContentFormat, newPath);
-            var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            return result == MessageBoxResult.Yes;
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Why do I suck.
+        ///   Looks up a localized string similar to Whydoisuck.
         /// </summary>
         public static string AppTitle {
             get {
@@ -490,6 +490,24 @@ namespace Whydoisuck.Properties {
         public static string SettingsButton {
             get {
                 return ResourceManager.GetString("SettingsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import existing data.
+        /// </summary>
+        public static string SettingsImportData {
+            get {
+                return ResourceManager.GetString("SettingsImportData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import data stored in a different folder..
+        /// </summary>
+        public static string SettingsImportDataDesc {
+            get {
+                return ResourceManager.GetString("SettingsImportDataDesc", resourceCulture);
             }
         }
         

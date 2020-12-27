@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataStructures;
@@ -34,6 +36,14 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// Save files location option name
         /// </summary>
         public string SaveLocationText => Resources.SettingsSaveLocation;
+        /// <summary>
+        /// Save files location option name
+        /// </summary>
+        public string ImportDataText => Resources.SettingsImportData;
+        /// <summary>
+        /// Save files location option description
+        /// </summary>
+        public string ImportDataDesc => Resources.SettingsImportDataDesc;
 
         /// <summary>
         /// Save files path
@@ -42,7 +52,11 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// <summary>
         /// Save files location selector command
         /// </summary>
-        public ICommand BrowseCommand { get; private set; }
+        public FolderBrowserCommand BrowseCommand { get; private set; }
+        /// <summary>
+        /// Import files command
+        /// </summary>
+        public FolderBrowserCommand ImportCommand { get; private set; }
         /// <summary>
         /// Start up option name
         /// </summary>
@@ -69,7 +83,35 @@ namespace Whydoisuck.ViewModels.AppSettings
 
         public SettingsViewModel()
         {
-            BrowseCommand = new FolderBrowserCommand(this);
+            BrowseCommand = new FolderBrowserCommand(OnSaveFileLocationChanges);
+            ImportCommand = new FolderBrowserCommand((path) => Console.WriteLine(path));
         }
+
+        /// <summary>
+        /// Called to change the location of save files
+        /// </summary>
+        public void OnSaveFileLocationChanges(string path)
+        {
+            if (path == null || path == SessionManager.Instance.SavesDirectory) return;
+            WDISSettings.SavesPath = path;
+            var migrateData = ShowMigrateDialog(path);
+            if (migrateData)
+            {
+                SessionManager.Instance.SetRootAndMerge(path);
+            }
+            else
+            {
+                SessionManager.Instance.SetRoot(path);
+            }
+        }
+
+        public bool ShowMigrateDialog(string newPath)
+        {
+            var caption = Resources.MigrateDataCaption;
+            var content = string.Format(Resources.MigrateDataContentFormat, newPath);
+            var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            return result == MessageBoxResult.Yes;
+        }
+
     }
 }

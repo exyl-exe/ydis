@@ -10,8 +10,29 @@
         <TextBlock Text="{Binding TitleText}"
                    Style="{StaticResource TitleStyle}"
                    Margin="0,0,0,15"/>
-        <Viewbox MaxHeight="300" HorizontalAlignment="Left">
+        <Viewbox MaxWidth="800" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical">
+                <Border Margin="15,0,15,15">
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top">
+                            <Button DockPanel.Dock="Right"
+                                    Command="{Binding BrowseCommand}"
+                                    Margin="5,0,0,0"
+                                    Style="{StaticResource SettingsSelectFolderStyle}">
+                                <Image Source="{StaticResource openFolderIcon}"
+                                       Margin="3"
+                                       Width="30"
+                                       Height="30"/>
+                            </Button>
+                            <TextBlock Text="{Binding ImportDataText}"
+                                       Style="{StaticResource SettingsTextStyle}"
+                                       VerticalAlignment="Center"/>
+                        </DockPanel>
+                        <TextBlock Margin="3,0,0,0"
+                                   Text="{Binding ImportDataDesc}"
+                                   Style="{StaticResource SettingsSecondaryTextStyle}"/>
+                    </DockPanel>
+                </Border>
                 <Border Margin="15,0,15,15">
                     <StackPanel>
                         <DockPanel>
@@ -21,8 +42,8 @@
                                     Style="{StaticResource SettingsSelectFolderStyle}">
                                 <Image Source="{StaticResource openFolderIcon}"
                                        Margin="3"
-                                       Width="35"
-                                       Height="35"/>
+                                       Width="30"
+                                       Height="30"/>
                             </Button>
                             <TextBlock Text="{Binding SaveLocationText}"
                                        Style="{StaticResource SettingsTextStyle}"
@@ -65,6 +86,5 @@
                 </Border>
             </StackPanel>
         </Viewbox>
-        
     </StackPanel>
 </UserControl>
