@@ -116,7 +116,7 @@ namespace Whydoisuck.DataSaving
         /// <summary>
         /// Moves data from another location to current location, and merges it with existing data
         /// </summary>
-        public void Merge(string path)
+        public void Import(string path)
         {
             if (path == SavesDirectory) return;
             var otherData = new SessionManager(path);
@@ -125,7 +125,7 @@ namespace Whydoisuck.DataSaving
                 var originalName = g.GroupName;
                 var newName = FindAvailableGroupName(originalName);
                 g.GroupName = newName;
-                Serializer.CopyGroupDirectory(originalName, SavesDirectory, newName);
+                Serializer.ImportGroupDirectory(originalName, path, newName);
             }
             Groups.AddRange(otherData.Groups);
             foreach (var g in Groups)

@@ -88,10 +88,16 @@ namespace Whydoisuck.DataSaving
             }
         }
 
-        public void CopyGroupDirectory(string originalGroupName, string targetPath, string newGroupName)
+        /// <summary>
+        /// Imports a group from another save folder
+        /// </summary>
+        /// <param name="originalGroupName">Name of the group in the saves to import</param>
+        /// <param name="targetPath">Path of the saves to import</param>
+        /// <param name="newGroupName">New name the group will have in the current data</param>
+        public void ImportGroupDirectory(string originalGroupName, string targetPath, string newGroupName)
         {
-            var oldPath = GetGroupDirectoryPath(SavesDirectory, originalGroupName);
-            var newPath = GetGroupDirectoryPath(targetPath, newGroupName);
+            var oldPath = GetGroupDirectoryPath(targetPath, originalGroupName);
+            var newPath = GetGroupDirectoryPath(SavesDirectory, newGroupName);
             DirectoryUtilities.Copy(oldPath, newPath, true);
         }
 

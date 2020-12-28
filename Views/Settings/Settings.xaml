@@ -16,7 +16,7 @@
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top">
                             <Button DockPanel.Dock="Right"
-                                    Command="{Binding BrowseCommand}"
+                                    Command="{Binding ImportCommand}"
                                     Margin="5,0,0,0"
                                     Style="{StaticResource SettingsSelectFolderStyle}">
                                 <Image Source="{StaticResource openFolderIcon}"

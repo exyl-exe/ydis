@@ -82,7 +82,7 @@ namespace Whydoisuck.ViewModels.AppSettings
         public SettingsViewModel()
         {
             BrowseCommand = new FolderBrowserCommand(OnSaveFileLocationChanges);
-            ImportCommand = new FolderBrowserCommand((path) => Console.WriteLine(path));
+            ImportCommand = new FolderBrowserCommand(ImportData);
         }
 
         /// <summary>
@@ -94,6 +94,12 @@ namespace Whydoisuck.ViewModels.AppSettings
             WDISSettings.SavesPath = path;
             SessionManager.Instance.SetRoot(path);
             OnPropertyChanged(nameof(SaveLocation));
+        }
+
+        public void ImportData(string path)
+        {
+            if (path == null || path == SessionManager.Instance.SavesDirectory) return;
+            SessionManager.Instance.Import(path);
         }
     }
 }
