@@ -297,7 +297,7 @@ namespace Whydoisuck.DataSaving
         /// <returns></returns>
         public override bool CurrentVersionCompatible(int version) 
         {
-            switch (IWDISSerializable.CurrentVersion)
+            switch (WDISSettings.SerializationVersion)
             {
                 case 2:
                     return version == 2;

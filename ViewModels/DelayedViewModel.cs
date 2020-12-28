@@ -53,20 +53,5 @@ namespace Whydoisuck.ViewModels
 				ViewModel.UpdateFromModel();
 			}
 		}
-
-		/// <summary>
-		/// Checks content instead of itself if a view model is given
-		/// </summary>
-		public override bool Equals(object obj)
-		{
-			if(obj is BaseViewModel bm)
-			{
-				return ViewModel.Equals(bm);
-			} else
-			{
-				return base.Equals(obj);
-			}
-		}
-
 	}
 }
