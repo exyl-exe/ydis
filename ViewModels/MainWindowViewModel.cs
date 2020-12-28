@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace Whydoisuck.ViewModels
 			CurrentSession = new CurrentLevelViewModel(recorder);
 			NavigationPanel = new NavigationPanelViewModel(this, CurrentSession);
 			CurrentView = CurrentSession;
-			SessionManager.Instance.OnGroupDeleted += CurrentGroupDeleted;
+			SessionManager.Instance.OnGroupDeleted += OnGroupDeleted;
 		}
 
 		/// <summary>
@@ -53,9 +54,17 @@ namespace Whydoisuck.ViewModels
 			OnPropertyChanged(nameof(CurrentView));
 		}
 
-		public void CurrentGroupDeleted(SessionGroup g)
+		/// <summary>
+		/// Method to replace the currently displayed view if the currently displayed folder is deleted
+		/// </summary>
+		public void OnGroupDeleted(SessionGroup g)
 		{
-			ReplaceView(CurrentSession);
+			if (CurrentView is DelayedViewModel vm
+				&& vm.ViewModel is SelectedLevelViewModel slvm
+				&& slvm.ContainsGroup(g))
+			{
+				ReplaceView(CurrentSession);
+			}
 		}
 	}
 }

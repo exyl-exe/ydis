@@ -47,6 +47,14 @@ namespace Whydoisuck.ViewModels.SelectedLevel
         }
 
         /// <summary>
+        /// Returns wether the given group is the one currently managed by the view model.
+        /// </summary>
+        public bool ContainsGroup(SessionGroup g)
+        {
+            return SelectedLevel.Equals(g);
+        }
+
+        /// <summary>
         /// Updates the view so that it matches its associated group.
         /// Called when the group was modified.
         /// </summary>
