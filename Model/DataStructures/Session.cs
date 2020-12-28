@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Model.UserSettings;
 
 namespace Whydoisuck.Model.DataStructures
 {
@@ -18,7 +19,7 @@ namespace Whydoisuck.Model.DataStructures
         /// <summary>
         /// Name of the session
         /// </summary>
-        [JsonProperty(PropertyName ="SessionName")] public string SessionName { get; set; }//TODO might be shit
+        [JsonProperty(PropertyName ="SessionName")] public string SessionName { get; set; }
         /// <summary>
         /// Level the session was played on
         /// </summary>
@@ -99,7 +100,7 @@ namespace Whydoisuck.Model.DataStructures
         /// <returns></returns>
         public override bool CurrentVersionCompatible(int version)
         {
-            switch (IWDISSerializable.CurrentVersion)
+            switch (WDISSettings.SerializationVersion)
             {
                 case 2:
                     return version <= 2;

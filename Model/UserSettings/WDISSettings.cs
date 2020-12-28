@@ -23,7 +23,10 @@ namespace Whydoisuck.Model.UserSettings
         /// Scan period when privileing accuracy
         /// </summary>
         public const int ACCURACY_PERIOD = 10;
-
+        /// <summary>
+        /// Current version of the app, for serialized data
+        /// </summary>
+        public const int SerializationVersion = 2;
         /// <summary>
         /// Default folder for data saving
         /// </summary>

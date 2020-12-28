@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Model.UserSettings;
 
 namespace Whydoisuck.Model.DataStructures
 {
@@ -14,8 +15,7 @@ namespace Whydoisuck.Model.DataStructures
     public abstract class IWDISSerializable
     {
         [JsonIgnore] public const string VersionPropertyName = "Version";
-        [JsonIgnore] public const int CurrentVersion = 2;
-        [JsonProperty(PropertyName = VersionPropertyName)] const int Version = CurrentVersion;//TODO config?
+        [JsonProperty(PropertyName = VersionPropertyName)] const int Version = WDISSettings.SerializationVersion;
 
         /// <summary>
         /// Checks if a version of an object is compatible with the current version

@@ -31,7 +31,7 @@ namespace Whydoisuck.ViewModels
 		/// <summary>
 		/// Recorder saving attempts
 		/// </summary>
-		public Recorder Recorder { get; set; } // TODO remove if the recorder becomes a singleton
+		public Recorder Recorder { get; set; }
 
 		private CurrentLevelViewModel CurrentSession { get; set; }
 

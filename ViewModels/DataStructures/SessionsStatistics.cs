@@ -85,7 +85,7 @@ namespace Whydoisuck.ViewModels.DataStructures
             // Sessions matching the filter
             var sessions = Filter == null ? Sessions : Sessions.Where(s => Filter.Matches(s)).ToList();
             // All attempts of valid sessions
-            var attempts = sessions.SelectMany(s => s.Attempts).ToList(); //TODO null
+            var attempts = sessions.SelectMany(s => s.Attempts).ToList();
             var counting = new SortedList<Range, LevelPartStatistics>();
 
             foreach(var range in Dividing)
