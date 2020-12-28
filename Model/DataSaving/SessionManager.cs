@@ -114,22 +114,20 @@ namespace Whydoisuck.DataSaving
         }
 
         /// <summary>
-        /// Moves current data to another location, and merges it with existing data in the given location
+        /// Moves data from another location to current location, and merges it with existing data
         /// </summary>
-        /// <param name="path"></param>
-        public void SetRootAndMerge(string path)
+        public void Merge(string path)
         {
             if (path == SavesDirectory) return;
             var otherData = new SessionManager(path);
-            foreach(var g in Groups)
+            foreach(var g in otherData.Groups)
             {
                 var originalName = g.GroupName;
-                var newName = otherData.FindAvailableGroupName(originalName);
+                var newName = FindAvailableGroupName(originalName);
                 g.GroupName = newName;
-                Serializer.CopyGroupDirectory(originalName, path, newName);
+                Serializer.CopyGroupDirectory(originalName, SavesDirectory, newName);
             }
             Groups.AddRange(otherData.Groups);
-            Serializer = new SessionManagerSerializer(path);
             foreach (var g in Groups)
             {
                 g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));

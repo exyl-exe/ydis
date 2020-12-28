@@ -94,24 +94,7 @@ namespace Whydoisuck.ViewModels.AppSettings
         {
             if (path == null || path == SessionManager.Instance.SavesDirectory) return;
             WDISSettings.SavesPath = path;
-            var migrateData = ShowMigrateDialog(path);
-            if (migrateData)
-            {
-                SessionManager.Instance.SetRootAndMerge(path);
-            }
-            else
-            {
-                SessionManager.Instance.SetRoot(path);
-            }
+            SessionManager.Instance.SetRoot(path);
         }
-
-        public bool ShowMigrateDialog(string newPath)
-        {
-            var caption = Resources.MigrateDataCaption;
-            var content = string.Format(Resources.MigrateDataContentFormat, newPath);
-            var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            return result == MessageBoxResult.Yes;
-        }
-
     }
 }
