@@ -25,18 +25,6 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// </summary>
         public string TitleText => Resources.SettingsTitle;
         /// <summary>
-        /// Performance mode option name
-        /// </summary>
-        public string PerformanceModeText => Resources.SettingsPerformanceMode;
-        /// <summary>
-        /// Performance mode option description
-        /// </summary>
-        public string PerformanceModeDesc => Resources.SettingsPerformanceModeDesc;
-        /// <summary>
-        /// Save files location option name
-        /// </summary>
-        public string SaveLocationText => Resources.SettingsSaveLocation;
-        /// <summary>
         /// Save files location option name
         /// </summary>
         public string ImportDataText => Resources.SettingsImportData;
@@ -44,19 +32,14 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// Save files location option description
         /// </summary>
         public string ImportDataDesc => Resources.SettingsImportDataDesc;
-
+        /// <summary>
+        /// Save files location option name
+        /// </summary>
+        public string SaveLocationText => Resources.SettingsSaveLocation;
         /// <summary>
         /// Save files path
         /// </summary>
         public string SaveLocation => Path.GetFullPath(SessionManager.Instance.SavesDirectory);
-        /// <summary>
-        /// Save files location selector command
-        /// </summary>
-        public FolderBrowserCommand BrowseCommand { get; private set; }
-        /// <summary>
-        /// Import files command
-        /// </summary>
-        public FolderBrowserCommand ImportCommand { get; private set; }
         /// <summary>
         /// Start up option name
         /// </summary>
@@ -65,7 +48,22 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// Start up option description
         /// </summary>
         public string StartUpDesc => Resources.SettingsOnStartDesc;
-
+        /// <summary>
+        /// Performance mode option name
+        /// </summary>
+        public string PerformanceModeText => Resources.SettingsPerformanceMode;
+        /// <summary>
+        /// Performance mode option description
+        /// </summary>
+        public string PerformanceModeDesc => Resources.SettingsPerformanceModeDesc;       
+        /// <summary>
+        /// Save files location selector command
+        /// </summary>
+        public FolderBrowserCommand BrowseCommand { get; private set; }
+        /// <summary>
+        /// Import files command
+        /// </summary>
+        public FolderBrowserCommand ImportCommand { get; private set; }
         /// <summary>
         /// Controls how many times per seconds the game is scanned
         /// </summary>
@@ -95,6 +93,7 @@ namespace Whydoisuck.ViewModels.AppSettings
             if (path == null || path == SessionManager.Instance.SavesDirectory) return;
             WDISSettings.SavesPath = path;
             SessionManager.Instance.SetRoot(path);
+            OnPropertyChanged(nameof(SaveLocation));
         }
     }
 }

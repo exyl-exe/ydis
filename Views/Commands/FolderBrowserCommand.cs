@@ -41,8 +41,7 @@ namespace Whydoisuck.Views.Commands
             var res = dialog.ShowDialog();
             if (res == CommonFileDialogResult.Ok)
             {
-                var path = dialog.FileName;
-                Callback(path);
+                Callback(dialog.FileName);
             } else
             {
                 Callback(null);
