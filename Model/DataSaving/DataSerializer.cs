@@ -61,6 +61,14 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         public static DataSerializer CreateSerializer(string saveDir)
         {
+            Reformat(saveDir);
+            var ser = new DataSerializer(saveDir);
+            return ser;
+        }
+
+        // Formats the data at the given path so it can be used by a DataSerializer
+        private static void Reformat(string saveDir)
+        {
             if (!Directory.Exists(saveDir))
             {
                 Directory.CreateDirectory(saveDir);
@@ -69,8 +77,6 @@ namespace Whydoisuck.Model.DataSaving
             {
                 DataUpdater.Update(saveDir);
             }
-            var ser = new DataSerializer(saveDir);
-            return ser;
         }
 
         /// <summary>
