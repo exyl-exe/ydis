@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.UserSettings;
+using Whydoisuck.Model.Utilities;
 
 namespace Whydoisuck.Model.DataSaving
 {
@@ -23,10 +25,19 @@ namespace Whydoisuck.Model.DataSaving
             var version = GetDataVersion(dir);
             if(version < WDISSettings.SerializationVersion)
             {
+                Backup(dir);
                 Upgrade(dir, version);
             } else if(version > WDISSettings.SerializationVersion) {
                 throw new Exception("Incompatible data version");
             }
+        }
+
+        //Backs the given data up
+        private static void Backup(string dir)
+        {
+            var backupName = string.Format("{0:yyyyMMddHHmmssfffffff}", DateTime.Now);
+            var backupPath = Path.Combine(WDISSettings.BackupsPath, backupName);
+            DirectoryUtilities.Copy(dir, backupPath, true);
         }
 
         //Gets the version of the data in a given directory

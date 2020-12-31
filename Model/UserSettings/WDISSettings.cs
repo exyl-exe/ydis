@@ -41,7 +41,6 @@ namespace Whydoisuck.Model.UserSettings
                 Save();
             }
         }
-
         /// <summary>
         /// How many milliseconds there are between each scan of the game's memory
         /// </summary>
@@ -78,6 +77,11 @@ namespace Whydoisuck.Model.UserSettings
         /// Application data directory path
         /// </summary>
         public static string AppData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"Whydoisuck");
+        /// <summary>
+        /// Directory to save backups
+        /// </summary>
+        public static string BackupsPath => Path.Combine(AppData, "Backups");
+
         // Path to the user settings
         private static string SettingsPath { get; } = Path.Combine(AppData, "config.json");
         // User settings object
