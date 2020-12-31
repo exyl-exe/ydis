@@ -14,7 +14,7 @@ namespace Whydoisuck.Model.DataStructures
     /// <summary>
     /// Session played in the game. A session starts when entering a level and ends when exiting it.
     /// </summary>
-    public class Session : IWDISSerializable
+    public class Session : WDISSerializable
     {
         /// <summary>
         /// Name of the session

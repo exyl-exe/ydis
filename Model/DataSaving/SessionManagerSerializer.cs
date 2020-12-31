@@ -137,7 +137,7 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         /// <param name="filePath">Where the object will be saved</param>
         /// <param name="item">The object to serialize</param>
-        public void Serialize(string filePath, IWDISSerializable item)
+        public void Serialize(string filePath, WDISSerializable item)
         {
             var serializedItem = item.ToJsonObject().ToString();
             File.WriteAllText(filePath, serializedItem);
@@ -148,7 +148,7 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         /// <param name="filePath">Path to the file</param>
         /// <returns>The loaded object</returns>
-        public IWDISSerializable Deserialize(string filePath, IWDISSerializable item)
+        public WDISSerializable Deserialize(string filePath, WDISSerializable item)
         {
             if (!File.Exists(filePath)) return item;
             var value = File.ReadAllText(filePath);

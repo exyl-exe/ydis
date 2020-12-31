@@ -21,7 +21,7 @@ namespace Whydoisuck.DataSaving
     /// This class manages which group a session belongs to.
     /// Only one instance can exist at a given time.
     /// </summary>
-    public class SessionManager : IWDISSerializable
+    public class SessionManager : WDISSerializable
     {
         private static SessionManager _instance;
 
