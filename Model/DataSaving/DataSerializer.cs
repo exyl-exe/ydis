@@ -50,20 +50,27 @@ namespace Whydoisuck.Model.DataSaving
         // name of the file containing the session manager
         private string IndexFileName => WDISSettings.SaveManagerFileName;
 
+        private DataSerializer(string dir)
+        {
+            SavesDirectory = dir;
+        }
+
         /// <summary>
         /// Initializes folders and files on the disk so that the session manager
         /// can work properly.
         /// </summary>
-        public DataSerializer(string saveDir)
+        public static DataSerializer CreateSerializer(string saveDir)
         {
-            SavesDirectory = saveDir;
-            if (!Directory.Exists(SavesDirectory))
+            if (!Directory.Exists(saveDir))
             {
-                Directory.CreateDirectory(SavesDirectory);
-            } else
-            {
-                DataUpdater.Update(SavesDirectory);
+                Directory.CreateDirectory(saveDir);
             }
+            else
+            {
+                DataUpdater.Update(saveDir);
+            }
+            var ser = new DataSerializer(saveDir);
+            return ser;
         }
 
         /// <summary>

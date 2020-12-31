@@ -81,7 +81,7 @@ namespace Whydoisuck.Model.DataSaving
 
         private void Init(string path)
         {
-            Serializer = new DataSerializer(path);
+            Serializer = DataSerializer.CreateSerializer(path);
             if (File.Exists(Serializer.IndexFilePath))
             {
                 Serializer.DeserializeSessionManager(this);
