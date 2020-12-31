@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -270,73 +271,6 @@ namespace Whydoisuck.DataSaving
                 i++;
             }
             return availableName;
-        }
-
-        /// <summary>
-        /// Serializes the session manager.
-        /// </summary>
-        /// <returns>A string containing a json object matching the manager.</returns>
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Deserializes the session manager.
-        /// </summary>
-        /// <param name="value">A string containing a json object matching a manager.</param>
-        public override void Deserialize(string value)
-        {
-            JsonConvert.PopulateObject(value, this);
-        }
-
-        /// <summary>
-        /// Checks the version of a session manager.
-        /// </summary>
-        /// <param name="version"></param>
-        /// <returns></returns>
-        public override bool CurrentVersionCompatible(int version) 
-        {
-            switch (WDISSettings.SerializationVersion)
-            {
-                case 2:
-                    return version == 2;
-                default:
-                    // Prevents forgetting to update the converter
-                    throw new NotImplementedException();
-            }
-        }
-
-
-        /// <summary>
-        /// Updates an old sessionmanager object
-        /// </summary>
-        /// <param name="oldObject">the object to update</param>
-        public override void UpdateOldVersion(ref JObject oldObject)
-        {
-            var version = (int)oldObject[IWDISSerializable.VersionPropertyName];
-            while(!CurrentVersionCompatible(version))
-            {
-                switch (version)
-                {
-                    case 1:
-                        Update1TO2ref(ref oldObject);
-                        version = 2;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        //Updates from version 1 to 2
-        private void Update1TO2ref(ref JObject o)
-        {
-            var groupsList = o["Groups"];
-            foreach(var g in groupsList)
-            {
-                g["DisplayedName"] = g["GroupName"];
-            }
         }
     }
 }

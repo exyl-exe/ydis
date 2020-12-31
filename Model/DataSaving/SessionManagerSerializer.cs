@@ -139,7 +139,7 @@ namespace Whydoisuck.DataSaving
         /// <param name="item">The object to serialize</param>
         public void Serialize(string filePath, IWDISSerializable item)
         {
-            var serializedItem = item.Serialize();
+            var serializedItem = item.ToJsonObject().ToString();
             File.WriteAllText(filePath, serializedItem);
         }
 
@@ -151,16 +151,9 @@ namespace Whydoisuck.DataSaving
         public IWDISSerializable Deserialize(string filePath, IWDISSerializable item)
         {
             if (!File.Exists(filePath)) return item;
-
             var value = File.ReadAllText(filePath);
-            //Updating the object if needed
             var jo = JObject.Parse(value);
-            if(!item.CurrentVersionCompatible((int)jo[IWDISSerializable.VersionPropertyName]))
-            {
-                item.UpdateOldVersion(ref jo);
-                File.WriteAllText(filePath, jo.ToString());
-            }
-            item.Deserialize(jo.ToString());
+            item.FromJsonObject(jo);
             return item;
         }
 

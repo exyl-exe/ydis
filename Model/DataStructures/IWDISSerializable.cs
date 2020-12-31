@@ -16,27 +16,21 @@ namespace Whydoisuck.Model.DataStructures
     {
         [JsonIgnore] public const string VersionPropertyName = "Version";
         [JsonProperty(PropertyName = VersionPropertyName)] const int Version = WDISSettings.SerializationVersion;
-
         /// <summary>
-        /// Checks if a version of an object is compatible with the current version
+        /// Converts the object into a json object
         /// </summary>
-        /// <param name="version">The version to check compatibility for</param>
-        /// <returns>Wether the given version is compatible with the current version</returns>
-        public abstract bool CurrentVersionCompatible(int version);
+        public JToken ToJsonObject()
+        {
+            var jo = JToken.FromObject(this);
+            return jo;
+        }
         /// <summary>
-        /// Updates an old version of a IWDISSerializable object
+        /// Initiliaze the object based on its json object.
         /// </summary>
-        /// <param name="oldObject">The object to update</param>
-        public abstract void UpdateOldVersion(ref JObject oldObject);
-        /// <summary>
-        /// Serializes the object in the JSON format.
-        /// </summary>
-        /// <returns>A string containing the json object.</returns>
-        public abstract string Serialize();
-        /// <summary>
-        /// Initiliaze the object based on its json string.
-        /// </summary>
-        /// <param name="value">A string containing the json object.</param>
-        public abstract void Deserialize(string value);
+        public void FromJsonObject(JToken value)
+        {
+            var reader = value.CreateReader();
+            JsonSerializer.CreateDefault().Populate(reader, this);
+        }
     }
 }

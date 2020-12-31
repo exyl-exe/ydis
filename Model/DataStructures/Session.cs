@@ -73,59 +73,5 @@ namespace Whydoisuck.Model.DataStructures
                 StartTime.Date,
                 StartTime.TimeOfDay);
         }
-
-        /// <summary>
-        /// Gets the json serialization for this session
-        /// </summary>
-        /// <returns>a string containing the json object for this session</returns>
-        public override string Serialize()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Deserializes a json string containing a session, and inits current object with its values.
-        /// </summary>
-        /// <param name="value">String to deserialize.</param>
-        public override void Deserialize(string value)
-        {
-            JsonConvert.PopulateObject(value, this);
-        }
-
-        // TODO find a way to make it static so that it's not duplicated for each instance
-        /// <summary>
-        /// Checks the version of a session.
-        /// </summary>
-        /// <param name="version"></param>
-        /// <returns></returns>
-        public override bool CurrentVersionCompatible(int version)
-        {
-            switch (WDISSettings.SerializationVersion)
-            {
-                case 2:
-                    return version <= 2;
-                default:
-                    // Prevents forgetting to update the converter
-                    throw new NotImplementedException();
-            }
-        }
-
-        // TODO find a way to make it static so that it's not duplicated for each instance
-        /// <summary>
-        /// Updates an old session object
-        /// </summary>
-        /// <param name="oldObject">the object to update</param>
-        public override void UpdateOldVersion(ref JObject oldObject)
-        {
-            var version = (int)oldObject[IWDISSerializable.VersionPropertyName];
-            while (!CurrentVersionCompatible(version))
-            {
-                switch (version)
-                {
-                    default:
-                        break;
-                }
-            }
-        }
     }
 }
