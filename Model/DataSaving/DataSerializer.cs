@@ -19,7 +19,7 @@ namespace Whydoisuck.DataSaving
     /// <summary>
     /// Manages serialization of differents objects in a given directory
     /// </summary>
-    public class SessionManagerSerializer
+    public class DataSerializer
     {
         private string _saveDirectory = null;
         /// <summary>
@@ -51,13 +51,29 @@ namespace Whydoisuck.DataSaving
         /// Initializes folders and files on the disk so that the session manager
         /// can work properly.
         /// </summary>
-        public SessionManagerSerializer(string saveDir)
+        public DataSerializer(string saveDir)
         {
             SavesDirectory = saveDir;
             if (!Directory.Exists(SavesDirectory))
             {
                 Directory.CreateDirectory(SavesDirectory);
             }
+        }
+
+        /// <summary>
+        /// Saves the session manager on the disk
+        /// </summary>
+        public void SerializeSessionManager(SessionManager manager)
+        {
+            Serialize(IndexFilePath, manager);
+        }
+
+        /// <summary>
+        /// Deserializes the session manager
+        /// </summary>
+        public void DeserializeSessionManager(SessionManager manager)
+        {
+            Deserialize(IndexFilePath, manager);
         }
 
         /// <summary>
@@ -137,7 +153,7 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         /// <param name="filePath">Where the object will be saved</param>
         /// <param name="item">The object to serialize</param>
-        public void Serialize(string filePath, WDISSerializable item)
+        private void Serialize(string filePath, WDISSerializable item)
         {
             var serializedItem = item.ToJsonObject().ToString();
             File.WriteAllText(filePath, serializedItem);
@@ -148,7 +164,7 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         /// <param name="filePath">Path to the file</param>
         /// <returns>The loaded object</returns>
-        public WDISSerializable Deserialize(string filePath, WDISSerializable item)
+        private WDISSerializable Deserialize(string filePath, WDISSerializable item)
         {
             if (!File.Exists(filePath)) return item;
             var value = File.ReadAllText(filePath);

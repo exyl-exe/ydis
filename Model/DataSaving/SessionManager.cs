@@ -46,7 +46,7 @@ namespace Whydoisuck.DataSaving
         [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
 
         // Manager of the save files on the disk
-        private SessionManagerSerializer Serializer { get; set; }
+        private DataSerializer Serializer { get; set; }
 
         /// <summary>
         /// Delegate for callbacks when a group is updated
@@ -81,10 +81,10 @@ namespace Whydoisuck.DataSaving
 
         private void Init(string path)
         {
-            Serializer = new SessionManagerSerializer(path);
+            Serializer = new DataSerializer(path);
             if (File.Exists(Serializer.IndexFilePath))
             {
-                Serializer.Deserialize(Serializer.IndexFilePath, this);//TODO don't pass path here
+                Serializer.DeserializeSessionManager(this);
                 foreach (var g in Groups)
                 {
                     g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
@@ -145,7 +145,7 @@ namespace Whydoisuck.DataSaving
         /// </summary>
         public void Save()
         {
-            Serializer.Serialize(Serializer.IndexFilePath, this);//TODO don't pass path here
+            Serializer.SerializeSessionManager(this);
         }        
 
         /// <summary>
