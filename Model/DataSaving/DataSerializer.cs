@@ -2,19 +2,22 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.DataSaving;
 using Whydoisuck.Model;
+using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.UserSettings;
 using Whydoisuck.Model.Utilities;
 using Whydoisuck.Properties;
 
-namespace Whydoisuck.DataSaving
+namespace Whydoisuck.Model.DataSaving
 {
     /// <summary>
     /// Manages serialization of differents objects in a given directory
@@ -57,6 +60,9 @@ namespace Whydoisuck.DataSaving
             if (!Directory.Exists(SavesDirectory))
             {
                 Directory.CreateDirectory(SavesDirectory);
+            } else
+            {
+                DataUpdater.Update(SavesDirectory);
             }
         }
 

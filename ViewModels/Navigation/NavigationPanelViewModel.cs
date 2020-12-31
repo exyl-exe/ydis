@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
+using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.AppSettings;
 using Whydoisuck.ViewModels.CurrentLevel;

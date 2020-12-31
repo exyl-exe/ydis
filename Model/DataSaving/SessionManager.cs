@@ -15,7 +15,7 @@ using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.UserSettings;
 
-namespace Whydoisuck.DataSaving
+namespace Whydoisuck.Model.DataSaving
 {
     /// <summary>
     /// This class manages which group a session belongs to.

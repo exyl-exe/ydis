@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DataSaving\DataUpdater.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
