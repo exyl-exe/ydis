@@ -21,6 +21,12 @@ namespace Whydoisuck.Model.DataSaving
         public static void Update(string dir)
         {
             var version = GetDataVersion(dir);
+            if(version < WDISSettings.SerializationVersion)
+            {
+                Upgrade(dir, version);
+            } else if(version > WDISSettings.SerializationVersion) {
+                throw new Exception("Incompatible data version");
+            }
         }
 
         //Gets the version of the data in a given directory
@@ -29,7 +35,31 @@ namespace Whydoisuck.Model.DataSaving
             var sessionManagerPath = Path.Combine(dir, WDISSettings.SaveManagerFileName);
             var rawData = File.ReadAllText(sessionManagerPath);
             var json = JObject.Parse(rawData);
-            return json[WDISSerializable.VersionPropertyName].Value<int>();
+            return (int)json[WDISSerializable.VersionPropertyName];
+        }
+
+        // Upgrades the data to the latest version
+        private static void Upgrade(string dir, int ver)
+        {
+            int currentVersion = ver;
+            while(currentVersion != WDISSettings.SerializationVersion)
+            {
+                switch (currentVersion)
+                {
+                    case 2:
+                        Upgrade2to3(dir);
+                        currentVersion = 3;
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+        }
+
+        //Upgrades the data from serialization version 2 to version 3
+        private static void Upgrade2to3(string dir)
+        {
+            throw new NotImplementedException();
         }
     }
 }
