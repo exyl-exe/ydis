@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,8 +13,10 @@ namespace WDISLauncher
     /// </summary>
     public class Launcher
     {
-        private Detector appDetector;
-        private string processToLaunch;
+        const string MINIMIZED_ARG = "--minimized";
+
+        private readonly Detector appDetector;
+        private readonly string processToLaunch;
         private int scanRate;
         private bool shouldStop;
 
@@ -45,7 +48,7 @@ namespace WDISLauncher
         /// </summary>
         public void StartProcess()
         {
-            Console.WriteLine("TODO : WDIS would be launched");
+            Process.Start(processToLaunch, MINIMIZED_ARG);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
@@ -22,6 +23,10 @@ namespace Whydoisuck.ViewModels
 	public class MainWindowViewModel : BaseViewModel, IReplaceableViewViewModel
 	{
 		/// <summary>
+		/// How the windows should be displayed upon launch
+		/// </summary>
+		public WindowState InitialState { get; set; }
+		/// <summary>
 		/// View model for the navigation panel
 		/// </summary>
 		public NavigationPanelViewModel NavigationPanel { get; set; }
@@ -36,8 +41,9 @@ namespace Whydoisuck.ViewModels
 
 		private CurrentLevelViewModel CurrentSession { get; set; }
 
-		public MainWindowViewModel(Recorder recorder)
+		public MainWindowViewModel(Recorder recorder, bool minimized)
 		{
+			InitialState = minimized ? WindowState.Minimized : WindowState.Normal;
 			Recorder = recorder;
 			CurrentSession = new CurrentLevelViewModel(recorder);
 			NavigationPanel = new NavigationPanelViewModel(this, CurrentSession);

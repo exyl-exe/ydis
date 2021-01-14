@@ -18,6 +18,8 @@ namespace Whydoisuck.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        const string MINIMIZED_ARG = "--minimized";
+
         private Recorder _recorder;
         private static Mutex _mutex;
         public MainWindow()
@@ -45,9 +47,24 @@ namespace Whydoisuck.Views
         {
             _recorder = new Recorder();
             _recorder.StartRecording();
-            DataContext = new MainWindowViewModel(_recorder);
+
+            DataContext = new MainWindowViewModel(_recorder, getMinimizedArg());
             InitializeComponent();
+
             Closing += StopWDIS;
+        }
+
+        private bool getMinimizedArg()
+        {
+            var args = Environment.GetCommandLineArgs();
+            foreach(var arg in args)
+            {
+                if (arg == MINIMIZED_ARG)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void StopWDIS(object sender, EventArgs e)
