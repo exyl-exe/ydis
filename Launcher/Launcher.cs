@@ -12,14 +12,14 @@ namespace Launcher
     /// </summary>
     public class Launcher
     {
-        private string processToDetect;
+        private Detector appDetector;
         private string processToLaunch;
         private int scanRate;
         private bool shouldStop;
 
         public Launcher(string applicationToDetect, string processToLaunch, int scanRate)
         {
-            this.processToDetect = applicationToDetect;
+            this.appDetector = new Detector(applicationToDetect);
             this.processToLaunch = processToLaunch;
             this.scanRate = scanRate;
         }
@@ -32,9 +32,20 @@ namespace Launcher
             shouldStop = false;
             while (!shouldStop)
             {
-
+                if (appDetector.AppWasLaunched())
+                {
+                    StartProcess();
+                }
                 Thread.Sleep(scanRate);
             }
+        }
+
+        /// <summary>
+        /// Starts the application that was given the the launcher
+        /// </summary>
+        public void StartProcess()
+        {
+            Console.WriteLine("TODO : WDIS would be launched");
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Launcher
             this.applicationToWatchFor = processToWatchFor;
         }
 
-        public bool WasLaunched()
+        public bool AppWasLaunched()
         {
             return false;
         }
