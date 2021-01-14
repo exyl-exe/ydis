@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whydoisuck", "Whydoisuck\Whydoisuck.csproj", "{96AE4438-FE1B-4734-A5A3-7EB782A04B34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Launcher\Launcher.csproj", "{FE3E67F9-39AD-44E3-9855-B9DC143E71D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WDISLauncher", "Launcher\WDISLauncher.csproj", "{FE3E67F9-39AD-44E3-9855-B9DC143E71D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FE3E67F9-39AD-44E3-9855-B9DC143E71D7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Launcher</RootNamespace>
-    <AssemblyName>Launcher</AssemblyName>
+    <RootNamespace>WDISLauncher</RootNamespace>
+    <AssemblyName>WDISLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Detector.cs" />
+    <Compile Include="WDISLauncher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
