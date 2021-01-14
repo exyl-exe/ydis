@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -48,7 +49,10 @@ namespace WDISLauncher
         /// </summary>
         public void StartProcess()
         {
-            Process.Start(processToLaunch, MINIMIZED_ARG);
+            if (File.Exists(processToLaunch))
+            {
+                Process.Start(processToLaunch, MINIMIZED_ARG);
+            }
         }
     }
 }

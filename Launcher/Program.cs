@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,12 +11,15 @@ namespace WDISLauncher
     public class Program
     {
         const string processToDetect = "GeometryDash";
-        const string processToLaunch = "";
+        readonly static string processToLaunch = WDISPathGetter.GetPath();
         const int scanRate = 3000;
-        static void Main(string[] args)
+        static void Main()
         {
-            var launcher = new Launcher(processToDetect, processToLaunch, scanRate);
-            launcher.Start();
+            if (File.Exists(processToLaunch))
+            {
+                var launcher = new Launcher(processToDetect, processToLaunch, scanRate);
+                launcher.Start();
+            }
         }
     }
 }
