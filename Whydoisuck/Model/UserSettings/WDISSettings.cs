@@ -81,6 +81,10 @@ namespace Whydoisuck.Model.UserSettings
         /// Directory to save backups
         /// </summary>
         public static string BackupsPath => Path.Combine(AppData, "Backups");
+        /// <summary>
+        /// Path to the executable path info file
+        /// </summary>
+        public static string ExeLocationPath { get; } = Path.Combine(AppData, "path.dat");
 
         // Path to the user settings
         private static string SettingsPath { get; } = Path.Combine(AppData, "config.json");

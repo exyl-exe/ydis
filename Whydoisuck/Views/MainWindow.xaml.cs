@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -19,6 +21,7 @@ namespace Whydoisuck.Views
     public partial class MainWindow : Window
     {
         const string MINIMIZED_ARG = "--minimized";
+        const string MUTEX_NAME = "GDWhyDoISuckMutex";
 
         private Recorder _recorder;
         private static Mutex _mutex;
@@ -26,7 +29,7 @@ namespace Whydoisuck.Views
         {
             Application.Current.DispatcherUnhandledException += ExceptionApp;
             AppDomain.CurrentDomain.UnhandledException += ExceptionDomain;
-            _mutex = new Mutex(true, "GDWhyDoISuckMutex", out var createdNew);
+            _mutex = new Mutex(true, MUTEX_NAME, out var createdNew);
             if (createdNew)
             {
                 Closing += FreeMutex;
@@ -43,21 +46,36 @@ namespace Whydoisuck.Views
             _mutex?.Close();
         }
 
+        private void StopWDIS(object sender, EventArgs e)
+        {
+            _recorder?.StopRecording();
+        }
+
         private void Init()
         {
             _recorder = new Recorder();
             _recorder.StartRecording();
 
-            DataContext = new MainWindowViewModel(_recorder, getMinimizedArg());
+            WritePathFile();
+            DataContext = new MainWindowViewModel(_recorder, GetMinimizedArg());
             InitializeComponent();
 
             Closing += StopWDIS;
         }
 
-        private bool getMinimizedArg()
+        private void WritePathFile()
+        {
+            try
+            {
+                File.WriteAllText(WDISSettings.ExeLocationPath, Assembly.GetEntryAssembly().Location);
+            }
+            catch { }
+        }
+
+        private bool GetMinimizedArg()
         {
             var args = Environment.GetCommandLineArgs();
-            foreach(var arg in args)
+            foreach (var arg in args)
             {
                 if (arg == MINIMIZED_ARG)
                 {
@@ -65,11 +83,6 @@ namespace Whydoisuck.Views
                 }
             }
             return false;
-        }
-
-        private void StopWDIS(object sender, EventArgs e)
-        {
-            _recorder?.StopRecording();
         }
 
         private void ExceptionApp(object sender, DispatcherUnhandledExceptionEventArgs e)
