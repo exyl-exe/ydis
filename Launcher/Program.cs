@@ -22,22 +22,11 @@ namespace WDISLauncher
             _mutex = new Mutex(true, MUTEX_NAME, out var createdNew);
             if (!createdNew) return;
 
-            WriteLauncherLocation();
-
             if (File.Exists(processToLaunch))
             {
                 var launcher = new Launcher(PROCESS_TO_DETECT, processToLaunch, scanRate);
                 launcher.Start();
             }
-        }
-
-        private static void WriteLauncherLocation()
-        {
-            try
-            {
-                File.WriteAllText(WDISPathGetter.LauncherInfoLocation, Assembly.GetEntryAssembly().Location);
-            }
-            catch { }
         }
     }
 }

@@ -11,6 +11,7 @@ using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.UserSettings;
+using Whydoisuck.Model.Utilities;
 using Whydoisuck.Properties;
 using Whydoisuck.Views.Commands;
 
@@ -87,11 +88,17 @@ namespace Whydoisuck.ViewModels.AppSettings
         {
             get
             {
-                return WDISSettings.ScanPeriod == WDISSettings.ACCURACY_PERIOD;
+                return AutoLaunchUtilities.DoesShortcutExist(WDISSettings.LAUNCHER_SHORTCUT_NAME, WDISSettings.GetLauncherPath());
             }
             set
             {
-                WDISSettings.ScanPeriod = value ? WDISSettings.ACCURACY_PERIOD : WDISSettings.PERFORMANCE_PERIOD;
+                if (value)
+                {
+                    AutoLaunchUtilities.CreateStartUpShortcut(WDISSettings.LAUNCHER_SHORTCUT_NAME, WDISSettings.GetLauncherPath());
+                } else
+                {
+                    AutoLaunchUtilities.RemoveStartUpShortcut(WDISSettings.LAUNCHER_SHORTCUT_NAME);
+                }
             }
         }
 

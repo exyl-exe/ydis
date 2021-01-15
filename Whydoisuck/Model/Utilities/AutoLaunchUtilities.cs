@@ -36,5 +36,14 @@ namespace Whydoisuck.Model.Utilities
             if (!File.Exists(shortcutPath)) return false;
             return File.ReadAllText(shortcutPath).Contains(applicationPath); // branle
         }
+
+        /// <summary>
+        /// Removes the shortcut with the given name from the start up directory
+        /// </summary>
+        public static void RemoveStartUpShortcut(string shortcutName)
+        {
+            var shortcutPath = Path.Combine(StartupFolder, shortcutName);
+            if (File.Exists(shortcutPath)) File.Delete(shortcutPath);
+        }
     }
 }

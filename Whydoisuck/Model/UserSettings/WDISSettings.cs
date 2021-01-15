@@ -20,9 +20,17 @@ namespace Whydoisuck.Model.UserSettings
         /// </summary>
         public const int PERFORMANCE_PERIOD = 100;
         /// <summary>
-        /// Scan period when privileing accuracy
+        /// Scan period when privileging accuracy
         /// </summary>
         public const int ACCURACY_PERIOD = 10;
+        /// <summary>
+        /// File name for a shortcut to the launcher
+        /// </summary>
+        public const string LAUNCHER_SHORTCUT_NAME = "WhydoisuckLauncher.url";
+        /// <summary>
+        /// File name for a shortcut to the launcher
+        /// </summary>
+        public const string DEFAULT_LAUNCHER_LOCATION = ".\\Launcher\\WDISLauncher.exe";
         /// <summary>
         /// Current version of the app, for serialized data
         /// </summary>
@@ -85,10 +93,6 @@ namespace Whydoisuck.Model.UserSettings
         /// Path to a file containing the path of the application (used by the launcher to know where the exe is)
         /// </summary>
         public static string ExeLocationPath { get; } = Path.Combine(AppData, "path.dat");
-        /// <summary>
-        /// Path to a file containing the launcher .exe file
-        /// </summary>
-        public static string LauncherPath { get; } = Path.Combine(AppData, "launcher_path.dat");
 
         // Path to the user settings
         private static string SettingsPath { get; } = Path.Combine(AppData, "config.json");
@@ -132,14 +136,11 @@ namespace Whydoisuck.Model.UserSettings
         }
 
         /// <summary>
-        /// Checks wether automatic launching is enabled or not
+        /// Returns the path of the launcher exe file
         /// </summary>
-        /// <returns></returns>
-        public static bool AutoStartUpEnabled()
+        public static string GetLauncherPath()
         {
-            return true;
+            return DEFAULT_LAUNCHER_LOCATION;
         }
-
-
     }
 }
