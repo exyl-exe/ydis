@@ -14,7 +14,8 @@ namespace WDISLauncher
     {
         public static string AppData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Whydoisuck");
         public static string AppLocationInfo { get; } = Path.Combine(AppData, "path.dat");
-        public static string GetPath()
+        public static string LauncherInfoLocation { get; } = Path.Combine(AppData, "launcher_path.dat");
+        public static string GetWDISPath()
         {
             if (File.Exists(AppLocationInfo))
             {
