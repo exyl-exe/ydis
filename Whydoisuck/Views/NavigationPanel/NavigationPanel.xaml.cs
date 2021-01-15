@@ -24,5 +24,10 @@ namespace Whydoisuck.Views.NavigationPanel
         {
             InitializeComponent();
         }
+
+        private void NavigationSearchPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -16,7 +16,8 @@
                         Orientation="Vertical">
                 <Button x:Name="CurrentLevelNavigationButton"
                         Command="{Binding GoToCurrentCommand}"
-                        Style="{StaticResource NavigationButtonStyle}">
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Margin="2">
                     <TextBlock Text="{x:Static props:Resources.CurrentLevelNavButton}"/>
                 </Button>
                 <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
@@ -25,9 +26,10 @@
                 <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
                 <Button Style="{StaticResource SettingsButtonStyle}"
                         Content="{Binding SettingsButtonText}"
-                        Command="{Binding SettingsCommand}"/>
+                        Command="{Binding SettingsCommand}"
+                        Margin="2"/>
             </StackPanel>
-            <uc:NavigationSearchPanel DataContext="{Binding SearchView}"/>
+            <uc:NavigationSearchPanel DataContext="{Binding SearchView}" Loaded="NavigationSearchPanel_Loaded"/>
         </DockPanel>
     </Border>
 </UserControl>
