@@ -7,7 +7,7 @@
     <ProjectGuid>{FE3E67F9-39AD-44E3-9855-B9DC143E71D7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WDISLauncher</RootNamespace>
-    <AssemblyName>WDISLauncher</AssemblyName>
+    <AssemblyName>WhydoisuckLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -60,7 +60,8 @@
                 <Border Margin="15,5,15,15">
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top">
-                            <CheckBox Style="{StaticResource SettingsCheckboxStyle}"
+                            <CheckBox IsChecked="{Binding AutoStartup, Mode=TwoWay}"
+                                      Style="{StaticResource SettingsCheckboxStyle}"
                                       DockPanel.Dock="Right"/>
                             <TextBlock Text="{Binding StartUpText}"
                                        Style="{StaticResource SettingsTextStyle}"/>

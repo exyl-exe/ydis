@@ -24,13 +24,21 @@ namespace Whydoisuck.Model.UserSettings
         /// </summary>
         public const int ACCURACY_PERIOD = 10;
         /// <summary>
+        /// Name of the launcher process
+        /// </summary>
+        public const string LAUNCHER_PROCESS_NAME = "WhydoisuckLauncher";
+        /// <summary>
         /// File name for a shortcut to the launcher
         /// </summary>
         public const string LAUNCHER_SHORTCUT_NAME = "WhydoisuckLauncher.url";
         /// <summary>
         /// File name for a shortcut to the launcher
         /// </summary>
-        public const string DEFAULT_LAUNCHER_LOCATION = ".\\Launcher\\WDISLauncher.exe";
+        public const string DEFAULT_LAUNCHER_LOCATION = ".\\Launcher\\WhydoisuckLauncher.exe";
+        /// <summary>
+        /// Returns the path of the launcher exe file
+        /// </summary>
+        public static string LauncherPath => DEFAULT_LAUNCHER_LOCATION;
         /// <summary>
         /// Current version of the app, for serialized data
         /// </summary>
@@ -133,14 +141,6 @@ namespace Whydoisuck.Model.UserSettings
                 Directory.CreateDirectory(AppData);
             }
             File.WriteAllText(SettingsPath, JsonConvert.SerializeObject(CurrentSettings));
-        }
-
-        /// <summary>
-        /// Returns the path of the launcher exe file
-        /// </summary>
-        public static string GetLauncherPath()
-        {
-            return DEFAULT_LAUNCHER_LOCATION;
         }
     }
 }

@@ -14,16 +14,17 @@ namespace Whydoisuck.Model.Utilities
     /// </summary>
     public class AutoLaunchUtilities
     {
-        private readonly static string StartupFolder = GetFolderPath(SpecialFolder.Desktop);
+        private readonly static string StartupFolder = GetFolderPath(SpecialFolder.Startup);
         /// <summary>
         /// Creates a shortcut so that an application is launched on windows' start up
         /// </summary>
         public static void CreateStartUpShortcut(string shortcutName, string applicationPath)
         {
+            var appFullPath = Path.GetFullPath(applicationPath);
             using (StreamWriter writer = new StreamWriter(Path.Combine(StartupFolder, shortcutName)))
             {
                 writer.WriteLine("[InternetShortcut]");
-                writer.WriteLine("URL=file:///" + applicationPath);
+                writer.WriteLine("URL=file:///" + appFullPath);
             }
         }
 
@@ -33,8 +34,9 @@ namespace Whydoisuck.Model.Utilities
         public static bool DoesShortcutExist(string shortcutName, string applicationPath)
         {
             var shortcutPath = Path.Combine(StartupFolder, shortcutName);
+            var appFullPath = Path.GetFullPath(applicationPath);
             if (!File.Exists(shortcutPath)) return false;
-            return File.ReadAllText(shortcutPath).Contains(applicationPath); // branle
+            return File.ReadAllText(shortcutPath).Contains(appFullPath); // branle
         }
 
         /// <summary>

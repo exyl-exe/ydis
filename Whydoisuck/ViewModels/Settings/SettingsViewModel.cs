@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -82,21 +83,31 @@ namespace Whydoisuck.ViewModels.AppSettings
         }
 
         /// <summary>
-        /// Controls how many times per seconds the game is scanned
+        /// Controls wether whydoisuck is launched automatically when GD is opened
         /// </summary>
         public bool AutoStartup
         {
             get
             {
-                return AutoLaunchUtilities.DoesShortcutExist(WDISSettings.LAUNCHER_SHORTCUT_NAME, WDISSettings.GetLauncherPath());
+                return AutoLaunchUtilities.DoesShortcutExist(WDISSettings.LAUNCHER_SHORTCUT_NAME, WDISSettings.LauncherPath);
             }
             set
             {
                 if (value)
                 {
-                    AutoLaunchUtilities.CreateStartUpShortcut(WDISSettings.LAUNCHER_SHORTCUT_NAME, WDISSettings.GetLauncherPath());
+                    var path = WDISSettings.LauncherPath;
+                    if (File.Exists(path))
+                    {
+                        Process.Start(path);
+                        AutoLaunchUtilities.CreateStartUpShortcut(WDISSettings.LAUNCHER_SHORTCUT_NAME, path);
+                    }
                 } else
-                {
+                {                    
+                    var processes = Process.GetProcessesByName(WDISSettings.LAUNCHER_PROCESS_NAME);
+                    foreach(var p in processes)
+                    {
+                        p.Kill();
+                    }
                     AutoLaunchUtilities.RemoveStartUpShortcut(WDISSettings.LAUNCHER_SHORTCUT_NAME);
                 }
             }
