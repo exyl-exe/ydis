@@ -131,6 +131,7 @@
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\DelayedViewModel.cs" />
+    <Compile Include="ViewModels\FolderManagement\FolderManagementViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchResultViewModel.cs" />
@@ -178,6 +179,9 @@
     </Compile>
     <Compile Include="Views\CurrentLevel\CurrentLevelView.xaml.cs">
       <DependentUpon>CurrentLevelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FolderManagement\FolderManagementView.xaml.cs">
+      <DependentUpon>FolderManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -229,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CurrentLevel\CurrentLevelStatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FolderManagement\FolderManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

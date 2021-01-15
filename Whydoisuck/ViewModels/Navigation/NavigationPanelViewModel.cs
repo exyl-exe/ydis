@@ -8,6 +8,7 @@ using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.AppSettings;
 using Whydoisuck.ViewModels.CurrentLevel;
+using Whydoisuck.ViewModels.FolderManagement;
 using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.Commands;
 using Whydoisuck.Views.CurrentLevel;
@@ -31,9 +32,16 @@ namespace Whydoisuck.ViewModels.Navigation
         /// Command to switch the main view to a summary of the current session
         /// </summary>
         public NavigatorCommand GoToCurrentCommand { get; set; }
+        /// <summary>
+        /// Label on the button that opens folder management
+        /// </summary>
         public string ManageGroupsText => Resources.ManageFoldersButton;
         /// <summary>
-        /// Label on the button to open settings
+        /// Command to switch to the folder management view
+        /// </summary>
+        public NavigatorCommand FolderManagementCommand { get; set; }
+        /// <summary>
+        /// Label on the button that opens settings
         /// </summary>
         public string SettingsButtonText => Resources.SettingsButton;
         /// <summary>
@@ -45,6 +53,7 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             MainView = mainWindow;
             GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
+            FolderManagementCommand = new NavigatorCommand(mainWindow, new FolderManagementViewModel());
             SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
             SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
