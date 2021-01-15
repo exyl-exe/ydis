@@ -22,6 +22,7 @@
                 <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
             </StackPanel>
             <StackPanel DockPanel.Dock="Bottom">
+                <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
                 <Button Style="{StaticResource SettingsButtonStyle}"
                         Content="{Binding SettingsButtonText}"
                         Command="{Binding SettingsCommand}"/>
