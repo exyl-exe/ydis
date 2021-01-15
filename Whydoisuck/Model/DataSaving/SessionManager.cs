@@ -120,6 +120,7 @@ namespace Whydoisuck.Model.DataSaving
         public void Import(string path)
         {
             if (path == SavesDirectory) return;
+            if (!File.Exists(Path.Combine(path, DataSerializer.IndexFileName))) return;
             var otherData = new SessionManager(path);
             foreach(var g in otherData.Groups)
             {

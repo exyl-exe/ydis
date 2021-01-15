@@ -43,12 +43,13 @@ namespace Whydoisuck.Model.DataSaving
             }
         }
         /// <summary>
+        /// name of the file containing the session manager
+        /// </summary>
+        public static string IndexFileName => WDISSettings.SaveManagerFileName;
+        /// <summary>
         /// Path for the file containing the session manager.
         /// </summary>
         public string IndexFilePath { get { return Path.Combine(SavesDirectory, IndexFileName); } }
-
-        // name of the file containing the session manager
-        private string IndexFileName => WDISSettings.SaveManagerFileName;
 
         private DataSerializer(string dir)
         {
