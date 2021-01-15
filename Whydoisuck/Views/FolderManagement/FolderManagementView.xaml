@@ -6,7 +6,50 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.FolderManagement"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <ScrollViewer>
+        <DockPanel x:Name="LevelInfoStack">
+            <TextBlock x:Name="LevelTitle"
+                       DockPanel.Dock="Top"
+                       Text="#Folder management"
+                       Style="{StaticResource TitleStyle}"
+                       Margin="15,15,15,0"/>
+            <StackPanel Orientation="Vertical">
+                <Border Background="{StaticResource PanelBackgroundColor}"
+                Margin="15">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top"
+                               Text="#Manage selected folders"
+                               Style="{StaticResource InfoPanelTitleStyle}"
+                               Margin="10"/>
+                        <StackPanel Orientation="Vertical"
+                                    VerticalAlignment="Top">
+                            <UniformGrid Rows="1">
+                                <Button Margin="10,2,10,2"
+                                        Style="{StaticResource DeleteGroupButtonStyle}">#Merge selected</Button>
+                                <Button Margin="10,2,10,2"
+                                        Style="{StaticResource DeleteGroupButtonStyle}">#Delete selected</Button>
+                            </UniformGrid>
+                            <Border x:Name="UnderlineColor"
+                                    Style="{StaticResource NavigationSearchBoxBorderStyle}"
+                                    Margin="5"
+                                    BorderThickness="0,0,0,1">
+                                <DockPanel x:Name="SearchBar">
+                                    <Image x:Name="SearchIcon"
+                                           DockPanel.Dock="Right"
+                                           Source="{StaticResource searchIcon}"
+                                           Width="24"
+                                           Height="24"
+                                           Margin="5"/>
+                                    <TextBox x:Name="SearchTextBox"
+                                             Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource SimpleTextBoxStyle}">
+                                    </TextBox>
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </StackPanel>
+        </DockPanel>
+    </ScrollViewer>
 </UserControl>

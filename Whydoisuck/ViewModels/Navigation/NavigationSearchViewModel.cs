@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.ViewModels.CommonControlsViewModels;
 using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.Commands;
 using Whydoisuck.Views.NavigationPanel;
@@ -22,6 +23,10 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public NavigationPanelViewModel ParentNavigationPanel { get; set; }
         /// <summary>
+        /// Search bar view model
+        /// </summary>
+        public SearchBarViewModel SearchViewModel { get; set; }
+        /// <summary>
         /// All possible results for the search
         /// </summary>
         public List<NavigationSearchResultViewModel> AllResults { get; set; }
@@ -29,29 +34,14 @@ namespace Whydoisuck.ViewModels.Navigation
         /// Results matching the search
         /// </summary>
         public List<NavigationSearchResultViewModel> SearchResults { get; set; }
-
-        private string _search;
-        /// <summary>
-        /// What's typed in the search bar.
-        /// </summary>
-        public string Search {
-            get {
-                return _search;
-            }
-            set { 
-                if(_search != value)
-                {
-                    _search = value;
-                    OnPropertyChanged(nameof(Search));
-                    UpdateSearchResults();
-                }
-            }
-        }
+        // Currently searched text
+        private string Search { get; set; }
 
         public NavigationSearchViewModel(NavigationPanelViewModel ParentNavigationPanel, List<SessionGroup> groups)
         {
+            SearchViewModel = new SearchBarViewModel(UpdateSearchResults);
             this.ParentNavigationPanel = ParentNavigationPanel;
-            _search = "";
+            Search = "";
             AllResults = groups.Select(
                 g => new NavigationSearchResultViewModel(g, ParentNavigationPanel.MainView)
                 ).ToList();
@@ -90,10 +80,16 @@ namespace Whydoisuck.ViewModels.Navigation
             }
         }
 
+        private void UpdateSearchResults(string search)
+        {
+            Search = search;
+            UpdateSearchResults();
+        }
+
         // Updates matching search result and notifies the change.
         private void UpdateSearchResults()
         {
-            SearchResults = AllResults.Where(result => result.ResultText.ToLower().Trim().StartsWith(_search.ToLower().Trim()))
+            SearchResults = AllResults.Where(result => result.ResultText.ToLower().Trim().StartsWith(Search.ToLower().Trim()))
                                       .OrderByDescending(res => res.Group.LastPlayedTime)
                                       .ToList();
             OnPropertyChanged(nameof(SearchResults));

@@ -4,32 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Whydoisuck.Views.NavigationPanel"
+             xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel x:Name="LevelSearchDockPanel">
-        <Border DockPanel.Dock="Top"
-                Style="{StaticResource NavigationSearchAreaStyle}"
-                Margin="0,0,0,0"
-                BorderThickness="0,0,0,1"
-                BorderBrush="{StaticResource ElementSeparatorColor}">
-            <Border x:Name="UnderlineColor"
-                    Style="{StaticResource NavigationSearchBoxBorderStyle}"
-                    Margin="5"
-                    BorderThickness="0,0,0,1">
-                <DockPanel x:Name="SearchBar">
-                    <Image x:Name="SearchIcon"
-                           DockPanel.Dock="Right"
-                           Source="{StaticResource searchIcon}"
-                           Width="24"
-                           Height="24"
-                           Margin="5"/>
-                    <TextBox x:Name="SearchTextBox"
-                             Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource SimpleTextBoxStyle}">
-                    </TextBox>
-                </DockPanel>
-            </Border>
-        </Border>
+        <common:SearchBar DataContext="{Binding SearchViewModel}"
+                                  DockPanel.Dock="Top"/>
         <ScrollViewer x:Name="ResultsScrollViewer"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">

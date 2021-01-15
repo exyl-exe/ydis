@@ -24,7 +24,8 @@
             </StackPanel>
             <StackPanel DockPanel.Dock="Bottom">
                 <Rectangle Stroke="{StaticResource ElementSeparatorColor}" Opacity="0.8" Height="1"/>
-                <Button Command="{Binding FolderManagementCommand}"
+                <Button x:Name="FolderManagementButton"
+                        Command="{Binding FolderManagementCommand}"
                         Content="{Binding ManageGroupsText}"
                         Style="{StaticResource NavigationButtonStyle}"                        
                         Margin="2"/>
