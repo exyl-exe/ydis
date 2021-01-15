@@ -102,6 +102,7 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
     <Compile Include="Model\UserSettings\SerializedSettings.cs" />
+    <Compile Include="Model\Utilities\AutoLaunchUtilities.cs" />
     <Compile Include="Model\Utilities\DirectoryUtilities.cs" />
     <Compile Include="Model\Utilities\ExceptionLogger.cs" />
     <Compile Include="Model\UserSettings\WDISSettings.cs" />

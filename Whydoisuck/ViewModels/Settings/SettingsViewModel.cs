@@ -80,6 +80,21 @@ namespace Whydoisuck.ViewModels.AppSettings
             }
         }
 
+        /// <summary>
+        /// Controls how many times per seconds the game is scanned
+        /// </summary>
+        public bool AutoStartup
+        {
+            get
+            {
+                return WDISSettings.ScanPeriod == WDISSettings.ACCURACY_PERIOD;
+            }
+            set
+            {
+                WDISSettings.ScanPeriod = value ? WDISSettings.ACCURACY_PERIOD : WDISSettings.PERFORMANCE_PERIOD;
+            }
+        }
+
         public SettingsViewModel()
         {
             BrowseCommand = new FolderBrowserCommand(OnSaveFileLocationChanges);

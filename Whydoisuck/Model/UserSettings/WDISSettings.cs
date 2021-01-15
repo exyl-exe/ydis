@@ -82,9 +82,13 @@ namespace Whydoisuck.Model.UserSettings
         /// </summary>
         public static string BackupsPath => Path.Combine(AppData, "Backups");
         /// <summary>
-        /// Path to the executable path info file
+        /// Path to a file containing the path of the application (used by the launcher to know where the exe is)
         /// </summary>
         public static string ExeLocationPath { get; } = Path.Combine(AppData, "path.dat");
+        /// <summary>
+        /// Path to a file containing the launcher .exe file
+        /// </summary>
+        public static string LauncherPath { get; } = Path.Combine(AppData, "launcher_path.dat");
 
         // Path to the user settings
         private static string SettingsPath { get; } = Path.Combine(AppData, "config.json");
@@ -126,5 +130,16 @@ namespace Whydoisuck.Model.UserSettings
             }
             File.WriteAllText(SettingsPath, JsonConvert.SerializeObject(CurrentSettings));
         }
+
+        /// <summary>
+        /// Checks wether automatic launching is enabled or not
+        /// </summary>
+        /// <returns></returns>
+        public static bool AutoStartUpEnabled()
+        {
+            return true;
+        }
+
+
     }
 }
