@@ -8,8 +8,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel x:Name="LevelSearchDockPanel">
-        <common:SearchBar DataContext="{Binding SearchViewModel}"
-                                  DockPanel.Dock="Top"/>
+        <StackPanel DockPanel.Dock="Top">
+            <common:SearchBar DataContext="{Binding SearchViewModel}"/>
+            <Rectangle Height="1"
+                       Fill="{StaticResource ElementSeparatorColor}"
+                       Opacity="0.7"/>
+        </StackPanel>
         <ScrollViewer x:Name="ResultsScrollViewer"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
