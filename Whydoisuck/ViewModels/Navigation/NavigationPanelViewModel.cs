@@ -31,10 +31,11 @@ namespace Whydoisuck.ViewModels.Navigation
         /// Command to switch the main view to a summary of the current session
         /// </summary>
         public NavigatorCommand GoToCurrentCommand { get; set; }
+        public string ManageGroupsText => Resources.ManageFoldersButton;
         /// <summary>
         /// Label on the button to open settings
         /// </summary>
-        public string SettingsButtonText { get; set; } = Resources.SettingsButton;
+        public string SettingsButtonText => Resources.SettingsButton;
         /// <summary>
         /// Command to switch the main view to the application settings
         /// </summary>

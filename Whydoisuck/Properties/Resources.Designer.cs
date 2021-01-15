@@ -358,6 +358,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage folders.
+        /// </summary>
+        public static string ManageFoldersButton {
+            get {
+                return ResourceManager.GetString("ManageFoldersButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move existing data.
         /// </summary>
         public static string MigrateDataCaption {

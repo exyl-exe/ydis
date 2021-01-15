@@ -30,11 +30,6 @@
                 </DockPanel>
             </Border>
         </Border>
-        <StackPanel DockPanel.Dock="Bottom">
-            <Rectangle Stroke="{StaticResource ElementSeparatorColor}" Opacity="0.8" Height="1"/>
-            <Button Style="{StaticResource NavigationButtonStyle}"
-                    Margin="2">Manage foldersTODO</Button>
-        </StackPanel>
         <ScrollViewer x:Name="ResultsScrollViewer"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">

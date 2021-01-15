@@ -225,6 +225,9 @@
     <value>{0} attempts</value>
     <comment>Format</comment>
   </data>
+  <data name="ManageFoldersButton" xml:space="preserve">
+    <value>Manage folders</value>
+  </data>
   <data name="MigrateDataCaption" xml:space="preserve">
     <value>Move existing data</value>
   </data>

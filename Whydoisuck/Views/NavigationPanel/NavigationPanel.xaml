@@ -23,6 +23,10 @@
                 <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
             </StackPanel>
             <StackPanel DockPanel.Dock="Bottom">
+                <Rectangle Stroke="{StaticResource ElementSeparatorColor}" Opacity="0.8" Height="1"/>
+                <Button Style="{StaticResource NavigationButtonStyle}"
+                        Margin="2"
+                        Content="{Binding ManageGroupsText}"/>
                 <Rectangle Style="{StaticResource SeparatorRectangleStyle}"/>
                 <Button Style="{StaticResource SettingsButtonStyle}"
                         Content="{Binding SettingsButtonText}"
