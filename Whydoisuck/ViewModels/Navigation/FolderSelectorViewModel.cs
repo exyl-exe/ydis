@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
 
@@ -17,10 +18,15 @@ namespace Whydoisuck.ViewModels.Navigation
         /// Search bar view model
         /// </summary>
         public SearchBarViewModel SearchViewModel { get; set; }
+
+        private List<SelectableFolderViewModel> _folders;
         /// <summary>
         /// All folders
         /// </summary>
-        public List<SelectableFolderViewModel> Folders { get; set; }
+        public List<SelectableFolderViewModel> Folders {
+            get { return _folders.OrderBy(f => f.FolderName).ToList(); }
+            private set { _folders = value; }
+        }
         // Currently searched text
         private string Search { get; set; }
 
@@ -63,6 +69,7 @@ namespace Whydoisuck.ViewModels.Navigation
                                 || f.IsSelected;
                 f.IsVisible = isVisible;
             }
+            OnPropertyChanged(nameof(Folders));
         }
     }
 }
