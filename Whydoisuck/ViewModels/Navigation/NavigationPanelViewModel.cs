@@ -40,7 +40,7 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <summary>
         /// Command to switch to the folder management view
         /// </summary>
-        public NavigatorCommand FolderManagementCommand { get; set; }
+        public StartFolderSelectionCommand FolderManagementCommand { get; set; }
         /// <summary>
         /// Label on the button that opens settings
         /// </summary>
@@ -58,16 +58,22 @@ namespace Whydoisuck.ViewModels.Navigation
         public NavigationPanelViewModel(MainWindowViewModel mainWindow, CurrentLevelViewModel currentSession)
         {
             MainView = mainWindow;
-            GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
-            FolderManagementCommand = new NavigatorCommand(mainWindow, new FolderManagementViewModel());
-            SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
-
             SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);
             FolderSelectorView = new FolderSelectorViewModel(this, SessionManager.Instance.Groups);
             CurrentSearchView = SearchView;
 
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
+
+            GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
+            FolderManagementCommand =
+                new StartFolderSelectionCommand(
+                    mainWindow,
+                    new FolderManagementViewModel(),
+                    this,
+                    FolderSelectorView
+                );
+            SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
         }
 
         public void ReplaceView(BaseViewModel m)
