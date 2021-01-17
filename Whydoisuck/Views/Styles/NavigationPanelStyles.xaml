@@ -43,6 +43,62 @@
         </Setter>
     </Style>
 
+    <Style x:Key="SelectableFolderStyle" TargetType="CheckBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border x:Name="CheckBoxBackground"
+                            Height="38"
+                            BorderThickness="1"
+                            Background="{StaticResource PanelBackgroundColor}">
+                        <DockPanel Margin="5">
+                            <Border x:Name="CheckBoxBorder"
+                                    Width="22"
+                                    Height="22"
+                                    DockPanel.Dock="Right"
+                                    Background="{StaticResource CheckBoxFillColor}"
+                                    BorderBrush="{StaticResource CheckBoxBorderColor}"
+                                    BorderThickness="1">
+                                <Rectangle x:Name="CheckBoxMark"
+                                       Margin="2"
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       Fill="{StaticResource CheckBoxMarkColor}"
+                                       Stroke="{StaticResource CheckBoxMarkColor}"/>
+                            </Border>
+                            <Viewbox MaxHeight="25">
+                                <ContentPresenter>
+                                    <ContentPresenter.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
+                                            <Setter Property="FontSize" Value="17"/>
+                                        </Style>
+                                    </ContentPresenter.Resources>
+                                </ContentPresenter>
+                            </Viewbox>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckBoxMark"
+                                    Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="CheckBoxMark"
+                                    Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="CheckBoxBackground"
+                                    Property="BorderBrush" Value="{StaticResource SelectedColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="SettingsButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="2"></Setter>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
