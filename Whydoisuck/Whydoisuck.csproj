@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\DelayedViewModel.cs" />
     <Compile Include="ViewModels\FolderManagement\FolderManagementViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Navigation\FolderSelectorViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchResultViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchViewModel.cs" />
@@ -190,6 +191,9 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NavigationPanel\LevelSelector.xaml.cs">
+      <DependentUpon>LevelSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NavigationPanel\NavigationSearchPanel.xaml.cs">
       <DependentUpon>NavigationSearchPanel.xaml</DependentUpon>
     </Compile>
@@ -198,6 +202,10 @@
     </Compile>
     <Compile Include="Views\NavigationPanel\NavigationSearchResult.xaml.cs">
       <DependentUpon>NavigationSearchResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Navigation\SelectableFolderViewModel.cs" />
+    <Compile Include="Views\NavigationPanel\SelectableFolder.xaml.cs">
+      <DependentUpon>SelectableFolder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectedLevel\SessionsTab\DaySummary.xaml.cs">
       <DependentUpon>DaySummary.xaml</DependentUpon>
@@ -255,6 +263,14 @@
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NavigationPanel\LevelSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavigationPanel\SelectableFolder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ResourceDicts\CurrentLevelDataTemplates.xaml">
       <SubType>Designer</SubType>

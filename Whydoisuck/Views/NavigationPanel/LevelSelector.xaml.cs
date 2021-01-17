@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.NavigationPanel
 {
     /// <summary>
-    /// Code-behind for NavigationPanel.xaml
+    /// Interaction logic for LevelSelector.xaml
     /// </summary>
-    public partial class NavigationPanel : UserControl
+    public partial class LevelSelector : UserControl
     {
-        public NavigationPanel()
+        public LevelSelector()
         {
             InitializeComponent();
         }

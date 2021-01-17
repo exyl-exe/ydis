@@ -29,6 +29,10 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public NavigationSearchViewModel SearchView { get; set; }
         /// <summary>
+        /// ViewModel for the selector view
+        /// </summary>
+        public FolderSelectorViewModel FolderSelectorView { get; set; }
+        /// <summary>
         /// Command to switch the main view to a summary of the current session
         /// </summary>
         public NavigatorCommand GoToCurrentCommand { get; set; }
@@ -56,6 +60,7 @@ namespace Whydoisuck.ViewModels.Navigation
             FolderManagementCommand = new NavigatorCommand(mainWindow, new FolderManagementViewModel());
             SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
             SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);
+            FolderSelectorView = new FolderSelectorViewModel(this, SessionManager.Instance.Groups);
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
         }

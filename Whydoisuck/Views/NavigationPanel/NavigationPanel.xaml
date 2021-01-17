@@ -35,7 +35,8 @@
                         Command="{Binding SettingsCommand}"
                         Margin="2"/>
             </StackPanel>
-            <uc:NavigationSearchPanel DataContext="{Binding SearchView}" Loaded="NavigationSearchPanel_Loaded"/>
+            <uc:NavigationSearchPanel DataContext="{Binding SearchView}"/>
+            <!--<uc:LevelSelector DataContext="{Binding FolderSelectorView}"/>-->
         </DockPanel>
     </Border>
 </UserControl>

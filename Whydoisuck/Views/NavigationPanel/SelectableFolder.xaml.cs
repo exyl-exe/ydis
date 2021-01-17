@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Whydoisuck.Views.NavigationPanel
 {
     /// <summary>
-    /// Code-behind for NavigationPanel.xaml
+    /// Interaction logic for SelectableFolder.xaml
     /// </summary>
-    public partial class NavigationPanel : UserControl
+    public partial class SelectableFolder : UserControl
     {
-        public NavigationPanel()
+        public SelectableFolder()
         {
             InitializeComponent();
         }
