@@ -50,7 +50,8 @@
                     <Border x:Name="CheckBoxBackground"
                             Height="38"
                             BorderThickness="1"
-                            Background="{StaticResource PanelBackgroundColor}">
+                            Background="{StaticResource PanelBackgroundColor}"
+                            Visibility="{TemplateBinding Visibility}">
                         <DockPanel Margin="5">
                             <Border x:Name="CheckBoxBorder"
                                     Width="22"

@@ -20,11 +20,7 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <summary>
         /// All folders
         /// </summary>
-        public List<SelectableFolderViewModel> AllResults { get; set; }
-        /// <summary>
-        /// Selectable folders matching the search
-        /// </summary>
-        public List<SelectableFolderViewModel> SearchResults { get; set; }
+        public List<SelectableFolderViewModel> Folders { get; set; }
         // Currently searched text
         private string Search { get; set; }
 
@@ -32,7 +28,7 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             SearchViewModel = new SearchBarViewModel(UpdateSearchResults);
             Search = "";
-            AllResults = groups.Select(
+            Folders = groups.Select(
                 g => new SelectableFolderViewModel(g, ParentNavigationPanel.MainView)
                 ).ToList();
             UpdateSearchResults();
@@ -44,10 +40,10 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">deleted group</param>
         public void DeleteGroup(SessionGroup group)
         {
-            var existingResult = AllResults.Find(res => res.Group.Equals(group));
+            var existingResult = Folders.Find(res => res.Group.Equals(group));
             if (existingResult != null)
             {
-                AllResults.Remove(existingResult);
+                Folders.Remove(existingResult);
                 UpdateSearchResults();
             }
         }
@@ -61,10 +57,12 @@ namespace Whydoisuck.ViewModels.Navigation
         // Updates matching search result and notifies the change.
         private void UpdateSearchResults()
         {
-            SearchResults = AllResults.Where(result => result.FolderName.ToLower().Trim().StartsWith(Search.ToLower().Trim()))
-                                      .OrderByDescending(res => res.FolderName)
-                                      .ToList();
-            OnPropertyChanged(nameof(SearchResults));
+            foreach(var f in Folders)
+            {
+                var isVisible = f.FolderName.ToLower().Trim().StartsWith(Search.ToLower().Trim())
+                                || f.IsSelected;
+                f.IsVisible = isVisible;
+            }
         }
     }
 }
