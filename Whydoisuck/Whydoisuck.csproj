@@ -191,8 +191,8 @@
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationPanel\LevelSelector.xaml.cs">
-      <DependentUpon>LevelSelector.xaml</DependentUpon>
+    <Compile Include="Views\NavigationPanel\FolderSelector.xaml.cs">
+      <DependentUpon>FolderSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NavigationPanel\NavigationSearchPanel.xaml.cs">
       <DependentUpon>NavigationSearchPanel.xaml</DependentUpon>
@@ -264,7 +264,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\NavigationPanel\LevelSelector.xaml">
+    <Page Include="Views\NavigationPanel\FolderSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -18,20 +18,17 @@ namespace Whydoisuck.ViewModels.Navigation
     /// <summary>
     /// View model for the navigation panel as a whole.
     /// </summary>
-    public class NavigationPanelViewModel
+    public class NavigationPanelViewModel : BaseViewModel, IReplaceableViewViewModel
     {
         /// <summary>
         /// View that will be modified depending on how the user navigates
         /// </summary>
         public MainWindowViewModel MainView { get; set; }
         /// <summary>
-        /// ViewModel for the search view
+        /// View model for the folder search area
         /// </summary>
-        public NavigationSearchViewModel SearchView { get; set; }
-        /// <summary>
-        /// ViewModel for the selector view
-        /// </summary>
-        public FolderSelectorViewModel FolderSelectorView { get; set; }
+        public BaseViewModel CurrentSearchView { get; set; }
+
         /// <summary>
         /// Command to switch the main view to a summary of the current session
         /// </summary>
@@ -53,16 +50,31 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public NavigatorCommand SettingsCommand { get; set; }
 
+        // ViewModel for the search view
+        private NavigationSearchViewModel SearchView { get; set; }
+        // ViewModel for the selector view
+        private FolderSelectorViewModel FolderSelectorView { get; set; }
+
         public NavigationPanelViewModel(MainWindowViewModel mainWindow, CurrentLevelViewModel currentSession)
         {
             MainView = mainWindow;
             GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
             FolderManagementCommand = new NavigatorCommand(mainWindow, new FolderManagementViewModel());
             SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
+
             SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);
             FolderSelectorView = new FolderSelectorViewModel(this, SessionManager.Instance.Groups);
+            CurrentSearchView = SearchView;
+
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
+        }
+
+        public void ReplaceView(BaseViewModel m)
+        {
+            if(m.Equals(SearchView) || m.Equals(FolderSelectorView))
+            CurrentSearchView = m;
+            OnPropertyChanged(nameof(CurrentSearchView));
         }
     }
 }

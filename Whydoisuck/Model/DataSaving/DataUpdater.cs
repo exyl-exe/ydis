@@ -23,6 +23,7 @@ namespace Whydoisuck.Model.DataSaving
         public static void Update(string dir)
         {
             var version = GetDataVersion(dir);
+            if (version == WDISSettings.INVALID_VERSION) return;
             if(version < WDISSettings.SerializationVersion)
             {
                 Backup(dir);
@@ -44,6 +45,7 @@ namespace Whydoisuck.Model.DataSaving
         private static int GetDataVersion(string dir)
         {
             var sessionManagerPath = Path.Combine(dir, WDISSettings.SaveManagerFileName);
+            if (!File.Exists(sessionManagerPath)) return WDISSettings.INVALID_VERSION;
             var rawData = File.ReadAllText(sessionManagerPath);
             var json = JObject.Parse(rawData);
             return (int)json[WDISSerializable.VersionPropertyName];

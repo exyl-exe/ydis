@@ -18,9 +18,9 @@ namespace Whydoisuck.Views.NavigationPanel
     /// <summary>
     /// Interaction logic for LevelSelector.xaml
     /// </summary>
-    public partial class LevelSelector : UserControl
+    public partial class FolderSelector : UserControl
     {
-        public LevelSelector()
+        public FolderSelector()
         {
             InitializeComponent();
         }

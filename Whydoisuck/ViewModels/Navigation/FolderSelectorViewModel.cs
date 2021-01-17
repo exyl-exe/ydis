@@ -27,6 +27,13 @@ namespace Whydoisuck.ViewModels.Navigation
             get { return _folders.OrderBy(f => f.FolderName).ToList(); }
             private set { _folders = value; }
         }
+
+        /// <summary>
+        /// Folders elected by the user
+        /// </summary>
+        /// <returns></returns>
+        public List<SessionGroup> SelectedFolders => Folders.Where(f => f.IsSelected).Select(f => f.Group).ToList();
+
         // Currently searched text
         private string Search { get; set; }
 
@@ -69,7 +76,6 @@ namespace Whydoisuck.ViewModels.Navigation
                                 || f.IsSelected;
                 f.IsVisible = isVisible;
             }
-            OnPropertyChanged(nameof(Folders));
         }
     }
 }

@@ -24,6 +24,10 @@ namespace Whydoisuck.Model.UserSettings
         /// </summary>
         public const int ACCURACY_PERIOD = 10;
         /// <summary>
+        /// Version number for data not matching any version
+        /// </summary>
+        public const int INVALID_VERSION = -1;
+        /// <summary>
         /// Name of the launcher process
         /// </summary>
         public const string LAUNCHER_PROCESS_NAME = "WhydoisuckLauncher";

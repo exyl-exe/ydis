@@ -3,9 +3,11 @@
                     xmlns:selectedView="clr-namespace:Whydoisuck.Views.SelectedLevel"
                     xmlns:currentView="clr-namespace:Whydoisuck.Views.CurrentLevel"
                     xmlns:managementView="clr-namespace:Whydoisuck.Views.FolderManagement"
+                    xmlns:navigationView="clr-namespace:Whydoisuck.Views.NavigationPanel"
                     xmlns:VM="clr-namespace:Whydoisuck.ViewModels"
                     xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.CurrentLevel"
                     xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel"
+                    xmlns:navigationVM="clr-namespace:Whydoisuck.ViewModels.Navigation"
                     xmlns:managementVM="clr-namespace:Whydoisuck.ViewModels.FolderManagement"
                     xmlns:settingsVM="clr-namespace:Whydoisuck.ViewModels.AppSettings"
                     xmlns:settingsViews="clr-namespace:Whydoisuck.Views.AppSettings">
@@ -21,7 +23,15 @@
     <DataTemplate DataType="{x:Type managementVM:FolderManagementViewModel}">
         <managementView:FolderManagementView/>
     </DataTemplate>
+    
     <DataTemplate DataType="{x:Type VM:DelayedViewModel}">
         <ContentControl Content="{Binding ViewModel}"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type navigationVM:FolderSelectorViewModel}">
+        <navigationView:FolderSelector/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type navigationVM:NavigationSearchViewModel}">
+        <navigationView:NavigationSearchPanel/>
     </DataTemplate>
 </ResourceDictionary>
