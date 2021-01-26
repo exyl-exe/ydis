@@ -40,7 +40,7 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <summary>
         /// Command to switch to the folder management view
         /// </summary>
-        public StartFolderSelectionCommand FolderManagementCommand { get; set; }
+        public NavigatorCommand FolderManagementCommand { get; set; }
         /// <summary>
         /// Label on the button that opens settings
         /// </summary>
@@ -52,6 +52,7 @@ namespace Whydoisuck.ViewModels.Navigation
 
         // ViewModel for the search view
         private NavigationSearchViewModel SearchView { get; set; }
+
         // ViewModel for the selector view
         private FolderSelectorViewModel FolderSelectorView { get; set; }
 
@@ -66,14 +67,30 @@ namespace Whydoisuck.ViewModels.Navigation
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
 
             GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
-            FolderManagementCommand =
-                new StartFolderSelectionCommand(
-                    mainWindow,
-                    new FolderManagementViewModel(),
-                    this,
-                    FolderSelectorView
-                );
+            FolderManagementCommand = new NavigatorCommand(mainWindow,new FolderManagementViewModel());
             SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
+        }
+
+        /// <summary>
+        /// uses the default view for the group selector
+        /// </summary>
+        public void SwitchToDefaultView()
+        {
+            if (CurrentSearchView != SearchView)
+            {
+                ReplaceView(SearchView);
+            }
+        }
+
+        /// <summary>
+        /// uses the selection view for the group selector
+        /// </summary>
+        public void SwitchToSelectionView()
+        {
+            if (CurrentSearchView != FolderSelectorView)
+            {
+                ReplaceView(FolderSelectorView);
+            }
         }
 
         public void ReplaceView(BaseViewModel m)

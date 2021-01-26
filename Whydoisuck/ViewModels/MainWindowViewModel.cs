@@ -10,6 +10,7 @@ using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.UserSettings;
 using Whydoisuck.ViewModels.CurrentLevel;
+using Whydoisuck.ViewModels.FolderManagement;
 using Whydoisuck.ViewModels.Navigation;
 using Whydoisuck.ViewModels.SelectedLevel;
 using Whydoisuck.Views.CurrentLevel;
@@ -58,6 +59,14 @@ namespace Whydoisuck.ViewModels
 		public void ReplaceView(BaseViewModel m)
 		{
 			CurrentView = m;
+			if(m is FolderManagementViewModel fmvm)
+            {
+				NavigationPanel.SwitchToSelectionView();
+            } else
+            {
+				NavigationPanel.SwitchToDefaultView();
+            }
+
 			OnPropertyChanged(nameof(CurrentView));
 		}
 
