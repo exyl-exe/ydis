@@ -1,17 +1,20 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="DeleteGroupButtonStyle" TargetType="Button">
+
+    <Style x:Key="WarningButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="2,2,3,0"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
-        <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="TextBlock.FontSize" Value="25"/>
+        <Setter Property="TextBlock.FontSize" Value="20"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="ButtonBackground"
-                            Background="{StaticResource HeaderBackgroundColor}">
+                            Background="{StaticResource HeaderBackgroundColor}"
+                            BorderThickness="1"
+                            BorderBrush="Transparent">
                         <ContentPresenter
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -21,10 +24,17 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBackground"
                                     Property="Background" Value="{StaticResource WarningColor}"/>
+                            <Setter TargetName="ButtonBackground"
+                                    Property="BorderBrush" Value="{StaticResource WarningOutlineColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="ReorganizeAllFoldersButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource WarningButtonStyle}">
+        <Setter Property="FontSize" Value="25"/>
     </Style>
 </ResourceDictionary>

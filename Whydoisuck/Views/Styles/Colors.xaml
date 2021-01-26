@@ -13,7 +13,8 @@
     <SolidColorBrush x:Key="PanelSeparatorColor" Color="#b0b4b6"/>
     <SolidColorBrush x:Key="ElementSeparatorColor" Color="#787b7c"/>
     <SolidColorBrush x:Key="SelectedColor" Color="#b0b4b6" Opacity=".3"/>
-    <SolidColorBrush x:Key="WarningColor"  Color="#550000"/>
+    <SolidColorBrush x:Key="WarningColor"  Color="#661111"/>
+    <SolidColorBrush x:Key="WarningOutlineColor" Color="#c0c4c6" Opacity="0.8"/>
     <SolidColorBrush x:Key="HoverColor" Color="#4a4f51"/>
     <SolidColorBrush x:Key="EntryColor" Color="#252525"/>
     <SolidColorBrush x:Key="HeaderBackgroundColor" Color="#262829"/>

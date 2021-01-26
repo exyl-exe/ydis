@@ -11,7 +11,7 @@
         <StackPanel>
             <Button Content="{Binding DeleteButtonText}"
                     Command="{Binding DeleteGroup}"
-                    Style="{StaticResource DeleteGroupButtonStyle}"
+                    Style="{StaticResource WarningButtonStyle}"
                     Margin="15"/>
         </StackPanel>
     </Border>

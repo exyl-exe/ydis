@@ -7,27 +7,37 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer>
-        <DockPanel x:Name="LevelInfoStack">
-            <StackPanel Orientation="Vertical" 
+        <StackPanel Orientation="Vertical" 
                         Margin="15">
-                <Border Background="{StaticResource PanelBackgroundColor}">
-                    <DockPanel>
-                        <TextBlock DockPanel.Dock="Top"
-                               Text="#Folder Management"
-                               Style="{StaticResource TitleStyle}"
-                               Margin="10"/>
-                        <StackPanel Orientation="Vertical"
+            <TextBlock Text="#Folder Management"
+                           Style="{StaticResource TitleStyle}"/>
+            <Border Background="{StaticResource PanelBackgroundColor}" Margin="0,10,0,0">
+                <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top">
-                            <Button Margin="10,2,10,2"
-                                        Style="{StaticResource DeleteGroupButtonStyle}">#Merge selected folders</Button>
-                            <Button Margin="10,2,10,2"
-                                        Style="{StaticResource DeleteGroupButtonStyle}">#Delete selected folders</Button>
-                            <Button Margin="10,2,10,2"
-                                        Style="{StaticResource DeleteGroupButtonStyle}">#Reorganize folders</Button>
-                        </StackPanel>
-                    </DockPanel>
-                </Border>
-            </StackPanel>
-        </DockPanel>
+                    <Button DockPanel.Dock="Top"
+                                    Margin="10,10,10,5"
+                                    Style="{StaticResource WarningButtonStyle}"
+                                    FontSize="20">#Merge selected folders</Button>
+
+                    <Button DockPanel.Dock="Top"
+                                    Margin="10,5,10,5"
+                                    Style="{StaticResource WarningButtonStyle}"
+                                    FontSize="20">#Delete selected folders</Button>
+
+                    <Button DockPanel.Dock="Top"
+                                    Margin="10,5,10,10"
+                                    Style="{StaticResource WarningButtonStyle}"
+                                    FontSize="20">#Reorganize selected folders</Button>
+
+                    <Separator Margin="10,0,10,0" BorderBrush="{StaticResource ElementSeparatorColor}"/>
+
+                    <Button DockPanel.Dock="Top"
+                                    Margin="10"
+                                    Style="{StaticResource ReorganizeAllFoldersButtonStyle}"
+                                    FontSize="22">#Reorganize all folders</Button>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>
