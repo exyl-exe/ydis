@@ -11,8 +11,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="ButtonBackground"
-                            Background="{StaticResource HeaderBackgroundColor}"
-                            BorderThickness="1"
+                            Background="{StaticResource PanelBackgroundColor}"
+                            BorderThickness="1.5"
                             BorderBrush="Transparent">
                         <ContentPresenter
                             HorizontalAlignment="Center"
@@ -23,8 +23,6 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ButtonBackground"
                                     Property="Background" Value="{StaticResource WarningColor}"/>
-                            <Setter TargetName="ButtonBackground"
-                                    Property="BorderBrush" Value="{StaticResource WarningOutlineColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
