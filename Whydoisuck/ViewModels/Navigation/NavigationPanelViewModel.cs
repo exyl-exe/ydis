@@ -67,7 +67,7 @@ namespace Whydoisuck.ViewModels.Navigation
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
 
             GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
-            FolderManagementCommand = new NavigatorCommand(mainWindow,new FolderManagementViewModel());
+            FolderManagementCommand = new NavigatorCommand(mainWindow,new FolderManagementViewModel(mainWindow, currentSession));
             SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
         }
 
