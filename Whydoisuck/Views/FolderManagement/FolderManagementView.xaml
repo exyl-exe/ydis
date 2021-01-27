@@ -36,7 +36,9 @@
                                     Style="{StaticResource WarningButtonStyle}"
                                     FontSize="20">#Reorganize selected folders</Button>
 
-                    <Separator Margin="10,0,10,0" BorderBrush="{StaticResource ElementSeparatorColor}"/>
+                    <Separator Margin="10,0,10,0"
+                               Height="0.8"
+                               BorderBrush="{StaticResource ElementSeparatorColor}"/>
 
                     <Button DockPanel.Dock="Top"
                                     Margin="10"
