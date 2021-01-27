@@ -38,9 +38,11 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public string ManageGroupsText => Resources.ManageFoldersButton;
         /// <summary>
-        /// Command to switch to the folder management view
+        /// Command to execute when clicking the folder management button
         /// </summary>
-        public NavigatorCommand FolderManagementCommand { get; set; }
+        public NavigatorCommand FolderManagementButtonCommand { get; private set; }
+        // Command to switch to the folder management view
+        private NavigatorCommand FolderManagementCommand { get; set; }
         /// <summary>
         /// Label on the button that opens settings
         /// </summary>
@@ -66,8 +68,10 @@ namespace Whydoisuck.ViewModels.Navigation
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
 
+            FolderManagementCommand = new NavigatorCommand(mainWindow, new FolderManagementViewModel(mainWindow, currentSession));
+
             GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
-            FolderManagementCommand = new NavigatorCommand(mainWindow,new FolderManagementViewModel(mainWindow, currentSession));
+            FolderManagementButtonCommand = FolderManagementCommand;
             SettingsCommand = new NavigatorCommand(mainWindow, new SettingsViewModel());
         }
 
@@ -79,6 +83,8 @@ namespace Whydoisuck.ViewModels.Navigation
             if (CurrentSearchView != SearchView)
             {
                 ReplaceView(SearchView);
+                FolderManagementButtonCommand = FolderManagementCommand;
+                OnPropertyChanged(nameof(FolderManagementButtonCommand));
             }
         }
 
@@ -90,6 +96,8 @@ namespace Whydoisuck.ViewModels.Navigation
             if (CurrentSearchView != FolderSelectorView)
             {
                 ReplaceView(FolderSelectorView);
+                FolderManagementButtonCommand = GoToCurrentCommand;
+                OnPropertyChanged(nameof(FolderManagementButtonCommand));
             }
         }
 
