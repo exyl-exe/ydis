@@ -68,7 +68,8 @@ namespace Whydoisuck.ViewModels.Navigation
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
 
-            FolderManagementCommand = new NavigatorCommand(mainWindow, new FolderManagementViewModel(mainWindow, currentSession));
+            var folderManagementVM = new FolderManagementViewModel(mainWindow, currentSession, this);
+            FolderManagementCommand = new NavigatorCommand(mainWindow, folderManagementVM);
 
             GoToCurrentCommand = new NavigatorCommand(mainWindow, currentSession);
             FolderManagementButtonCommand = FolderManagementCommand;
@@ -95,6 +96,7 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             if (CurrentSearchView != FolderSelectorView)
             {
+                FolderSelectorView.ResetSelection();
                 ReplaceView(FolderSelectorView);
                 FolderManagementButtonCommand = GoToCurrentCommand;
                 OnPropertyChanged(nameof(FolderManagementButtonCommand));

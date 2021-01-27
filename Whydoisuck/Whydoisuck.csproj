@@ -132,8 +132,8 @@
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelViewModel.cs" />
     <Compile Include="ViewModels\DataViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\DelayedViewModel.cs" />
-    <Compile Include="ViewModels\FolderManagement\FolderManagementViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\FolderManagement\FolderManagementViewModel.cs" />
     <Compile Include="ViewModels\Navigation\FolderSelectorViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationPanelViewModel.cs" />
     <Compile Include="ViewModels\Navigation\NavigationSearchResultViewModel.cs" />
@@ -493,6 +493,7 @@
   <ItemGroup>
     <Resource Include="Views\Images\openFolder.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

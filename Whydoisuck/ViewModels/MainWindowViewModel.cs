@@ -17,11 +17,11 @@ using Whydoisuck.Views.CurrentLevel;
 
 namespace Whydoisuck.ViewModels
 {
-	/// <summary>
-	/// ViewModel for the main window. The largest part of the view can be either
-	/// the currently played level or a selected level.
-	/// </summary>
-	public class MainWindowViewModel : BaseViewModel, IReplaceableViewViewModel
+    /// <summary>
+    /// ViewModel for the main window. The largest part of the view can be either
+    /// the currently played level or a selected level.
+    /// </summary>
+    public class MainWindowViewModel : BaseViewModel, IReplaceableViewViewModel
 	{
 		/// <summary>
 		/// How the windows should be displayed upon launch

@@ -48,6 +48,17 @@ namespace Whydoisuck.ViewModels.Navigation
         }
 
         /// <summary>
+        /// Unselects all selected folders
+        /// </summary>
+        public void ResetSelection()
+        {
+            foreach(var f in Folders)
+            {
+                f.IsSelected = false;
+            }
+        }
+
+        /// <summary>
         /// Deletes the search result about the given group
         /// </summary>
         /// <param name="group">deleted group</param>

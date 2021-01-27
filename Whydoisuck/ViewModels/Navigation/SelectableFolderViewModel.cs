@@ -18,10 +18,20 @@ namespace Whydoisuck.ViewModels.Navigation
         /// Name of the selectable folder
         /// </summary>
         public string FolderName => Group.DisplayedName;
+        private bool _selected;
         /// <summary>
         /// Wether the widget is selected or not
         /// </summary>
-        public bool IsSelected { get; set; }
+        public bool IsSelected {
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                _selected = value; OnPropertyChanged(nameof(IsSelected));
+            }
+        }
 
         private bool _visible;
         /// <summary>
