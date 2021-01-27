@@ -196,6 +196,21 @@
   <data name="FilterPanelNormalCheckbox" xml:space="preserve">
     <value>Show normal mode attempts</value>
   </data>
+  <data name="FolderManagementDeleteButton" xml:space="preserve">
+    <value>Delete selected folders</value>
+  </data>
+  <data name="FolderManagementMergeButton" xml:space="preserve">
+    <value>Merge selected folders</value>
+  </data>
+  <data name="FolderManagementReorganizeAllButton" xml:space="preserve">
+    <value>Reorganize all folders</value>
+  </data>
+  <data name="FolderManagementReorganizeButton" xml:space="preserve">
+    <value>Reorganize selected folders</value>
+  </data>
+  <data name="FolderManagementTitle" xml:space="preserve">
+    <value>Folder management</value>
+  </data>
   <data name="GithubLabel" xml:space="preserve">
     <value>Latest releases</value>
   </data>

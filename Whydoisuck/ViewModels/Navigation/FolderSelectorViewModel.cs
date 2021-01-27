@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +20,13 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public SearchBarViewModel SearchViewModel { get; set; }
 
-        private List<SelectableFolderViewModel> _folders;
+        private ObservableCollection<SelectableFolderViewModel> _folders;
         /// <summary>
         /// All folders
         /// </summary>
-        public List<SelectableFolderViewModel> Folders {
-            get { return _folders.OrderBy(f => f.FolderName).ToList(); }
-            private set { _folders = value; }
+        public ObservableCollection<SelectableFolderViewModel> Folders {
+            get { return _folders; }
+            private set { _folders = new ObservableCollection<SelectableFolderViewModel>(value.OrderBy(f => f.FolderName).ToList()); }
         }
 
         /// <summary>
@@ -34,17 +35,28 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <returns></returns>
         public List<SessionGroup> SelectedFolders => Folders.Where(f => f.IsSelected).Select(f => f.Group).ToList();
 
+
+        private NavigationPanelViewModel ParentNavigationPanel { get; set; }
         // Currently searched text
         private string Search { get; set; }
 
         public FolderSelectorViewModel(NavigationPanelViewModel ParentNavigationPanel, List<SessionGroup> groups)
         {
             SearchViewModel = new SearchBarViewModel(UpdateSearchResults);
+            this.ParentNavigationPanel = ParentNavigationPanel;
             Search = "";
-            Folders = groups.Select(
+            Folders = new ObservableCollection<SelectableFolderViewModel>(groups.Select(
                 g => new SelectableFolderViewModel(g, ParentNavigationPanel.MainView)
-                ).ToList();
+                ).ToList());
             UpdateSearchResults();
+        }
+
+        /// <summary>
+        /// getter for the selected folders.
+        /// </summary>
+        public List<SessionGroup> GetSelectedFolders()
+        {
+            return SelectedFolders;
         }
 
         /// <summary>
@@ -59,12 +71,30 @@ namespace Whydoisuck.ViewModels.Navigation
         }
 
         /// <summary>
+        /// Updates or creates the result matching the given group
+        /// </summary>
+        public void UpdateGroup(SessionGroup group)
+        {
+            var existingResult = Folders.ToList().Find(res => res.Group.Equals(group));
+            if (existingResult == null)
+            {
+                var newGroup = new SelectableFolderViewModel(group, ParentNavigationPanel.MainView);
+                Folders.Add(newGroup);
+            }
+            else
+            {
+                existingResult.UpdateFromModel();
+            }
+            UpdateSearchResults();
+        }
+
+        /// <summary>
         /// Deletes the search result about the given group
         /// </summary>
         /// <param name="group">deleted group</param>
         public void DeleteGroup(SessionGroup group)
         {
-            var existingResult = Folders.Find(res => res.Group.Equals(group));
+            var existingResult = Folders.ToList().Find(res => res.Group.Equals(group));
             if (existingResult != null)
             {
                 Folders.Remove(existingResult);
@@ -86,7 +116,8 @@ namespace Whydoisuck.ViewModels.Navigation
                 var isVisible = f.FolderName.ToLower().Trim().StartsWith(Search.ToLower().Trim())
                                 || f.IsSelected;
                 f.IsVisible = isVisible;
-            }
-        }
+            };
+            OnPropertyChanged(nameof(Folders));
+        }       
     }
 }

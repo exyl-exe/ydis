@@ -15,35 +15,40 @@
                         Command="{Binding GoBackCommand}"
                         Style="{StaticResource FolderManagementCloseButton}"
                         Height="51"/>
-                <TextBlock Text="#Folder Management"
+                <TextBlock Text="{Binding Title}"
                            Style="{StaticResource TitleStyle}"/>
             </DockPanel>
             <Border Background="Transparent" Margin="0,20,0,0">
                 <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top">
                     <Button DockPanel.Dock="Top"
-                                    Margin="0,10,0,5"
-                                    Style="{StaticResource WarningButtonStyle}"
-                                    FontSize="20">#Merge selected folders</Button>
+                            Content="{Binding MergeButtonText}"
+                            Margin="0,10,0,5"
+                            Style="{StaticResource WarningButtonStyle}"
+                            FontSize="20"/>
 
                     <Button DockPanel.Dock="Top"
-                                    Margin="0,5,0,5"
-                                    Style="{StaticResource WarningButtonStyle}"
-                                    FontSize="20">#Delete selected folders</Button>
+                            Command="{Binding DeleteSelectedCommand}"
+                            Content="{Binding DeleteButtonText}"
+                            Margin="0,5,0,5"
+                            Style="{StaticResource WarningButtonStyle}"
+                            FontSize="20"/>
 
                     <Button DockPanel.Dock="Top"
-                                    Margin="0,5,0,10"
-                                    Style="{StaticResource WarningButtonStyle}"
-                                    FontSize="20">#Reorganize selected folders</Button>
+                            Content="{Binding ReorganizeButtonText}"
+                            Margin="0,5,0,10"
+                            Style="{StaticResource WarningButtonStyle}"
+                            FontSize="20"/>
 
                     <Separator Margin="0,0,0,0"
                                Height="0.8"
                                BorderBrush="{StaticResource ElementSeparatorColor}"/>
 
                     <Button DockPanel.Dock="Top"
-                                    Margin="0,10,0,10"
-                                    Style="{StaticResource ReorganizeAllFoldersButtonStyle}"
-                                    FontSize="22">#Reorganize all folders</Button>
+                            Content="{Binding ReorganizeAllButtonText}"
+                            Margin="0,10,0,10"
+                            Style="{StaticResource ReorganizeAllFoldersButtonStyle}"
+                            FontSize="22"/>
 
                 </StackPanel>
             </Border>

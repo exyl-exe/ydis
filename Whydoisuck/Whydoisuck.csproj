@@ -151,6 +151,7 @@
     <Compile Include="ViewModels\SelectedLevel\SettingsTab\SettingsTabViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="Views\Commands\DeleteGroupCommand.cs" />
+    <Compile Include="Views\Commands\DeleteSelectedCommand.cs" />
     <Compile Include="Views\Commands\FolderBrowserCommand.cs" />
     <Compile Include="Views\Commands\GoBackCommand.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
