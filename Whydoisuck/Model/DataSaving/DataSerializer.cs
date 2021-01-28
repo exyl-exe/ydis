@@ -173,7 +173,11 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         public void MergeGroupsDirectories(List<SessionGroup> groups, SessionGroup root)
         {
-            throw new NotImplementedException();
+            var newPath = GetGroupDirectoryPath(root);
+            foreach(var group in groups)
+            {
+                DirectoryUtilities.MoveDirectoryContent(GetGroupDirectoryPath(group), newPath);
+            }
         }
 
         /// <summary>

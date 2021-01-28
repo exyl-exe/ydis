@@ -253,11 +253,11 @@ namespace Whydoisuck.Model.DataSaving
         /// <summary>
         /// Merge the given groups and their data into a single folder
         /// </summary>
-        public void MergeGroups(List<SessionGroup> groups)
+        public void MergeGroups(List<SessionGroup> allGroups)
         {
-            if (groups.Count < 2) return;
-            var root = GetMergingRoot(groups);
-            var groupsToRemove = groups.Where(g => g!=root).ToList();
+            if (allGroups.Count < 2) return;
+            var root = GetMergingRoot(allGroups);
+            var groupsToRemove = allGroups.Where(g => g!=root).ToList();
             foreach(var group in groupsToRemove)
             {
                 root.Merge(group);
@@ -270,7 +270,8 @@ namespace Whydoisuck.Model.DataSaving
             OnGroupUpdated?.Invoke(root);
             // RAM data is updated before stocked data
             // so that groups to merge can still be loaded if needed
-            // Serializer.MergeGroupsDirectories(groups, root);
+            Serializer.MergeGroupsDirectories(groupsToRemove, root);
+            Save();
         }
 
         /// <summary>

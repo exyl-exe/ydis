@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Whydoisuck.Model.Utilities
@@ -22,16 +23,7 @@ namespace Whydoisuck.Model.Utilities
 
             DirectoryInfo[] dirs = dir.GetDirectories();
 
-            // If the destination directory doesn't exist, create it.       
-            Directory.CreateDirectory(destDirName);
-
-            // Get the files in the directory and copy them to the new location.
-            FileInfo[] files = dir.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                string tempPath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(tempPath, false);
-            }
+            copyFiles(sourceDirName, destDirName);
 
             // If copying subdirectories, copy them and their contents to new location.
             if (copySubDirs)
@@ -40,6 +32,70 @@ namespace Whydoisuck.Model.Utilities
                 {
                     string tempPath = Path.Combine(destDirName, subdir.Name);
                     Copy(subdir.FullName, tempPath, copySubDirs);
+                }
+            }
+        }
+
+        public static void MoveDirectoryContent(string sourceDirectory, string destDirectory)
+        {
+            Directory.CreateDirectory(destDirectory);
+            moveFiles(sourceDirectory, destDirectory);
+            Directory.Delete(sourceDirectory, true);
+        }
+
+        private static void copyFiles(string sourceDirName, string destDirName)
+        {
+            if (!Directory.Exists(sourceDirName)) return;
+            // If the destination directory doesn't exist, create it.       
+            Directory.CreateDirectory(destDirName);
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string tempPath = Path.Combine(destDirName, file.Name);
+                if (!File.Exists(tempPath))
+                {
+                    file.CopyTo(tempPath, false);
+                }
+                else
+                {
+                    var i = 1;
+                    string renamedFilePath;
+                    do
+                    {
+                        renamedFilePath = string.Format("{0}{1}", tempPath, i);
+                        i++;
+                    } while (File.Exists(renamedFilePath));
+                    file.CopyTo(renamedFilePath, false);
+                }
+            }
+        }
+
+        // Get the files in the directory and copy them to the new location.
+        private static void moveFiles(string sourceDirName, string destDirName)
+        {
+            if (!Directory.Exists(sourceDirName) || !Directory.Exists(destDirName)) return;
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string tempPath = Path.Combine(destDirName, file.Name);
+                if (!File.Exists(tempPath))
+                {
+                    file.MoveTo(tempPath);
+                }
+                else
+                {
+                    var i = 1;
+                    string renamedFilePath;
+                    do
+                    {
+                        renamedFilePath = string.Format("{0}{1}", tempPath, i);
+                        i++;
+                    } while (File.Exists(renamedFilePath));
+                    file.CopyTo(renamedFilePath, false);
                 }
             }
         }
