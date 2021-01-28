@@ -34,8 +34,14 @@ namespace Whydoisuck.ViewModels.FolderManagement
         /// Command to quit folder management view
         /// </summary>
         public NavigatorCommand GoBackCommand { get; set; }
-
+        /// <summary>
+        /// Command to delete all selected folders
+        /// </summary>
         public DeleteSelectedCommand DeleteSelectedCommand { get; private set; }
+        /// <summary>
+        /// Command to merge all selected folders
+        /// </summary>
+        public MergeSelectedCommand MergeSelectedCommand { get; private set; }
 
         private MainWindowViewModel MainWindow { get; set; }
         private CurrentLevelViewModel CurrentSession { get; set; }
@@ -49,6 +55,7 @@ namespace Whydoisuck.ViewModels.FolderManagement
 
             GoBackCommand = new NavigatorCommand(MainWindow, CurrentSession);
             DeleteSelectedCommand = new DeleteSelectedCommand(FolderSelector.GetSelectedFolders);
+            MergeSelectedCommand = new MergeSelectedCommand(FolderSelector.GetSelectedFolders);
         }
     }
 }

@@ -22,6 +22,7 @@
                 <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Top">
                     <Button DockPanel.Dock="Top"
+                            Command="{Binding MergeSelectedCommand}"
                             Content="{Binding MergeButtonText}"
                             Margin="0,10,0,5"
                             Style="{StaticResource WarningButtonStyle}"
