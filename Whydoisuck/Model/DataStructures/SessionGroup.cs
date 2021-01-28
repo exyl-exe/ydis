@@ -118,6 +118,7 @@ namespace Whydoisuck.Model.DataStructures
             if (_loaded)
             {
                 groupSessions.AddRange(group.GroupSessions);
+                OnSessionsChange?.Invoke();
             }
         }
 
