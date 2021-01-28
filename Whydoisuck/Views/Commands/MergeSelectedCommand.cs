@@ -4,21 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Properties;
 
 namespace Whydoisuck.Views.Commands
 {
-    /// <summary>
-    /// Command to delete a bunch of folders
-    /// </summary>
-    public class DeleteSelectedCommand : SelectedFoldersCommand
+    public class MergeSelectedCommand : SelectedFoldersCommand
     {
-        public DeleteSelectedCommand(Func<List<SessionGroup>> getter) : base(getter){ }
-
-        public event EventHandler CanExecuteChanged;
+        public MergeSelectedCommand(Func<List<SessionGroup>> getter) : base(getter) { }
 
         public override void Execute(object parameter)
         {
@@ -26,15 +20,12 @@ namespace Whydoisuck.Views.Commands
             var folderCount = folders.Count();
             if (folderCount == 0) return;
 
-            var caption = string.Format(Resources.ManagementDeleteFoldersCaptionFormat, folderCount);
-            var content = string.Format(Resources.ManagementDeleteFoldersContentFormat, folderCount);
+            var caption = string.Format("#Merge {0} groups");
+            var content = string.Format("#Do you want to merge the {0} selected groups into one group ? The resulting folder will be named \"{1}\".");
             var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)
             {
-                foreach(var group in folders)
-                {
-                    SessionManager.Instance.DeleteGroup(group);
-                }
+                Console.WriteLine("Groups to merge : " + folderCount);
             }
         }
     }
