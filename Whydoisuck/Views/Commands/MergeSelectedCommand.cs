@@ -20,12 +20,13 @@ namespace Whydoisuck.Views.Commands
             var foldersCount = folders.Count();
             if (foldersCount < 2) return;
 
+            var root = SessionManager.Instance.GetMergingRoot(folders);
             var caption = string.Format(Resources.ManagementMergeFoldersCaptionFormat, foldersCount);
-            var content = string.Format(Resources.ManagementMergeFoldersContentFormat, foldersCount, "#Placeholder");
+            var content = string.Format(Resources.ManagementMergeFoldersContentFormat, foldersCount, root.DisplayedName);
             var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)
             {
-                
+                SessionManager.Instance.MergeGroups(folders);
             }
         }
     }
