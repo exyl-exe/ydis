@@ -67,7 +67,7 @@ namespace Whydoisuck.ViewModels.Navigation
 
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
             SessionManager.Instance.OnGroupDeleted += SearchView.DeleteGroup;
-            SessionManager.Instance.OnGroupDeleted += FolderSelectorView.UpdateGroup;
+            SessionManager.Instance.OnGroupUpdated += FolderSelectorView.UpdateGroup;
             SessionManager.Instance.OnGroupDeleted += FolderSelectorView.DeleteGroup;
 
             var folderManagementVM = new FolderManagementViewModel(mainWindow, currentSession, FolderSelectorView);
