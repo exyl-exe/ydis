@@ -250,6 +250,14 @@
     <value>Do you want to delete the {0} selected folders ? This is irreversible.</value>
     <comment>Format</comment>
   </data>
+  <data name="ManagementMergeFoldersCaptionFormat" xml:space="preserve">
+    <value>Merge {0} groups</value>
+    <comment>Format</comment>
+  </data>
+  <data name="ManagementMergeFoldersContentFormat" xml:space="preserve">
+    <value>Do you want to merge the {0} selected folders into one folder ? All of their data will be stored in the "{1}" folder.</value>
+    <comment>Format</comment>
+  </data>
   <data name="MigrateDataCaption" xml:space="preserve">
     <value>Move existing data</value>
   </data>

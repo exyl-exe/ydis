@@ -430,6 +430,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Merge {0} groups.
+        /// </summary>
+        public static string ManagementMergeFoldersCaptionFormat {
+            get {
+                return ResourceManager.GetString("ManagementMergeFoldersCaptionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want to merge the {0} selected folders into one folder ? All of their data will be stored in the &quot;{1}&quot; folder..
+        /// </summary>
+        public static string ManagementMergeFoldersContentFormat {
+            get {
+                return ResourceManager.GetString("ManagementMergeFoldersContentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Move existing data.
         /// </summary>
         public static string MigrateDataCaption {
