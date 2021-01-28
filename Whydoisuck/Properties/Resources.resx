@@ -243,6 +243,13 @@
   <data name="ManageFoldersButton" xml:space="preserve">
     <value>Manage folders</value>
   </data>
+  <data name="ManagementDeleteFoldersCaptionFormat" xml:space="preserve">
+    <value>Delete {0} folders</value>
+  </data>
+  <data name="ManagementDeleteFoldersContentFormat" xml:space="preserve">
+    <value>Do you want to delete the {0} selected folders ? This is irreversible.</value>
+    <comment>Format</comment>
+  </data>
   <data name="MigrateDataCaption" xml:space="preserve">
     <value>Move existing data</value>
   </data>

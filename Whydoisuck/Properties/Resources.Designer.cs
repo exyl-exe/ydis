@@ -412,6 +412,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Delete {0} folders.
+        /// </summary>
+        public static string ManagementDeleteFoldersCaptionFormat {
+            get {
+                return ResourceManager.GetString("ManagementDeleteFoldersCaptionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want to delete the {0} selected folders ? This is irreversible..
+        /// </summary>
+        public static string ManagementDeleteFoldersContentFormat {
+            get {
+                return ResourceManager.GetString("ManagementDeleteFoldersContentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Move existing data.
         /// </summary>
         public static string MigrateDataCaption {

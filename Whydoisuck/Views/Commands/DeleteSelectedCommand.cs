@@ -7,16 +7,21 @@ using System.Windows;
 using System.Windows.Input;
 using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Properties;
 
 namespace Whydoisuck.Views.Commands
 {
+    /// <summary>
+    /// Command to delete a bunch of folders
+    /// </summary>
     public class DeleteSelectedCommand : ICommand
     {
-        private Func<List<SessionGroup>> GroupGetter { get; set; }
+        // Function to call to retrieve folders to delete
+        private Func<List<SessionGroup>> FoldersGetter { get; set; }
 
         public DeleteSelectedCommand(Func<List<SessionGroup>> getter)
         {
-            GroupGetter = getter;
+            FoldersGetter = getter;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -28,13 +33,16 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            var caption = "#Delete all selected groups ?";
-            var content = "#Delete all selected groups ? this is irreversible";
+            var folders = FoldersGetter();
+            var folderCount = folders.Count();
+            if (folderCount == 0) return;
+
+            var caption = string.Format(Resources.ManagementDeleteFoldersCaptionFormat, folderCount);
+            var content = string.Format(Resources.ManagementDeleteFoldersContentFormat, folderCount);
             var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)
             {
-                var groups = GroupGetter();
-                foreach(var group in groups)
+                foreach(var group in folders)
                 {
                     SessionManager.Instance.DeleteGroup(group);
                 }
