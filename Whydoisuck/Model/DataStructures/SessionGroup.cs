@@ -97,6 +97,31 @@ namespace Whydoisuck.Model.DataStructures
         }
 
         /// <summary>
+        /// Merges the given group into this group
+        /// </summary>
+        public void Merge(SessionGroup group)
+        {
+            if (group.LastPlayedTime > LastPlayedTime)
+            {
+                LastPlayedTime = group.LastPlayedTime;
+            }
+
+            foreach(var level in group.Levels)
+            {
+                if(!Levels.Any(l => l.IsSameLevel(level)))
+                {
+                    Levels.Add(level);
+                }
+            }
+
+            // No need to update the sessions of the group if they aren't loaded
+            if (_loaded)
+            {
+                groupSessions.AddRange(group.GroupSessions);
+            }
+        }
+
+        /// <summary>
         /// Sets a method to call when the group needs to be loaded
         /// </summary>
         public void SetLoader(Func<SessionGroup, List<Session>> loader)
@@ -180,6 +205,7 @@ namespace Whydoisuck.Model.DataStructures
             }
             return name;
         }
+
 
         /// <summary>
         /// Gets the default name for a group containing a given level.

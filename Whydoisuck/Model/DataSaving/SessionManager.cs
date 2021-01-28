@@ -257,7 +257,20 @@ namespace Whydoisuck.Model.DataSaving
         {
             if (groups.Count < 2) return;
             var root = GetMergingRoot(groups);
-            Serializer.MergeGroupsDirectories(groups, root);
+            var groupsToRemove = groups.Where(g => g!=root).ToList();
+            foreach(var group in groupsToRemove)
+            {
+                root.Merge(group);
+            }
+            foreach(var group in groupsToRemove)
+            {
+                Groups.Remove(group);
+                OnGroupDeleted?.Invoke(group);
+            }
+            OnGroupUpdated?.Invoke(root);
+            // RAM data is updated before stocked data
+            // so that groups to merge can still be loaded if needed
+            // Serializer.MergeGroupsDirectories(groups, root);
         }
 
         /// <summary>
