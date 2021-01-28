@@ -250,6 +250,25 @@ namespace Whydoisuck.Model.DataSaving
             OnGroupDeleted?.Invoke(group);
         }        
 
+        /// <summary>
+        /// Merge the given groups and their data into a single folder
+        /// </summary>
+        public void MergeGroups(List<SessionGroup> groups)
+        {
+            if (groups.Count < 2) return;
+            var root = GetMergingRoot(groups);
+            Serializer.MergeGroupsDirectories(groups, root);
+        }
+
+        /// <summary>
+        /// Gets the group that would be the new group if given groups were merged
+        /// </summary>
+        public SessionGroup GetMergingRoot(List<SessionGroup> groups)
+        {
+            if (groups.Count() == 0) return null;
+            return groups[0];
+        }
+
         private bool IsGroupNameAvailable(string groupName)
         {
             foreach (var group in Groups)

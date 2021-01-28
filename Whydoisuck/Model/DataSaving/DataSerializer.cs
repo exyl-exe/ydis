@@ -169,6 +169,14 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         /// <summary>
+        /// Merges all the directories of the given groups into the root's directory
+        /// </summary>
+        public void MergeGroupsDirectories(List<SessionGroup> groups, SessionGroup root)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Saves a serializable object to a given file path
         /// </summary>
         /// <param name="filePath">Where the object will be saved</param>
