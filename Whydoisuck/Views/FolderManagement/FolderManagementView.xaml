@@ -36,6 +36,7 @@
                             FontSize="20"/>
 
                     <Button DockPanel.Dock="Top"
+                            Command="{Binding ReorganizeSelectedCommand}"
                             Content="{Binding ReorganizeButtonText}"
                             Margin="0,5,0,10"
                             Style="{StaticResource WarningButtonStyle}"

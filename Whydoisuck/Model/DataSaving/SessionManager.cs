@@ -40,6 +40,12 @@ namespace Whydoisuck.Model.DataSaving
             }
         }
 
+        public void ReorganizeGroups(List<SessionGroup> folders)
+        {
+            //throw new NotImplementedException();
+            Console.WriteLine("Merge");
+        }
+
         /// <summary>
         /// List of all groups
         /// </summary>

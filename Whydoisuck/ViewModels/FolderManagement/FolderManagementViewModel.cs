@@ -42,6 +42,10 @@ namespace Whydoisuck.ViewModels.FolderManagement
         /// Command to merge all selected folders
         /// </summary>
         public MergeSelectedCommand MergeSelectedCommand { get; private set; }
+        /// <summary>
+        /// Command to reorganize selected folders
+        /// </summary>
+        public ReorganizeSelectedCommand ReorganizeSelectedCommand { get; private set; }
 
         private MainWindowViewModel MainWindow { get; set; }
         private CurrentLevelViewModel CurrentSession { get; set; }
@@ -56,6 +60,7 @@ namespace Whydoisuck.ViewModels.FolderManagement
             GoBackCommand = new NavigatorCommand(MainWindow, CurrentSession);
             DeleteSelectedCommand = new DeleteSelectedCommand(FolderSelector.GetSelectedFolders);
             MergeSelectedCommand = new MergeSelectedCommand(FolderSelector.GetSelectedFolders);
+            ReorganizeSelectedCommand = new ReorganizeSelectedCommand(FolderSelector.GetSelectedFolders);
         }
     }
 }
