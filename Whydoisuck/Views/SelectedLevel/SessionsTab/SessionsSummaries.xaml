@@ -8,15 +8,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Orientation="Vertical">
-            <ItemsControl ItemsSource="{Binding SortedSummaries}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:DaySummary DataContext="{Binding}"
+        <ItemsControl ItemsSource="{Binding SortedSummaries}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:DaySummary DataContext="{Binding}"
                                           Margin="15"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </ScrollViewer>
 </UserControl>
