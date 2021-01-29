@@ -13,7 +13,7 @@ namespace Whydoisuck.ViewModels.Navigation
     /// <summary>
     /// View model for one result of the group search in the navigation panel
     /// </summary>
-    public class NavigationSearchResultViewModel : BaseViewModel
+    public class NavigationSearchResultViewModel : BaseViewModel, IEditableObject
     {
         /// <summary>
         /// Command that switched the main view when the search result is clicked
@@ -56,6 +56,21 @@ namespace Whydoisuck.ViewModels.Navigation
         private void UpdateName()
         {
             OnPropertyChanged(nameof(ResultText));
+        }
+
+        public void BeginEdit()
+        {
+            
+        }
+
+        public void EndEdit()
+        {
+            
+        }
+
+        public void CancelEdit()
+        {
+            
         }
     }
 }

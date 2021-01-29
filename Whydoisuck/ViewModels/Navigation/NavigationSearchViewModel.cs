@@ -55,16 +55,21 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">Group to update</param>
         public void UpdateGroup(SessionGroup group)
         {
-            var existingResult = SearchResults
-                .Cast<NavigationSearchResultViewModel>()
-                .First(res => res.Group.Equals(group));
+            var enumerableResults = SearchResults.Cast<NavigationSearchResultViewModel>();
+            var matchingResults = enumerableResults.Where(res => res.Group.Equals(group));
+            var existingResult = matchingResults.Any() ? matchingResults.First() : null;
             if(existingResult == null)
             {
                 var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView);
                 SearchResults.AddNewItem(newGroup);
             } else
             {
-                existingResult.UpdateFromModel();
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SearchResults.EditItem(existingResult);
+                    existingResult.UpdateFromModel();
+                    SearchResults.CommitEdit();
+                });
             }
         }
 
@@ -74,9 +79,9 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">deleted group</param>
         public void DeleteGroup(SessionGroup group)
         {
-            var existingResult = SearchResults
-                .Cast<NavigationSearchResultViewModel>()
-                .First(res => res.Group.Equals(group));
+            var enumerableResults = SearchResults.Cast<NavigationSearchResultViewModel>();
+            var matchingResults = enumerableResults.Where(res => res.Group.Equals(group));
+            var existingResult = matchingResults.Any() ? matchingResults.First() : null;
             if (existingResult != null)
             {
                 SearchResults.Remove(existingResult);
