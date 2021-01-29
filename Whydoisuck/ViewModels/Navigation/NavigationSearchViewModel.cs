@@ -62,14 +62,12 @@ namespace Whydoisuck.ViewModels.Navigation
             {
                 var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView);
                 SearchResults.AddNewItem(newGroup);
+                SearchResults.CommitNew();
             } else
             {
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    SearchResults.EditItem(existingResult);
-                    existingResult.UpdateFromModel();
-                    SearchResults.CommitEdit();
-                });
+                SearchResults.EditItem(existingResult);
+                existingResult.UpdateFromModel();
+                SearchResults.CommitEdit();
             }
         }
 

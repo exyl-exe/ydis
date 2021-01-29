@@ -79,10 +79,7 @@ namespace Whydoisuck.ViewModels.Navigation
             if (existingResult == null)
             {
                 var newGroup = new SelectableFolderViewModel(group, ParentNavigationPanel.MainView);
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    Folders.Add(newGroup);
-                });                
+                Folders.Add(newGroup);
             }
             else
             {

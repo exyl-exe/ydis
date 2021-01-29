@@ -145,7 +145,10 @@ namespace Whydoisuck.Model.MemoryReading
         {
             if(previousState.PlayerObject!=null && currentState.PlayerObject == null)
             {
-                OnLevelExited?.Invoke(previousState);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    OnLevelExited?.Invoke(previousState);
+                });
             }
         }
 
@@ -155,7 +158,10 @@ namespace Whydoisuck.Model.MemoryReading
         {
             if (currentState.LevelMetadata != null && previousState.LevelMetadata == null)
             {
-                OnLevelEntered?.Invoke(currentState.LevelMetadata);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    OnLevelEntered?.Invoke(currentState.LevelMetadata);
+                });
             }
         }
 
@@ -167,7 +173,10 @@ namespace Whydoisuck.Model.MemoryReading
             {
                 if (currentState.LoadedLevel.IsRunning && (previousState.LoadedLevel == null || !previousState.LoadedLevel.IsRunning))
                 {
-                    OnLevelStarted?.Invoke(currentState);
+                    App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        OnLevelStarted?.Invoke(currentState);
+                    });
                     CurrentAttempt = new WatchedAttempt(currentState.LoadedLevel.AttemptNumber);
                 }
             }
@@ -197,7 +206,10 @@ namespace Whydoisuck.Model.MemoryReading
             if (currentState.LoadedLevel.AttemptNumber != CurrentAttempt.Number ||//Classic respawn
                 CurrentAttempt.HasWon && !currentState.PlayerObject.HasWon)//Respawn after winning on first attempt
             {
-                OnPlayerSpawns?.Invoke(currentState);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    OnPlayerSpawns?.Invoke(currentState);
+                });
                 CurrentAttempt = new WatchedAttempt(currentState.LoadedLevel.AttemptNumber);
             }
         }
@@ -208,7 +220,10 @@ namespace Whydoisuck.Model.MemoryReading
         {
             if (currentState.LoadedLevel.AttemptNumber != CurrentAttempt.Number && !CurrentAttempt.HasEnded)
             {
-                OnPlayerRestarts?.Invoke(previousState);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    OnPlayerRestarts?.Invoke(previousState);
+                });
             }
         }
 
@@ -219,7 +234,10 @@ namespace Whydoisuck.Model.MemoryReading
             if (currentState.PlayerObject.HasWon && !previousState.PlayerObject.HasWon)
             {
                 CurrentAttempt.HasWon = true;
-                OnPlayerWins?.Invoke(currentState);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    OnPlayerWins?.Invoke(currentState);
+                });
             }
         }
 
@@ -232,13 +250,19 @@ namespace Whydoisuck.Model.MemoryReading
                 if (!CurrentAttempt.HasDied)
                 //Most common case, player went from alive to dead
                 {
-                    OnPlayerDies?.Invoke(currentState);
+                    App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        OnPlayerDies?.Invoke(currentState);
+                    });
                 }
 
                 if (CurrentAttempt.Number != currentState.LoadedLevel.AttemptNumber)
                 //Dead and previously not same attempt, the player died on the first frame after respawning
                 {
-                    OnPlayerDies?.Invoke(currentState);
+                    App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        OnPlayerDies?.Invoke(currentState);
+                    });
                 }
 
                 CurrentAttempt.HasDied = true;
