@@ -40,12 +40,6 @@ namespace Whydoisuck.Model.DataSaving
             }
         }
 
-        public void ReorganizeGroups(List<SessionGroup> folders)
-        {
-            //throw new NotImplementedException();
-            Console.WriteLine("Merge");
-        }
-
         /// <summary>
         /// List of all groups
         /// </summary>
@@ -85,6 +79,7 @@ namespace Whydoisuck.Model.DataSaving
             Init(path);
         }
 
+        //Inits the session manager based on the data at the given path
         private void Init(string path)
         {
             Serializer = DataSerializer.CreateSerializer(path);
@@ -287,6 +282,19 @@ namespace Whydoisuck.Model.DataSaving
         {
             if (groups.Count() == 0) return null;
             return groups[0];
+        }
+
+        /// <summary>
+        /// Reorganizes the session stored in the given folders
+        /// </summary>
+        public void ReorganizeGroups(List<SessionGroup> folders)
+        {
+            var allSessions = folders.SelectMany(f => f.GroupSessions).ToList();
+            folders.ForEach(f => DeleteGroup(f));
+            foreach(var s in allSessions)
+            {
+                SaveSession(s);
+            }
         }
 
         private bool IsGroupNameAvailable(string groupName)
