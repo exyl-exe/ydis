@@ -448,6 +448,42 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reorganize all folders.
+        /// </summary>
+        public static string ManagementReorganizeAllCaption {
+            get {
+                return ResourceManager.GetString("ManagementReorganizeAllCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want ALL of your data to be reorganized ? This will put every session in their default folder. This can be used in case your data has been messed up by merging operations..
+        /// </summary>
+        public static string ManagementReorganizeAllContent {
+            get {
+                return ResourceManager.GetString("ManagementReorganizeAllContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reorganize {0} selected folders.
+        /// </summary>
+        public static string ManagementReorganizeSelectedCaptionFormat {
+            get {
+                return ResourceManager.GetString("ManagementReorganizeSelectedCaptionFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want to reorganize the {0} selected folders ? Their data will be reorganized using the default criteria. This is useful to undo merging operations..
+        /// </summary>
+        public static string ManagementReorganizeSelectedContentFormat {
+            get {
+                return ResourceManager.GetString("ManagementReorganizeSelectedContentFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Move existing data.
         /// </summary>
         public static string MigrateDataCaption {

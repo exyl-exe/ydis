@@ -46,6 +46,10 @@ namespace Whydoisuck.ViewModels.FolderManagement
         /// Command to reorganize selected folders
         /// </summary>
         public ReorganizeSelectedCommand ReorganizeSelectedCommand { get; private set; }
+        /// <summary>
+        /// Command to reorganize all folders
+        /// </summary>
+        public ReorganizeAllCommand ReorganizeAllCommand { get; private set; }
 
         private MainWindowViewModel MainWindow { get; set; }
         private CurrentLevelViewModel CurrentSession { get; set; }
@@ -61,6 +65,7 @@ namespace Whydoisuck.ViewModels.FolderManagement
             DeleteSelectedCommand = new DeleteSelectedCommand(FolderSelector.GetSelectedFolders);
             MergeSelectedCommand = new MergeSelectedCommand(FolderSelector.GetSelectedFolders);
             ReorganizeSelectedCommand = new ReorganizeSelectedCommand(FolderSelector.GetSelectedFolders);
+            ReorganizeAllCommand = new ReorganizeAllCommand();
         }
     }
 }

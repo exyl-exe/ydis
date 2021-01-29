@@ -290,11 +290,23 @@ namespace Whydoisuck.Model.DataSaving
         public void ReorganizeGroups(List<SessionGroup> folders)
         {
             var allSessions = folders.SelectMany(f => f.GroupSessions).ToList();
-            folders.ForEach(f => DeleteGroup(f));
+            //ToList() makes a copy of the list and prevents the list from being modified during the foreach
+            foreach(var f in folders.ToList())
+            {
+                DeleteGroup(f);
+            }
             foreach(var s in allSessions)
             {
                 SaveSession(s);
             }
+        }
+
+        /// <summary>
+        /// Reorganizes all of the data
+        /// </summary>
+        public void ReorganizeAll()
+        {
+            ReorganizeGroups(Groups);
         }
 
         private bool IsGroupNameAvailable(string groupName)

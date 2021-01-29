@@ -47,6 +47,7 @@
                                BorderBrush="{StaticResource ElementSeparatorColor}"/>
 
                     <Button DockPanel.Dock="Top"
+                            Command="{Binding ReorganizeAllCommand}"
                             Content="{Binding ReorganizeAllButtonText}"
                             Margin="0,10,0,10"
                             Style="{StaticResource ReorganizeAllFoldersButtonStyle}"

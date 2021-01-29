@@ -258,6 +258,20 @@
     <value>Do you want to merge the {0} selected folders into one folder ? All of their data will be stored in the "{1}" folder.</value>
     <comment>Format</comment>
   </data>
+  <data name="ManagementReorganizeAllCaption" xml:space="preserve">
+    <value>Reorganize all folders</value>
+  </data>
+  <data name="ManagementReorganizeAllContent" xml:space="preserve">
+    <value>Do you want ALL of your data to be reorganized ? This will put every session in their default folder. This can be used in case your data has been messed up by merging operations.</value>
+  </data>
+  <data name="ManagementReorganizeSelectedCaptionFormat" xml:space="preserve">
+    <value>Reorganize {0} selected folders</value>
+    <comment>Format</comment>
+  </data>
+  <data name="ManagementReorganizeSelectedContentFormat" xml:space="preserve">
+    <value>Do you want to reorganize the {0} selected folders ? Their data will be reorganized using the default criteria. This is useful to undo merging operations.</value>
+    <comment>Format</comment>
+  </data>
   <data name="MigrateDataCaption" xml:space="preserve">
     <value>Move existing data</value>
   </data>
