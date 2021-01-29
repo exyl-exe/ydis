@@ -55,10 +55,8 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">Group to update</param>
         public void UpdateGroup(SessionGroup group)
         {
-            var enumerableResults = SearchResults.Cast<NavigationSearchResultViewModel>();
-            var matchingResults = enumerableResults.Where(res => res.Group.Equals(group));
-            var existingResult = matchingResults.Any() ? matchingResults.First() : null;
-            if(existingResult == null)
+            var existingResult = FindResult(group);
+            if (existingResult == null)
             {
                 var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView);
                 SearchResults.AddNewItem(newGroup);
@@ -77,9 +75,7 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">deleted group</param>
         public void DeleteGroup(SessionGroup group)
         {
-            var enumerableResults = SearchResults.Cast<NavigationSearchResultViewModel>();
-            var matchingResults = enumerableResults.Where(res => res.Group.Equals(group));
-            var existingResult = matchingResults.Any() ? matchingResults.First() : null;
+            var existingResult = FindResult(group);
             if (existingResult != null)
             {
                 SearchResults.Remove(existingResult);
@@ -91,6 +87,13 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             Search = search;
           throw new NotImplementedException("Filtering function todo");
+        }
+
+        private NavigationSearchResultViewModel FindResult(SessionGroup group)
+        {
+            var enumerableResults = SearchResults.Cast<NavigationSearchResultViewModel>();
+            var matchingResults = enumerableResults.Where(res => res.Group.Equals(group));
+            return matchingResults.Any() ? matchingResults.First() : null;
         }
 
         private class ResultSorter : IComparer
