@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,10 @@ namespace Whydoisuck.ViewModels.Navigation
         /// How the group name should be displayed in the search result
         /// </summary>
         public string ResultText => Group.DisplayedName;
+        /// <summary>
+        /// Last time on of the folder's levels was played
+        /// </summary>
+        public DateTime LastPlayedTime => Group.LastPlayedTime;
 
         // ViewModel the main view should switch to
         private DelayedViewModel SelectedView { get; set; }

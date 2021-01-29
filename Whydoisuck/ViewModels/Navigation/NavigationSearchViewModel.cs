@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
@@ -30,7 +33,7 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <summary>
         /// All possible search results
         /// </summary>
-        public ObservableCollection<NavigationSearchResultViewModel> SearchResults { get; set; }
+        public ListCollectionView SearchResults { get; private set; }
         // Currently searched text
         private string Search { get; set; }
 
@@ -39,11 +42,11 @@ namespace Whydoisuck.ViewModels.Navigation
             SearchViewModel = new SearchBarViewModel(UpdateSearchResults);
             this.ParentNavigationPanel = ParentNavigationPanel;
             Search = "";
-            SearchResults = new ObservableCollection<NavigationSearchResultViewModel>(
-                groups.Select(
+            var resultList = groups.Select(
                 g => new NavigationSearchResultViewModel(g, ParentNavigationPanel.MainView)
-                ).ToList()
-                );
+                ).ToList();
+            SearchResults = CollectionViewSource.GetDefaultView(resultList) as ListCollectionView;
+            SearchResults.CustomSort = new ResultSorter();
         }
 
         /// <summary>
@@ -52,11 +55,13 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">Group to update</param>
         public void UpdateGroup(SessionGroup group)
         {
-            var existingResult = SearchResults.ToList().Find(res => res.Group.Equals(group));
+            var existingResult = SearchResults
+                .Cast<NavigationSearchResultViewModel>()
+                .First(res => res.Group.Equals(group));
             if(existingResult == null)
             {
                 var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView);
-                SearchResults.Add(newGroup);
+                SearchResults.AddNewItem(newGroup);
             } else
             {
                 existingResult.UpdateFromModel();
@@ -69,8 +74,10 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">deleted group</param>
         public void DeleteGroup(SessionGroup group)
         {
-            var existingResult = SearchResults.ToList().Find(res => res.Group.Equals(group));
-            if(existingResult != null)
+            var existingResult = SearchResults
+                .Cast<NavigationSearchResultViewModel>()
+                .First(res => res.Group.Equals(group));
+            if (existingResult != null)
             {
                 SearchResults.Remove(existingResult);
             }
@@ -80,7 +87,17 @@ namespace Whydoisuck.ViewModels.Navigation
         private void UpdateSearchResults(string search)
         {
             Search = search;
-            throw new NotImplementedException("Filtering function todo");
+          throw new NotImplementedException("Filtering function todo");
+        }
+
+        private class ResultSorter : IComparer
+        {
+            public int Compare(object obj1, object obj2)
+            {
+                var res1 = obj1 as NavigationSearchResultViewModel;
+                var res2 = obj2 as NavigationSearchResultViewModel;
+                return res2.LastPlayedTime.CompareTo(res1.LastPlayedTime);
+            }
         }
     }
 }
