@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Navigation;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
@@ -20,35 +22,24 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public SearchBarViewModel SearchViewModel { get; set; }
 
-        private ObservableCollection<SelectableFolderViewModel> _folders;
         /// <summary>
         /// All folders
         /// </summary>
-        public ObservableCollection<SelectableFolderViewModel> Folders {
-            get { return _folders; }
-            private set { _folders = new ObservableCollection<SelectableFolderViewModel>(value.OrderBy(f => f.FolderName).ToList()); }
-        }
+        public ListCollectionView Folders { get; private set; }
 
-        /// <summary>
-        /// Folders elected by the user
-        /// </summary>
-        /// <returns></returns>
-        public List<SessionGroup> SelectedFolders => Folders.Where(f => f.IsSelected).Select(f => f.Group).ToList();
-
-
-        private NavigationPanelViewModel ParentNavigationPanel { get; set; }
         // Currently searched text
         private string Search { get; set; }
 
-        public FolderSelectorViewModel(NavigationPanelViewModel ParentNavigationPanel, List<SessionGroup> groups)
+        public FolderSelectorViewModel(List<SessionGroup> groups)
         {
             SearchViewModel = new SearchBarViewModel(UpdateSearchResults);
-            this.ParentNavigationPanel = ParentNavigationPanel;
             Search = "";
-            Folders = new ObservableCollection<SelectableFolderViewModel>(groups.Select(
-                g => new SelectableFolderViewModel(g, ParentNavigationPanel.MainView)
-                ).ToList());
-            UpdateSearchResults();
+            var folderList = groups.Select(
+                g => new SelectableFolderViewModel(g)
+                ).ToList();
+            Folders = CollectionViewSource.GetDefaultView(folderList) as ListCollectionView;
+            Folders.CustomSort = new FolderSorter();
+            Folders.Filter = FolderFilter;
         }
 
         /// <summary>
@@ -56,7 +47,10 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public List<SessionGroup> GetSelectedFolders()
         {
-            return SelectedFolders;
+            return Folders.Cast<SelectableFolderViewModel>()
+                    .Where(f => f.IsSelected)
+                    .Select(f => f.Group)
+                    .ToList();
         }
 
         /// <summary>
@@ -64,7 +58,7 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public void ResetSelection()
         {
-            foreach(var f in Folders)
+            foreach(var f in Folders.Cast<SelectableFolderViewModel>())
             {
                 f.IsSelected = false;
             }
@@ -75,17 +69,19 @@ namespace Whydoisuck.ViewModels.Navigation
         /// </summary>
         public void UpdateGroup(SessionGroup group)
         {
-            var existingResult = Folders.ToList().Find(res => res.Group.Equals(group));
+            var existingResult = FindSelectableFolder(group);
             if (existingResult == null)
             {
-                var newGroup = new SelectableFolderViewModel(group, ParentNavigationPanel.MainView);
-                Folders.Add(newGroup);
+                var newGroup = new SelectableFolderViewModel(group);
+                Folders.AddNewItem(newGroup);
+                Folders.CommitNew();
             }
             else
             {
+                Folders.EditItem(existingResult);
                 existingResult.UpdateFromModel();
+                Folders.CommitEdit();
             }
-            UpdateSearchResults();
         }
 
         /// <summary>
@@ -94,30 +90,46 @@ namespace Whydoisuck.ViewModels.Navigation
         /// <param name="group">deleted group</param>
         public void DeleteGroup(SessionGroup group)
         {
-            var existingResult = Folders.ToList().Find(res => res.Group.Equals(group));
+            var existingResult = FindSelectableFolder(group);
             if (existingResult != null)
             {
                 Folders.Remove(existingResult);
-                UpdateSearchResults();
             }
         }
 
+        // Returns wether a folder hsould be displayed or not
+        private bool FolderFilter(object obj)
+        {
+            var f = obj as SelectableFolderViewModel;
+            return Search == ""
+                || f.FolderName.ToLower().Trim().StartsWith(Search.ToLower().Trim())                               
+                || f.IsSelected;
+        }
+
+        // Updates the search criteria and the displayed folders
         private void UpdateSearchResults(string search)
         {
             Search = search;
-            UpdateSearchResults();
+            OnPropertyChanged(nameof(Search));
+            Folders.Refresh();
         }
 
-        // Updates matching search result and notifies the change.
-        private void UpdateSearchResults()
+        // Finds the selectable folder about a specified folder
+        private SelectableFolderViewModel FindSelectableFolder(SessionGroup group)
         {
-            foreach(var f in Folders)
+            var enumerable = Folders.Cast<SelectableFolderViewModel>();
+            var matchingFolders = enumerable.Where(res => res.Group.Equals(group));
+            return matchingFolders.Any() ? matchingFolders.First() : null;
+        }
+
+        private class FolderSorter : IComparer
+        {
+            public int Compare(object obj1, object obj2)
             {
-                var isVisible = f.FolderName.ToLower().Trim().StartsWith(Search.ToLower().Trim())
-                                || f.IsSelected;
-                f.IsVisible = isVisible;
-            };
-            OnPropertyChanged(nameof(Folders));
-        }       
+                var res1 = obj1 as SelectableFolderViewModel;
+                var res2 = obj2 as SelectableFolderViewModel;
+                return res1.FolderName.CompareTo(res2.FolderName);
+            }
+        }
     }
 }

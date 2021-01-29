@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <CheckBox Content="{Binding FolderName}"
-              Visibility="{Binding Visibility}"
               IsChecked="{Binding IsSelected, Mode=TwoWay}"
               Style="{StaticResource SelectableFolderStyle}"/>
 </UserControl>

@@ -21,7 +21,6 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:SelectableFolder DataContext="{Binding}"
-                                                Visibility="{Binding Visibility}"
                                                 Margin="2"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

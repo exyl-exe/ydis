@@ -62,7 +62,7 @@ namespace Whydoisuck.ViewModels.Navigation
         {
             MainView = mainWindow;
             SearchView = new NavigationSearchViewModel(this, SessionManager.Instance.Groups);
-            FolderSelectorView = new FolderSelectorViewModel(this, SessionManager.Instance.Groups);
+            FolderSelectorView = new FolderSelectorViewModel(SessionManager.Instance.Groups);
             CurrentSearchView = SearchView;
 
             SessionManager.Instance.OnGroupUpdated += SearchView.UpdateGroup;
