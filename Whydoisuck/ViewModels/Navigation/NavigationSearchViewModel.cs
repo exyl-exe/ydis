@@ -47,6 +47,7 @@ namespace Whydoisuck.ViewModels.Navigation
                 ).ToList();
             SearchResults = CollectionViewSource.GetDefaultView(resultList) as ListCollectionView;
             SearchResults.CustomSort = new ResultSorter();
+            SearchResults.Filter = ResultFilter;
         }
 
         /// <summary>
@@ -82,13 +83,22 @@ namespace Whydoisuck.ViewModels.Navigation
             }
         }
 
+        // Returns wether the result matches the current search
+        private bool ResultFilter(object obj)
+        {
+            var result = obj as NavigationSearchResultViewModel;
+            return Search == "" || result.ResultText.ToLower().StartsWith(Search.ToLower());
+        }
+
         // Updates the search criteria and notifies the change
         private void UpdateSearchResults(string search)
         {
             Search = search;
-          throw new NotImplementedException("Filtering function todo");
+            OnPropertyChanged(nameof(Search));
+            SearchResults.Refresh();
         }
 
+        // Returns the search result of the group
         private NavigationSearchResultViewModel FindResult(SessionGroup group)
         {
             var enumerableResults = SearchResults.Cast<NavigationSearchResultViewModel>();
