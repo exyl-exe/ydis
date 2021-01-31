@@ -24,7 +24,10 @@ namespace Whydoisuck.Model.MemoryReading
         /// Delegate for events providing new values about the current level
         /// </summary>
         public delegate void LevelInfoCallback(GDLevelMetadata level);
-
+        /// <summary>
+        /// Invoked when the game is closed
+        /// </summary>
+        public static event Action OnGameClosed;
         /// <summary>
         /// Event invoked when a level is entered in-game
         /// </summary>
@@ -97,6 +100,10 @@ namespace Whydoisuck.Model.MemoryReading
                     {
                         UpdateState();
                         Thread.Sleep(Delay);
+                    }
+                    if (!Reader.IsGDOpened && IsRecording)
+                    {
+                        OnGameClosed?.Invoke();
                     }
                 }                
                 Thread.Sleep(AttachDelay);

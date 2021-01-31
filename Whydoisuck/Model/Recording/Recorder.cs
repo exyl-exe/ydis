@@ -74,6 +74,7 @@ namespace Whydoisuck.DataSaving
 
         public Recorder()
         {
+            GameWatcher.OnGameClosed += PopSaveCurrentSession;
             GameWatcher.OnLevelEntered += CreateNewSession;
             GameWatcher.OnLevelStarted += UpdateSessionOnLoad;
             GameWatcher.OnLevelExited += PopSaveLosingAttempt;
@@ -129,7 +130,7 @@ namespace Whydoisuck.DataSaving
         }
 
         //Saves current session and removes it from the recorder.
-        private void PopSaveCurrentSession(GameState state)
+        private void PopSaveCurrentSession()
         {
             //Don't save if :
             //  -no session were created (= software launched while playing a level, and no attempts have been played before exiting)
@@ -142,6 +143,12 @@ namespace Whydoisuck.DataSaving
             CurrentSession = null;
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;
+        }
+
+        //Saves current session and removes it from the recorder. Overload for event with parameters.
+        private void PopSaveCurrentSession(GameState state)
+        {
+            PopSaveCurrentSession();
         }
 
         // Creates an attempt
