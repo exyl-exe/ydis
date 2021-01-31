@@ -181,7 +181,11 @@ namespace Whydoisuck.Model.MemoryReading
                 //Needed because the game watcher might have been started while playing a level
                 if (CurrentAttempt == null)
                 {
-                    CurrentAttempt = new WatchedAttempt(currentState.LoadedLevel.AttemptNumber);
+                    CurrentAttempt = new WatchedAttempt(
+                        currentState.LoadedLevel.AttemptNumber,
+                        currentState.PlayerObject.IsDead,
+                        currentState.PlayerObject.HasWon
+                        );
                 }
                 HandlePlayerRestarts(previousState, currentState);
                 HandlePlayerDeath(currentState);
@@ -248,12 +252,14 @@ namespace Whydoisuck.Model.MemoryReading
         // Private class to store data about the on going attempt
         private class WatchedAttempt
         {
-            public WatchedAttempt(int number)
+            public WatchedAttempt(int number, bool died, bool won)
             {
                 Number = number;
-                HasDied = false;
-                HasWon = false;
+                HasDied = died;
+                HasWon = won;
             }
+
+            public WatchedAttempt(int number) : this(number, false, false){}
 
             public int Number { get; private set; }
             public bool HasDied { get; set; }
