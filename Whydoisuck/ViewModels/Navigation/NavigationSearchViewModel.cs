@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Threading;
 using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
@@ -60,13 +61,22 @@ namespace Whydoisuck.ViewModels.Navigation
             if (existingResult == null)
             {
                 var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView);
-                SearchResults.AddNewItem(newGroup);
-                SearchResults.CommitNew();
+                App.Current.Dispatcher.BeginInvoke(
+                  DispatcherPriority.Background,
+                  new Action(() => {
+                      SearchResults.AddNewItem(newGroup);
+                      SearchResults.CommitNew();
+                }));                
             } else
             {
-                SearchResults.EditItem(existingResult);
-                existingResult.UpdateFromModel();
-                SearchResults.CommitEdit();
+                App.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Background,
+                    new Action(() => {
+                        SearchResults.EditItem(existingResult);
+                        existingResult.UpdateFromModel();
+                        SearchResults.CommitEdit(); ;
+                }));
+                
             }
         }
 
