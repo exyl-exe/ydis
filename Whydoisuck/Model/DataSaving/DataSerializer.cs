@@ -159,6 +159,11 @@ namespace Whydoisuck.Model.DataSaving
         {
             var res = new List<Session>();
             var folderPath = GetGroupDirectoryPath(group);
+            if(!Directory.Exists(folderPath))
+            {
+                CreateGroupDirectory(group);
+                return res;
+            }
             var files = Directory.GetFiles(folderPath);
             foreach (var file in files)
             {
@@ -167,8 +172,7 @@ namespace Whydoisuck.Model.DataSaving
                     var session = (Session)Deserialize(file, new Session());
                     res.Add(session);
                 }
-                catch (JsonReaderException) { }
-                
+                catch (JsonReaderException) { }                
             }
             return res;
         }
