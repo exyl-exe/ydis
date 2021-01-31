@@ -61,9 +61,6 @@ namespace Whydoisuck.DataSaving
         /// Event invoked when a new attempt is created
         /// </summary>
         public event AttemptCallback OnAttemptAdded;
-
-        // Wether the recorder is able to save attempts or not
-        private bool _canSaveAttempts;
         // Wether the current attempt has been saved or not
         private bool _isCurrentAttemptSaved;
         // Attempt whose data is currently being recorded
@@ -128,7 +125,6 @@ namespace Whydoisuck.DataSaving
         {
             CreateSessionIfNotExists(state);
             UpdateSession(state);
-            _canSaveAttempts = true;
             OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
         }
 
@@ -146,7 +142,6 @@ namespace Whydoisuck.DataSaving
             CurrentSession = null;
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;
-            _canSaveAttempts = false;
         }
 
         // Creates an attempt
@@ -173,7 +168,7 @@ namespace Whydoisuck.DataSaving
         // Saves the current attempt with the specified end percent
         private void PopSaveCurrentAttempt(GameState state, float endPercent)
         {
-            if (!state.LoadedLevel.IsPractice && !_isCurrentAttemptSaved && _canSaveAttempts)
+            if (!state.LoadedLevel.IsPractice && !_isCurrentAttemptSaved)
             {
                 CreateSessionIfNotExists(state);
                 CreateAttemptIfNotExists(state);
