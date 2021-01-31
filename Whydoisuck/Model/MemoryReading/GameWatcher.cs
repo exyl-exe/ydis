@@ -122,7 +122,7 @@ namespace Whydoisuck.Model.MemoryReading
         /// <summary>
         /// Called to stop watching the game's process. Returns before the gamewatcher actually stops.
         /// </summary>
-        public static void StopWatchingAsync()
+        public static void CancelWatchingAsync()
         {
             IsRecording = false;
         }

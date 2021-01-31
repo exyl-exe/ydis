@@ -99,6 +99,7 @@ namespace Whydoisuck.DataSaving
         public void StopRecording()
         {
             GameWatcher.StopWatching();
+            PopSaveCurrentSession();
             Manager.Save();
         }
 
@@ -108,7 +109,7 @@ namespace Whydoisuck.DataSaving
         public void CrashRecorder()
         {
             //TODO prevent callbacks from being called
-            GameWatcher.StopWatchingAsync();
+            GameWatcher.CancelWatchingAsync();
         }
 
         // Called when entering a level, ensure a session is created before an attempt needs to be saved

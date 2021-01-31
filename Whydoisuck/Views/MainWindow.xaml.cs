@@ -100,8 +100,8 @@ namespace Whydoisuck.Views
         {
             try
             {
-                ExceptionLogger.Log(e);
                 Closing -= StopWDIS;
+                ExceptionLogger.Log(e);
                 _recorder?.CrashRecorder();
                 string msg = string.Format("{0}\n{1}", Properties.Resources.ErrorMessage,
                                                        string.Format(Properties.Resources.ErrorMessageLogLocationFormat, WDISSettings.LogsPath));
