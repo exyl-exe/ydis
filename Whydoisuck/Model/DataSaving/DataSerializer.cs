@@ -91,9 +91,17 @@ namespace Whydoisuck.Model.DataSaving
         /// <summary>
         /// Deserializes the session manager
         /// </summary>
-        public void DeserializeSessionManager(SessionManager manager)
+        public bool DeserializeSessionManager(SessionManager manager)
         {
-            Deserialize(IndexFilePath, manager);
+            try
+            {
+                Deserialize(IndexFilePath, manager);
+                return true;
+            }
+            catch (JsonReaderException)
+            {
+                return false;
+            }
         }
 
         /// <summary>

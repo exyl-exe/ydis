@@ -83,15 +83,19 @@ namespace Whydoisuck.Model.DataSaving
         private void Init(string path)
         {
             Serializer = DataSerializer.CreateSerializer(path);
-            if (File.Exists(Serializer.IndexFilePath))
+            bool success = File.Exists(Serializer.IndexFilePath);
+            if (success)
             {
-                Serializer.DeserializeSessionManager(this);
-                foreach (var g in Groups)
+               success = success && Serializer.DeserializeSessionManager(this);
+                if (success)
                 {
-                    g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
+                    foreach (var g in Groups)
+                    {
+                        g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
+                    }
                 }
             }
-            else
+            if(!success)
             {
                 Groups = new List<SessionGroup>();
             }

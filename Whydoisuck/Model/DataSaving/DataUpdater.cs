@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
@@ -47,8 +48,15 @@ namespace Whydoisuck.Model.DataSaving
             var sessionManagerPath = Path.Combine(dir, WDISSettings.SaveManagerFileName);
             if (!File.Exists(sessionManagerPath)) return WDISSettings.INVALID_VERSION;
             var rawData = File.ReadAllText(sessionManagerPath);
-            var json = JObject.Parse(rawData);
-            return (int)json[WDISSerializable.VersionPropertyName];
+            try
+            {
+                var json = JObject.Parse(rawData);
+                return (int)json[WDISSerializable.VersionPropertyName];
+            } catch (JsonReaderException)
+            {
+                return WDISSettings.INVALID_VERSION;
+            }
+           
         }
 
         // Upgrades the data to the latest version
