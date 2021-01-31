@@ -27,19 +27,11 @@ namespace Whydoisuck.Model.DataSaving
             if (version == WDISSettings.INVALID_VERSION) return;
             if(version < WDISSettings.SerializationVersion)
             {
-                Backup(dir);
+                BackupManager.Backup(dir);
                 Upgrade(dir, version);
             } else if(version > WDISSettings.SerializationVersion) {
                 throw new Exception("Incompatible data version");
             }
-        }
-
-        //Backs the given data up
-        private static void Backup(string dir)
-        {
-            var backupName = string.Format("{0:yyyyMMddHHmmssfffffff}", DateTime.Now);
-            var backupPath = Path.Combine(WDISSettings.BackupsPath, backupName);
-            DirectoryUtilities.Copy(dir, backupPath, true);
         }
 
         //Gets the version of the data in a given directory
