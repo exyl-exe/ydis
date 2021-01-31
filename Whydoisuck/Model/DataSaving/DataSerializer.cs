@@ -162,8 +162,13 @@ namespace Whydoisuck.Model.DataSaving
             var files = Directory.GetFiles(folderPath);
             foreach (var file in files)
             {
-                var session = (Session)Deserialize(file, new Session());
-                res.Add(session);
+                try
+                {
+                    var session = (Session)Deserialize(file, new Session());
+                    res.Add(session);
+                }
+                catch (JsonReaderException) { }
+                
             }
             return res;
         }
