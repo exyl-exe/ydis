@@ -30,7 +30,12 @@
         /// </summary>
         public float StartPosition { get; set; }
 
-        public GDLoadedLevel(bool isRunning, bool isTestmode, bool isPractice, int attemptNumber, float physicalLength, float startPosition)
+        /// <summary>
+        /// Position on the X-axis at which the player object currently respawns in practice
+        /// </summary>
+        public float PracticeStartPosition { get; set; }
+
+        public GDLoadedLevel(bool isRunning, bool isTestmode, bool isPractice, int attemptNumber, float physicalLength, float startPosition, float practiceStartPosition)
         {
             IsRunning = isRunning;
             IsTestmode = isTestmode;
@@ -38,6 +43,7 @@
             AttemptNumber = attemptNumber;
             PhysicalLength = physicalLength;
             StartPosition = startPosition;
+            PracticeStartPosition = practiceStartPosition;
         }
     }
 }

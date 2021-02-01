@@ -37,6 +37,14 @@ namespace Whydoisuck.Model.MemoryReading
         const int levelMetadataOffset = 0x488;
         const int levelSettingsOffset = 0x22C;
 
+        // Offsets to find where practice mode attempts are starting from
+        const int respawnPointsArrayOffset = 0x338;
+        // dereference again to find size
+        const int respawnPointsDataOffset = 0x20;
+        const int respawnPointsDataBeginOffset = 0x08;
+        const int respawnPointPosDataOffset = 0xF0;
+        const int respawnPointXPosOffset = 0xEC;
+
         // Offsets to access several useful values
         // about the metadata of the current level.
         // Added to the address of the metadata structure
@@ -148,13 +156,15 @@ namespace Whydoisuck.Model.MemoryReading
             var attemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset);
             var physicalLength = Reader.ReadFloat(levelStructAddr + levelLengthOffset);
             var startPosition = Reader.ReadFloat(levelStructAddr + respawnPositionOffset);
+            var practiceStartPosition = GetPracticeRespawnPosition(levelStructAddr, startPosition);
             return new GDLoadedLevel(
                 isRunning,
                 isTestmode,
                 isPractice,
                 attemptNumber,
                 physicalLength,
-                startPosition);
+                startPosition,
+                practiceStartPosition);
         }
 
         // Gets the useful values about the level's metadata
@@ -184,6 +194,23 @@ namespace Whydoisuck.Model.MemoryReading
                 musicID,
                 officialMusicID,
                 musicOffset);
+        }
+
+        private float GetPracticeRespawnPosition(int levelAddr, float defaultStartPos)
+        {
+            // First, the number of checkpoints is checked
+            var arrayAddr = Reader.ReadInt(levelAddr + respawnPointsArrayOffset);
+            var arrayDataAddr = Reader.ReadInt(arrayAddr + respawnPointsDataOffset);
+            var spawnPointCount = Reader.ReadInt(arrayDataAddr);
+            // If there aren't any checkpoint then the start position is the same as normal mode
+            if (spawnPointCount == 0) {return defaultStartPos;}
+            // Next, using the number of checkpoints, the last checkpoint object becomes accessible 
+            var arrayDataBegin = Reader.ReadInt(arrayDataAddr + respawnPointsDataBeginOffset);
+            var respawnPointObjectAddr = Reader.ReadInt(arrayDataBegin + 4 * (spawnPointCount - 1));
+            // Once the checkpoint's address is known, its position is accessible
+            var posAddr = Reader.ReadInt(respawnPointObjectAddr + respawnPointPosDataOffset);
+            var respawnPointPosition = Reader.ReadFloat(posAddr + respawnPointXPosOffset);
+            return respawnPointPosition;
         }
 
         // Gets the name of the level
