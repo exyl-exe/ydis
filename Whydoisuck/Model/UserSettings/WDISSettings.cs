@@ -38,7 +38,7 @@ namespace Whydoisuck.Model.UserSettings
         /// <summary>
         /// File name for a shortcut to the launcher
         /// </summary>
-        public const string DEFAULT_LAUNCHER_LOCATION = ".\\Launcher\\WhydoisuckLauncher.exe";
+        public const string DEFAULT_LAUNCHER_LOCATION = ".\\WhydoisuckLauncher.exe";
         /// <summary>
         /// Returns the path of the launcher exe file
         /// </summary>
