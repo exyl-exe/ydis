@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
 
@@ -72,15 +73,24 @@ namespace Whydoisuck.ViewModels.Navigation
             var existingResult = FindSelectableFolder(group);
             if (existingResult == null)
             {
-                var newGroup = new SelectableFolderViewModel(group);
-                Folders.AddNewItem(newGroup);
-                Folders.CommitNew();
+               var newGroup = new SelectableFolderViewModel(group);
+               App.Current.Dispatcher.Invoke(
+                  DispatcherPriority.Background,
+                  new Action(() => {
+                      Folders.AddNewItem(newGroup);
+                      Folders.CommitNew();
+                  }));
             }
             else
-            {
-                Folders.EditItem(existingResult);
-                existingResult.UpdateFromModel();
-                Folders.CommitEdit();
+            {                
+                var newGroup = new SelectableFolderViewModel(group);
+                App.Current.Dispatcher.Invoke(
+                   DispatcherPriority.Background,
+                   new Action(() => {
+                       Folders.EditItem(existingResult);
+                       existingResult.UpdateFromModel();
+                       Folders.CommitEdit();
+                   }));
             }
         }
 

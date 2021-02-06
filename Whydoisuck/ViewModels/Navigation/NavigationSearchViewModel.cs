@@ -61,7 +61,7 @@ namespace Whydoisuck.ViewModels.Navigation
             if (existingResult == null)
             {
                 var newGroup = new NavigationSearchResultViewModel(group, ParentNavigationPanel.MainView);
-                App.Current.Dispatcher.BeginInvoke(
+                App.Current.Dispatcher.Invoke(
                   DispatcherPriority.Background,
                   new Action(() => {
                       SearchResults.AddNewItem(newGroup);
@@ -69,7 +69,7 @@ namespace Whydoisuck.ViewModels.Navigation
                 }));                
             } else
             {
-                App.Current.Dispatcher.BeginInvoke(
+                App.Current.Dispatcher.Invoke(
                     DispatcherPriority.Background,
                     new Action(() => {
                         SearchResults.EditItem(existingResult);
