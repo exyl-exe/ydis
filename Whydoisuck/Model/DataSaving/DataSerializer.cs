@@ -76,7 +76,7 @@ namespace Whydoisuck.Model.DataSaving
             }
             else
             {
-                DataUpdater.Update(saveDir);
+                DataUpdater.TryUpdate(saveDir);
             }
         }
 

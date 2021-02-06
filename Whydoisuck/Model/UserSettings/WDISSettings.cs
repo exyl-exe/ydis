@@ -46,7 +46,7 @@ namespace Whydoisuck.Model.UserSettings
         /// <summary>
         /// Current version of the app, for serialized data
         /// </summary>
-        public const int SerializationVersion = 2;
+        public const int SerializationVersion = 3;
         /// <summary>
         /// Default folder for data saving
         /// </summary>

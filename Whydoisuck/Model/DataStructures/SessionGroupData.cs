@@ -15,7 +15,7 @@ namespace Whydoisuck.Model.DataStructures
         /// <summary>
         /// Sessions of the group
         /// </summary>
-        public List<Session> Sessions { get; set; }
+        [JsonProperty(PropertyName = "Sessions")] public List<Session> Sessions { get; set; }
 
         public SessionGroupData():this(new List<Session>())
         {}

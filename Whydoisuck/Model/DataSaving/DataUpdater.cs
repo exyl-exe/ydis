@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
@@ -21,17 +22,17 @@ namespace Whydoisuck.Model.DataSaving
     /// </summary>
     public static class DataUpdater
     {
-        public static void Update(string dir)
+        public static void TryUpdate(string dir)
         {
             var version = GetDataVersion(dir);
             if (version == WDISSettings.INVALID_VERSION) return;
             if(version < WDISSettings.SerializationVersion)
             {
                 BackupManager.Backup(dir);
-                Upgrade(dir, version);
+                Update(dir, version);
             } else if(version > WDISSettings.SerializationVersion) {
                 throw new Exception("Incompatible data version");
-            }
+            };
         }
 
         //Gets the version of the data in a given directory
@@ -48,20 +49,18 @@ namespace Whydoisuck.Model.DataSaving
             {
                 return WDISSettings.INVALID_VERSION;
             }
-           
         }
 
         // Upgrades the data to the latest version
-        private static void Upgrade(string dir, int ver) // TODO
+        private static void Update(string dir, int ver)
         {
-            int currentVersion = ver;
-            while(currentVersion != WDISSettings.SerializationVersion)
+            int dataVersion = ver;
+            while(dataVersion != WDISSettings.SerializationVersion)
             {
-                switch (currentVersion)
+                switch (dataVersion)
                 {
                     case 2:
-                        Upgrade2to3(dir);
-                        currentVersion = 3;
+                        dataVersion = 3;
                         break;
                     default:
                         throw new NotImplementedException();
@@ -70,9 +69,64 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         //Upgrades the data from serialization version 2 to version 3
-        private static void Upgrade2to3(string dir)
+        private static bool Upgrade2to3(string dir)
         {
-            throw new NotImplementedException();
+            void changeSerializationVersion(string managerPath)
+            {
+                // Update session manager
+                var rawManagerData = File.ReadAllText(managerPath);
+                var json = JObject.Parse(rawManagerData);
+                json[WDISSerializable.VersionPropertyName] = "3";
+                File.WriteAllText(managerPath, json.ToString());
+            }
+
+            bool validateSession(JObject sessionObject)
+            {
+                try
+                {
+                    // dsl
+                    var sessionFormat = "{'type':'object','default':{},'required':['Version','SessionName','Level','IsCopyRun','StartTime','Duration','StartPercent','Attempts'],'properties':{'Version':{'type':'integer'},'SessionName':{'type':'string',},'Level':{'type':'object','required':['ID','IsOnline','OriginalID','IsOriginal','Name','Revision','PhysicalLength','IsCustomMusic','MusicID','OfficialMusicID','MusicOffset'],'properties':{'ID':{'type':'integer',},'IsOnline':{'type':'boolean',},'OriginalID':{'type':'integer',},'IsOriginal':{'type':'boolean',},'Name':{'type':'string',},'Revision':{'type':'integer',},'PhysicalLength':{'type':'number',},'IsCustomMusic':{'type':'boolean',},'MusicID':{'type':'integer',},'OfficialMusicID':{'type':'integer',},'MusicOffset':{'type':'number',}},'additionalProperties':true},'IsCopyRun':{'type':'boolean',},'StartTime':{'type':'string',},'Duration':{'type':'string',},'StartPercent':{'type':'number',},'Attempts':{'type':'array','additionalItems':true,'items':{'anyOf':[{'type':'object','required':['Number','EndPercent'],'properties':{'Number':{'type':'integer',},'EndPercent':{'type':'number',}},'additionalProperties':true}]}}},'additionalProperties':true}";
+                    JSchema schema = JSchema.Parse(sessionFormat);
+                    return sessionObject.IsValid(schema);
+                }
+                catch {
+                    return false;
+                }
+            }
+
+            var sessionManagerPath = Path.Combine(dir, WDISSettings.SaveManagerFileName);
+            try
+            {
+                List<string> folders = Directory.GetDirectories(dir).ToList();
+                foreach(var f in folders)
+                {
+                    var sessionFiles = Directory.GetFiles(f);
+                    var newFolderObject = new JObject();
+                    var sessions = new JArray();
+                    foreach(var s in sessionFiles)
+                    {
+                        try
+                        {
+                            var sRawData = File.ReadAllText(s);
+                            var sJson = JObject.Parse(sRawData);
+                            if (validateSession(sJson))
+                            {
+                                sessions.Add(sJson);
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                    newFolderObject["Sessions"] = sessions;
+                    Directory.Delete(f, true);
+                    File.WriteAllText(f, newFolderObject.ToString());
+                }
+                changeSerializationVersion(sessionManagerPath);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
