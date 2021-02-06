@@ -235,7 +235,6 @@ namespace Whydoisuck.Model.DataStructures
             var length = CompareLength(sample, level1, level1);
             var music = CompareMusic(sample, level1, level2);
             var names = CompareNames(sample, level1, level2);
-
             if (id != 0) return id;
             if (origin != 0 && origin == length) return origin; //Same original level and same length
             if (origin != 0) return origin;
@@ -249,8 +248,17 @@ namespace Whydoisuck.Model.DataStructures
         // Only matches if the id is identical
         private static int CompareIDs(Level sample, Level level1, Level level2)
         {
-            var key1Matches = level1.IsOnline && sample.IsOnline && level1.ID == sample.ID;
-            var key2Matches = level2.IsOnline && sample.IsOnline && level2.ID == sample.ID;
+            bool key1Matches, key2Matches;
+            if (sample.IsOnline)
+            {
+                key1Matches = level1.IsOnline && level1.ID == sample.ID;
+                key2Matches = level2.IsOnline && level2.ID == sample.ID;
+            } else
+            {
+                // Needed so copies can't match an online level
+                key1Matches = !level1.IsOnline;
+                key2Matches = !level2.IsOnline;
+            }
             var res = 0;
             if (key1Matches) res += 1;
             if (key2Matches) res -= 1;
@@ -260,8 +268,8 @@ namespace Whydoisuck.Model.DataStructures
         // Compares the original IDs and IDs of two levels relative to a sample.
         private static int CompareOrigin(Level sample, Level level1, Level level2)
         {
-            var key1Matches = level1.FromSameLevel(sample);
-            var key2Matches = level2.FromSameLevel(sample);
+            var key1Matches = !level1.IsOriginal && !sample.IsOriginal && level1.OriginalID == sample.OriginalID;
+            var key2Matches = !level2.IsOriginal && !sample.IsOriginal && level2.OriginalID == sample.OriginalID;
             var res = 0;
             if (key1Matches) res += 1;
             if (key2Matches) res -= 1;
