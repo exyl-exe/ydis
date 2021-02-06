@@ -136,11 +136,11 @@ namespace Whydoisuck.Model.DataSaving
         /// <param name="originalGroupName">Name of the group in the saves to import</param>
         /// <param name="targetPath">Path of the saves to import</param>
         /// <param name="newGroupName">New name the group will have in the current data</param>
-        public void ImportGroup(string originalGroupName, string targetPath, string newGroupName)//TODO
+        public void ImportGroup(string originalGroupName, string targetPath, string newGroupName)
         {
             var oldPath = GetGroupDataPath(targetPath, originalGroupName);
             var newPath = GetGroupDataPath(SavesDirectory, newGroupName);
-            DirectoryUtilities.Copy(oldPath, newPath, true);
+            File.Copy(oldPath, newPath);
         }
 
         /// <summary>
@@ -207,13 +207,13 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         // Gets the path of the data of a group.
-        private string GetGroupDataPath(SessionGroup group)//TODO
+        private string GetGroupDataPath(SessionGroup group)
         {
             return GetGroupDataPath(SavesDirectory, group.GroupName);
         }
 
         // Gets the path of the data of a group, with a given save directory.
-        private string GetGroupDataPath(string rootPath, string groupName)//TODO
+        private string GetGroupDataPath(string rootPath, string groupName)
         {
             var path = Path.Combine(rootPath, groupName.Trim());
             return path;

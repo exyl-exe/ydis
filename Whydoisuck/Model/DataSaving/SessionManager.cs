@@ -128,7 +128,7 @@ namespace Whydoisuck.Model.DataSaving
         {
             if (path == SavesDirectory) return;
             if (!File.Exists(Path.Combine(path, DataSerializer.IndexFileName))) return;
-            var otherData = new SessionManager(path);
+            var otherData = new SessionManager(path);//TODO import another version
             foreach(var g in otherData.Groups)
             {
                 var originalName = g.GroupName;
