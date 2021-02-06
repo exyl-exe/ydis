@@ -52,7 +52,7 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         // Upgrades the data to the latest version
-        private static void Upgrade(string dir, int ver)
+        private static void Upgrade(string dir, int ver) // TODO
         {
             int currentVersion = ver;
             while(currentVersion != WDISSettings.SerializationVersion)

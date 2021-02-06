@@ -109,7 +109,7 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         /// <param name="group">The group the session belongs to</param>
         /// <param name="session">The session to save</param>
-        public void SerializeSession(SessionGroup group, Session session)
+        public void SerializeSession(SessionGroup group, Session session)//TODO
         {
             var path = Path.Combine(GetGroupDirectoryPath(group), GetSessionFileName(session));
             Serialize(path, session);
@@ -119,7 +119,7 @@ namespace Whydoisuck.Model.DataSaving
         /// Creates a directory for a given group
         /// </summary>
         /// <param name="group">The group to create a directory for</param>
-        public bool CreateGroupDirectory(SessionGroup group)
+        public bool CreateGroupDirectory(SessionGroup group)//TODO
         {
             var path = GetGroupDirectoryPath(group);
             try
@@ -138,7 +138,7 @@ namespace Whydoisuck.Model.DataSaving
         /// <param name="originalGroupName">Name of the group in the saves to import</param>
         /// <param name="targetPath">Path of the saves to import</param>
         /// <param name="newGroupName">New name the group will have in the current data</param>
-        public void ImportGroupDirectory(string originalGroupName, string targetPath, string newGroupName)
+        public void ImportGroupDirectory(string originalGroupName, string targetPath, string newGroupName)//TODO
         {
             var oldPath = GetGroupDirectoryPath(targetPath, originalGroupName);
             var newPath = GetGroupDirectoryPath(SavesDirectory, newGroupName);
@@ -149,7 +149,7 @@ namespace Whydoisuck.Model.DataSaving
         /// Deletes the directory associated to a group and all of its content
         /// </summary>
         /// <param name="group"></param>
-        public void DeleteGroupDirectory(SessionGroup group)
+        public void DeleteGroupDirectory(SessionGroup group)//TODO
         {
             var path = GetGroupDirectoryPath(group);
             if (Directory.Exists(path))
@@ -163,7 +163,7 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         /// <param name="group">The group to load the sessions of</param>
         /// <returns>The sessions of the group</returns>
-        public List<Session> LoadGroupSessions(SessionGroup group)
+        public List<Session> LoadGroupSessions(SessionGroup group)//TODO
         {
             var res = new List<Session>();
             var folderPath = GetGroupDirectoryPath(group);
@@ -188,7 +188,7 @@ namespace Whydoisuck.Model.DataSaving
         /// <summary>
         /// Merges all the directories of the given groups into the root's directory
         /// </summary>
-        public void MergeGroupsDirectories(List<SessionGroup> groups, SessionGroup root)
+        public void MergeGroupsDirectories(List<SessionGroup> groups, SessionGroup root)//TODO
         {
             var newPath = GetGroupDirectoryPath(root);
             foreach(var group in groups)
@@ -223,20 +223,20 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         // Gets the path of the directory of a group.
-        private string GetGroupDirectoryPath(SessionGroup group)
+        private string GetGroupDirectoryPath(SessionGroup group)//TODO
         {
             return GetGroupDirectoryPath(SavesDirectory, group.GroupName);
         }
 
         // Gets the path of the directory of a group, with a given a root.
-        private string GetGroupDirectoryPath(string rootPath, string groupName)
+        private string GetGroupDirectoryPath(string rootPath, string groupName)//TODO
         {
             var path = Path.Combine(rootPath, groupName.Trim());
             return path;
         }
 
         // Gets to file name for a session
-        private string GetSessionFileName(Session session)
+        private string GetSessionFileName(Session session)//TODO
         {
             return session.SessionName;
         }
