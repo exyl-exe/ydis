@@ -10,7 +10,7 @@ namespace Whydoisuck.Model.DataStructures
     /// <summary>
     /// Data of a folder
     /// </summary>
-    public class SessionGroupData
+    public class SessionGroupData : WDISSerializable
     {
         /// <summary>
         /// Sessions of the group

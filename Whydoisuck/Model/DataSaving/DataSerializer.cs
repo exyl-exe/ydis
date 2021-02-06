@@ -111,17 +111,16 @@ namespace Whydoisuck.Model.DataSaving
         /// <param name="session">The session to save</param>
         public void SerializeSession(SessionGroup group, Session session)//TODO
         {
-            var path = Path.Combine(GetGroupDirectoryPath(group), GetSessionFileName(session));
+            var path = Path.Combine(GetGroupDataPath(group), GetSessionFileName(session));
             Serialize(path, session);
         }
 
         /// <summary>
-        /// Creates a directory for a given group
+        /// Serializes a group
         /// </summary>
-        /// <param name="group">The group to create a directory for</param>
-        public bool CreateGroupDirectory(SessionGroup group)//TODO
+        public bool SerializeGroup(SessionGroup group)//TODO
         {
-            var path = GetGroupDirectoryPath(group);
+            var path = GetGroupDataPath(group);
             try
             {
                 Directory.CreateDirectory(path);
@@ -138,20 +137,19 @@ namespace Whydoisuck.Model.DataSaving
         /// <param name="originalGroupName">Name of the group in the saves to import</param>
         /// <param name="targetPath">Path of the saves to import</param>
         /// <param name="newGroupName">New name the group will have in the current data</param>
-        public void ImportGroupDirectory(string originalGroupName, string targetPath, string newGroupName)//TODO
+        public void ImportGroup(string originalGroupName, string targetPath, string newGroupName)//TODO
         {
-            var oldPath = GetGroupDirectoryPath(targetPath, originalGroupName);
-            var newPath = GetGroupDirectoryPath(SavesDirectory, newGroupName);
+            var oldPath = GetGroupDataPath(targetPath, originalGroupName);
+            var newPath = GetGroupDataPath(SavesDirectory, newGroupName);
             DirectoryUtilities.Copy(oldPath, newPath, true);
         }
 
         /// <summary>
-        /// Deletes the directory associated to a group and all of its content
+        /// Deletes the group and its content
         /// </summary>
-        /// <param name="group"></param>
-        public void DeleteGroupDirectory(SessionGroup group)//TODO
+        public void DeleteGroup(SessionGroup group)//TODO
         {
-            var path = GetGroupDirectoryPath(group);
+            var path = GetGroupDataPath(group);
             if (Directory.Exists(path))
             {
                 Directory.Delete(path, true);
@@ -164,10 +162,10 @@ namespace Whydoisuck.Model.DataSaving
         public SessionGroupData LoadGroupData(SessionGroup group)//TODO save whole object
         {
             var sessions = new List<Session>();
-            var folderPath = GetGroupDirectoryPath(group);
+            var folderPath = GetGroupDataPath(group);
             if (!Directory.Exists(folderPath))
             {
-                CreateGroupDirectory(group);
+                SerializeGroup(group);
                 return new SessionGroupData(sessions);
             }
             var files = Directory.GetFiles(folderPath);
@@ -184,14 +182,14 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         /// <summary>
-        /// Merges all the directories of the given groups into the root's directory
+        /// Merges all the given groups into the root group
         /// </summary>
-        public void MergeGroupsDirectories(List<SessionGroup> groups, SessionGroup root)//TODO
+        public void MergeGroups(List<SessionGroup> groups, SessionGroup root)//TODO
         {
-            var newPath = GetGroupDirectoryPath(root);
+            var newPath = GetGroupDataPath(root);
             foreach(var group in groups)
             {
-                DirectoryUtilities.MoveDirectoryContent(GetGroupDirectoryPath(group), newPath);
+                DirectoryUtilities.MoveDirectoryContent(GetGroupDataPath(group), newPath);
             }
         }
 
@@ -220,14 +218,14 @@ namespace Whydoisuck.Model.DataSaving
             return item;
         }
 
-        // Gets the path of the directory of a group.
-        private string GetGroupDirectoryPath(SessionGroup group)//TODO
+        // Gets the path of the data of a group.
+        private string GetGroupDataPath(SessionGroup group)//TODO
         {
-            return GetGroupDirectoryPath(SavesDirectory, group.GroupName);
+            return GetGroupDataPath(SavesDirectory, group.GroupName);
         }
 
-        // Gets the path of the directory of a group, with a given a root.
-        private string GetGroupDirectoryPath(string rootPath, string groupName)//TODO
+        // Gets the path of the data of a group, with a given save directory.
+        private string GetGroupDataPath(string rootPath, string groupName)//TODO
         {
             var path = Path.Combine(rootPath, groupName.Trim());
             return path;

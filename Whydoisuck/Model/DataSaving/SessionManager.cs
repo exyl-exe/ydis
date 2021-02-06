@@ -134,7 +134,7 @@ namespace Whydoisuck.Model.DataSaving
                 var originalName = g.GroupName;
                 var newName = FindAvailableGroupName(originalName);
                 g.GroupName = newName;
-                Serializer.ImportGroupDirectory(originalName, path, newName);
+                Serializer.ImportGroup(originalName, path, newName);
             }
             Groups.AddRange(otherData.Groups);
             foreach (var g in Groups)
@@ -231,14 +231,14 @@ namespace Whydoisuck.Model.DataSaving
             var groupName = FindAvailableGroupName(defaultGroupName);            
             var newGroup = new SessionGroup(groupName, (someGroup) => Serializer.LoadGroupData(someGroup));
             Groups.Add(newGroup);
-            var success = Serializer.CreateGroupDirectory(newGroup);
+            var success = Serializer.SerializeGroup(newGroup);
             // This checks exists to try to correct a folder name if it's forbidden on windows
             // for instance CON, AUX ...
             // TODO Bad code
             if (!success)
             {
                 newGroup.GroupName = FindAvailableGroupName(groupName + InvalidNameSuffix);
-                success = Serializer.CreateGroupDirectory(newGroup);
+                success = Serializer.SerializeGroup(newGroup);
                 if (!success) throw new Exception($"Invalid group name : '{newGroup.GroupName}'");
             }
             newGroup.Levels.Add(level);
@@ -252,7 +252,7 @@ namespace Whydoisuck.Model.DataSaving
         public void DeleteGroup(SessionGroup group)
         {
             Groups.Remove(group);
-            Serializer.DeleteGroupDirectory(group);
+            Serializer.DeleteGroup(group);
             Save();
             OnGroupDeleted?.Invoke(group);
         }        
@@ -277,7 +277,7 @@ namespace Whydoisuck.Model.DataSaving
             OnGroupUpdated?.Invoke(root);
             // RAM data is updated before stocked data
             // so that groups to merge can still be loaded if needed
-            Serializer.MergeGroupsDirectories(groupsToRemove, root);
+            Serializer.MergeGroups(groupsToRemove, root);
             Save();
         }
 
