@@ -109,21 +109,20 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         /// <param name="group">The group the session belongs to</param>
         /// <param name="session">The session to save</param>
-        public void SerializeSession(SessionGroup group, Session session)//TODO
+        public void SerializeSession(SessionGroup group, Session session)
         {
-            var path = Path.Combine(GetGroupDataPath(group), GetSessionFileName(session));
-            Serialize(path, session);
+            SerializeGroup(group);
         }
 
         /// <summary>
         /// Serializes a group
         /// </summary>
-        public bool SerializeGroup(SessionGroup group)//TODO
+        public bool SerializeGroup(SessionGroup group)
         {
             var path = GetGroupDataPath(group);
             try
             {
-                Directory.CreateDirectory(path);
+                Serialize(path, group.GroupData);
                 return true;
             } catch (IOException)
             {
@@ -145,40 +144,29 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         /// <summary>
-        /// Deletes the group and its content
+        /// Deletes the group and its content from the disk
         /// </summary>
-        public void DeleteGroup(SessionGroup group)//TODO
+        public void DeleteGroup(SessionGroup group)
         {
             var path = GetGroupDataPath(group);
-            if (Directory.Exists(path))
+            if (File.Exists(path))
             {
-                Directory.Delete(path, true);
+                File.Delete(path);
             }
         }
 
         /// <summary>
         /// Loads the data of a group
         /// </summary>
-        public SessionGroupData LoadGroupData(SessionGroup group)//TODO save whole object
+        public SessionGroupData LoadGroupData(SessionGroup group)
         {
-            var sessions = new List<Session>();
+            SessionGroupData res = new SessionGroupData();
             var folderPath = GetGroupDataPath(group);
-            if (!Directory.Exists(folderPath))
+            if (File.Exists(folderPath))
             {
-                SerializeGroup(group);
-                return new SessionGroupData(sessions);
+                Deserialize(folderPath, res);
             }
-            var files = Directory.GetFiles(folderPath);
-            foreach (var file in files)
-            {
-                try
-                {
-                    var session = (Session)Deserialize(file, new Session());
-                    sessions.Add(session);
-                }
-                catch (JsonReaderException) { }                
-            }
-            return new SessionGroupData(sessions);
+            return res;
         }
 
         /// <summary>
@@ -229,12 +217,6 @@ namespace Whydoisuck.Model.DataSaving
         {
             var path = Path.Combine(rootPath, groupName.Trim());
             return path;
-        }
-
-        // Gets to file name for a session
-        private string GetSessionFileName(Session session)//TODO
-        {
-            return session.SessionName;
         }
     }
 }

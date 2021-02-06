@@ -17,6 +17,9 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         public List<Session> Sessions { get; set; }
 
+        public SessionGroupData():this(new List<Session>())
+        {}
+
         // Creates the data for a group containing a single session
         public SessionGroupData(Session s)
         {
