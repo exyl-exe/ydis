@@ -170,18 +170,6 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         /// <summary>
-        /// Merges all the given groups into the root group
-        /// </summary>
-        public void MergeGroups(List<SessionGroup> groups, SessionGroup root)//TODO
-        {
-            var newPath = GetGroupDataPath(root);
-            foreach(var group in groups)
-            {
-                DirectoryUtilities.MoveDirectoryContent(GetGroupDataPath(group), newPath);
-            }
-        }
-
-        /// <summary>
         /// Saves a serializable object to a given file path
         /// </summary>
         /// <param name="filePath">Where the object will be saved</param>

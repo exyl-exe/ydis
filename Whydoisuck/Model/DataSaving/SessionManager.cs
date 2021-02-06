@@ -275,9 +275,7 @@ namespace Whydoisuck.Model.DataSaving
                 OnGroupDeleted?.Invoke(group);
             }
             OnGroupUpdated?.Invoke(root);
-            // RAM data is updated before stocked data
-            // so that groups to merge can still be loaded if needed
-            Serializer.MergeGroups(groupsToRemove, root);
+            MergeGroupsOnDisk(root, groupsToRemove);
             Save();
         }
 
@@ -337,6 +335,23 @@ namespace Whydoisuck.Model.DataSaving
                 i++;
             }
             return availableName;
+        }
+
+        // Operates the serializer to merge groups on the disk
+        // This assume the merged groups RAM data was already updated
+        private void MergeGroupsOnDisk(SessionGroup root, List<SessionGroup> groupsToRemove)
+        {
+            /*
+             * The reason there isn't a dedicated DataSerializer method that saves the merge on the disk
+             * is that the serializer would have to either update the RAM data, or assume it was already updated
+             * None of these are supposed to be in its scope, the session manager is better fitted for this
+             * Therefore the session manager has to organize part of the disk operations
+             */
+            Serializer.SerializeGroup(root);
+            foreach (var g in groupsToRemove)
+            {
+                DeleteGroup(g);
+            }
         }
     }
 }
