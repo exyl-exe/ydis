@@ -43,26 +43,31 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "Levels")] public List<Level> Levels { get; set; }
         /// <summary>
-        /// List of all the sessions in the folder.
+        /// Data of the group (for statistics, can be loaded independently)
         /// </summary>
         [JsonIgnore]
-        public List<Session> GroupSessions
-        {
+        public SessionGroupData GroupData {
             get
             {
                 if (!_loaded)
                 {
-                    LoadSessions();
+                    groupData = _loader(this);
                     _loaded = true;
                 }
-                return groupSessions;
+                return groupData;
             }
             set
             {
-                groupSessions = value;
+                groupData = value;
             }
         }
-
+        // false if the sessions weren't loaded yet
+        // exists to avoid loading every session in a group if they are not accessed
+        [JsonIgnore] private bool _loaded = false;
+        // List of sessions in the group, null if not loaded.
+        [JsonIgnore] private SessionGroupData groupData;
+        //Function to call when the group needs to be loaded
+        [JsonIgnore] private Func<SessionGroup, SessionGroupData> _loader;
 
         /// <summary>
         /// Delegate for callbacks when the displayed name is updated
@@ -76,24 +81,15 @@ namespace Whydoisuck.Model.DataStructures
         /// Invoked when a session is added or removed from the group
         /// </summary>
         public event UpdateDelegate OnSessionsChange;
-
-        // false if the sessions weren't loaded yet
-        // exists to avoid loading every session in a group if they are not accessed
-        [JsonIgnore] private bool _loaded = false;
-        [JsonIgnore] private Func<SessionGroup,List<Session>> _loader;
-        // List of sessions in the group, null if not loaded.
-        [JsonIgnore] private List<Session> groupSessions;
         //displayed name property
         [JsonIgnore] private string displayedName;
 
-        public SessionGroup() { } //For json deserialization
-
-        public SessionGroup(string name, Func<SessionGroup,List<Session>> sessionsLoader)
+        public SessionGroup(string name, Func<SessionGroup,SessionGroupData> dataLoader)
         {
+            _loader = dataLoader;
             GroupName = name;
             DisplayedName = name;
             Levels = new List<Level>();
-            _loader = sessionsLoader;
         }
 
         /// <summary>
@@ -114,18 +110,14 @@ namespace Whydoisuck.Model.DataStructures
                 }
             }
 
-            // No need to update the sessions of the group if they aren't loaded
-            if (_loaded)
-            {
-                groupSessions.AddRange(group.GroupSessions);
-                OnSessionsChange?.Invoke();
-            }
+            GroupData.Merge(group.GroupData);
+            OnSessionsChange?.Invoke();
         }
 
         /// <summary>
         /// Sets a method to call when the group needs to be loaded
         /// </summary>
-        public void SetLoader(Func<SessionGroup, List<Session>> loader)
+        public void SetLoader(Func<SessionGroup, SessionGroupData> loader)
         {
             _loader = loader;
         }
@@ -138,7 +130,7 @@ namespace Whydoisuck.Model.DataStructures
         {
             if (LastPlayedTime < session.StartTime) LastPlayedTime = session.StartTime;
             session.SessionName = GetAvailaibleSessionName(session);
-            GroupSessions.Add(session);
+            GroupData.AddSession(session);
             OnSessionsChange?.Invoke();
         }
 
@@ -186,7 +178,7 @@ namespace Whydoisuck.Model.DataStructures
         /// <returns>True if the name is available, false otherwise</returns>
         public bool IsSessionNameAvailable(string name)
         {
-            return !GroupSessions.Any(s => s.SessionName.Equals(name));
+            return !GroupData.Sessions.Any(s => s.SessionName.Equals(name));
         }
 
         /// <summary>
@@ -207,7 +199,6 @@ namespace Whydoisuck.Model.DataStructures
             return name;
         }
 
-
         /// <summary>
         /// Gets the default name for a group containing a given level.
         /// </summary>
@@ -216,12 +207,6 @@ namespace Whydoisuck.Model.DataStructures
         public static string GetDefaultGroupName(Level level)
         {
             return $"{level.Name}" + (level.Revision == 0 ? "" : $" rev{level.Revision}");
-        }
-
-        // Load sessions in the group. Needed because of how sessions are saved.
-        private void LoadSessions()
-        {
-            groupSessions = _loader(this);
         }
     }
 }

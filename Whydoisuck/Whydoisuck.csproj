@@ -99,6 +99,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\DataSaving\BackupManager.cs" />
     <Compile Include="Model\DataSaving\DataUpdater.cs" />
+    <Compile Include="Model\DataStructures\SessionGroupData.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />

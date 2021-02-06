@@ -159,18 +159,16 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         /// <summary>
-        /// Loads the sessions of a group
+        /// Loads the data of a group
         /// </summary>
-        /// <param name="group">The group to load the sessions of</param>
-        /// <returns>The sessions of the group</returns>
-        public List<Session> LoadGroupSessions(SessionGroup group)//TODO
+        public SessionGroupData LoadGroupData(SessionGroup group)//TODO save whole object
         {
-            var res = new List<Session>();
+            var sessions = new List<Session>();
             var folderPath = GetGroupDirectoryPath(group);
-            if(!Directory.Exists(folderPath))
+            if (!Directory.Exists(folderPath))
             {
                 CreateGroupDirectory(group);
-                return res;
+                return new SessionGroupData(sessions);
             }
             var files = Directory.GetFiles(folderPath);
             foreach (var file in files)
@@ -178,11 +176,11 @@ namespace Whydoisuck.Model.DataSaving
                 try
                 {
                     var session = (Session)Deserialize(file, new Session());
-                    res.Add(session);
+                    sessions.Add(session);
                 }
                 catch (JsonReaderException) { }                
             }
-            return res;
+            return new SessionGroupData(sessions);
         }
 
         /// <summary>

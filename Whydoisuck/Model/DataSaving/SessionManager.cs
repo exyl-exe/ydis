@@ -91,7 +91,9 @@ namespace Whydoisuck.Model.DataSaving
                 {
                     foreach (var g in Groups)
                     {
-                        g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
+                        g.SetLoader(
+                            (someGroup) => Serializer.LoadGroupData(someGroup)
+                         );
                     }
                 }
             }
@@ -137,7 +139,7 @@ namespace Whydoisuck.Model.DataSaving
             Groups.AddRange(otherData.Groups);
             foreach (var g in Groups)
             {
-                g.SetLoader((someGroup) => Serializer.LoadGroupSessions(someGroup));
+                g.SetLoader((someGroup) => Serializer.LoadGroupData(someGroup));
             }
             Save();
             foreach (var newGroup in otherData.Groups)
@@ -227,7 +229,7 @@ namespace Whydoisuck.Model.DataSaving
         {
             var defaultGroupName = SessionGroup.GetDefaultGroupName(level);
             var groupName = FindAvailableGroupName(defaultGroupName);            
-            var newGroup = new SessionGroup(groupName, (someGroup) => Serializer.LoadGroupSessions(someGroup));
+            var newGroup = new SessionGroup(groupName, (someGroup) => Serializer.LoadGroupData(someGroup));
             Groups.Add(newGroup);
             var success = Serializer.CreateGroupDirectory(newGroup);
             // This checks exists to try to correct a folder name if it's forbidden on windows
@@ -293,7 +295,7 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         public void ReorganizeGroups(List<SessionGroup> folders)
         {
-            var allSessions = folders.SelectMany(f => f.GroupSessions).ToList();
+            var allSessions = folders.SelectMany(f => f.GroupData.Sessions).ToList();
             //ToList() makes a copy of the list and prevents the list from being modified during the foreach
             foreach(var f in folders.ToList())
             {

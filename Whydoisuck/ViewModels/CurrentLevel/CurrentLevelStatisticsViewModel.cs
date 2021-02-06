@@ -51,7 +51,8 @@ namespace Whydoisuck.ViewModels.CurrentLevel
 
         public void RefreshStats()
         {
-            CurrentLevelStats = new SessionsStatistics(new List<Session>() { Session }, 1f);
+            var currentSessionData = new SessionGroupData(Session);
+            CurrentLevelStats = new SessionsStatistics(currentSessionData, 1f);
             Graph = new LevelGraphViewModel(CurrentLevelStats, Resources.GraphTitleCurrentSession);
             Datagrid = new LevelDataGridViewModel(CurrentLevelStats);
             UpdateView();

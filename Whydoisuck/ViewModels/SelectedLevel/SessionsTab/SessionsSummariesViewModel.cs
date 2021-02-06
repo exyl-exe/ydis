@@ -36,7 +36,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         private SortedList<DateTime, DaySummaryViewModel> CreateSummaries()
         {
             var res = new SortedList<DateTime, DaySummaryViewModel>();
-            foreach (var session in Group.GroupSessions)
+            foreach (var session in Group.GroupData.Sessions)
             {
                 if (res.TryGetValue(session.StartTime.Date, out var daySummary))
                 {

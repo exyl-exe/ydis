@@ -59,8 +59,8 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             Session = s;
             GoBack = new GoBackCommand(parent);
             Header = new SessionHeaderViewModel(Session);
-            var l = new List<Session> { Session };
-            var stats = new SessionsStatistics(l, 1f);
+            var data = new SessionGroupData(Session);
+            var stats = new SessionsStatistics(data, 1f);
             Graph = new LevelGraphViewModel(stats, Resources.GraphTitleIndividualSession);
             Datagrid = new LevelDataGridViewModel(stats);
             AttemptList = new AttemptListViewModel(s.Attempts);

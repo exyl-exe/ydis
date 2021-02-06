@@ -31,8 +31,8 @@ namespace Whydoisuck.ViewModels.DataStructures
         /// Invoked when the statistics about these sessions change.
         /// </summary>
         public event OnStatisticsChangeCallback OnStatisticsChange;
-        // All sessions that can contribute to the statistics.
-        private List<Session> Sessions { get; set; }
+        // Data that can contribute to the statistics.
+        private SessionGroupData Data { get; set; }
         // How the level is divided. These ranges must not overlap.
         private List<Range> Dividing { get; set; }
         // Criteria for selecting sessions to compute statistics about.
@@ -41,20 +41,20 @@ namespace Whydoisuck.ViewModels.DataStructures
         const double MIN_PERCENT = 0;
         const double MAX_PERCENT = 100;
 
-        public SessionsStatistics(List<Session> sessions, SessionFilterViewModel filter, double defaultPartWidth)
+        public SessionsStatistics(SessionGroupData data, SessionFilterViewModel filter, double defaultPartWidth)
         {
-            Sessions = sessions;
+            Data = data;
             Filter = filter;
             Dividing = GetParts(defaultPartWidth);
             Statistics = GetStatistics();
-            PlayTime = new TimeSpan(sessions.Sum(s => s.Duration.Ticks));
-            TotalAttempts = sessions.Sum(s => s.Attempts.Count());
+            PlayTime = new TimeSpan(Data.Sessions.Sum(s => s.Duration.Ticks));
+            TotalAttempts = Data.Sessions.Sum(s => s.Attempts.Count());
             if(Filter != null) {
                 Filter.OnFilterChanges += UpdateStatistics;
             }
         }
 
-        public SessionsStatistics(List<Session> sessions, double defaultPartWidth) : this(sessions, null, defaultPartWidth)
+        public SessionsStatistics(SessionGroupData data, double defaultPartWidth) : this(data, null, defaultPartWidth)
         {
         }
 
@@ -83,7 +83,7 @@ namespace Whydoisuck.ViewModels.DataStructures
         {
             var res = new List<LevelPartStatistics>();
             // Sessions matching the filter
-            var sessions = Filter == null ? Sessions : Sessions.Where(s => Filter.Matches(s)).ToList();
+            var sessions = Filter == null ? Data.Sessions : Data.Sessions.Where(s => Filter.Matches(s)).ToList();
             // All attempts of valid sessions
             var attempts = sessions.SelectMany(s => s.Attempts).ToList();
             var counting = new SortedList<Range, LevelPartStatistics>();
@@ -137,7 +137,7 @@ namespace Whydoisuck.ViewModels.DataStructures
         // Updates statistics and notify the change 
         private void UpdateStatistics()
         {
-            var sessions = Filter == null ? Sessions : Sessions.Where(s => Filter.Matches(s)).ToList();
+            var sessions = Filter == null ? Data.Sessions : Data.Sessions.Where(s => Filter.Matches(s)).ToList();
             Statistics = GetStatistics();
             PlayTime = new TimeSpan(sessions.Sum(s => s.Duration.Ticks));
             TotalAttempts = sessions.Sum(s => s.Attempts.Count());

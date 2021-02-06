@@ -36,7 +36,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.GraphTab
         public GraphTabMainViewModel(SessionGroup g)
         {
             Filter = new SessionFilterViewModel();
-            GroupStats = new SessionsStatistics(g.GroupSessions, Filter, WDISSettings.DefaultPartWidth);
+            GroupStats = new SessionsStatistics(g.GroupData, Filter, WDISSettings.DefaultPartWidth);
             DataGrid = new LevelDataGridViewModel(GroupStats);
             Graph = new LevelGraphViewModel(GroupStats, Resources.GraphTitleOverall);
         }
