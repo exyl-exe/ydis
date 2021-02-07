@@ -60,15 +60,16 @@ namespace Whydoisuck.Model.DataSaving
         /// Initializes folders and files on the disk so that the session manager
         /// can work properly.
         /// </summary>
-        public static DataSerializer CreateSerializer(string saveDir)
+        public static DataSerializer CreateSerializer(string saveDir, bool canBackup)
         {
-            Reformat(saveDir);
+            
+            Reformat(saveDir, canBackup);
             var ser = new DataSerializer(saveDir);
             return ser;
         }
 
         // Formats the data at the given path so it can be used by a DataSerializer
-        private static void Reformat(string saveDir)
+        private static void Reformat(string saveDir, bool canBackup)
         {
             if (!Directory.Exists(saveDir))
             {
@@ -76,7 +77,7 @@ namespace Whydoisuck.Model.DataSaving
             }
             else
             {
-                DataUpdater.TryUpdate(saveDir);
+                DataUpdater.TryUpdate(saveDir, canBackup);
             }
         }
 

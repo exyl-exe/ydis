@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Whydoisuck.Model;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.UserSettings;
+using Whydoisuck.Model.Utilities;
 
 namespace Whydoisuck.Model.DataSaving
 {
@@ -45,8 +46,10 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         [JsonProperty(PropertyName = "Groups")] public List<SessionGroup> Groups { get; set; }
 
-        // Manager of the save files on the disk
-        private DataSerializer Serializer { get; set; }
+        /// <summary>
+        /// Path of the saves directory
+        /// </summary>
+        [JsonIgnore] public string SavesDirectory => Serializer.SavesDirectory;
 
         /// <summary>
         /// Delegate for callbacks when a group is updated
@@ -67,22 +70,24 @@ namespace Whydoisuck.Model.DataSaving
         /// </summary>
         private static string InvalidNameSuffix => "_def";
 
-        /// <summary>
-        /// Path of the saves directory
-        /// </summary>
-        [JsonIgnore] public string SavesDirectory => Serializer.SavesDirectory;
+        // Manager of the save files on the disk
+        [JsonIgnore] private DataSerializer Serializer { get; set; }
+        [JsonIgnore] private bool CanBackup { get; set; }
 
+        //private because only one instance of the class can exist (except for data imports)
+        private SessionManager(string path) : this(path, true) {}
 
-        //private because only one instance of the class can exist
-        private SessionManager(string path)
+        //private because only one instance of the class can exist (except for data imports)
+        private SessionManager(string path, bool canBackup)
         {
-            Init(path);
+            CanBackup = canBackup;
+            Init(path, canBackup);
         }
 
         //Inits the session manager based on the data at the given path
-        private void Init(string path)
+        private void Init(string path, bool canBackup)
         {
-            Serializer = DataSerializer.CreateSerializer(path);
+            Serializer = DataSerializer.CreateSerializer(path, canBackup);
             bool success = File.Exists(Serializer.IndexFilePath);
             if (success)
             {
@@ -114,11 +119,19 @@ namespace Whydoisuck.Model.DataSaving
                 OnGroupDeleted?.Invoke(g);
             }
             Groups.Clear();
-            Init(path);
+            Init(path, CanBackup);
             foreach (var g in Groups)
             {
                 OnGroupUpdated?.Invoke(g);
             }
+        }
+
+        /// <summary>
+        /// Gets the root directory for the save files used by this manager
+        /// </summary>
+        public string GetRoot()
+        {
+            return Serializer.SavesDirectory;
         }
 
         /// <summary>
@@ -128,13 +141,31 @@ namespace Whydoisuck.Model.DataSaving
         {
             if (path == SavesDirectory) return;
             if (!File.Exists(Path.Combine(path, DataSerializer.IndexFileName))) return;
-            var otherData = new SessionManager(path);//TODO import another version
-            foreach(var g in otherData.Groups)
+            // In case the directory exists (crash while performing an import)
+            if (Directory.Exists(WDISSettings.TempSaveFolder))
+            {
+                Directory.Delete(WDISSettings.TempSaveFolder, true);
+            }
+            DirectoryUtilities.Copy(path,WDISSettings.TempSaveFolder, true);
+
+            var otherData = new SessionManager(WDISSettings.TempSaveFolder, false);
+
+            ImportData(otherData);
+            if (Directory.Exists(WDISSettings.TempSaveFolder))
+            {
+                Directory.Delete(WDISSettings.TempSaveFolder, true);
+            }
+        }
+
+        // Imports data from another session manager
+        private void ImportData(SessionManager otherData)
+        {
+            foreach (var g in otherData.Groups)
             {
                 var originalName = g.GroupName;
                 var newName = FindAvailableGroupName(originalName);
                 g.GroupName = newName;
-                Serializer.ImportGroup(originalName, path, newName);
+                Serializer.ImportGroup(originalName, otherData.GetRoot(), newName);
             }
             Groups.AddRange(otherData.Groups);
             foreach (var g in Groups)

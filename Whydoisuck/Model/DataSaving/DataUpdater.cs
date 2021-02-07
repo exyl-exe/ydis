@@ -22,13 +22,16 @@ namespace Whydoisuck.Model.DataSaving
     /// </summary>
     public static class DataUpdater
     {
-        public static void TryUpdate(string dir)
+        public static void TryUpdate(string dir, bool canBackup)
         {
             var version = GetDataVersion(dir);
             if (version == WDISSettings.INVALID_VERSION) return;
             if(version < WDISSettings.SerializationVersion)
             {
-                BackupManager.Backup(dir);
+                if (canBackup)
+                {
+                    BackupManager.Backup(dir);
+                }
                 Update(dir, version);
             } else if(version > WDISSettings.SerializationVersion) {
                 throw new Exception("Incompatible data version");
@@ -60,6 +63,7 @@ namespace Whydoisuck.Model.DataSaving
                 switch (dataVersion)
                 {
                     case 2:
+                        Upgrade2to3(dir);
                         dataVersion = 3;
                         break;
                     default:

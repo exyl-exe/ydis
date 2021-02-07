@@ -101,6 +101,7 @@ namespace Whydoisuck.Model.UserSettings
         /// Directory to save backups
         /// </summary>
         public static string BackupsPath => Path.Combine(AppData, "Backups");
+        public static string TempSaveFolder => Path.Combine(Path.GetTempPath(),"WhyDoISuckTempSaves");
         /// <summary>
         /// Path to a file containing the path of the application (used by the launcher to know where the exe is)
         /// </summary>
