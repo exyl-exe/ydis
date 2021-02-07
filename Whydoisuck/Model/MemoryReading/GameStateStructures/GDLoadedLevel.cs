@@ -29,7 +29,6 @@
         /// Position on the X-axis at which the player object respawns
         /// </summary>
         public float StartPosition { get; set; }
-
         /// <summary>
         /// Position on the X-axis at which the player object currently respawns in practice
         /// </summary>

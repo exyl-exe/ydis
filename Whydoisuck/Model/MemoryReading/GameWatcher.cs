@@ -41,7 +41,14 @@ namespace Whydoisuck.Model.MemoryReading
         /// It ensures its length, the player object and some other values are initialized.
         /// </summary>
         public static event GameInfoCallback OnLevelStarted;
-
+        /// <summary>
+        /// Event invoked when the practice mode is enabled by the user
+        /// </summary>
+        public static event GameInfoCallback OnPracticeModeStarted;
+        /// <summary>
+        /// Event invoked when the practice mode is disabled by the user
+        /// </summary>
+        public static event GameInfoCallback OnPracticeModeExited;
         /// <summary>
         /// Event invoked when the player object reached the end of the level
         /// </summary>
@@ -180,11 +187,31 @@ namespace Whydoisuck.Model.MemoryReading
             }
         }
 
+        // Checks if the user started practice mode
+        private static void HandlePracticeStarted(GameState previousState, GameState currentState)
+        {
+            if (currentState.LoadedLevel.IsPractice && !PreviousState.LoadedLevel.IsPractice)
+            {
+                OnPracticeModeStarted?.Invoke(currentState);
+            }
+        }
+
+        // Checks if the user exited practice mode
+        private static void HandlePracticeExited(GameState previousState, GameState currentState)
+        {
+            if (!currentState.LoadedLevel.IsPractice && PreviousState.LoadedLevel.IsPractice)
+            {
+                OnPracticeModeExited?.Invoke(previousState);
+            }
+        }
+
         // Manages events about an on going level
         private static void HandleLevelNotExited(GameState previousState, GameState currentState)
-        {
-            if (currentState.PlayerObject != null && previousState.PlayerObject != null && currentState.LoadedLevel.IsRunning)
+        {            
+            if (currentState.PlayerObject != null && previousState.PlayerObject != null)
             {
+                HandlePracticeStarted(PreviousState, currentState);
+                HandlePracticeExited(PreviousState, currentState);
                 //Needed because the game watcher might have been started while playing a level
                 if (CurrentAttempt == null)
                 {
@@ -194,10 +221,13 @@ namespace Whydoisuck.Model.MemoryReading
                         currentState.PlayerObject.HasWon
                         );
                 }
-                HandlePlayerRestarts(previousState, currentState);
-                HandlePlayerDeath(currentState);
-                HandlePlayerWin(previousState, currentState);
-                HandleRespawn(currentState);
+                if (currentState.LoadedLevel.IsRunning)
+                {
+                    HandlePlayerRestarts(previousState, currentState);
+                    HandlePlayerDeath(currentState);
+                    HandlePlayerWin(previousState, currentState);
+                    HandleRespawn(currentState);
+                }
             }
         }
 

@@ -83,6 +83,8 @@ namespace Whydoisuck.DataSaving
             GameWatcher.OnPlayerDies += PopSaveLosingAttempt;
             GameWatcher.OnPlayerRestarts += PopSaveLosingAttempt;
             GameWatcher.OnPlayerWins += PopSaveWinningAttempt;
+            GameWatcher.OnPracticeModeStarted += (g) => { Console.WriteLine("Practice started on " + g.LevelMetadata.Name); };
+            GameWatcher.OnPracticeModeExited += (g) => { Console.WriteLine("Practice exited on " + g.LevelMetadata.Name); };
         }
 
         /// <summary>
