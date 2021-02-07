@@ -14,7 +14,7 @@ namespace Whydoisuck.Model.DataStructures
     /// <summary>
     /// Session played in the game. A session starts when entering a level and ends when exiting it.
     /// </summary>
-    public class Session
+    public class Session : ISession
     {
         /// <summary>
         /// Level the session was played on

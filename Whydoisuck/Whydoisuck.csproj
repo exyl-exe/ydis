@@ -102,6 +102,9 @@
     </ApplicationDefinition>
     <Compile Include="Model\DataSaving\BackupManager.cs" />
     <Compile Include="Model\DataSaving\DataUpdater.cs" />
+    <Compile Include="Model\DataStructures\PracticeAttempt.cs" />
+    <Compile Include="Model\DataStructures\PracticeSession.cs" />
+    <Compile Include="Model\DataStructures\ISession.cs" />
     <Compile Include="Model\DataStructures\SessionGroupData.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLevelMetadata.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GDLoadedLevel.cs" />
