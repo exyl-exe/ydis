@@ -44,6 +44,10 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// </summary>
         public string SaveLocation => Path.GetFullPath(SessionManager.Instance.SavesDirectory);
         /// <summary>
+        /// Change location description
+        /// </summary>
+        public string SaveLocationDescription => Resources.SettingsSaveLocationDescription;
+        /// <summary>
         /// Start up option name
         /// </summary>
         public string StartUpText => Resources.SettingsOnStart;

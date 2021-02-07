@@ -55,6 +55,9 @@
                             <TextBlock Text="{Binding SaveLocation}"
                                            Style="{StaticResource SettingsTextStyle}"/>
                         </Viewbox>
+                        <TextBlock Margin="3,6,0,0"
+                                   Text="{Binding SaveLocationDescription}"
+                                   Style="{StaticResource SettingsSecondaryTextStyle}"/>
                     </StackPanel>
                 </Border>
                 <Border Margin="15,5,15,15">
