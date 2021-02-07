@@ -218,6 +218,33 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         /// <summary>
+        /// Saves a bunch of sessions.
+        /// </summary>
+        public void SaveSessions(List<Session> sessions)
+        {
+            // Updating session manager instance
+            foreach(var session in sessions)
+            {
+                var group = GetOrCreateGroup(session);
+                var mostSimilar = group.GetMostSimilarLevelInGroup(session.Level);
+                if (mostSimilar != null && !mostSimilar.IsSameLevel(session.Level))
+                {
+                    group.Levels.Add(session.Level);
+                }
+                group.AddSession(session);
+            }
+            // Saving a session involves saving a whole group
+            // Therefore sessions are not serialized individually
+            // -> all the groups are serialized when all the sessions have been added
+            foreach(var group in Groups)
+            {
+                Serializer.SerializeGroup(group);
+                OnGroupUpdated?.Invoke(group);
+            }
+            Save();
+        }
+
+        /// <summary>
         /// Gets the most appropriate group for a session. If no existing group is appropriate, a new group is created.
         /// </summary>
         /// <param name="session">The session to get a group for</param>
@@ -330,10 +357,7 @@ namespace Whydoisuck.Model.DataSaving
             {
                 DeleteGroup(f);
             }
-            foreach(var s in allSessions)
-            {
-                SaveSession(s);
-            }
+            SaveSessions(allSessions);
         }
 
         /// <summary>
