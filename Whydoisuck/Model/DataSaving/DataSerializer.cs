@@ -140,6 +140,7 @@ namespace Whydoisuck.Model.DataSaving
         public void ImportGroup(string originalGroupName, string targetPath, string newGroupName)
         {
             var oldPath = GetGroupDataPath(targetPath, originalGroupName);
+            if (!File.Exists(oldPath)) return;
             var newPath = GetGroupDataPath(SavesDirectory, newGroupName);
             File.Copy(oldPath, newPath);
         }

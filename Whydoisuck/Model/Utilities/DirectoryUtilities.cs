@@ -36,6 +36,18 @@ namespace Whydoisuck.Model.Utilities
             }
         }
 
+        public static void DeleteDirectoryContent(string dir)
+        {
+            foreach(var f in Directory.GetFiles(dir))
+            {
+                File.Delete(f);
+            }
+            foreach(var d in Directory.GetDirectories(dir))
+            {
+                Directory.Delete(d, true);
+            }
+        }
+
         public static void MoveDirectoryContent(string sourceDirectory, string destDirectory)
         {
             Directory.CreateDirectory(destDirectory);

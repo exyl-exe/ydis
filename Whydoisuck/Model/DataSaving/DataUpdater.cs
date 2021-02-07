@@ -25,14 +25,22 @@ namespace Whydoisuck.Model.DataSaving
         public static void TryUpdate(string dir, bool canBackup)
         {
             var version = GetDataVersion(dir);
-            if (version == WDISSettings.INVALID_VERSION) return;
+            if (version == WDISSettings.INVALID_VERSION)
+            {
+                DirectoryUtilities.DeleteDirectoryContent(dir);
+                return;
+            }
             if(version < WDISSettings.SerializationVersion)
             {
                 if (canBackup)
                 {
                     BackupManager.Backup(dir);
                 }
-                Update(dir, version);
+                var updatedProperly = Update(dir, version);
+                if (!updatedProperly)
+                {
+                    DirectoryUtilities.DeleteDirectoryContent(dir);
+                }
             } else if(version > WDISSettings.SerializationVersion) {
                 throw new Exception("Incompatible data version");
             };
@@ -55,21 +63,23 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         // Upgrades the data to the latest version
-        private static void Update(string dir, int ver)
+        private static bool Update(string dir, int ver)
         {
             int dataVersion = ver;
-            while(dataVersion != WDISSettings.SerializationVersion)
+            bool correctFormat = true;
+            while(dataVersion != WDISSettings.SerializationVersion && correctFormat)
             {
                 switch (dataVersion)
                 {
                     case 2:
-                        Upgrade2to3(dir);
-                        dataVersion = 3;
+                        correctFormat = Upgrade2to3(dir);
+                        if (correctFormat) dataVersion = 3;
                         break;
                     default:
                         throw new NotImplementedException();
                 }
             }
+            return correctFormat;
         }
 
         //Upgrades the data from serialization version 2 to version 3
