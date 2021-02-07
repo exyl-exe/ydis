@@ -129,7 +129,6 @@ namespace Whydoisuck.Model.DataStructures
         public void AddSession(Session session)
         {
             if (LastPlayedTime < session.StartTime) LastPlayedTime = session.StartTime;
-            session.SessionName = GetAvailaibleSessionName(session);
             GroupData.AddSession(session);
             OnSessionsChange?.Invoke();
         }
@@ -169,34 +168,6 @@ namespace Whydoisuck.Model.DataStructures
             {
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Checks if the given name doesn't match any session in the group
-        /// </summary>
-        /// <param name="name">Name to check availability for</param>
-        /// <returns>True if the name is available, false otherwise</returns>
-        public bool IsSessionNameAvailable(string name)
-        {
-            return !GroupData.Sessions.Any(s => s.SessionName.Equals(name));
-        }
-
-        /// <summary>
-        /// Gets an available name for the given session.
-        /// </summary>
-        /// <param name="session">Session that will be named</param>
-        /// <returns>An available name matching the session</returns>
-        public string GetAvailaibleSessionName(Session session)
-        {
-            var defaultName = session.GetDefaultSessionFileName();
-            var name = defaultName;
-            var i = 2;
-            while (!IsSessionNameAvailable(name))
-            {
-                name = $"{defaultName} ({i})";
-                i++;
-            }
-            return name;
         }
 
         /// <summary>

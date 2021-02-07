@@ -14,12 +14,8 @@ namespace Whydoisuck.Model.DataStructures
     /// <summary>
     /// Session played in the game. A session starts when entering a level and ends when exiting it.
     /// </summary>
-    public class Session : WDISSerializable
+    public class Session
     {
-        /// <summary>
-        /// Name of the session
-        /// </summary>
-        [JsonProperty(PropertyName ="SessionName")] public string SessionName { get; set; }
         /// <summary>
         /// Level the session was played on
         /// </summary>
@@ -50,7 +46,6 @@ namespace Whydoisuck.Model.DataStructures
         public Session(DateTime startTime)
         {
             Attempts = new List<Attempt>();
-            StartTime = startTime;
         }
 
         /// <summary>
@@ -60,18 +55,6 @@ namespace Whydoisuck.Model.DataStructures
         public void AddAttempt(Attempt att)
         {
             Attempts.Add(att);
-        }
-
-        /// <summary>
-        /// Gets the default file name for the session
-        /// </summary>
-        /// <returns>The default file name for this session</returns>
-        public string GetDefaultSessionFileName()
-        {
-            return string.Format("{0}{1:ddMMyyyy}_{2:hhmm}",
-                Level.Name + (Level.Revision == 0 ? "" : $"_rev{Level.Revision}"),
-                StartTime.Date,
-                StartTime.TimeOfDay);
         }
     }
 }
