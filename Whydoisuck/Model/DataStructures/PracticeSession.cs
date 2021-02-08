@@ -29,5 +29,16 @@ namespace Whydoisuck.Model.DataStructures
         /// All the attempts in the practice session
         /// </summary>
         [JsonProperty(PropertyName = "Attempts")] public List<PracticeAttempt> Attempts { get; set; }
+    
+        public PracticeSession(DateTime startTime)
+        {
+            StartTime = startTime;
+            Attempts = new List<PracticeAttempt>();
+        }
+
+        public void AddAttempt(PracticeAttempt attempt)
+        {
+            Attempts.Add(attempt);
+        }
     }
 }

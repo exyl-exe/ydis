@@ -50,6 +50,14 @@ namespace Whydoisuck.Model.MemoryReading
         /// </summary>
         public static event GameInfoCallback OnPracticeModeExited;
         /// <summary>
+        /// Invoked when the normal mode is exited
+        /// </summary>
+        public static event GameInfoCallback OnNormalModeExited;
+        /// <summary>
+        /// Invoked when the normal mode is reentered (after a practice run)
+        /// </summary>
+        public static event GameInfoCallback OnNormalModeStarted;
+        /// <summary>
         /// Event invoked when the player object reached the end of the level
         /// </summary>
         public static event GameInfoCallback OnPlayerWins;
@@ -187,24 +195,6 @@ namespace Whydoisuck.Model.MemoryReading
             }
         }
 
-        // Checks if the user started practice mode
-        private static void HandlePracticeStarted(GameState previousState, GameState currentState)
-        {
-            if (currentState.LoadedLevel.IsPractice && !PreviousState.LoadedLevel.IsPractice)
-            {
-                OnPracticeModeStarted?.Invoke(currentState);
-            }
-        }
-
-        // Checks if the user exited practice mode
-        private static void HandlePracticeExited(GameState previousState, GameState currentState)
-        {
-            if (!currentState.LoadedLevel.IsPractice && PreviousState.LoadedLevel.IsPractice)
-            {
-                OnPracticeModeExited?.Invoke(previousState);
-            }
-        }
-
         // Manages events about an on going level
         private static void HandleLevelNotExited(GameState previousState, GameState currentState)
         {            
@@ -228,6 +218,26 @@ namespace Whydoisuck.Model.MemoryReading
                     HandlePlayerWin(previousState, currentState);
                     HandleRespawn(currentState);
                 }
+            }
+        }
+
+        // Checks if the user started practice mode
+        private static void HandlePracticeStarted(GameState previousState, GameState currentState)
+        {
+            if (currentState.LoadedLevel.IsPractice && !PreviousState.LoadedLevel.IsPractice)
+            {
+                OnNormalModeExited?.Invoke(previousState);
+                OnPracticeModeStarted?.Invoke(currentState);
+            }
+        }
+
+        // Checks if the user exited practice mode
+        private static void HandlePracticeExited(GameState previousState, GameState currentState)
+        {
+            if (!currentState.LoadedLevel.IsPractice && PreviousState.LoadedLevel.IsPractice)
+            {
+                OnPracticeModeExited?.Invoke(previousState);
+                OnNormalModeStarted?.Invoke(currentState);
             }
         }
 

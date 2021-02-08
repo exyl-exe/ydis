@@ -3,54 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
 namespace Whydoisuck.Model.Recording
 {
     /// <summary>
-    /// State for the recorder when recordings normal mod attempts
+    /// Recorder state for practice mode
     /// </summary>
-    public class NormalRecorderState : IRecorderState
+    public class PracticeRecorderState : IRecorderState
     {
-        public event Action<ISession> OnSessionInitialized;
-        public event Action<ISession> OnQuitSession;
-        public event Action OnAttemptsUpdated;
-
-        // Wether the current attempt has been saved or not
-        private bool _isCurrentAttemptSaved;
-        // Attempt whose data is currently being recorded
-        private Attempt CurrentAttempt { get; set; }
-        /// <summary>
-        /// Current session on the currently played level.
-        /// </summary>
-        private Session CurrentSession { get; set; }
-
-        /// <summary>
-        /// Guessed group for the current session.
-        /// </summary>
         public SessionGroup Autoguess
         {
             get
             {
                 if (CurrentSession != null)
                 {
-                    return SessionManager.Instance.FindGroupOf(CurrentSession.Level);
+                    return null;
                 }
                 return null;
             }
         }
 
+        public event Action<ISession> OnSessionInitialized;
+        public event Action<ISession> OnQuitSession;
+        public event Action OnAttemptsUpdated;
+
+        private PracticeSession CurrentSession { get; set; }
+        private bool _isCurrentAttemptSaved;
+        private PracticeAttempt CurrentAttempt { get; set; }
+
         public void CreateNewAttempt(GameState state)
         {
-            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber);
+            var number = state.LoadedLevel.AttemptNumber;
+            var start = state.LoadedLevel.PracticeStartPosition;
+            CurrentAttempt = new PracticeAttempt(number, start);
             _isCurrentAttemptSaved = false;
         }
 
         public void CreateNewSession(GDLevelMetadata level)
         {
-            CurrentSession = new Session(DateTime.Now);
+            CurrentSession = new PracticeSession(DateTime.Now);
             CurrentAttempt = null;
             _isCurrentAttemptSaved = false;
         }
@@ -67,9 +60,14 @@ namespace Whydoisuck.Model.Recording
             //  -There are not attempts in the session (= useless data)
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
-            SessionManager.Instance.SaveSession(CurrentSession);
 
-            OnQuitSession?.Invoke(CurrentSession);
+            Console.WriteLine("###########");
+            Console.WriteLine(CurrentSession.Level.Name);
+            foreach(var a in CurrentSession.Attempts)
+            {
+                Console.WriteLine(string.Format("{0} {1:F2}->{2:F2}", a.Number, a.StartPercent, a.EndPercent));
+            }
+
             CurrentSession = null;
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;
@@ -104,12 +102,11 @@ namespace Whydoisuck.Model.Recording
         {
             CurrentSession.Level = new Level(state);
             CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
-            OnSessionInitialized?.Invoke(CurrentSession);
+            //OnSessionInitialized?.Invoke(CurrentSession);
         }
 
         // Saves the current attempt with the specified end percent
-        private void PopSaveCurrentAttempt(GameState state, float endPercent, bool silent=false)
+        private void PopSaveCurrentAttempt(GameState state, float endPercent, bool silent = false)
         {
             if (!state.LoadedLevel.IsPractice && !_isCurrentAttemptSaved)
             {
@@ -120,7 +117,7 @@ namespace Whydoisuck.Model.Recording
                 CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime; //Updating duration for UI
                 if (!silent)
                 {
-                    OnAttemptsUpdated?.Invoke();
+                    //OnAttemptsUpdated?.Invoke();
                 }
             }
             CurrentAttempt = null;
@@ -131,7 +128,7 @@ namespace Whydoisuck.Model.Recording
         private void CreateSessionIfNotExists(GameState state)
         {
             if (CurrentSession != null) return;
-            CurrentSession = new Session(DateTime.Now);
+            CurrentSession = new PracticeSession(DateTime.Now);
 
             if (state == null || state.LevelMetadata == null || state.LoadedLevel == null) return;
             UpdateSession(state);
@@ -141,7 +138,9 @@ namespace Whydoisuck.Model.Recording
         private void CreateAttemptIfNotExists(GameState state)
         {
             if (CurrentAttempt != null) return;
-            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber);
+            var number = state.LoadedLevel.AttemptNumber;
+            var start = state.LoadedLevel.PracticeStartPosition;
+            CurrentAttempt = new PracticeAttempt(number, start);
             _isCurrentAttemptSaved = false;
 
             if (state.LoadedLevel == null) return;

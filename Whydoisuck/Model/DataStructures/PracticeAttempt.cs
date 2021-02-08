@@ -16,11 +16,16 @@ namespace Whydoisuck.Model.DataStructures
         /// <summary>
         /// The percent the player started at
         /// </summary>
-        [JsonProperty(PropertyName = "EndPercent")] public float StartPercent { get; set; }
+        [JsonProperty(PropertyName = "StartPercent")] public float StartPercent { get; set; }
         /// <summary>
         /// The percent the player died at
         /// </summary>
         [JsonProperty(PropertyName = "EndPercent")] public float EndPercent { get; set; }
 
+        public PracticeAttempt(int number, float startPercent)
+        {
+            Number = number;
+            StartPercent = startPercent;
+        }
     }
 }

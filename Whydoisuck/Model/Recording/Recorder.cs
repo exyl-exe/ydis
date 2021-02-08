@@ -32,18 +32,18 @@ namespace Whydoisuck.Model.Recording
 
         public Recorder()
         {
-            SetState(new NormalRecorderState());
             GameWatcher.OnGameClosed += () => PopSaveCurrentSession(null);
-            GameWatcher.OnLevelEntered += CreateNewSession;
+            GameWatcher.OnLevelEntered += LevelEntered;
             GameWatcher.OnLevelStarted += UpdateSessionOnLoad;
-            GameWatcher.OnLevelExited += PopSaveLosingAttempt;
             GameWatcher.OnLevelExited += PopSaveCurrentSession;
             GameWatcher.OnPlayerSpawns += CreateNewAttempt;
             GameWatcher.OnPlayerDies += PopSaveLosingAttempt;
             GameWatcher.OnPlayerRestarts += PopSaveLosingAttempt;
             GameWatcher.OnPlayerWins += PopSaveWinningAttempt;
-            GameWatcher.OnPracticeModeStarted += (g) => { Console.WriteLine("Practice started on " + g.LevelMetadata.Name); };
-            GameWatcher.OnPracticeModeExited += (g) => { Console.WriteLine("Practice exited on " + g.LevelMetadata.Name); };
+            GameWatcher.OnPracticeModeStarted += SetPracticeModeState;
+            GameWatcher.OnPracticeModeExited += QuitPracticeModeState;
+            GameWatcher.OnNormalModeStarted += SetNewNormalModeState;
+            GameWatcher.OnNormalModeExited += QuitNormalModeState;
         }
 
         /// <summary>
@@ -94,39 +94,99 @@ namespace Whydoisuck.Model.Recording
         // Called when entering a level, ensure a session is created before an attempt needs to be saved
         // However, while its metadata is fully loaded, the level is not
         // Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
-        private void CreateNewSession(GDLevelMetadata level)
+        private void LevelEntered(GDLevelMetadata level)
         {
+            SetState(new NormalRecorderState());
             _currentState?.CreateNewSession(level);
         }
 
         // Update values for the current session, is called when the level is fully loaded
         private void UpdateSessionOnLoad(GameState state)
         {
+            InitRecorderStateIfNeeded(state);
             _currentState?.UpdateSessionOnLoad(state);
         }
 
         //Saves current session and removes it from the recorder. Overload for event with parameters.
         private void PopSaveCurrentSession(GameState state)
         {
+            InitRecorderStateIfNeeded(state);
             _currentState?.PopSaveCurrentSession(state);
         }
 
         // Creates an attempt
         private void CreateNewAttempt(GameState state)
         {
+            InitRecorderStateIfNeeded(state);
             _currentState?.CreateNewAttempt(state);
         }
 
         // Saves a losing attempt in the current session, and remove current attempt from recorder
         private void PopSaveLosingAttempt(GameState state)
         {
+            InitRecorderStateIfNeeded(state);
             _currentState?.PopSaveLosingAttempt(state);
         }
 
         // Saves a winning attempt in the current session, and remove current attempt from recorder
         private void PopSaveWinningAttempt(GameState state)
         {
+            InitRecorderStateIfNeeded(state);
             _currentState?.PopSaveWinningAttempt(state);
+        }
+
+        // Makes the recorder record a normal mode session after a practice session
+        private void SetNewNormalModeState(GameState state)
+        {
+            SetState(new NormalRecorderState());
+            _currentState.CreateNewSession(state.LevelMetadata);
+            if (state.LoadedLevel.IsRunning)
+            {
+                _currentState.UpdateSessionOnLoad(state);
+            }
+        }
+
+        // Called when normal mode is exited (in order to save current session)
+        private void QuitNormalModeState(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            _currentState.PopSaveCurrentSession(state);
+            SetState(null);
+        }
+
+        // Makes the recorder record a practice mode session
+        private void SetPracticeModeState(GameState state)
+        {
+            SetState(new PracticeRecorderState());
+            _currentState.CreateNewSession(state.LevelMetadata);
+            if (state.LoadedLevel.IsRunning)
+            {
+                _currentState.UpdateSessionOnLoad(state);
+            }
+        }
+
+        private void QuitPracticeModeState(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            _currentState.PopSaveCurrentSession(state);
+            SetState(null);
+        }
+
+        // Used to init the current state if the recorder was started while playing a level
+        private void InitRecorderStateIfNeeded(GameState gameState)
+        {
+            if (gameState == null || gameState.LoadedLevel == null) return;
+            if (_currentState == null)
+            {
+                if (!gameState.LoadedLevel.IsPractice)
+                {
+                    SetState(new NormalRecorderState());
+                }
+                else
+                {
+                    SetState(new PracticeRecorderState());
+                }
+            }
         }
 
         // Handles the current state ending a session
