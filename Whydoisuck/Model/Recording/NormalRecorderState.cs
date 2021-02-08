@@ -111,7 +111,7 @@ namespace Whydoisuck.Model.Recording
         // Saves the current attempt with the specified end percent
         private void PopSaveCurrentAttempt(GameState state, float endPercent, bool silent=false)
         {
-            if (!state.LoadedLevel.IsPractice && !_isCurrentAttemptSaved)
+            if (!_isCurrentAttemptSaved)
             {
                 CreateSessionIfNotExists(state);
                 CreateAttemptIfNotExists(state);

@@ -36,7 +36,7 @@ namespace Whydoisuck.Model.Recording
         public void CreateNewAttempt(GameState state)
         {
             var number = state.LoadedLevel.AttemptNumber;
-            var start = state.LoadedLevel.PracticeStartPosition;
+            var start = 100 * state.LoadedLevel.PracticeStartPosition / state.LoadedLevel.PhysicalLength;
             CurrentAttempt = new PracticeAttempt(number, start);
             _isCurrentAttemptSaved = false;
         }
@@ -44,7 +44,6 @@ namespace Whydoisuck.Model.Recording
         public void CreateNewSession(GDLevelMetadata level)
         {
             CurrentSession = new PracticeSession(DateTime.Now);
-            CurrentAttempt = null;
             _isCurrentAttemptSaved = false;
         }
 
@@ -62,7 +61,7 @@ namespace Whydoisuck.Model.Recording
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
 
             Console.WriteLine("###########");
-            Console.WriteLine(CurrentSession.Level.Name);
+            Console.WriteLine("Practice on "+CurrentSession.Level.Name);
             foreach(var a in CurrentSession.Attempts)
             {
                 Console.WriteLine(string.Format("{0} {1:F2}->{2:F2}", a.Number, a.StartPercent, a.EndPercent));
@@ -95,6 +94,9 @@ namespace Whydoisuck.Model.Recording
         {
             CreateSessionIfNotExists(state);
             UpdateSession(state);
+            var number = state.LoadedLevel.AttemptNumber;
+            var firstStartPercent = state.LoadedLevel.StartPosition * 100 / state.LoadedLevel.PhysicalLength;
+            CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
         }
 
         //Updates values of the current session
@@ -108,7 +110,7 @@ namespace Whydoisuck.Model.Recording
         // Saves the current attempt with the specified end percent
         private void PopSaveCurrentAttempt(GameState state, float endPercent, bool silent = false)
         {
-            if (!state.LoadedLevel.IsPractice && !_isCurrentAttemptSaved)
+            if (!_isCurrentAttemptSaved)
             {
                 CreateSessionIfNotExists(state);
                 CreateAttemptIfNotExists(state);
@@ -139,7 +141,7 @@ namespace Whydoisuck.Model.Recording
         {
             if (CurrentAttempt != null) return;
             var number = state.LoadedLevel.AttemptNumber;
-            var start = state.LoadedLevel.PracticeStartPosition;
+            var start = 100 * state.LoadedLevel.PracticeStartPosition / state.LoadedLevel.PhysicalLength;
             CurrentAttempt = new PracticeAttempt(number, start);
             _isCurrentAttemptSaved = false;
 

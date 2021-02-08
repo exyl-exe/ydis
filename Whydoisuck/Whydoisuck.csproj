@@ -111,6 +111,7 @@
     <Compile Include="Model\MemoryReading\GameStateStructures\GDPlayer.cs" />
     <Compile Include="Model\Recording\IRecorderState.cs" />
     <Compile Include="Model\Recording\NormalRecorderState.cs" />
+    <Compile Include="Model\Recording\PracticeRecorderState.cs" />
     <Compile Include="Model\UserSettings\SerializedSettings.cs" />
     <Compile Include="Model\Utilities\AutoLaunchUtilities.cs" />
     <Compile Include="Model\Utilities\DirectoryUtilities.cs" />

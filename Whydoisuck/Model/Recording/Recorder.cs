@@ -180,11 +180,11 @@ namespace Whydoisuck.Model.Recording
             {
                 if (!gameState.LoadedLevel.IsPractice)
                 {
-                    SetState(new NormalRecorderState());
+                    SetNewNormalModeState(gameState);
                 }
                 else
                 {
-                    SetState(new PracticeRecorderState());
+                    SetPracticeModeState(gameState);
                 }
             }
         }
