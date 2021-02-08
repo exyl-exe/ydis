@@ -11,70 +11,29 @@ using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.MemoryReading;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.DataSaving
+namespace Whydoisuck.Model.Recording
 {
     /// <summary>
     /// Saves data on the disk based on what happens in the game
     /// </summary>
     public class Recorder
     {
-        /// <summary>
-        /// Current session on the currently played level.
-        /// </summary>
-        public Session CurrentSession { get; set; }
+        public event Action<ISession> OnStartSession;
+        public event Action<ISession> OnQuitSession;
+        public event Action OnSessionAttemptsUpdated;
 
         /// <summary>
         /// Guessed group for the current session.
         /// </summary>
-        public SessionGroup Autoguess
-        {
-            get
-            {
-                if (CurrentSession != null)
-                {
-                    return Manager.FindGroupOf(CurrentSession.Level);
-                }
-                return null;
-            }
-        }
+        public SessionGroup Autoguess => _currentState!=null?_currentState.Autoguess:null;
 
-        /// <summary>
-        /// Delegate for callbacks when the current session changes
-        /// </summary>
-        /// <param name="session">The current session</param>
-        public delegate void SessionCallback(Session session);
-        /// <summary>
-        /// Delegate for callbacks when a new attempt is created
-        /// </summary>
-        /// <param name="attempt">The created attempt</param>
-        public delegate void AttemptCallback(Attempt attempt);
-
-        /// <summary>
-        /// Event invoked when a new session is initialized
-        /// </summary>
-        public event SessionCallback OnNewCurrentSessionInitialized;
-        /// <summary>
-        /// Event invoked when the current session is saved
-        /// </summary>
-        public event SessionCallback OnQuitCurrentSession;
-        /// <summary>
-        /// Event invoked when a new attempt is created
-        /// </summary>
-        public event AttemptCallback OnAttemptAdded;
-        // Wether the current attempt has been saved or not
-        private bool _isCurrentAttemptSaved;
-        // Attempt whose data is currently being recorded
-        private Attempt CurrentAttempt { get; set; }
-
-
-        /// <summary>
-        /// Current session manager, used by the recorder
-        /// </summary>
-        private SessionManager Manager => SessionManager.Instance;
+        // Current state of the recorder
+        private IRecorderState _currentState;
 
         public Recorder()
         {
-            GameWatcher.OnGameClosed += PopSaveCurrentSession;
+            SetState(new NormalRecorderState());
+            GameWatcher.OnGameClosed += () => PopSaveCurrentSession(null);
             GameWatcher.OnLevelEntered += CreateNewSession;
             GameWatcher.OnLevelStarted += UpdateSessionOnLoad;
             GameWatcher.OnLevelExited += PopSaveLosingAttempt;
@@ -101,8 +60,8 @@ namespace Whydoisuck.DataSaving
         public void StopRecording()
         {
             GameWatcher.StopWatching();
-            PopSaveCurrentSession();
-            Manager.Save();
+            PopSaveCurrentSession(null);
+            SessionManager.Instance.Save();
         }
 
         /// <summary>
@@ -114,111 +73,78 @@ namespace Whydoisuck.DataSaving
             GameWatcher.CancelWatchingAsync();
         }
 
+        // Sets the recorder state
+        private void SetState(IRecorderState s)
+        {
+            if (_currentState != null)
+            {
+                _currentState.OnAttemptsUpdated -= OnStateAttemptsUpdated;
+                _currentState.OnSessionInitialized -= OnStateNewSession;
+                _currentState.OnQuitSession -= OnStateQuitSession;
+            }
+            if (s != null)
+            {
+                s.OnAttemptsUpdated += OnStateAttemptsUpdated;
+                s.OnSessionInitialized += OnStateNewSession;
+                s.OnQuitSession += OnStateQuitSession;
+            }
+            _currentState = s;
+        }
+
         // Called when entering a level, ensure a session is created before an attempt needs to be saved
         // However, while its metadata is fully loaded, the level is not
         // Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
         private void CreateNewSession(GDLevelMetadata level)
         {
-            CurrentSession = new Session(DateTime.Now);
-            CurrentAttempt = null;
-            _isCurrentAttemptSaved = false;
+            _currentState?.CreateNewSession(level);
         }
 
         // Update values for the current session, is called when the level is fully loaded
         private void UpdateSessionOnLoad(GameState state)
         {
-            CreateSessionIfNotExists(state);
-            UpdateSession(state);
-            OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
-        }
-
-        //Saves current session and removes it from the recorder.
-        private void PopSaveCurrentSession()
-        {
-            //Don't save if :
-            //  -no session were created (= software launched while playing a level, and no attempts have been played before exiting)
-            //  -The current level is unknown (= The level was left before it finished loading)
-            //  -There are not attempts in the session (= useless data)
-            OnQuitCurrentSession?.Invoke(CurrentSession);
-            if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
-            CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
-            Manager.SaveSession(CurrentSession);
-            CurrentSession = null;
-            CurrentAttempt = null;
-            _isCurrentAttemptSaved = true;
+            _currentState?.UpdateSessionOnLoad(state);
         }
 
         //Saves current session and removes it from the recorder. Overload for event with parameters.
         private void PopSaveCurrentSession(GameState state)
         {
-            PopSaveCurrentSession();
+            _currentState?.PopSaveCurrentSession(state);
         }
 
         // Creates an attempt
         private void CreateNewAttempt(GameState state)
         {
-            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber);
-            _isCurrentAttemptSaved = false;
+            _currentState?.CreateNewAttempt(state);
         }
 
         // Saves a losing attempt in the current session, and remove current attempt from recorder
         private void PopSaveLosingAttempt(GameState state)
         {
-            var endPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
-            PopSaveCurrentAttempt(state, endPercent);
+            _currentState?.PopSaveLosingAttempt(state);
         }
 
         // Saves a winning attempt in the current session, and remove current attempt from recorder
         private void PopSaveWinningAttempt(GameState state)
         {
-            var endPercent = 100;
-            PopSaveCurrentAttempt(state, endPercent);
+            _currentState?.PopSaveWinningAttempt(state);
         }
 
-        // Saves the current attempt with the specified end percent
-        private void PopSaveCurrentAttempt(GameState state, float endPercent)
+        // Handles the current state ending a session
+        private void OnStateQuitSession(ISession obj)
         {
-            if (!state.LoadedLevel.IsPractice && !_isCurrentAttemptSaved)
-            {
-                CreateSessionIfNotExists(state);
-                CreateAttemptIfNotExists(state);
-                CurrentAttempt.EndPercent = endPercent;
-                CurrentSession.AddAttempt(CurrentAttempt);
-                CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime; //Updating duration for UI
-                OnAttemptAdded?.Invoke(CurrentAttempt);
-            }
-            CurrentAttempt = null;
-            _isCurrentAttemptSaved = true;
+            OnQuitSession?.Invoke(obj);
         }
 
-        //Updates values of the current session
-        private void UpdateSession(GameState state)
+        // Handles the current state creating a session
+        private void OnStateNewSession(ISession obj)
         {
-            CurrentSession.Level = new Level(state);
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            OnStartSession?.Invoke(obj);
         }
 
-        //Creates a session if there is no current session and initialize known values
-        private void CreateSessionIfNotExists(GameState state)
+        // Handles the current state updating it's current session attempts
+        private void OnStateAttemptsUpdated()
         {
-            if (CurrentSession != null) return;
-            CurrentSession = new Session(DateTime.Now);
-
-            if (state == null || state.LevelMetadata == null || state.LoadedLevel == null) return;
-            UpdateSession(state);
-            OnNewCurrentSessionInitialized?.Invoke(CurrentSession);
-        }
-
-        //Creates an attempt if there is no current attempt and initialize known values
-        private void CreateAttemptIfNotExists(GameState state)
-        {
-            if (CurrentAttempt != null) return;
-            CurrentAttempt = new Attempt(state.LoadedLevel.AttemptNumber);
-            _isCurrentAttemptSaved = false;
-
-            if (state.LoadedLevel == null) return;
-            CurrentAttempt.Number = state.LoadedLevel.AttemptNumber;
+            OnSessionAttemptsUpdated?.Invoke();
         }
     }
 }

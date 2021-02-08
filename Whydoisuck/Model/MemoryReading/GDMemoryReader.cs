@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whydoisuck.DataSaving;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
 namespace Whydoisuck.Model.MemoryReading

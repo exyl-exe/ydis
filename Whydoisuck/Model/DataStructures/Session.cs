@@ -46,6 +46,7 @@ namespace Whydoisuck.Model.DataStructures
         public Session(DateTime startTime)
         {
             Attempts = new List<Attempt>();
+            StartTime = startTime;
         }
 
         /// <summary>

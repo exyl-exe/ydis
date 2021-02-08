@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.UserSettings;

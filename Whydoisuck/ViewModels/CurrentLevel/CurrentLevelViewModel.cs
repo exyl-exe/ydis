@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.DataSaving;
 using Whydoisuck.Model.DataStructures;
+using Whydoisuck.Model.Recording;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.CommonControlsViewModels;
 using Whydoisuck.ViewModels.DataStructures;
@@ -38,19 +38,18 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             Placeholder = new CurrentLevelPlaceholderViewModel();
             Statistics = new CurrentLevelStatisticsViewModel();
             SetDefaulProperties();
-            Recorder.OnAttemptAdded += OnAttemptAddedToCurrent;
-            Recorder.OnNewCurrentSessionInitialized += OnNewCurrentSession;
-            Recorder.OnQuitCurrentSession += OnQuitCurrentSession;
+            Recorder.OnSessionAttemptsUpdated += OnAttemptAddedToCurrent;
+            Recorder.OnStartSession += OnNewCurrentSession;
+            Recorder.OnQuitSession += OnQuitCurrentSession;
         }
 
         /// <summary>
         /// Callback to update the view if the recorder creates a new current session
         /// </summary>
-        /// <param name="s">The session created by the recorder</param>
-        public void OnNewCurrentSession(Session s)
+        public void OnNewCurrentSession(ISession s)
         {
             CurrentView = Statistics;
-            Statistics.SetSession(s);
+            Statistics.SetSession(s as Session);
             var autoguess = Recorder.Autoguess == null ?
                             Resources.CurrentLevelGroupNew
                             : Recorder.Autoguess.DisplayedName;
@@ -63,7 +62,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         /// Callback to update the view if the current session has ended
         /// </summary>
         /// <param name="s">The session that just ended.</param>
-        public void OnQuitCurrentSession(Session s)
+        public void OnQuitCurrentSession(ISession s)
         {
             SetDefaulProperties();
             Update();
@@ -72,8 +71,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         /// <summary>
         /// Callback to update the view when a new attempt is added to the current session
         /// </summary>
-        /// <param name="a"></param>
-        public void OnAttemptAddedToCurrent(Attempt a)
+        public void OnAttemptAddedToCurrent()
         {
             Statistics.RefreshStats();
             Update();

@@ -8,7 +8,6 @@ using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Whydoisuck.Properties;
 using Whydoisuck.ViewModels.AppSettings;
-using Whydoisuck.DataSaving;
 using Whydoisuck.Model.UserSettings;
 using System.IO;
 using System.Runtime.CompilerServices;
