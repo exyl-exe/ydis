@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Model.DataSaving;
 using Whydoisuck.Model.DataStructures;
 using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
@@ -60,12 +61,7 @@ namespace Whydoisuck.Model.Recording
             if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
 
-            Console.WriteLine("###########");
-            Console.WriteLine("Practice on "+CurrentSession.Level.Name);
-            foreach(var a in CurrentSession.Attempts)
-            {
-                Console.WriteLine(string.Format("{0} {1:F2}->{2:F2}", a.Number, a.StartPercent, a.EndPercent));
-            }
+            SessionManager.Instance.SavePracticeSession(CurrentSession);
 
             CurrentSession = null;
             CurrentAttempt = null;

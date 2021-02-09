@@ -115,6 +115,16 @@ namespace Whydoisuck.Model.DataSaving
         }
 
         /// <summary>
+        /// Saves a practice session on the disk
+        /// </summary>
+        /// <param name="group">The group the session belongs to</param>
+        /// <param name="session">The session to save</param>
+        public void SerializePracticeSession(SessionGroup group, PracticeSession session)
+        {
+            SerializeGroup(group);
+        }
+
+        /// <summary>
         /// Serializes a group
         /// </summary>
         public bool SerializeGroup(SessionGroup group)

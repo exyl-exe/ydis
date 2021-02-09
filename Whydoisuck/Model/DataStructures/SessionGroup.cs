@@ -133,6 +133,16 @@ namespace Whydoisuck.Model.DataStructures
         }
 
         /// <summary>
+        /// Adds a practice session to the group
+        /// </summary>
+        public void AddPracticeSession(PracticeSession practiceSession)
+        {
+            if (LastPlayedTime < practiceSession.StartTime) LastPlayedTime = practiceSession.StartTime;
+            GroupData.AddPracticeSession(practiceSession);
+            OnSessionsChange?.Invoke();
+        }
+
+        /// <summary>
         /// Checks if an individual level is already in the group.
         /// It means some sessions in the group were played on the level.
         /// </summary>

@@ -244,12 +244,28 @@ namespace Whydoisuck.Model.DataSaving
             Save();
         }
 
+        public void SavePracticeSession(PracticeSession currentSession)
+        {
+            // Updating session manager instance
+            var group = GetOrCreateGroup(currentSession);
+            var mostSimilar = group.GetMostSimilarLevelInGroup(currentSession.Level);
+            if (mostSimilar != null && !mostSimilar.IsSameLevel(currentSession.Level))
+            {
+                group.Levels.Add(currentSession.Level);
+            }
+            group.AddPracticeSession(currentSession);
+            // Saving session on the disk
+            Serializer.SerializePracticeSession(group, currentSession);
+            Save();
+            OnGroupUpdated?.Invoke(group);
+        }
+
         /// <summary>
         /// Gets the most appropriate group for a session. If no existing group is appropriate, a new group is created.
         /// </summary>
         /// <param name="session">The session to get a group for</param>
         /// <returns>The most appropriate group for this session</returns>
-        public SessionGroup GetOrCreateGroup(Session session)
+        public SessionGroup GetOrCreateGroup(ISession session)
         {
             var group = FindGroupOf(session.Level);
             if(group != null)

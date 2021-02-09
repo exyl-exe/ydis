@@ -16,19 +16,20 @@ namespace Whydoisuck.Model.DataStructures
         /// Sessions of the group
         /// </summary>
         [JsonProperty(PropertyName = "Sessions")] public List<Session> Sessions { get; set; }
+        [JsonProperty(PropertyName = "PracticeSessions")] public List<PracticeSession> PracticeSessions { get; set; }
 
-        public SessionGroupData():this(new List<Session>())
-        {}
+
+        public SessionGroupData():this(new List<Session>(), new List<PracticeSession>())
+        { }
 
         // Creates the data for a group containing a single session
-        public SessionGroupData(Session s)
-        {
-            Sessions = new List<Session>() { s };
-        }
+        public SessionGroupData(Session s) : this(new List<Session>() { s }, new List<PracticeSession>())
+        { }
 
-        public SessionGroupData(List<Session> s)
+        public SessionGroupData(List<Session> s, List<PracticeSession> ps)
         {
             Sessions = s;
+            PracticeSessions = ps;
         }
 
         /// <summary>
@@ -37,11 +38,19 @@ namespace Whydoisuck.Model.DataStructures
         public void Merge(SessionGroupData groupData)
         {
             Sessions.AddRange(groupData.Sessions);
+            PracticeSessions.AddRange(groupData.PracticeSessions);
         }
 
+        //Adds a normal session to the group
         public void AddSession(Session session)
         {
             Sessions.Add(session);
+        }
+
+        //Adds a practice session to the group
+        public void AddPracticeSession(PracticeSession practiceSession)
+        {
+            PracticeSessions.Add(practiceSession);
         }
     }
 }
