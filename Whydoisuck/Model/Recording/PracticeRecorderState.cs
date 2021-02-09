@@ -90,9 +90,12 @@ namespace Whydoisuck.Model.Recording
         {
             CreateSessionIfNotExists(state);
             UpdateSession(state);
-            var number = state.LoadedLevel.AttemptNumber;
-            var firstStartPercent = state.LoadedLevel.StartPosition * 100 / state.LoadedLevel.PhysicalLength;
-            CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
+            if (!state.PlayerObject.IsDead)
+            {
+                var number = state.LoadedLevel.AttemptNumber;
+                var firstStartPercent = state.LoadedLevel.StartPosition * 100 / state.LoadedLevel.PhysicalLength;
+                CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
+            }
         }
 
         //Updates values of the current session
