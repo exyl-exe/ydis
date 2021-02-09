@@ -47,8 +47,8 @@ namespace Whydoisuck.ViewModels.DataStructures
             Filter = filter;
             Dividing = GetParts(defaultPartWidth);
             Statistics = GetStatistics();
-            PlayTime = new TimeSpan(Data.Sessions.Sum(s => s.Duration.Ticks));
-            TotalAttempts = Data.Sessions.Sum(s => s.Attempts.Count());
+            PlayTime = new TimeSpan(Data.Sessions.Sum(s => s.Duration.Ticks) + Data.PracticeSessions.Sum(s => s.Duration.Ticks));
+            TotalAttempts = Data.Sessions.Sum(s => s.Attempts.Count()) + Data.PracticeSessions.Sum(s =>s.Attempts.Count());
             if(Filter != null) {
                 Filter.OnFilterChanges += UpdateStatistics;
             }
