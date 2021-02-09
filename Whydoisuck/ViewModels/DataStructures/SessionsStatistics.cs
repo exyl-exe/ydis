@@ -79,22 +79,16 @@ namespace Whydoisuck.ViewModels.DataStructures
         /// Gets statistics about the level, taking into account filtering criteria.
         /// </summary>
         /// <returns>Statistics about each part of the level</returns>
-        public List<LevelPartStatistics> GetStatistics() // TODO sessions as parameters
+        public List<LevelPartStatistics> GetStatistics() 
         {
-            var res = new List<LevelPartStatistics>();
-            // Sessions matching the filter
-            var sessions = Filter == null ? Data.Sessions : Data.Sessions.Where(s => Filter.Matches(s)).ToList();
-            // All attempts of valid sessions
-            var attempts = sessions.SelectMany(s => s.Attempts).ToList();
             var counting = new SortedList<Range, LevelPartStatistics>();
-
-            foreach(var range in Dividing)
+            foreach (var range in Dividing)
             {
                 counting.Add(range, new LevelPartStatistics(range));
             }
 
-            SetDeathCount(attempts, counting);
-            SetStartCount(sessions, counting);
+            GetNormalModeLocalStatistics(ref counting, Data.Sessions);
+            GetPracticeModeLocalStatistics(ref counting, Data.PracticeSessions);
 
             int totalReach = 0;
             // This computes actual reach count, by adding start count and
@@ -105,11 +99,24 @@ namespace Whydoisuck.ViewModels.DataStructures
                 part.ReachCount = totalReach;
                 totalReach -= part.DeathCount;
             }
+
             return counting.Select(element => element.Value).ToList();
         }
 
+        // Returns the normal mode statistics
+        private void GetNormalModeLocalStatistics(ref SortedList<Range, LevelPartStatistics> counting, List<Session> allSessions)
+        {
+            // Sessions matching the filter
+            var sessions = Filter == null ? allSessions : allSessions.Where(s => Filter.Matches(s)).ToList();
+            // All attempts of valid sessions
+            var attempts = sessions.SelectMany(s => s.Attempts).ToList();
+
+            SetDeathCount(attempts, ref counting);
+            SetStartCount(sessions, ref counting);
+        }
+
         // Set the number of death for each part in the SortedList
-        public void SetDeathCount(List<Attempt> attempts, SortedList<Range, LevelPartStatistics> counting)
+        private void SetDeathCount(List<Attempt> attempts, ref SortedList<Range, LevelPartStatistics> counting)
         {
             foreach (var attempt in attempts)
             {
@@ -122,7 +129,7 @@ namespace Whydoisuck.ViewModels.DataStructures
         }
 
         // Set the reach count for each part in the SortedList to the number of attempts that started in this range
-        public void SetStartCount(List<Session> sessions, SortedList<Range, LevelPartStatistics> counting)
+        private void SetStartCount(List<Session> sessions, ref SortedList<Range, LevelPartStatistics> counting)
         {
             foreach (var session in sessions)
             {
@@ -130,6 +137,34 @@ namespace Whydoisuck.ViewModels.DataStructures
                 if (counting.TryGetValue(spawnRange, out var attemptStartPartStats))
                 {
                     attemptStartPartStats.ReachCount += session.Attempts.Count;
+                }
+            }
+        }
+
+        // Returns the practice mode statistics
+        private List<LevelPartStatistics> GetPracticeModeLocalStatistics(ref SortedList<Range, LevelPartStatistics> counting, List<PracticeSession> practiceSessions)
+        {
+            var attempts = practiceSessions.SelectMany(s => s.Attempts).ToList();
+            SetPracticeStatsCounts(ref counting, attempts);
+            return counting.Select(element => element.Value).ToList();
+        }
+
+        // Sets the practice local reach count and death count
+        private void SetPracticeStatsCounts(ref SortedList<Range, LevelPartStatistics> counting, List<PracticeAttempt> attempts)
+        {
+            foreach (var a in attempts)
+            {
+                var spawnRange = Dividing.Find(r => r.Contains(a.StartPercent));
+                var deathRange = Dividing.Find(r => r.Contains(a.EndPercent));
+
+                if (counting.TryGetValue(spawnRange, out var attemptStartPartStats))
+                {
+                    attemptStartPartStats.ReachCount++;
+                }
+
+                if (counting.TryGetValue(deathRange, out var attemptDeathPartStats))
+                {
+                    attemptDeathPartStats.DeathCount++;
                 }
             }
         }
