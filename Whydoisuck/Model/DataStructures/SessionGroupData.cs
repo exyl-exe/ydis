@@ -18,13 +18,25 @@ namespace Whydoisuck.Model.DataStructures
         [JsonProperty(PropertyName = "Sessions")] public List<Session> Sessions { get; set; }
         [JsonProperty(PropertyName = "PracticeSessions")] public List<PracticeSession> PracticeSessions { get; set; }
 
+        [JsonIgnore] public List<ISession> AllSessions => Sessions.Cast<ISession>().Concat(PracticeSessions).ToList();
+
 
         public SessionGroupData():this(new List<Session>(), new List<PracticeSession>())
         { }
 
         // Creates the data for a group containing a single session
-        public SessionGroupData(Session s) : this(new List<Session>() { s }, new List<PracticeSession>())
-        { }
+        public SessionGroupData(ISession s)
+        {
+            Sessions = new List<Session>();
+            PracticeSessions = new List<PracticeSession>();
+            if(s is Session ns)
+            {
+                Sessions.Add(ns);
+            } else if (s is PracticeSession ps)
+            {
+                PracticeSessions.Add(ps);
+            }
+        }
 
         public SessionGroupData(List<Session> s, List<PracticeSession> ps)
         {

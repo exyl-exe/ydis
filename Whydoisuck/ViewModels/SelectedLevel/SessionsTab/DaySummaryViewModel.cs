@@ -16,14 +16,6 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
     /// </summary>
     public class DaySummaryViewModel : BaseViewModel
     {
-        /// <summary>
-        /// Wether this summary should be displayed or not. It is not displayed
-        /// if none of the sessions of that day is visible.
-        /// </summary>
-        public Visibility SummaryVisibility => Sessions.Where(svm => svm.Visible).Count() > 0 ?
-                                        Visibility.Visible
-                                        : Visibility.Collapsed;
-
         public string HeaderText => String.Format(Properties.Resources.DaySummaryHeaderFormat, Day);
 
         /// Day that is summarized.s
@@ -32,16 +24,16 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         /// <summary>
         /// Sessions that took place that day, ordered by descending date.
         /// </summary>
-        public List<SessionButtonViewModel> SortedSessions => Sessions.OrderByDescending(s => s.Session.StartTime).ToList();
+        public List<ISessionButtonViewModel> SortedSessions => Sessions.OrderByDescending(s => s.Session.StartTime).ToList();
 
-        private List<SessionButtonViewModel> Sessions { get; }
+        private List<ISessionButtonViewModel> Sessions { get; }
 
         //Parent view, used to be able to switch a part of the view
         private SessionsTabMainViewModel Parent { get; set; }
 
         public DaySummaryViewModel(SessionsTabMainViewModel parent, DateTime day)
         {
-            Sessions = new List<SessionButtonViewModel>();
+            Sessions = new List<ISessionButtonViewModel>();
             Day = day;
             Parent = parent;
         }
@@ -50,17 +42,14 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         /// Adds a session to that day.
         /// </summary>
         /// <param name="session"></param>
-        public void AddSession(Session session)
+        public void AddSession(ISession session)
         {
-            Sessions.Add(new SessionButtonViewModel(Parent, session));
-        }
-
-        /// <summary>
-        /// Notifies a change about the visibility of the summary
-        /// </summary>
-        public void UpdateVisibility()
-        {
-            OnPropertyChanged(nameof(SummaryVisibility));
+            if(session is Session ns) { 
+                Sessions.Add(new SessionButtonViewModel(Parent, ns));
+            } else if (session is PracticeSession ps)
+            {
+                Sessions.Add(new PracticeSessionButtonViewModel(Parent, ps));
+            }
         }
     }
 }

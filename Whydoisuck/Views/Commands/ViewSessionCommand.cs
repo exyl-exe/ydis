@@ -21,11 +21,11 @@ namespace Whydoisuck.Views.Commands
         /// </summary>
         public event EventHandler CanExecuteChanged;
         // The session that will be opened
-        private Session Session { get; set; }
+        private ISession Session { get; set; }
         // The parent view, where the session details will be displayed
         private SessionsTabMainViewModel SessionsTab { get; set; }
 
-        public ViewSessionCommand(SessionsTabMainViewModel parent, Session s)
+        public ViewSessionCommand(SessionsTabMainViewModel parent, ISession s)
         {
             SessionsTab = parent;
             Session = s;

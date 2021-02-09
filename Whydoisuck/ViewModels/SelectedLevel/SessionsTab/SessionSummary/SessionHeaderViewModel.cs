@@ -22,9 +22,9 @@ namespace Whydoisuck.ViewModels.SessionSummary
         public string StartingTime => string.Format(Properties.Resources.SessionHeaderStartTimeFormat, Session.StartTime);
 
         // Session summarized.
-        private Session Session { get; set; }
+        private ISession Session { get; set; }
 
-        public SessionHeaderViewModel(Session s)
+        public SessionHeaderViewModel(ISession s)
         {
             Session = s;
         }

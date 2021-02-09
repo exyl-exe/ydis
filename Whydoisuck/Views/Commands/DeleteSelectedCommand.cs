@@ -18,8 +18,6 @@ namespace Whydoisuck.Views.Commands
     {
         public DeleteSelectedCommand(Func<List<SessionGroup>> getter) : base(getter){ }
 
-        public event EventHandler CanExecuteChanged;
-
         public override void Execute(object parameter)
         {
             var folders = FoldersGetter();

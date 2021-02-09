@@ -42,7 +42,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
         /// </summary>
         public GoBackCommand GoBack { get; }
         // Session summarized
-        private Session Session { get; }
+        private ISession Session { get; }
         // Model for displaying the attempts grouped by %
         private LevelDataGridViewModel Datagrid { get; }
         // Model for displaying the attempts in a simple list
@@ -54,7 +54,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
         // Wether attempts are displayed are a list or not.
         private bool ShowingDetails { get; set; }
 
-        public SessionViewModel(SessionsTabMainViewModel parent, Session s)
+        public SessionViewModel(SessionsTabMainViewModel parent, ISession s)
         {
             Session = s;
             GoBack = new GoBackCommand(parent);
@@ -63,7 +63,10 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             var stats = new SessionsStatistics(data, 1f);
             Graph = new LevelGraphViewModel(stats, Resources.GraphTitleIndividualSession);
             Datagrid = new LevelDataGridViewModel(stats);
-            AttemptList = new AttemptListViewModel(s.Attempts);
+            if(s is Session ns)
+            {
+                AttemptList = new AttemptListViewModel(ns.Attempts);
+            }
             AttemptsSummaryCommand = new NavigatorCommand(this, Datagrid);
             AttemptsDetailsCommand = new NavigatorCommand(this, AttemptList);
 

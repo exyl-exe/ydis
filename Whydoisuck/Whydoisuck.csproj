@@ -153,6 +153,8 @@
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\DaySummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\GraphTab\GraphTabMainViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SelectedLevelViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\ISessionButtonViewModel.cs" />
+    <Compile Include="ViewModels\SelectedLevel\SessionsTab\PracticeSessionButtonViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionButtonViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsSummariesViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsTabMainViewModel.cs" />
