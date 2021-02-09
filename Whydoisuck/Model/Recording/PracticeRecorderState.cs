@@ -93,7 +93,7 @@ namespace Whydoisuck.Model.Recording
             if (!state.PlayerObject.IsDead)
             {
                 var number = state.LoadedLevel.AttemptNumber;
-                var firstStartPercent = state.LoadedLevel.StartPosition * 100 / state.LoadedLevel.PhysicalLength;
+                var firstStartPercent = state.PlayerObject.XPosition * 100 / state.LoadedLevel.PhysicalLength;
                 CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
             }
         }
