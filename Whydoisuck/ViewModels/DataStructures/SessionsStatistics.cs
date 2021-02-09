@@ -145,12 +145,12 @@ namespace Whydoisuck.ViewModels.DataStructures
         private List<LevelPartStatistics> GetPracticeModeLocalStatistics(ref SortedList<Range, LevelPartStatistics> counting, List<PracticeSession> practiceSessions)
         {
             var attempts = practiceSessions.SelectMany(s => s.Attempts).ToList();
-            SetPracticeStatsCounts(ref counting, attempts);
+            SetPracticeLocalCounts(ref counting, attempts);
             return counting.Select(element => element.Value).ToList();
         }
 
         // Sets the practice local reach count and death count
-        private void SetPracticeStatsCounts(ref SortedList<Range, LevelPartStatistics> counting, List<PracticeAttempt> attempts)
+        private void SetPracticeLocalCounts(ref SortedList<Range, LevelPartStatistics> counting, List<PracticeAttempt> attempts)
         {
             foreach (var a in attempts)
             {
