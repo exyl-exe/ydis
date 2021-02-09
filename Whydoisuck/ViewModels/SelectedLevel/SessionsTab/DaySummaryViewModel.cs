@@ -16,7 +16,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
     /// </summary>
     public class DaySummaryViewModel : BaseViewModel
     {
-        public string HeaderText => String.Format(Properties.Resources.DaySummaryHeaderFormat, Day);
+        public string HeaderText => string.Format(Properties.Resources.DaySummaryHeaderFormat, Day);
 
         /// Day that is summarized.s
         private DateTime Day { get; set; }

@@ -18,4 +18,10 @@
     <DataTemplate DataType="{x:Type commonVM:LevelDataGridViewModel}">
         <commoncontrols:LevelDatagrid/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type sessionTabVM:SessionButtonViewModel}">
+        <selectedViewSessionsTab:SessionButton/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type sessionTabVM:PracticeSessionButtonViewModel}">
+        <selectedViewSessionsTab:PracticeSessionButton/>
+    </DataTemplate>
 </ResourceDictionary>

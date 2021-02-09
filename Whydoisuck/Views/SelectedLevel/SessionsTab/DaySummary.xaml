@@ -9,8 +9,7 @@
 
     <Border Padding="1,2,1,4"
             Background="{StaticResource PanelBackgroundColor}">
-        <StackPanel x:Name="DaySessionsStackPanel"
-                    Visibility="{Binding SummaryVisibility}">
+        <StackPanel x:Name="DaySessionsStackPanel">
             <Border Background="{StaticResource HeaderBackgroundColor}"
                     Margin="5,5,5,2"
                     Padding="10,4,0,5">
@@ -26,7 +25,7 @@
                           Margin="2,0,2,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:SessionButton DataContext="{Binding}"/>
+                        <ContentControl Content="{Binding}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

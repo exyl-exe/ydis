@@ -8,8 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Button Style="{StaticResource SessionButtonStyle}"
             Command="{Binding ViewSessionCommand}"
-            HorizontalContentAlignment="Stretch"
-            Visibility="{Binding Visibility}">
+            HorizontalContentAlignment="Stretch">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -26,11 +25,11 @@
                        HorizontalAlignment="Center"/>
             </Viewbox>
             <Viewbox Grid.Column="2">
-                <TextBlock Text="{Binding Start}"
+                <TextBlock Text="{Binding AttemptCount}"
                        HorizontalAlignment="Center"/>
             </Viewbox>
             <Viewbox Grid.Column="3">
-                <TextBlock Text="{Binding AttemptCount}"
+                <TextBlock Text="{Binding Start}"
                        HorizontalAlignment="Center"/>
             </Viewbox>
         </Grid>

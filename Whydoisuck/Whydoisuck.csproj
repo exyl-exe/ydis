@@ -234,6 +234,9 @@
     <Compile Include="Views\SelectedLevel\SelectedLevelView.xaml.cs">
       <DependentUpon>SelectedLevelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SelectedLevel\SessionsTab\PracticeSessionButton.xaml.cs">
+      <DependentUpon>PracticeSessionButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SelectedLevel\SessionsTab\SessionButton.xaml.cs">
       <DependentUpon>SessionButton.xaml</DependentUpon>
     </Compile>
@@ -291,6 +294,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ResourceDicts\CurrentLevelDataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectedLevel\SessionsTab\PracticeSessionButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -511,7 +518,9 @@
   <ItemGroup>
     <Resource Include="Views\Images\openFolder.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Views\Images\practiceIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

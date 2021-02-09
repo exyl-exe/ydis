@@ -30,4 +30,7 @@
 
     <BitmapImage x:Key="openFolderIcon"
                  UriSource="/Views/Images/openFolder.png"/>
+
+    <BitmapImage x:Key="practiceIcon"
+                 UriSource="/Views/Images/practiceIcon.png"/>
 </ResourceDictionary>
