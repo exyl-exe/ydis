@@ -134,6 +134,12 @@
     <value>{0:F0}%</value>
     <comment>Format</comment>
   </data>
+  <data name="AttemptListRunLengthHeader" xml:space="preserve">
+    <value>Run length</value>
+  </data>
+  <data name="AttemptListStartPercentHeader" xml:space="preserve">
+    <value>Start percent</value>
+  </data>
   <data name="AuthorFormat" xml:space="preserve">
     <value>Whydoisuck {0} by exyl</value>
     <comment>Format</comment>

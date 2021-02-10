@@ -15,19 +15,19 @@
               CanUserDeleteRows="False"
               AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="#Number"
+            <DataGridTextColumn Header="{x:Static props:Resources.AttemptListNumberHeader}"
                                 Binding="{Binding Number, StringFormat={x:Static props:Resources.AttemptListNumberFormat}}"
                                 Width="*"
                                 IsReadOnly="True"/>
-            <DataGridTextColumn Header="#Start"
+            <DataGridTextColumn Header="{x:Static props:Resources.AttemptListStartPercentHeader}"
                                 Binding="{Binding StartPercent, StringFormat={x:Static props:Resources.AttemptListPercentFormat}}"
                                 Width="*"
                                 IsReadOnly="True"/>
-            <DataGridTextColumn Header="#End"
+            <DataGridTextColumn Header="{x:Static props:Resources.AttemptListEndPercentHeader}"
                                 Binding="{Binding EndPercent, StringFormat={x:Static props:Resources.AttemptListPercentFormat}}"
                                 Width="*"
                                 IsReadOnly="True"/>
-            <DataGridTextColumn Header="#Run length"
+            <DataGridTextColumn Header="{x:Static props:Resources.AttemptListRunLengthHeader}"
                                 Binding="{Binding RunLength, StringFormat={x:Static props:Resources.AttemptListPercentFormat}}"
                                 Width="*"
                                 IsReadOnly="True"/>

@@ -106,6 +106,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Run length.
+        /// </summary>
+        public static string AttemptListRunLengthHeader {
+            get {
+                return ResourceManager.GetString("AttemptListRunLengthHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Start percent.
+        /// </summary>
+        public static string AttemptListStartPercentHeader {
+            get {
+                return ResourceManager.GetString("AttemptListStartPercentHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Whydoisuck {0} by exyl.
         /// </summary>
         public static string AuthorFormat {
