@@ -46,7 +46,7 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
         // Model for displaying the attempts grouped by %
         private LevelDataGridViewModel Datagrid { get; }
         // Model for displaying the attempts in a simple list
-        private AttemptListViewModel AttemptList { get; }
+        private BaseViewModel AttemptList { get; }
         // Command to switch the way attempts are displayed to a summary.
         private NavigatorCommand AttemptsSummaryCommand { get; }
         // Command to switch the way attempts are displayed to a list.
@@ -66,6 +66,9 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
             if(s is Session ns)
             {
                 AttemptList = new AttemptListViewModel(ns.Attempts);
+            } else if(s is PracticeSession ps)
+            {
+                AttemptList = new PracticeAttemptListViewModel(ps.Attempts);
             }
             AttemptsSummaryCommand = new NavigatorCommand(this, Datagrid);
             AttemptsDetailsCommand = new NavigatorCommand(this, AttemptList);

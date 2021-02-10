@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Whydoisuck.Views.CommonControls.AttemptList"
+﻿<UserControl x:Class="Whydoisuck.Views.CommonControls.PracticeAttemptList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,12 +15,20 @@
               CanUserDeleteRows="False"
               AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="{x:Static props:Resources.AttemptListNumberHeader}"
+            <DataGridTextColumn Header="#Number"
                                 Binding="{Binding Number, StringFormat={x:Static props:Resources.AttemptListNumberFormat}}"
                                 Width="*"
                                 IsReadOnly="True"/>
-            <DataGridTextColumn Header="{x:Static props:Resources.AttemptListEndPercentHeader}"
-                                Binding="{Binding Percent, StringFormat={x:Static props:Resources.AttemptListPercentFormat}}"
+            <DataGridTextColumn Header="#Start"
+                                Binding="{Binding StartPercent, StringFormat={x:Static props:Resources.AttemptListPercentFormat}}"
+                                Width="*"
+                                IsReadOnly="True"/>
+            <DataGridTextColumn Header="#End"
+                                Binding="{Binding EndPercent, StringFormat={x:Static props:Resources.AttemptListPercentFormat}}"
+                                Width="*"
+                                IsReadOnly="True"/>
+            <DataGridTextColumn Header="#Run length"
+                                Binding="{Binding RunLength, StringFormat={x:Static props:Resources.AttemptListPercentFormat}}"
                                 Width="*"
                                 IsReadOnly="True"/>
         </DataGrid.Columns>

@@ -15,6 +15,9 @@
     <DataTemplate DataType="{x:Type commonVM:AttemptListViewModel}">
         <commoncontrols:AttemptList/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type commonVM:PracticeAttemptListViewModel}">
+        <commoncontrols:PracticeAttemptList/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type commonVM:LevelDataGridViewModel}">
         <commoncontrols:LevelDatagrid/>
     </DataTemplate>

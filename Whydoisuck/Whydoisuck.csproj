@@ -118,6 +118,7 @@
     <Compile Include="Model\Utilities\ExceptionLogger.cs" />
     <Compile Include="Model\UserSettings\WDISSettings.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelDatagridItemViewModel.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\PracticeAttemptViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\SearchBarViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelPlaceholderViewModel.cs" />
     <Compile Include="ViewModels\CurrentLevel\CurrentLevelStatisticsViewModel.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsSummariesViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionsTabMainViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\AttemptListViewModel.cs" />
+    <Compile Include="ViewModels\CommonControlsViewModels\PracticeAttemptListViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SessionsTab\SessionSummary\SessionViewModel.cs" />
     <Compile Include="ViewModels\SelectedLevel\SettingsTab\SettingsTabViewModel.cs" />
@@ -187,6 +189,9 @@
     </Compile>
     <Compile Include="Views\CommonControls\OxyPlotTooltipHover.xaml.cs">
       <DependentUpon>OxyPlotTooltipHover.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommonControls\PracticeAttemptList.xaml.cs">
+      <DependentUpon>PracticeAttemptList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommonControls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
@@ -261,6 +266,10 @@
     <Compile Include="Views\WindowChromeCommands.xaml.cs">
       <DependentUpon>WindowChromeCommands.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\CommonControls\PracticeAttemptList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommonControls\SearchBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
