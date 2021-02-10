@@ -10,11 +10,11 @@ namespace Whydoisuck.ViewModels.DataViewModels
         /// <summary>
         /// How the attempt number should be displayed
         /// </summary>
-        public string Number => string.Format(Properties.Resources.AttemptListNumberFormat, Attempt.Number);
+        public int Number => Attempt.Number;
         /// <summary>
         /// How the attempt end percent should be displayed
         /// </summary>
-        public string Percent => string.Format(Properties.Resources.AttemptListPercentFormat, Attempt.EndPercent);
+        public float Percent => Attempt.EndPercent;
         // Attempt to display
         private Attempt Attempt { get; set; }
 
