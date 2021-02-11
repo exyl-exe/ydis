@@ -62,7 +62,7 @@ namespace Whydoisuck.Model.Recording
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
 
             SessionManager.Instance.SavePracticeSession(CurrentSession);
-
+            OnQuitSession?.Invoke(CurrentSession);
             CurrentSession = null;
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;
@@ -103,7 +103,7 @@ namespace Whydoisuck.Model.Recording
         {
             CurrentSession.Level = new Level(state);
             CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            //OnSessionInitialized?.Invoke(CurrentSession);
+            OnSessionInitialized?.Invoke(CurrentSession);
         }
 
         // Saves the current attempt with the specified end percent
@@ -118,7 +118,7 @@ namespace Whydoisuck.Model.Recording
                 CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime; //Updating duration for UI
                 if (!silent)
                 {
-                    //OnAttemptsUpdated?.Invoke();
+                    OnAttemptsUpdated?.Invoke();
                 }
             }
             CurrentAttempt = null;

@@ -28,7 +28,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         /// </summary>
         public LevelDataGridViewModel Datagrid { get; set; }
         // current session object
-        private Session Session { get; set; }
+        private ISession Session { get; set; }
         // statistics about the current session
         private SessionsStatistics CurrentLevelStats { get; set; }
 
@@ -37,7 +37,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
             Autoguess = Resources.CurrentLevelGroupDefault;
         }
 
-        public void SetSession(Session s)
+        public void SetSession(ISession s)
         {
             Session = s;
             RefreshStats();

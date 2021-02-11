@@ -49,7 +49,7 @@ namespace Whydoisuck.ViewModels.CurrentLevel
         public void OnNewCurrentSession(ISession s)
         {
             CurrentView = Statistics;
-            Statistics.SetSession(s as Session);
+            Statistics.SetSession(s);
             var autoguess = Recorder.Autoguess == null ?
                             Resources.CurrentLevelGroupNew
                             : Recorder.Autoguess.DisplayedName;
