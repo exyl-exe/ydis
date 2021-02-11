@@ -88,8 +88,10 @@ namespace Whydoisuck.ViewModels.DataStructures
             }
 
             GetNormalModeLocalStatistics(ref counting, Data.Sessions);
-            GetPracticeModeLocalStatistics(ref counting, Data.PracticeSessions);
-
+            if(Filter == null || Filter.ShowPractice == true)
+            {
+                GetPracticeModeLocalStatistics(ref counting, Data.PracticeSessions);
+            }
             int totalReach = 0;
             // This computes actual reach count, by adding start count and
             // removing death count of the current part for each part.

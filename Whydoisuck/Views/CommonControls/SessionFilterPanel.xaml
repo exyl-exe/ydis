@@ -9,23 +9,24 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Padding="10"
             Background="{StaticResource PanelBackgroundColor}">
-        <Grid Background="Transparent">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0"
-                      Content="{x:Static props:Resources.FilterPanelNormalCheckbox}"
-                      IsChecked="{Binding ShowNormal, Mode=TwoWay}"
+        <StackPanel VerticalAlignment="Center">
+            <UniformGrid>
+                <CheckBox Content="{x:Static props:Resources.FilterPanelNormalCheckbox}"
+                          IsChecked="{Binding ShowNormal, Mode=TwoWay}"
+                          Style="{StaticResource FilterCheckboxStyle}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+                <CheckBox Content="{x:Static props:Resources.FilterPanelCopyCheckbox}"
+                          IsChecked="{Binding ShowCopy, Mode=TwoWay}"
+                          Style="{StaticResource FilterCheckboxStyle}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
+            </UniformGrid>
+            <CheckBox Content="{x:Static props:Resources.FilterPanelPracticeCheckbox}"
+                      IsChecked="{Binding ShowPractice, Mode=TwoWay}"
                       Style="{StaticResource FilterCheckboxStyle}"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"/>
-            <CheckBox Grid.Column="1"
-                      Content="{x:Static props:Resources.FilterPanelCopyCheckbox}"
-                      IsChecked="{Binding ShowCopy, Mode=TwoWay}"
-                      Style="{StaticResource FilterCheckboxStyle}"
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Center"/>
-        </Grid>
+        </StackPanel>
     </Border>
 </UserControl>

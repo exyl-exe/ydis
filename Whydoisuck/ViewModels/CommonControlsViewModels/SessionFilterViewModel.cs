@@ -46,6 +46,23 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
             }
         }
 
+        private bool _showPractice;
+        /// <summary>
+        /// Wether sessions using a start position should be shown or hidden.
+        /// </summary>
+        public bool ShowPractice
+        {
+            get
+            {
+                return _showPractice;
+            }
+            set
+            {
+                _showPractice = value;
+                OnFilterChanges?.Invoke();
+            }
+        }
+
         /// <summary>
         /// Delegate for callbacks when the criterias change.
         /// </summary>
@@ -58,7 +75,8 @@ namespace Whydoisuck.ViewModels.CommonControlsViewModels
         public SessionFilterViewModel()
         {
             ShowNormal = true;
-            ShowCopy = true; ;
+            ShowCopy = true;
+            ShowPractice = true;
         }
 
         /// <summary>

@@ -295,6 +295,15 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Show practice mode attempts.
+        /// </summary>
+        public static string FilterPanelPracticeCheckbox {
+            get {
+                return ResourceManager.GetString("FilterPanelPracticeCheckbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Delete selected folders.
         /// </summary>
         public static string FolderManagementDeleteButton {
