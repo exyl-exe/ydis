@@ -32,18 +32,18 @@ namespace Whydoisuck.Model.Recording
 
         public Recorder()
         {
-            GameWatcher.OnGameClosed += () => PopSaveCurrentSession(null);
             GameWatcher.OnLevelEntered += LevelEntered;
-            GameWatcher.OnLevelStarted += UpdateSessionOnLoad;
-            GameWatcher.OnLevelExited += PopSaveCurrentSession;
-            GameWatcher.OnPlayerSpawns += CreateNewAttempt;
-            GameWatcher.OnPlayerDies += PopSaveLosingAttempt;
-            GameWatcher.OnPlayerRestarts += PopSaveLosingAttempt;
-            GameWatcher.OnPlayerWins += PopSaveWinningAttempt;
+            GameWatcher.OnLevelStarted += SessionStarted;
+            GameWatcher.OnLevelExited += SessionEnded;
+            GameWatcher.OnPlayerSpawns += AttemptStarted;
+            GameWatcher.OnPlayerDies += AttemptEnded;
+            GameWatcher.OnPlayerRestarts += AttemptEnded;
+            GameWatcher.OnPlayerWins += AttemptEnded;
             GameWatcher.OnPracticeModeStarted += SetPracticeModeState;
             GameWatcher.OnPracticeModeExited += QuitPracticeModeState;
             GameWatcher.OnNormalModeStarted += SetNewNormalModeState;
             GameWatcher.OnNormalModeExited += QuitNormalModeState;
+            GameWatcher.OnGameClosed += () => SessionEnded(null);
         }
 
         /// <summary>
@@ -55,12 +55,12 @@ namespace Whydoisuck.Model.Recording
         }
 
         /// <summary>
-        /// Stops saving data.
+        /// Stops saving data and saves the on going session
         /// </summary>
         public void StopRecording()
         {
             GameWatcher.StopWatching();
-            PopSaveCurrentSession(null);
+            SessionEnded(null);
             SessionManager.Instance.Save();
         }
 
@@ -71,6 +71,64 @@ namespace Whydoisuck.Model.Recording
         {
             //TODO prevent callbacks from being called
             GameWatcher.CancelWatchingAsync();
+        }
+
+        private void LevelEntered(GDLevelMetadata level)
+        {
+            SetState(new NormalRecorderState());
+        }
+
+        private void SessionStarted(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            _currentState.OnSessionStarted(state);
+        }
+
+        private void SessionEnded(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            _currentState.OnSessionEnded(state);
+        }
+
+        private void AttemptStarted(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            _currentState.OnAttemptStarted(state);
+        }
+
+        private void AttemptEnded(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            _currentState.OnAttemptEnded(state);
+        }
+
+        // Makes the recorder record a normal mode session after a practice session
+        private void SetNewNormalModeState(GameState state)
+        {
+            SetState(new NormalRecorderState());
+            SessionStarted(state);
+        }
+
+        // Called when normal mode is exited (in order to save current session)
+        private void QuitNormalModeState(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            SessionEnded(state);
+            SetState(null);
+        }
+
+        // Makes the recorder record a practice mode session
+        private void SetPracticeModeState(GameState state)
+        {
+            SetState(new PracticeRecorderState());
+            SessionStarted(state);
+        }
+
+        private void QuitPracticeModeState(GameState state)
+        {
+            InitRecorderStateIfNeeded(state);
+            SessionEnded(state);
+            SetState(null);
         }
 
         // Sets the recorder state
@@ -89,87 +147,6 @@ namespace Whydoisuck.Model.Recording
                 s.OnQuitSession += OnStateQuitSession;
             }
             _currentState = s;
-        }
-
-        // Called when entering a level, ensure a session is created before an attempt needs to be saved
-        // However, while its metadata is fully loaded, the level is not
-        // Therefore stuff like the level length, the start position etc. is updated when the level is fully loaded and not in this function
-        private void LevelEntered(GDLevelMetadata level)
-        {
-            SetState(new NormalRecorderState());
-            _currentState?.CreateNewSession(level);
-        }
-
-        // Update values for the current session, is called when the level is fully loaded
-        private void UpdateSessionOnLoad(GameState state)
-        {
-            InitRecorderStateIfNeeded(state);
-            _currentState?.UpdateSessionOnLoad(state);
-        }
-
-        //Saves current session and removes it from the recorder. Overload for event with parameters.
-        private void PopSaveCurrentSession(GameState state)
-        {
-            InitRecorderStateIfNeeded(state);
-            _currentState?.PopSaveCurrentSession(state);
-        }
-
-        // Creates an attempt
-        private void CreateNewAttempt(GameState state)
-        {
-            InitRecorderStateIfNeeded(state);
-            _currentState?.CreateNewAttempt(state);
-        }
-
-        // Saves a losing attempt in the current session, and remove current attempt from recorder
-        private void PopSaveLosingAttempt(GameState state)
-        {
-            InitRecorderStateIfNeeded(state);
-            _currentState?.PopSaveLosingAttempt(state);
-        }
-
-        // Saves a winning attempt in the current session, and remove current attempt from recorder
-        private void PopSaveWinningAttempt(GameState state)
-        {
-            InitRecorderStateIfNeeded(state);
-            _currentState?.PopSaveWinningAttempt(state);
-        }
-
-        // Makes the recorder record a normal mode session after a practice session
-        private void SetNewNormalModeState(GameState state)
-        {
-            SetState(new NormalRecorderState());
-            _currentState.CreateNewSession(state.LevelMetadata);
-            if (state.LoadedLevel.IsRunning)
-            {
-                _currentState.UpdateSessionOnLoad(state);
-            }
-        }
-
-        // Called when normal mode is exited (in order to save current session)
-        private void QuitNormalModeState(GameState state)
-        {
-            InitRecorderStateIfNeeded(state);
-            _currentState.PopSaveCurrentSession(state);
-            SetState(null);
-        }
-
-        // Makes the recorder record a practice mode session
-        private void SetPracticeModeState(GameState state)
-        {
-            SetState(new PracticeRecorderState());
-            _currentState.CreateNewSession(state.LevelMetadata);
-            if (state.LoadedLevel.IsRunning)
-            {
-                _currentState.UpdateSessionOnLoad(state);
-            }
-        }
-
-        private void QuitPracticeModeState(GameState state)
-        {
-            InitRecorderStateIfNeeded(state);
-            _currentState.PopSaveCurrentSession(state);
-            SetState(null);
         }
 
         // Used to init the current state if the recorder was started while playing a level

@@ -34,33 +34,30 @@ namespace Whydoisuck.Model.Recording
         private bool _isCurrentAttemptSaved;
         private PracticeAttempt CurrentAttempt { get; set; }
 
-        public void CreateNewAttempt(GameState state)
+        public void OnSessionStarted(GameState state)
         {
-            var number = state.LoadedLevel.AttemptNumber;
-            var start = 100 * state.LoadedLevel.PracticeStartPosition / state.LoadedLevel.PhysicalLength;
-            CurrentAttempt = new PracticeAttempt(number, start);
-            _isCurrentAttemptSaved = false;
-        }
+            if (state == null || state.LoadedLevel == null || !state.LoadedLevel.IsRunning) return;
 
-        public void CreateNewSession(GDLevelMetadata level)
-        {
             CurrentSession = new PracticeSession(DateTime.Now);
+            CurrentAttempt = null;
             _isCurrentAttemptSaved = false;
+            CurrentSession.Level = new Level(state);
+            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
+
+            if (!state.PlayerObject.IsDead)
+            {
+                var number = state.LoadedLevel.AttemptNumber;
+                var firstStartPercent = state.PlayerObject.XPosition * 100 / state.LoadedLevel.PhysicalLength;
+                CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
+            }
+
+            OnSessionInitialized?.Invoke(CurrentSession);
         }
 
-        public void PopSaveCurrentSession(GameState state)
+        public void OnSessionEnded(GameState state)
         {
-            if (state != null)
-            {
-                SilentPopSaveLosingAttempt(state);
-            }
-            //Don't save if :
-            //  -no session were created (= software launched while playing a level, and no attempts have been played before exiting)
-            //  -The current level is unknown (= The level was left before it finished loading)
-            //  -There are not attempts in the session (= useless data)
-            if (CurrentSession == null || CurrentSession.Level == null || CurrentSession.Attempts.Count == 0) return;
+            if (CurrentSession == null || CurrentSession.Attempts.Count == 0) return;
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
-
             SessionManager.Instance.SavePracticeSession(CurrentSession);
             OnQuitSession?.Invoke(CurrentSession);
             CurrentSession = null;
@@ -68,46 +65,31 @@ namespace Whydoisuck.Model.Recording
             _isCurrentAttemptSaved = true;
         }
 
-        public void SilentPopSaveLosingAttempt(GameState state)
+        public void OnAttemptStarted(GameState state)
         {
-            var endPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
-            PopSaveCurrentAttempt(state, endPercent, true);
+            var number = state.LoadedLevel.AttemptNumber;
+            var start = 100 * state.LoadedLevel.PracticeStartPosition / state.LoadedLevel.PhysicalLength;
+            CurrentAttempt = new PracticeAttempt(number, start);
+            _isCurrentAttemptSaved = false;
         }
 
-        public void PopSaveLosingAttempt(GameState state)
+        public void OnAttemptEnded(GameState state)
         {
-            var endPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
-            PopSaveCurrentAttempt(state, endPercent);
-        }
-
-        public void PopSaveWinningAttempt(GameState state)
-        {
-            var endPercent = 100;
-            PopSaveCurrentAttempt(state, endPercent);
-        }
-
-        public void UpdateSessionOnLoad(GameState state)
-        {
-            CreateSessionIfNotExists(state);
-            UpdateSession(state);
-            if (!state.PlayerObject.IsDead)
+            if (state == null || state.PlayerObject == null) return;
+            float endPercent = 0;
+            if (state.PlayerObject.HasWon)
             {
-                var number = state.LoadedLevel.AttemptNumber;
-                var firstStartPercent = state.PlayerObject.XPosition * 100 / state.LoadedLevel.PhysicalLength;
-                CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
+                endPercent = 100;
             }
-        }
-
-        //Updates values of the current session
-        private void UpdateSession(GameState state)
-        {
-            CurrentSession.Level = new Level(state);
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            OnSessionInitialized?.Invoke(CurrentSession);
+            else
+            {
+                endPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
+            }
+            SaveCurrentAttempt(state, endPercent);
         }
 
         // Saves the current attempt with the specified end percent
-        private void PopSaveCurrentAttempt(GameState state, float endPercent, bool silent = false)
+        private void SaveCurrentAttempt(GameState state, float endPercent)
         {
             if (!_isCurrentAttemptSaved)
             {
@@ -116,10 +98,7 @@ namespace Whydoisuck.Model.Recording
                 CurrentAttempt.EndPercent = endPercent;
                 CurrentSession.AddAttempt(CurrentAttempt);
                 CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime; //Updating duration for UI
-                if (!silent)
-                {
-                    OnAttemptsUpdated?.Invoke();
-                }
+                OnAttemptsUpdated?.Invoke();
             }
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;
@@ -132,7 +111,9 @@ namespace Whydoisuck.Model.Recording
             CurrentSession = new PracticeSession(DateTime.Now);
 
             if (state == null || state.LevelMetadata == null || state.LoadedLevel == null) return;
-            UpdateSession(state);
+            CurrentSession.Level = new Level(state); // TODO Duplicate code
+            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
+            OnSessionInitialized?.Invoke(CurrentSession);
         }
 
         //Creates an attempt if there is no current attempt and initialize known values

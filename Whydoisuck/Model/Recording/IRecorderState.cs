@@ -25,17 +25,9 @@ namespace Whydoisuck.Model.Recording
 
         // Autoguess for the current session
         SessionGroup Autoguess { get; }
-        // Creates a new session for the given level
-        void CreateNewSession(GDLevelMetadata level);
-        // Updates session values once the level is fully loaded
-        void UpdateSessionOnLoad(GameState state);
-        // Saves the current session and stops managing it
-        void PopSaveCurrentSession(GameState state);
-        // Create a new attempt for the current session
-        void CreateNewAttempt(GameState state);
-        // Saves the current (losing) attempt and stops managing it
-        void PopSaveLosingAttempt(GameState state);
-        // Saves the current (winning) attempt and stops managing it
-        void PopSaveWinningAttempt(GameState state);
+        void OnSessionStarted(GameState state);
+        void OnSessionEnded(GameState state);
+        void OnAttemptStarted(GameState state);
+        void OnAttemptEnded(GameState state);
     }
 }
