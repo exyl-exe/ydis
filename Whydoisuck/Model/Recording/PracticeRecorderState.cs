@@ -27,16 +27,8 @@ namespace Whydoisuck.Model.Recording
             if (state == null || state.LoadedLevel == null || !state.LoadedLevel.IsRunning) return;
 
             CurrentSession = new PracticeSession(state, DateTime.Now);
-            CurrentAttempt = null;
+            CreateInitialAttempt(state);
             _isCurrentAttemptSaved = false;
-
-            if (!state.PlayerObject.IsDead) // TODO
-            {
-                var number = state.LoadedLevel.AttemptNumber;
-                var firstStartPercent = state.PlayerObject.XPosition * 100 / state.LoadedLevel.PhysicalLength;
-                CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
-            }
-
             OnSessionInitialized?.Invoke(CurrentSession);
         }
 
@@ -76,6 +68,20 @@ namespace Whydoisuck.Model.Recording
             else
             {
                 return 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
+            }
+        }
+
+        // Creates the initial attempt of a practice mode session
+        private void CreateInitialAttempt(GameState state)
+        {
+            if (!state.PlayerObject.IsDead)
+            {
+                var number = state.LoadedLevel.AttemptNumber;
+                var firstStartPercent = state.LoadedLevel.StartPosition * 100 / state.LoadedLevel.PhysicalLength;
+                CurrentAttempt = new PracticeAttempt(number, firstStartPercent);
+            } else
+            {
+                CurrentAttempt = null;
             }
         }
 

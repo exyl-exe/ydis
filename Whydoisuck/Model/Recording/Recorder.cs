@@ -88,25 +88,25 @@ namespace Whydoisuck.Model.Recording
         private void SessionStarted(GameState state)
         {
             InitRecorderStateIfNeeded(state);
-            _currentState.OnSessionStarted(state);
+            _currentState?.OnSessionStarted(state);
         }
 
         private void SessionEnded(GameState state)
         {
             InitRecorderStateIfNeeded(state);
-            _currentState.OnSessionEnded(state);
+            _currentState?.OnSessionEnded(state);
         }
 
         private void AttemptStarted(GameState state)
         {
             InitRecorderStateIfNeeded(state);
-            _currentState.OnAttemptStarted(state);
+            _currentState?.OnAttemptStarted(state);
         }
 
         private void AttemptEnded(GameState state)
         {
             InitRecorderStateIfNeeded(state);
-            _currentState.OnAttemptEnded(state);
+            _currentState?.OnAttemptEnded(state);
         }
 
         // Makes the recorder record a normal mode session after a practice session
@@ -134,6 +134,7 @@ namespace Whydoisuck.Model.Recording
         private void QuitPracticeModeState(GameState state)
         {
             InitRecorderStateIfNeeded(state);
+            AttemptEnded(state);
             SessionEnded(state);
             SetState(null);
         }
