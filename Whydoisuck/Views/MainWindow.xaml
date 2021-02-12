@@ -11,7 +11,8 @@
         WindowStyle="None"
         Style="{StaticResource WDISWindow}"
         WindowState="{Binding InitialState}"
-        Width="860" Height="900">
+        Width="860" Height="900"
+        MaxHeight="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}">
     
     <DockPanel Background="{StaticResource AppBackgroundColor}">
         
