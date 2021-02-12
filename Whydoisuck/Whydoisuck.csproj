@@ -171,7 +171,7 @@
     <Compile Include="Views\Commands\FolderBrowserCommand.cs" />
     <Compile Include="Views\Commands\GoBackCommand.cs" />
     <Compile Include="Views\Commands\MergeSelectedCommand.cs" />
-    <Compile Include="Views\Commands\MoveDataCommand.cs" />
+    <Compile Include="Views\Commands\ChangeSavesLocationCommand.cs" />
     <Compile Include="Views\Commands\NavigatorCommand.cs" />
     <Compile Include="Views\Commands\ReorganizeAllCommand.cs" />
     <Compile Include="Views\Commands\ReorganizeSelectedCommand.cs" />

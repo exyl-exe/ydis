@@ -34,9 +34,11 @@ namespace Whydoisuck.Views.Commands
 
         public void Execute(object parameter)
         {
-            var dialog = new CommonOpenFileDialog();
-            dialog.IsFolderPicker = true;
-            dialog.EnsurePathExists = true;
+            var dialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                EnsurePathExists = true
+            };
             var res = dialog.ShowDialog();
             if (res == CommonFileDialogResult.Ok)
             {

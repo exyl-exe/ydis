@@ -65,11 +65,11 @@ namespace Whydoisuck.ViewModels.AppSettings
         /// <summary>
         /// Save files location selector command
         /// </summary>
-        public FolderBrowserCommand BrowseCommand { get; private set; }
+        public ChangeSavesLocationCommand BrowseCommand { get; private set; }
         /// <summary>
         /// Import files command
         /// </summary>
-        public MoveDataCommand ImportCommand { get; private set; }
+        public FolderBrowserCommand ImportCommand { get; private set; }
         /// <summary>
         /// Controls how many times per seconds the game is scanned
         /// </summary>
@@ -118,19 +118,17 @@ namespace Whydoisuck.ViewModels.AppSettings
 
         public SettingsViewModel()
         {
-            BrowseCommand = new FolderBrowserCommand(OnSaveFileLocationChanges);
-            ImportCommand = new MoveDataCommand();
+            BrowseCommand = new ChangeSavesLocationCommand();
+            ImportCommand = new FolderBrowserCommand(ImportData);
         }
 
         /// <summary>
-        /// Called to change the location of save files
+        /// Called to import data
         /// </summary>
-        public void OnSaveFileLocationChanges(string path)
+        public void ImportData(string path)
         {
             if (path == null || path == SessionManager.Instance.SavesDirectory) return;
-            WDISSettings.SavesPath = path;
-            SessionManager.Instance.SetRoot(path);
-            OnPropertyChanged(nameof(SaveLocation));
+            SessionManager.Instance.Import(path);
         }
     }
 }
