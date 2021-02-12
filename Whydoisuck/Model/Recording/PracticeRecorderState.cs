@@ -53,7 +53,7 @@ namespace Whydoisuck.Model.Recording
 
         public void OnAttemptEnded(GameState state)
         {
-            if (state == null || state.PlayerObject == null) return;
+            if (state == null || !state.LoadedLevel.IsRunning) return;
             float endPercent = GetEndPercent(state);
             SaveCurrentAttempt(state, endPercent);
         }

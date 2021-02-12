@@ -44,7 +44,7 @@ namespace Whydoisuck.Model.Recording
             GameWatcher.OnPracticeModeExited += QuitPracticeModeState;
             GameWatcher.OnNormalModeStarted += SetNewNormalModeState;
             GameWatcher.OnNormalModeExited += QuitNormalModeState;
-            GameWatcher.OnGameClosed += () => SessionEnded(null);
+            GameWatcher.OnGameClosed += GameClosed;
         }
 
         /// <summary>
@@ -84,6 +84,11 @@ namespace Whydoisuck.Model.Recording
             AttemptEnded(state);
             SessionEnded(state);
         }
+        private void GameClosed()
+        {
+            SessionEnded(null);
+        }
+
 
         private void SessionStarted(GameState state)
         {
