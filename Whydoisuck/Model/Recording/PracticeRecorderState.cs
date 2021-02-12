@@ -34,10 +34,11 @@ namespace Whydoisuck.Model.Recording
 
         public void OnSessionEnded(GameState state)
         {
-            if (CurrentSession == null || CurrentSession.Attempts.Count == 0) return;
+            if (CurrentSession == null) return;
+            OnQuitSession?.Invoke(CurrentSession);            
+            if (CurrentSession.Attempts.Count == 0) return;
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
             SessionManager.Instance.SavePracticeSession(CurrentSession);
-            OnQuitSession?.Invoke(CurrentSession); // TODO above condition ? see session creation conditions
             CurrentSession = null;
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;

@@ -31,6 +31,9 @@ namespace Whydoisuck.Model.Recording
         // Current state of the recorder
         private IRecorderState _currentState;
 
+        // Wether the recorder should fire UI updating event or not
+        private bool Silent { get; set; }
+
         public Recorder()
         {
             GameWatcher.OnLevelEntered += LevelEntered;
@@ -81,7 +84,9 @@ namespace Whydoisuck.Model.Recording
 
         private void LevelExited(GameState state)
         {
+            Silent = true;
             AttemptEnded(state);
+            Silent = false;
             SessionEnded(state);
         }
         private void GameClosed()
@@ -139,7 +144,9 @@ namespace Whydoisuck.Model.Recording
         private void QuitPracticeModeState(GameState state)
         {
             InitRecorderStateIfNeeded(state);
+            Silent = true;
             AttemptEnded(state);
+            Silent = false;
             SessionEnded(state);
             SetState(null);
         }
@@ -183,20 +190,20 @@ namespace Whydoisuck.Model.Recording
         private void OnStateQuitSession(ISession s)
         {
             CurrentSession = null;
-            OnQuitSession?.Invoke(s);
+            if(!Silent) OnQuitSession?.Invoke(s);
         }
 
         // Handles the current state creating a session
         private void OnStateNewSession(ISession s)
         {
             CurrentSession = s;
-            OnStartSession?.Invoke(s);
+            if (!Silent) OnStartSession?.Invoke(s);
         }
 
         // Handles the current state updating it's current session attempts
         private void OnStateAttemptsUpdated()
         {
-            OnSessionAttemptsUpdated?.Invoke();
+            if (!Silent) OnSessionAttemptsUpdated?.Invoke();
         }
     }
 }
