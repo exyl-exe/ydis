@@ -38,13 +38,11 @@ namespace Whydoisuck.Model.Recording
         {
             if (state == null || state.LoadedLevel == null || !state.LoadedLevel.IsRunning) return;
 
-            CurrentSession = new PracticeSession(DateTime.Now);
+            CurrentSession = new PracticeSession(state, DateTime.Now);
             CurrentAttempt = null;
             _isCurrentAttemptSaved = false;
-            CurrentSession.Level = new Level(state);
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
 
-            if (!state.PlayerObject.IsDead)
+            if (!state.PlayerObject.IsDead) // TODO
             {
                 var number = state.LoadedLevel.AttemptNumber;
                 var firstStartPercent = state.PlayerObject.XPosition * 100 / state.LoadedLevel.PhysicalLength;
@@ -59,7 +57,7 @@ namespace Whydoisuck.Model.Recording
             if (CurrentSession == null || CurrentSession.Attempts.Count == 0) return;
             CurrentSession.Duration = DateTime.Now - CurrentSession.StartTime;
             SessionManager.Instance.SavePracticeSession(CurrentSession);
-            OnQuitSession?.Invoke(CurrentSession);
+            OnQuitSession?.Invoke(CurrentSession); // TODO above condition ? see session creation conditions
             CurrentSession = null;
             CurrentAttempt = null;
             _isCurrentAttemptSaved = true;
@@ -107,12 +105,8 @@ namespace Whydoisuck.Model.Recording
         //Creates a session if there is no current session and initialize known values
         private void CreateSessionIfNotExists(GameState state)
         {
-            if (CurrentSession != null) return;
-            CurrentSession = new PracticeSession(DateTime.Now);
-
-            if (state == null || state.LevelMetadata == null || state.LoadedLevel == null) return;
-            CurrentSession.Level = new Level(state); // TODO Duplicate code
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
+            if (CurrentSession != null || state == null) return;
+            CurrentSession = new PracticeSession(state, DateTime.Now);
             OnSessionInitialized?.Invoke(CurrentSession);
         }
 

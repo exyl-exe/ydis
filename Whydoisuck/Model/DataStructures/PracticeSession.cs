@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Model.MemoryReading.GameStateStructures;
 
 namespace Whydoisuck.Model.DataStructures
 {
@@ -30,9 +31,11 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "Attempts")] public List<PracticeAttempt> Attempts { get; set; }
     
-        public PracticeSession(DateTime startTime)
+        public PracticeSession(GameState state, DateTime startTime)
         {
+            Level = new Level(state);
             StartTime = startTime;
+            IsCopyRun = state.LoadedLevel.IsTestmode;
             Attempts = new List<PracticeAttempt>();
         }
 
