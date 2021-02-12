@@ -32,6 +32,7 @@ namespace Whydoisuck.Views.Commands
             if (shouldMoveData)
             {
                 SessionManager.Instance.Import(currentPath);
+                DataSerializer.DeleteSaveFiles(currentPath);
             }
 
         }
@@ -56,8 +57,8 @@ namespace Whydoisuck.Views.Commands
 
         private bool ShouldMoveData()
         {
-            var caption = "#Move current save files ?";
-            var content = "#Do you want to move the current save files to the new location ?";
+            var caption = Resources.SettingsMoveDataCaption;
+            var content = Resources.SettingsMoveDataContent;
             var result = MessageBox.Show(content, caption, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             return result == MessageBoxResult.Yes;
         }

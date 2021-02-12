@@ -665,6 +665,24 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Move current save files ?.
+        /// </summary>
+        public static string SettingsMoveDataCaption {
+            get {
+                return ResourceManager.GetString("SettingsMoveDataCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Do you want to move the current save files to the new location ? If there already are save files at the given location, they will be merged with the current save files..
+        /// </summary>
+        public static string SettingsMoveDataContent {
+            get {
+                return ResourceManager.GetString("SettingsMoveDataContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Automatically start when Geometry Dash is launched.
         /// </summary>
         public static string SettingsOnStart {

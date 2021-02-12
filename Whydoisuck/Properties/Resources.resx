@@ -341,6 +341,12 @@
   <data name="SettingsImportDataDesc" xml:space="preserve">
     <value>Import data stored in a different folder.</value>
   </data>
+  <data name="SettingsMoveDataCaption" xml:space="preserve">
+    <value>Move current save files ?</value>
+  </data>
+  <data name="SettingsMoveDataContent" xml:space="preserve">
+    <value>Do you want to move the current save files to the new location ? If there already are save files at the given location, they will be merged with the current save files.</value>
+  </data>
   <data name="SettingsOnStart" xml:space="preserve">
     <value>Automatically start when Geometry Dash is launched</value>
   </data>

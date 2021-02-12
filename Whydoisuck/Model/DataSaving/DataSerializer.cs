@@ -41,6 +41,7 @@ namespace Whydoisuck.Model.DataSaving
                 _saveDirectory = value;
             }
         }
+
         /// <summary>
         /// name of the file containing the session manager
         /// </summary>
@@ -49,6 +50,16 @@ namespace Whydoisuck.Model.DataSaving
         /// Path for the file containing the session manager.
         /// </summary>
         public string IndexFilePath { get { return Path.Combine(SavesDirectory, IndexFileName); } }
+
+        // Deletes the save files at a given location
+        public static void DeleteSaveFiles(string savesPath)
+        {
+            //Just in case
+            if (File.Exists(Path.Combine(savesPath, IndexFileName)))
+            {
+                DirectoryUtilities.DeleteDirectoryContent(savesPath);
+            }
+        }
 
         private DataSerializer(string dir)
         {
