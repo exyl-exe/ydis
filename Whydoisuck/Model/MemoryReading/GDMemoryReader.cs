@@ -115,6 +115,18 @@ namespace Whydoisuck.Model.MemoryReading
                 return null;
             }
 
+            try
+            {
+                return ReadStateFromMemory();
+            } catch (MemoryReadingException)
+            {
+                return null;
+            }
+        }
+
+        // Generates the state of the game from the memory of the process
+        private GameState ReadStateFromMemory()
+        {
             var commonAddr = Reader.ReadInt((int)Reader.MainModuleAddr + baseOffset);
             if (commonAddr == MANAGER_NOT_LOADED) return null; // game was launched but has not finished loading
 
@@ -155,7 +167,14 @@ namespace Whydoisuck.Model.MemoryReading
             var attemptNumber = Reader.ReadInt(levelStructAddr + attemptsOffset);
             var physicalLength = Reader.ReadFloat(levelStructAddr + levelLengthOffset);
             var startPosition = Reader.ReadFloat(levelStructAddr + respawnPositionOffset);
-            var practiceStartPosition = GetPracticeRespawnPosition(levelStructAddr, startPosition);
+            float practiceStartPosition;
+            if (isPractice) // Slight optimization to avoid reading practice start pos in normal mode
+            {
+                practiceStartPosition = GetPracticeRespawnPosition(levelStructAddr, startPosition);
+            } else
+            {
+                practiceStartPosition = startPosition;
+            }
             return new GDLoadedLevel(
                 isRunning,
                 isTestmode,

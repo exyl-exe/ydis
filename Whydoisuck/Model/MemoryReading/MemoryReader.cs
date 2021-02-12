@@ -101,7 +101,6 @@ namespace Whydoisuck.Model.MemoryReading
         public byte[] ReadBytes(int address, int size)
         {
             int bytesRead = 0;
-            byte[] result;
             byte[] buffer = new byte[size];
             ReadProcessMemory((int)ProcessHandle, address, buffer, size, ref bytesRead);
             if (bytesRead == size)
@@ -110,9 +109,7 @@ namespace Whydoisuck.Model.MemoryReading
             }
             else
             {
-                result = new byte[bytesRead];
-                Array.Copy(buffer, result, bytesRead);
-                return result;
+                throw new MemoryReadingException(size, bytesRead);
             }
         }
 
