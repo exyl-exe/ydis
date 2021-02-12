@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Whydoisuck.Model.MemoryReading.GameStateStructures;
 using Whydoisuck.Model.UserSettings;
 
 namespace Whydoisuck.Model.DataStructures
@@ -43,10 +44,13 @@ namespace Whydoisuck.Model.DataStructures
 
         public Session() { } //for json deserializer
 
-        public Session(DateTime startTime)
+        public Session(GameState state, DateTime startTime)
         {
-            Attempts = new List<Attempt>();
+            Level = new Level(state);
             StartTime = startTime;
+            IsCopyRun = state.LoadedLevel.IsTestmode;
+            StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            Attempts = new List<Attempt>();
         }
 
         /// <summary>

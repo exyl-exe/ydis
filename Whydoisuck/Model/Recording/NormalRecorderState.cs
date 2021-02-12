@@ -46,12 +46,9 @@ namespace Whydoisuck.Model.Recording
         {
             if (state == null || state.LoadedLevel == null || !state.LoadedLevel.IsRunning) return;
 
-            CurrentSession = new Session(DateTime.Now);
+            CurrentSession = new Session(state, DateTime.Now);
             CurrentAttempt = null;
             _isCurrentAttemptSaved = false;
-            CurrentSession.Level = new Level(state);
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
             OnSessionInitialized?.Invoke(CurrentSession);
         }
 
@@ -105,13 +102,8 @@ namespace Whydoisuck.Model.Recording
         //Creates a session if there is no current session and initialize known values
         private void CreateSessionIfNotExists(GameState state)
         {
-            if (CurrentSession != null) return;
-            CurrentSession = new Session(DateTime.Now);
-
-            if (state == null || state.LevelMetadata == null || state.LoadedLevel == null) return;
-            CurrentSession.Level = new Level(state); // TODO Duplicate code
-            CurrentSession.IsCopyRun = state.LoadedLevel.IsTestmode;
-            CurrentSession.StartPercent = 100 * state.LoadedLevel.StartPosition / state.LoadedLevel.PhysicalLength;
+            if (CurrentSession != null || state == null) return;
+            CurrentSession = new Session(state, DateTime.Now);
             OnSessionInitialized?.Invoke(CurrentSession);
         }
 
