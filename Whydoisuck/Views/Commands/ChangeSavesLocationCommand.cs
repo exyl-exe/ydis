@@ -14,6 +14,13 @@ namespace Whydoisuck.Views.Commands
 {
     public class ChangeSavesLocationCommand : ICommand
     {
+        private Action<string> Callback { get; set; }
+
+        public ChangeSavesLocationCommand(Action<string> callback)
+        {
+            Callback = callback;
+        }
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -34,7 +41,7 @@ namespace Whydoisuck.Views.Commands
                 SessionManager.Instance.Import(currentPath);
                 DataSerializer.DeleteSaveFiles(currentPath);
             }
-
+            Callback(path);
         }
 
         private string PathDialog()

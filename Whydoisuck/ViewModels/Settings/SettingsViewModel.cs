@@ -118,17 +118,22 @@ namespace Whydoisuck.ViewModels.AppSettings
 
         public SettingsViewModel()
         {
-            BrowseCommand = new ChangeSavesLocationCommand();
+            BrowseCommand = new ChangeSavesLocationCommand(UpdatePath);
             ImportCommand = new FolderBrowserCommand(ImportData);
         }
 
         /// <summary>
         /// Called to import data
         /// </summary>
-        public void ImportData(string path)
+        private void ImportData(string path)
         {
             if (path == null || path == SessionManager.Instance.SavesDirectory) return;
             SessionManager.Instance.Import(path);
+        }
+
+        private void UpdatePath(string path)
+        {
+            OnPropertyChanged(nameof(SaveLocation));
         }
     }
 }
