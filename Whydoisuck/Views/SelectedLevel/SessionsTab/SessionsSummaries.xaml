@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab"
              xmlns:common="clr-namespace:Whydoisuck.Views.CommonControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+    <ScrollViewer x:Name="SessionsScrollViewer"
+                  VerticalScrollBarVisibility="Auto"
+                  ScrollChanged="SessionsScrollViewer_ScrollChanged">
         <ItemsControl ItemsSource="{Binding SortedSummaries}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>

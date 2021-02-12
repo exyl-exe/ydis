@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
 
 namespace Whydoisuck.Views.SelectedLevel.SessionsTab
 {
@@ -20,8 +21,26 @@ namespace Whydoisuck.Views.SelectedLevel.SessionsTab
     /// </summary>
     public partial class SessionsSummaries : UserControl
     {
+        private bool _loaded = false;
+
         public SessionsSummaries() {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as SessionsSummariesViewModel;
+            SessionsScrollViewer.ScrollToVerticalOffset(vm.ScrollValue);
+            _loaded = true;
+        }
+
+        private void SessionsScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (_loaded)
+            {
+                var vm = DataContext as SessionsSummariesViewModel;
+                vm.ScrollValue = e.VerticalOffset;
+            }            
         }
     }
 }

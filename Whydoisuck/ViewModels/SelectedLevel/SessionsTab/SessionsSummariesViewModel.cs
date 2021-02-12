@@ -18,6 +18,11 @@ namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
         /// </summary>
         public List<DaySummaryViewModel> SortedSummaries => Summaries.Values.Reverse().ToList();
 
+        /// <summary>
+        /// Stored scroll value of the view, so that it doesn't scroll to the top each time it's displayed
+        /// </summary>
+        public double ScrollValue {get;set;}
+
         //Parent view, needed to be able to switch the view.
         private SessionsTabMainViewModel Parent { get; set; }
         //List of summaries of the group.
