@@ -42,7 +42,7 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "Attempts")] public List<Attempt> Attempts { get; set; }
 
-        public Session() { } //for json deserializer
+        public Session() { } //for deserialization
 
         public Session(GameState state, DateTime startTime)
         {

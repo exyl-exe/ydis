@@ -31,6 +31,8 @@ namespace Whydoisuck.Model.DataStructures
         /// </summary>
         [JsonProperty(PropertyName = "Attempts")] public List<PracticeAttempt> Attempts { get; set; }
     
+        public PracticeSession() { } // For deserialization
+
         public PracticeSession(GameState state, DateTime startTime)
         {
             Level = new Level(state);
