@@ -27,8 +27,8 @@ namespace Whydoisuck.Views
         private static Mutex _mutex;
         public MainWindow()
         {
-            /*Application.Current.DispatcherUnhandledException += ExceptionApp;
-            AppDomain.CurrentDomain.UnhandledException += ExceptionDomain;*/
+            Application.Current.DispatcherUnhandledException += ExceptionApp;
+            AppDomain.CurrentDomain.UnhandledException += ExceptionDomain;
             _mutex = new Mutex(true, MUTEX_NAME, out var createdNew);
             if (createdNew)
             {
