@@ -35,7 +35,7 @@ namespace Whydoisuck.Model.Recording
         {
             GameWatcher.OnLevelEntered += LevelEntered;
             GameWatcher.OnLevelStarted += SessionStarted;
-            GameWatcher.OnLevelExited += SessionEnded;
+            GameWatcher.OnLevelExited += LevelExited;
             GameWatcher.OnPlayerSpawns += AttemptStarted;
             GameWatcher.OnPlayerDies += AttemptEnded;
             GameWatcher.OnPlayerRestarts += AttemptEnded;
@@ -77,6 +77,12 @@ namespace Whydoisuck.Model.Recording
         private void LevelEntered(GDLevelMetadata level)
         {
             SetState(new NormalRecorderState());
+        }
+
+        private void LevelExited(GameState state)
+        {
+            AttemptEnded(state);
+            SessionEnded(state);
         }
 
         private void SessionStarted(GameState state)
