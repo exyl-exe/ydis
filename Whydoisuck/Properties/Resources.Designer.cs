@@ -729,16 +729,6 @@ namespace Whydoisuck.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à This will NOT move the current save files.
-        ///Use the &apos;Import data&apos; option once you have chosen a new location..
-        /// </summary>
-        public static string SettingsSaveLocationDescription {
-            get {
-                return ResourceManager.GetString("SettingsSaveLocationDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Controls how much time there is between two consecutive scans of the game&apos;s memory. A longer delay means better performance at the cost of accuracy in some edge cases..
         /// </summary>
         public static string SettingsScanRateDesc {

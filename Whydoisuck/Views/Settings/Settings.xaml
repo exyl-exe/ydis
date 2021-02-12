@@ -13,27 +13,6 @@
         <Viewbox MaxWidth="800" HorizontalAlignment="Left">
             <StackPanel Orientation="Vertical">
                 <Border Margin="15,0,15,15">
-                    <DockPanel>
-                        <DockPanel DockPanel.Dock="Top">
-                            <Button DockPanel.Dock="Right"
-                                    Command="{Binding ImportCommand}"
-                                    Margin="5,0,0,0"
-                                    Style="{StaticResource SettingsSelectFolderStyle}">
-                                <Image Source="{StaticResource openFolderIcon}"
-                                       Margin="3"
-                                       Width="30"
-                                       Height="30"/>
-                            </Button>
-                            <TextBlock Text="{Binding ImportDataText}"
-                                       Style="{StaticResource SettingsTextStyle}"
-                                       VerticalAlignment="Center"/>
-                        </DockPanel>
-                        <TextBlock Margin="3,0,0,0"
-                                   Text="{Binding ImportDataDesc}"
-                                   Style="{StaticResource SettingsSecondaryTextStyle}"/>
-                    </DockPanel>
-                </Border>
-                <Border Margin="15,0,15,15">
                     <StackPanel>
                         <DockPanel>
                             <Button DockPanel.Dock="Right"
@@ -55,10 +34,28 @@
                             <TextBlock Text="{Binding SaveLocation}"
                                            Style="{StaticResource SettingsTextStyle}"/>
                         </Viewbox>
-                        <TextBlock Margin="3,6,0,0"
-                                   Text="{Binding SaveLocationDescription}"
-                                   Style="{StaticResource SettingsSecondaryTextStyle}"/>
                     </StackPanel>
+                </Border>
+                <Border Margin="15,0,15,15">
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top">
+                            <Button DockPanel.Dock="Right"
+                                    Command="{Binding ImportCommand}"
+                                    Margin="5,0,0,0"
+                                    Style="{StaticResource SettingsSelectFolderStyle}">
+                                <Image Source="{StaticResource openFolderIcon}"
+                                       Margin="3"
+                                       Width="30"
+                                       Height="30"/>
+                            </Button>
+                            <TextBlock Text="{Binding ImportDataText}"
+                                       Style="{StaticResource SettingsTextStyle}"
+                                       VerticalAlignment="Center"/>
+                        </DockPanel>
+                        <TextBlock Margin="3,0,0,0"
+                                   Text="{Binding ImportDataDesc}"
+                                   Style="{StaticResource SettingsSecondaryTextStyle}"/>
+                    </DockPanel>
                 </Border>
                 <Border Margin="15,5,15,15">
                     <DockPanel>
