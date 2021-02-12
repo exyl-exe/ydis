@@ -25,7 +25,8 @@ namespace Whydoisuck.Model.Recording
         /// <summary>
         /// Guessed group for the current session.
         /// </summary>
-        public SessionGroup Autoguess => _currentState!=null?_currentState.Autoguess:null;
+        public SessionGroup Autoguess => CurrentSession==null?null:SessionManager.Instance.FindGroupOf(CurrentSession.Level);
+        private ISession CurrentSession { get; set; }
 
         // Current state of the recorder
         private IRecorderState _currentState;
@@ -167,15 +168,17 @@ namespace Whydoisuck.Model.Recording
         }
 
         // Handles the current state ending a session
-        private void OnStateQuitSession(ISession obj)
+        private void OnStateQuitSession(ISession s)
         {
-            OnQuitSession?.Invoke(obj);
+            CurrentSession = null;
+            OnQuitSession?.Invoke(s);
         }
 
         // Handles the current state creating a session
-        private void OnStateNewSession(ISession obj)
+        private void OnStateNewSession(ISession s)
         {
-            OnStartSession?.Invoke(obj);
+            CurrentSession = s;
+            OnStartSession?.Invoke(s);
         }
 
         // Handles the current state updating it's current session attempts

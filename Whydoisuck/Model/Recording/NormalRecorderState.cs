@@ -27,21 +27,6 @@ namespace Whydoisuck.Model.Recording
         /// </summary>
         private Session CurrentSession { get; set; }
 
-        /// <summary>
-        /// Guessed group for the current session.
-        /// </summary>
-        public SessionGroup Autoguess
-        {
-            get
-            {
-                if (CurrentSession != null)
-                {
-                    return SessionManager.Instance.FindGroupOf(CurrentSession.Level);
-                }
-                return null;
-            }
-        }
-
         public void OnSessionStarted(GameState state)
         {
             if (state == null || state.LoadedLevel == null || !state.LoadedLevel.IsRunning) return;

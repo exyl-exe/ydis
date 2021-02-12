@@ -23,8 +23,6 @@ namespace Whydoisuck.Model.Recording
         /// </summary>
         event Action OnAttemptsUpdated;
 
-        // Autoguess for the current session
-        SessionGroup Autoguess { get; }
         void OnSessionStarted(GameState state);
         void OnSessionEnded(GameState state);
         void OnAttemptStarted(GameState state);

@@ -14,18 +14,6 @@ namespace Whydoisuck.Model.Recording
     /// </summary>
     public class PracticeRecorderState : IRecorderState
     {
-        public SessionGroup Autoguess
-        {
-            get
-            {
-                if (CurrentSession != null)
-                {
-                    return null;
-                }
-                return null;
-            }
-        }
-
         public event Action<ISession> OnSessionInitialized;
         public event Action<ISession> OnQuitSession;
         public event Action OnAttemptsUpdated;
