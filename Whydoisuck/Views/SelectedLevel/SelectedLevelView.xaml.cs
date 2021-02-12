@@ -39,5 +39,16 @@ namespace Whydoisuck.Views.SelectedLevel
                 }
             }
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            GroupName.Focus();
+            if (e.GetPosition(GroupName).X > 0){
+                GroupName.CaretIndex = GroupName.Text.Length;
+            } else
+            {
+                GroupName.CaretIndex = 0;
+            }
+        }
     }
 }

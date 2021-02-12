@@ -15,26 +15,29 @@
         <Border Background="{StaticResource HeaderBackgroundColor}"
                 DockPanel.Dock="Top"
                 Margin="15,15,15,15"
-                Padding="3,3,3,2">
+                Padding="3,3,3,2"
+                MouseDown="Border_MouseDown">
             <DockPanel HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch">
                 <Image Source="{StaticResource editIcon}"
                        DockPanel.Dock="Right"
                        Height="41"
                        Margin="5,2,0,2"/>
-                <Viewbox MaxHeight="45">
-                    <TextBox x:Name="GroupName"
+                <Border Background="Transparent" Cursor="IBeam">
+                    <Viewbox MaxHeight="45">
+                        <TextBox x:Name="GroupName"
                              Margin="10,0,10,0"
                              Text="{Binding Group.GroupName, Mode=TwoWay}"                     
                              Style="{StaticResource BigFontTextBoxStyle}"
                              KeyDown="GroupName_KeyDown"
                              MaxLength="30"
                              TextAlignment="Center">
-                        <TextBox.RenderTransform>
-                            <TranslateTransform X="20"/>
-                        </TextBox.RenderTransform>
-                    </TextBox>
-                </Viewbox>
+                            <TextBox.RenderTransform>
+                                <TranslateTransform X="20"/>
+                            </TextBox.RenderTransform>
+                        </TextBox>
+                    </Viewbox>
+                </Border>
             </DockPanel>
         </Border>
         
