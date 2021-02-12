@@ -74,16 +74,21 @@ namespace Whydoisuck.Model.Recording
         public void OnAttemptEnded(GameState state)
         {
             if (state == null || state.PlayerObject == null) return;
-            float endPercent = 0;
+            float endPercent = GetEndPercent(state);
+            SaveCurrentAttempt(state, endPercent);
+        }
+
+        // Returns what is the end percent of an attempt that died
+        private float GetEndPercent(GameState state)
+        {
             if (state.PlayerObject.HasWon)
             {
-                endPercent = 100;
+                return 100;
             }
             else
             {
-                endPercent = 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
+                return 100 * state.PlayerObject.XPosition / state.LoadedLevel.PhysicalLength;
             }
-            SaveCurrentAttempt(state, endPercent);
         }
 
         // Saves the current attempt with the specified end percent
