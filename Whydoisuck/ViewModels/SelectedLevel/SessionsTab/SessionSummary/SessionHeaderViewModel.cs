@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
+using Ydis.Model.DataStructures;
 
-namespace Whydoisuck.ViewModels.SessionSummary
+namespace Ydis.ViewModels.SessionSummary
 {
     /// <summary>
     /// View model for the header of a session summary

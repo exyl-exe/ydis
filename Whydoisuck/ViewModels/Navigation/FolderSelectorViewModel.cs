@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using System.Windows.Threading;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.CommonControlsViewModels;
 
-namespace Whydoisuck.ViewModels.Navigation
+namespace Ydis.ViewModels.Navigation
 {
     /// <summary>
     /// View model for a list of selectable folders

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataSaving;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.MemoryReading.GameStateStructures;
+using Ydis.Model.DataSaving;
+using Ydis.Model.DataStructures;
+using Ydis.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.Model.Recording
+namespace Ydis.Model.Recording
 {
     /// <summary>
     /// State for the recorder when recordings normal mod attempts

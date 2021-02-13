@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.SelectedLevel.SettingsTab
+namespace Ydis.Views.SelectedLevel.SettingsTab
 {
     /// <summary>
     /// Interaction logic for SettingsTabView.xaml

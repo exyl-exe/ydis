@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.Model.DataStructures
+namespace Ydis.Model.DataStructures
 {
     /// <summary>
     /// Data of a folder

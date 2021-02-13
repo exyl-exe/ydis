@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Properties;
+using Ydis.Properties;
 
-namespace Whydoisuck.Model.UserSettings
+namespace Ydis.Model.UserSettings
 {
     /// <summary>
     /// Contains settings for the application

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
+using Ydis.ViewModels.SelectedLevel.SessionsTab;
 
-namespace Whydoisuck.Views.Commands
+namespace Ydis.Views.Commands
 {
     /// <summary>
     /// Command to stop displaying information about a session and go back to the session list.

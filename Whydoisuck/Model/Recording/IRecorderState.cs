@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.MemoryReading.GameStateStructures;
+using Ydis.Model.DataStructures;
+using Ydis.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.Model.Recording
+namespace Ydis.Model.Recording
 {
     public interface IRecorderState
     {

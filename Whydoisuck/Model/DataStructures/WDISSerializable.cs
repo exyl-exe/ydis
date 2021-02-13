@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.UserSettings;
+using Ydis.Model.UserSettings;
 
-namespace Whydoisuck.Model.DataStructures
+namespace Ydis.Model.DataStructures
 {
     /// <summary>
     /// WDIS objects that can be converted to a format used for saving data.

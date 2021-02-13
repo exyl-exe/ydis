@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.CommonControlsViewModels;
 
-namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
+namespace Ydis.ViewModels.SelectedLevel.SessionsTab
 {
     /// <summary>
     /// View model for the view with a list of summaries per day of a group.

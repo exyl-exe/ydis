@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WDISLauncher
+namespace YdisLauncher
 {
     /// <summary>
     /// Class that fetches where the whydoisuck executable is

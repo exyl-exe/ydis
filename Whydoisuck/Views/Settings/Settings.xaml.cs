@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.AppSettings
+namespace Ydis.Views.AppSettings
 {
     /// <summary>
     /// Interaction logic for Settings.xaml

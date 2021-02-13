@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.ViewModels.CommonControlsViewModels
+namespace Ydis.ViewModels.CommonControlsViewModels
 {
     /// <summary>
     /// View model for a search bar

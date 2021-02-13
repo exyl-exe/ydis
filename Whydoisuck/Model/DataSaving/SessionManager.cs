@@ -11,12 +11,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whydoisuck.Model;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Model.Utilities;
+using Ydis.Model;
+using Ydis.Model.DataStructures;
+using Ydis.Model.UserSettings;
+using Ydis.Model.Utilities;
 
-namespace Whydoisuck.Model.DataSaving
+namespace Ydis.Model.DataSaving
 {
     /// <summary>
     /// This class manages which group a session belongs to.

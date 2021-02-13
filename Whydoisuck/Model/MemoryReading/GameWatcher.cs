@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whydoisuck.Model.MemoryReading.GameStateStructures;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Properties;
+using Ydis.Model.MemoryReading.GameStateStructures;
+using Ydis.Model.UserSettings;
+using Ydis.Properties;
 
-namespace Whydoisuck.Model.MemoryReading
+namespace Ydis.Model.MemoryReading
 {
     /// <summary>
     /// Class <c>GameWatcher</c> has several events invoked based on what happens in the game

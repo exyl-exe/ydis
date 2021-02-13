@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.ViewModels.FolderManagement;
+using Ydis.ViewModels.FolderManagement;
 
-namespace Whydoisuck.Views.FolderManagement
+namespace Ydis.Views.FolderManagement
 {
     /// <summary>
     /// Interaction logic for FolderManagementView.xaml

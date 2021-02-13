@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Views.Commands;
-using Whydoisuck.Views.SelectedLevel;
+using Ydis.Views.Commands;
+using Ydis.Views.SelectedLevel;
 using System.Windows;
-using Whydoisuck.Model.DataStructures;
+using Ydis.Model.DataStructures;
 using System.Security.Cryptography;
 
-namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
+namespace Ydis.ViewModels.SelectedLevel.SessionsTab
 {
     /// <summary>
     /// View model for a the summary of a single day about a group.

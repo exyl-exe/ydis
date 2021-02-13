@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.DataStructures;
+using Ydis.Properties;
+using Ydis.ViewModels.DataStructures;
 
-namespace Whydoisuck.ViewModels.CommonControlsViewModels
+namespace Ydis.ViewModels.CommonControlsViewModels
 {
     /// <summary>
     /// View model for a graph showing statistics about a level

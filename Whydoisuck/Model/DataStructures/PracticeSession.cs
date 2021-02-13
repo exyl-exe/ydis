@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.MemoryReading.GameStateStructures;
+using Ydis.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.Model.DataStructures
+namespace Ydis.Model.DataStructures
 {
     public class PracticeSession : ISession
     {

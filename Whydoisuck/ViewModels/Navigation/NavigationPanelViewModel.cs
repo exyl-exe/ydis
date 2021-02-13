@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataSaving;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.AppSettings;
-using Whydoisuck.ViewModels.CurrentLevel;
-using Whydoisuck.ViewModels.FolderManagement;
-using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.Views.Commands;
-using Whydoisuck.Views.CurrentLevel;
+using Ydis.Model.DataSaving;
+using Ydis.Properties;
+using Ydis.ViewModels.AppSettings;
+using Ydis.ViewModels.CurrentLevel;
+using Ydis.ViewModels.FolderManagement;
+using Ydis.ViewModels.SelectedLevel;
+using Ydis.Views.Commands;
+using Ydis.Views.CurrentLevel;
 
-namespace Whydoisuck.ViewModels.Navigation
+namespace Ydis.ViewModels.Navigation
 {
     /// <summary>
     /// View model for the navigation panel as a whole.

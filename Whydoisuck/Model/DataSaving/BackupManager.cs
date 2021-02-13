@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Model.Utilities;
+using Ydis.Model.UserSettings;
+using Ydis.Model.Utilities;
 
-namespace Whydoisuck.Model.DataSaving
+namespace Ydis.Model.DataSaving
 {
     /// <summary>
     /// utility class used to backup data

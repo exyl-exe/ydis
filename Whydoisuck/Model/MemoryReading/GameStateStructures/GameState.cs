@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.Model.MemoryReading.GameStateStructures
+namespace Ydis.Model.MemoryReading.GameStateStructures
 {
     /// <summary>
     /// Class <c>GameState</c> represents the state of the game at one point

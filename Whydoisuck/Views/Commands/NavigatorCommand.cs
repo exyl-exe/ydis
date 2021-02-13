@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.ViewModels;
-using Whydoisuck.ViewModels.CurrentLevel;
-using Whydoisuck.ViewModels.SelectedLevel;
+using Ydis.ViewModels;
+using Ydis.ViewModels.CurrentLevel;
+using Ydis.ViewModels.SelectedLevel;
 
-namespace Whydoisuck.Views.Commands
+namespace Ydis.Views.Commands
 {
     /// <summary>
     /// Command that switches a part of a view

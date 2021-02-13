@@ -6,14 +6,14 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Whydoisuck.Model;
-using Whydoisuck.Model.Recording;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Model.Utilities;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels;
+using Ydis.Model;
+using Ydis.Model.Recording;
+using Ydis.Model.UserSettings;
+using Ydis.Model.Utilities;
+using Ydis.Properties;
+using Ydis.ViewModels;
 
-namespace Whydoisuck.Views
+namespace Ydis.Views
 {
     /// <summary>
     /// Code-behind for main window

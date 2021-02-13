@@ -1,6 +1,6 @@
-﻿using Whydoisuck.Model.DataStructures;
+﻿using Ydis.Model.DataStructures;
 
-namespace Whydoisuck.ViewModels.DataViewModels
+namespace Ydis.ViewModels.DataViewModels
 {
     /// <summary>
     /// View model for one attempt

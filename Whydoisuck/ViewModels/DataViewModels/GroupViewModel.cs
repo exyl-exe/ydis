@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
+using Ydis.Model.DataStructures;
 
-namespace Whydoisuck.ViewModels.DataViewModels
+namespace Ydis.ViewModels.DataViewModels
 {
     /// <summary>
     /// Simple view models to display information about session groups.

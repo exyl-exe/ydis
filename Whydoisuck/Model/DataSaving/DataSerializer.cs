@@ -9,14 +9,14 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model;
-using Whydoisuck.Model.DataSaving;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Model.Utilities;
-using Whydoisuck.Properties;
+using Ydis.Model;
+using Ydis.Model.DataSaving;
+using Ydis.Model.DataStructures;
+using Ydis.Model.UserSettings;
+using Ydis.Model.Utilities;
+using Ydis.Properties;
 
-namespace Whydoisuck.Model.DataSaving
+namespace Ydis.Model.DataSaving
 {
     /// <summary>
     /// Manages serialization of differents objects in a given directory

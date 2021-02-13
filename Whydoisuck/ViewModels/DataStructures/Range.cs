@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.ViewModels.DataStructures
+namespace Ydis.ViewModels.DataStructures
 {
     /// <summary>
     /// Range class that can be used to check if a value is between two other values.

@@ -12,13 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.ViewModels;
-using Whydoisuck.ViewModels.Navigation;
-using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.Views.Commands;
-using Whydoisuck.Views.SelectedLevel;
+using Ydis.ViewModels;
+using Ydis.ViewModels.Navigation;
+using Ydis.ViewModels.SelectedLevel;
+using Ydis.Views.Commands;
+using Ydis.Views.SelectedLevel;
 
-namespace Whydoisuck.Views.NavigationPanel
+namespace Ydis.Views.NavigationPanel
 {
     /// <summary>
     /// Code-behind for LevelSearchPanel.xaml

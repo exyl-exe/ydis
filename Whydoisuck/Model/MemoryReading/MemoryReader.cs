@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.Model.MemoryReading
+namespace Ydis.Model.MemoryReading
 {
     /// <summary>
     /// Class <c>MemoryReader</c> is a simple class to read values in the

@@ -4,14 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
-using Whydoisuck.ViewModels.DataStructures;
+using Ydis.Model;
+using Ydis.Model.DataStructures;
+using Ydis.Model.UserSettings;
+using Ydis.Properties;
+using Ydis.ViewModels.CommonControlsViewModels;
+using Ydis.ViewModels.DataStructures;
 
-namespace Whydoisuck.ViewModels.SelectedLevel.GraphTab
+namespace Ydis.ViewModels.SelectedLevel.GraphTab
 {
     /// <summary>
     /// View model for the statistics tab.

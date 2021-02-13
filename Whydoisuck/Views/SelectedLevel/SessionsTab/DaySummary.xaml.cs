@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.ViewModels;
-using Whydoisuck.Views.Commands;
+using Ydis.ViewModels;
+using Ydis.Views.Commands;
 
-namespace Whydoisuck.Views.SelectedLevel.SessionsTab
+namespace Ydis.Views.SelectedLevel.SessionsTab
 {
     /// <summary>
     /// Code-behind for DaySummary.xaml

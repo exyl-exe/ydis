@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.Model.DataStructures;
+using Ydis.Model.DataStructures;
 
-namespace Whydoisuck.Views.Commands
+namespace Ydis.Views.Commands
 {
     public abstract class SelectedFoldersCommand : ICommand
     {

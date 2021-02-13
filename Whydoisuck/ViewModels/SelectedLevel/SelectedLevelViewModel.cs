@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
-using Whydoisuck.ViewModels.DataViewModels;
-using Whydoisuck.ViewModels.SelectedLevel.GraphTab;
-using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
-using Whydoisuck.ViewModels.SelectedLevel.SettingsTab;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.CommonControlsViewModels;
+using Ydis.ViewModels.DataViewModels;
+using Ydis.ViewModels.SelectedLevel.GraphTab;
+using Ydis.ViewModels.SelectedLevel.SessionsTab;
+using Ydis.ViewModels.SelectedLevel.SettingsTab;
 
-namespace Whydoisuck.ViewModels.SelectedLevel
+namespace Ydis.ViewModels.SelectedLevel
 {
     /// <summary>
     /// ViewModel for selected level view.

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.Recording;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
-using Whydoisuck.ViewModels.DataStructures;
+using Ydis.Model.DataStructures;
+using Ydis.Model.Recording;
+using Ydis.Properties;
+using Ydis.ViewModels.CommonControlsViewModels;
+using Ydis.ViewModels.DataStructures;
 
-namespace Whydoisuck.ViewModels.CurrentLevel
+namespace Ydis.ViewModels.CurrentLevel
 {
     /// <summary>
     /// View model for the model of the view for the current session

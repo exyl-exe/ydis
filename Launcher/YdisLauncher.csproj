@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FE3E67F9-39AD-44E3-9855-B9DC143E71D7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WDISLauncher</RootNamespace>
-    <AssemblyName>WhydoisuckLauncher</AssemblyName>
+    <RootNamespace>YdisLauncher</RootNamespace>
+    <AssemblyName>YdisLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>YdisLauncher.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:commonVM="clr-namespace:Whydoisuck.ViewModels.CommonControlsViewModels"
-                    xmlns:sessionVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary"
-                    xmlns:sessionTabVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel.SessionsTab"
-                    xmlns:selectedViewSessionsTab="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab"
-                    xmlns:sessionsummary="clr-namespace:Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary"
-                    xmlns:commoncontrols="clr-namespace:Whydoisuck.Views.CommonControls">
+                    xmlns:commonVM="clr-namespace:Ydis.ViewModels.CommonControlsViewModels"
+                    xmlns:sessionVM="clr-namespace:Ydis.ViewModels.SelectedLevel.SessionsTab.SessionSummary"
+                    xmlns:sessionTabVM="clr-namespace:Ydis.ViewModels.SelectedLevel.SessionsTab"
+                    xmlns:selectedViewSessionsTab="clr-namespace:Ydis.Views.SelectedLevel.SessionsTab"
+                    xmlns:sessionsummary="clr-namespace:Ydis.Views.SelectedLevel.SessionsTab.SessionSummary"
+                    xmlns:commoncontrols="clr-namespace:Ydis.Views.CommonControls">
     <DataTemplate DataType="{x:Type sessionTabVM:SessionsSummariesViewModel}">
         <selectedViewSessionsTab:SessionsSummaries/>
     </DataTemplate>

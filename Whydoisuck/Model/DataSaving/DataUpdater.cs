@@ -11,11 +11,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Model.Utilities;
+using Ydis.Model.DataStructures;
+using Ydis.Model.UserSettings;
+using Ydis.Model.Utilities;
 
-namespace Whydoisuck.Model.DataSaving
+namespace Ydis.Model.DataSaving
 {
     /// <summary>
     /// Class to update data in a given directory

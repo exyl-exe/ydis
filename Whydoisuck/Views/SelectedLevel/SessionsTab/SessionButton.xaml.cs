@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.SelectedLevel.SessionsTab
+namespace Ydis.Views.SelectedLevel.SessionsTab
 {
     /// <summary>
     /// Code-behind for SessionButton.xaml

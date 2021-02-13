@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.ViewModels.DataStructures;
+using Ydis.ViewModels.DataStructures;
 
-namespace Whydoisuck.ViewModels.CommonControlsViewModels
+namespace Ydis.ViewModels.CommonControlsViewModels
 {
     /// <summary>
     /// View model for one item in a level datagrid.

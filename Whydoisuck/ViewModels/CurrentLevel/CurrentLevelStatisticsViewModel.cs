@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
-using Whydoisuck.ViewModels.DataStructures;
+using Ydis.Model.DataStructures;
+using Ydis.Properties;
+using Ydis.ViewModels.CommonControlsViewModels;
+using Ydis.ViewModels.DataStructures;
 
-namespace Whydoisuck.ViewModels.CurrentLevel
+namespace Ydis.ViewModels.CurrentLevel
 {
     /// <summary>
     /// View model for the view showing statistics about the current session

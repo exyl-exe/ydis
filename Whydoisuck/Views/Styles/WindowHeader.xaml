@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:shell="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
-                    xmlns:local="clr-namespace:Whydoisuck.Views">
+                    xmlns:local="clr-namespace:Ydis.Views">
 
     <Style x:Key="WindowMinimizeButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>

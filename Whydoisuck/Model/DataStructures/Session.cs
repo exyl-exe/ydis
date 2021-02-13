@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.MemoryReading.GameStateStructures;
-using Whydoisuck.Model.UserSettings;
+using Ydis.Model.MemoryReading.GameStateStructures;
+using Ydis.Model.UserSettings;
 
-namespace Whydoisuck.Model.DataStructures
+namespace Ydis.Model.DataStructures
 {
     /// <summary>
     /// Session played in the game. A session starts when entering a level and ends when exiting it.

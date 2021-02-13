@@ -5,7 +5,7 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.ViewModels.DataStructures
+namespace Ydis.ViewModels.DataStructures
 {
     /// <summary>
     /// Statistics about a specific part of a level

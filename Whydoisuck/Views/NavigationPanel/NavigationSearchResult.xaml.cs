@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.NavigationPanel
+namespace Ydis.Views.NavigationPanel
 {
     /// <summary>
     /// Code-behind for NavigationSearchResult.xaml

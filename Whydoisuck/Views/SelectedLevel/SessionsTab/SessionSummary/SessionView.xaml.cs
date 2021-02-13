@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.SelectedLevel.SessionsTab.SessionSummary
+namespace Ydis.Views.SelectedLevel.SessionsTab.SessionSummary
 {
     /// <summary>
     /// Code-behind for SessionView.xaml

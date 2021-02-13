@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WDISLauncher
+namespace YdisLauncher
 {
     public class Program
     {

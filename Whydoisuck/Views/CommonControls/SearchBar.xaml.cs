@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.CommonControls
+namespace Ydis.Views.CommonControls
 {
     /// <summary>
     /// Interaction logic for SearchBar.xaml

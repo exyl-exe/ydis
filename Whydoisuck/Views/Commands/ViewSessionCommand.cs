@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
-using Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary;
-using Whydoisuck.Views.SelectedLevel;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.SelectedLevel.SessionsTab;
+using Ydis.ViewModels.SelectedLevel.SessionsTab.SessionSummary;
+using Ydis.Views.SelectedLevel;
 
-namespace Whydoisuck.Views.Commands
+namespace Ydis.Views.Commands
 {
     /// <summary>
     /// Command opening the view displaying information about one specific session

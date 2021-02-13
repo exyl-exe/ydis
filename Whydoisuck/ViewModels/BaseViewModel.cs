@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Whydoisuck.ViewModels
+namespace Ydis.ViewModels
 {
     /// <summary>
     /// Base view model for every viewmodel.

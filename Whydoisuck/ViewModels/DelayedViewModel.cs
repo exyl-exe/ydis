@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.ViewModels
+namespace Ydis.ViewModels
 {
 	/// <summary>
 	/// Class that allows to prepare a view model for views that isn't loaded

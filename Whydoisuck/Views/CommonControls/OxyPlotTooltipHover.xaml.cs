@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.CommonControls
+namespace Ydis.Views.CommonControls
 {
     /// <summary>
     /// Code-behind for OxyPlotTooltipHover.xaml

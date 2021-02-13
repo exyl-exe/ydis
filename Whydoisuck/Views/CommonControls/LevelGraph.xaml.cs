@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
+using Ydis.ViewModels.CommonControlsViewModels;
 
-namespace Whydoisuck.Views.CommonControls
+namespace Ydis.Views.CommonControls
 {
     /// <summary>
     /// Code-behind for LevelGraph.xaml

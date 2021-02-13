@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using Whydoisuck.Model.DataStructures;
+using Ydis.Model.DataStructures;
 
-namespace Whydoisuck.ViewModels.CommonControlsViewModels
+namespace Ydis.ViewModels.CommonControlsViewModels
 {
     /// <summary>
     /// View model for practice attempt lists

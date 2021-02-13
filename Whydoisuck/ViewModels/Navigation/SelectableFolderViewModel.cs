@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Whydoisuck.Model.DataStructures;
+using Ydis.Model.DataStructures;
 
-namespace Whydoisuck.ViewModels.Navigation
+namespace Ydis.ViewModels.Navigation
 {
     public class SelectableFolderViewModel : BaseViewModel
     {

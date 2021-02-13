@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
-using Whydoisuck.ViewModels.DataStructures;
-using Whydoisuck.ViewModels.SessionSummary;
-using Whydoisuck.Views.Commands;
+using Ydis.Model.DataStructures;
+using Ydis.Properties;
+using Ydis.ViewModels.CommonControlsViewModels;
+using Ydis.ViewModels.DataStructures;
+using Ydis.ViewModels.SessionSummary;
+using Ydis.Views.Commands;
 
-namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab.SessionSummary
+namespace Ydis.ViewModels.SelectedLevel.SessionsTab.SessionSummary
 {
     /// <summary>
     /// View model for the detailled summary of one session

@@ -1,4 +1,4 @@
-﻿namespace Whydoisuck.Model.MemoryReading.GameStateStructures
+﻿namespace Ydis.Model.MemoryReading.GameStateStructures
 {
     /// <summary>
     /// Class <c>GDLoadedLevel</c> represents the level object in the game

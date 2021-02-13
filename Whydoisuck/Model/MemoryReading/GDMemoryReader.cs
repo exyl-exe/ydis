@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Whydoisuck.Model.MemoryReading.GameStateStructures;
+using Ydis.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.Model.MemoryReading
+namespace Ydis.Model.MemoryReading
 {
     /// <summary>
     /// Class <c>GDMemoryReader</c> has functions to read useful values in the game's memory.

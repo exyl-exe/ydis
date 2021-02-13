@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Environment;
 
-namespace Whydoisuck.Model.Utilities
+namespace Ydis.Model.Utilities
 {
     /// <summary>
     /// Contains a few methods to help write/read applications that should be launched when windows is starting

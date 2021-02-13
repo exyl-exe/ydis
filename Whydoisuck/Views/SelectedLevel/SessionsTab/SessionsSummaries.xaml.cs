@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Whydoisuck.ViewModels.SelectedLevel.SessionsTab;
+using Ydis.ViewModels.SelectedLevel.SessionsTab;
 
-namespace Whydoisuck.Views.SelectedLevel.SessionsTab
+namespace Ydis.Views.SelectedLevel.SessionsTab
 {
     /// <summary>
     /// Code-behind for SessionSummaries.xaml

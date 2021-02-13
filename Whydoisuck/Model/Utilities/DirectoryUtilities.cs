@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Whydoisuck.Model.Utilities
+namespace Ydis.Model.Utilities
 {
     /// <summary>
     /// Custom directory operations

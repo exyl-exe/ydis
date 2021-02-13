@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
+using Ydis.Model.DataStructures;
 
-namespace Whydoisuck.ViewModels.SelectedLevel.SessionsTab
+namespace Ydis.ViewModels.SelectedLevel.SessionsTab
 {
     /// <summary>
     /// View model for the sessions tab

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WDISLauncher
+namespace YdisLauncher
 {
     /// <summary>
     /// Class that can launch a process automatically when another process is opened

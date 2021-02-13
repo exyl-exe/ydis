@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.Model.MemoryReading
+namespace Ydis.Model.MemoryReading
 {
     public class MemoryReadingException : Exception
     {

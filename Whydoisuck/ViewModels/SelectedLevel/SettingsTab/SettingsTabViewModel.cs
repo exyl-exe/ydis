@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Properties;
-using Whydoisuck.Views.Commands;
+using Ydis.Model.DataStructures;
+using Ydis.Properties;
+using Ydis.Views.Commands;
 
-namespace Whydoisuck.ViewModels.SelectedLevel.SettingsTab
+namespace Ydis.ViewModels.SelectedLevel.SettingsTab
 {
     /// <summary>
     /// View model for group management

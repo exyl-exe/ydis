@@ -1,4 +1,4 @@
-﻿namespace Whydoisuck.Model.MemoryReading.GameStateStructures
+﻿namespace Ydis.Model.MemoryReading.GameStateStructures
 {
     /// <summary>
     /// Class <c>GDLevelMetadata</c> represents a level's metadata in the game.

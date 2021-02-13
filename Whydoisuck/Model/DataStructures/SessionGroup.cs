@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
 
-namespace Whydoisuck.Model.DataStructures
+namespace Ydis.Model.DataStructures
 {
     /// <summary>
     /// Group of sessions played on the same level

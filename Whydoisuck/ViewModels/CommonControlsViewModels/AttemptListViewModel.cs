@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.DataViewModels;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.DataViewModels;
 
-namespace Whydoisuck.ViewModels.CommonControlsViewModels
+namespace Ydis.ViewModels.CommonControlsViewModels
 {
     /// <summary>
     /// View model for a simple list of attempt

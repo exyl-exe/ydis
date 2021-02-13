@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Whydoisuck.Model.DataSaving;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Properties;
+using Ydis.Model.DataSaving;
+using Ydis.Model.DataStructures;
+using Ydis.Properties;
 
-namespace Whydoisuck.Views.Commands
+namespace Ydis.Views.Commands
 {
     public class ReorganizeSelectedCommand : SelectedFoldersCommand
     {

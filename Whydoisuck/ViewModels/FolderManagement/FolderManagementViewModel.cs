@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.CurrentLevel;
-using Whydoisuck.ViewModels.Navigation;
-using Whydoisuck.Views.Commands;
+using Ydis.Model.DataStructures;
+using Ydis.Properties;
+using Ydis.ViewModels.CurrentLevel;
+using Ydis.ViewModels.Navigation;
+using Ydis.Views.Commands;
 
-namespace Whydoisuck.ViewModels.FolderManagement
+namespace Ydis.ViewModels.FolderManagement
 {
     public class FolderManagementViewModel : BaseViewModel
     {

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Properties;
+using Ydis.Model.UserSettings;
+using Ydis.Properties;
 
-namespace Whydoisuck.Model.Utilities
+namespace Ydis.Model.Utilities
 {
     public static class ExceptionLogger
     {

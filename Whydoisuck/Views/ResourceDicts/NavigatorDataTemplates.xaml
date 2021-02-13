@@ -1,16 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:selectedView="clr-namespace:Whydoisuck.Views.SelectedLevel"
-                    xmlns:currentView="clr-namespace:Whydoisuck.Views.CurrentLevel"
-                    xmlns:managementView="clr-namespace:Whydoisuck.Views.FolderManagement"
-                    xmlns:navigationView="clr-namespace:Whydoisuck.Views.NavigationPanel"
-                    xmlns:VM="clr-namespace:Whydoisuck.ViewModels"
-                    xmlns:currentLevelVM="clr-namespace:Whydoisuck.ViewModels.CurrentLevel"
-                    xmlns:selectedLevelVM="clr-namespace:Whydoisuck.ViewModels.SelectedLevel"
-                    xmlns:navigationVM="clr-namespace:Whydoisuck.ViewModels.Navigation"
-                    xmlns:managementVM="clr-namespace:Whydoisuck.ViewModels.FolderManagement"
-                    xmlns:settingsVM="clr-namespace:Whydoisuck.ViewModels.AppSettings"
-                    xmlns:settingsViews="clr-namespace:Whydoisuck.Views.AppSettings">
+                    xmlns:selectedView="clr-namespace:Ydis.Views.SelectedLevel"
+                    xmlns:currentView="clr-namespace:Ydis.Views.CurrentLevel"
+                    xmlns:managementView="clr-namespace:Ydis.Views.FolderManagement"
+                    xmlns:navigationView="clr-namespace:Ydis.Views.NavigationPanel"
+                    xmlns:VM="clr-namespace:Ydis.ViewModels"
+                    xmlns:currentLevelVM="clr-namespace:Ydis.ViewModels.CurrentLevel"
+                    xmlns:selectedLevelVM="clr-namespace:Ydis.ViewModels.SelectedLevel"
+                    xmlns:navigationVM="clr-namespace:Ydis.ViewModels.Navigation"
+                    xmlns:managementVM="clr-namespace:Ydis.ViewModels.FolderManagement"
+                    xmlns:settingsVM="clr-namespace:Ydis.ViewModels.AppSettings"
+                    xmlns:settingsViews="clr-namespace:Ydis.Views.AppSettings">
     <DataTemplate DataType="{x:Type currentLevelVM:CurrentLevelViewModel}">
         <currentView:CurrentLevelView/>
     </DataTemplate>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Whydoisuck.ViewModels
+namespace Ydis.ViewModels
 {
     /// <summary>
     /// Interface for viewmodels of views which have a part than can be swapped.

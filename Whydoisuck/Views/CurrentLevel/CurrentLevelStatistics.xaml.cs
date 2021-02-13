@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.CurrentLevel
+namespace Ydis.Views.CurrentLevel
 {
     /// <summary>
     /// Interaction logic for CurrentLevelStatistics.xaml

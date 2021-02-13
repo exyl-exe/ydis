@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Whydoisuck.Views.SelectedLevel.GraphTab
+namespace Ydis.Views.SelectedLevel.GraphTab
 {
     /// <summary>
     /// Code-behind for GraphTab.xaml

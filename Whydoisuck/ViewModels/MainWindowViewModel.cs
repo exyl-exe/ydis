@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Whydoisuck.Model.DataSaving;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.Recording;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.ViewModels.CurrentLevel;
-using Whydoisuck.ViewModels.FolderManagement;
-using Whydoisuck.ViewModels.Navigation;
-using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.Views.CurrentLevel;
+using Ydis.Model.DataSaving;
+using Ydis.Model.DataStructures;
+using Ydis.Model.Recording;
+using Ydis.Model.UserSettings;
+using Ydis.ViewModels.CurrentLevel;
+using Ydis.ViewModels.FolderManagement;
+using Ydis.ViewModels.Navigation;
+using Ydis.ViewModels.SelectedLevel;
+using Ydis.Views.CurrentLevel;
 
-namespace Whydoisuck.ViewModels
+namespace Ydis.ViewModels
 {
     /// <summary>
     /// ViewModel for the main window. The largest part of the view can be either

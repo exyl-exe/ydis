@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Whydoisuck.Model.MemoryReading.GameStateStructures;
+using Ydis.Model.MemoryReading.GameStateStructures;
 
-namespace Whydoisuck.Model.DataStructures
+namespace Ydis.Model.DataStructures
 {
     /// <summary>
     /// Represent an individual level in the game. A level and it's copy

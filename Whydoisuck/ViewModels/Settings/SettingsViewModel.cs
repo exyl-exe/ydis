@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Whydoisuck.Model.DataSaving;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Model.Utilities;
-using Whydoisuck.Properties;
-using Whydoisuck.Views.Commands;
+using Ydis.Model.DataSaving;
+using Ydis.Model.DataStructures;
+using Ydis.Model.UserSettings;
+using Ydis.Model.Utilities;
+using Ydis.Properties;
+using Ydis.Views.Commands;
 
-namespace Whydoisuck.ViewModels.AppSettings
+namespace Ydis.ViewModels.AppSettings
 {
     /// <summary>
     /// View model for the settings view

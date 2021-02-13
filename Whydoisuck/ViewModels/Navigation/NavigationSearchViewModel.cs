@@ -9,13 +9,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Threading;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
-using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.Views.Commands;
-using Whydoisuck.Views.NavigationPanel;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.CommonControlsViewModels;
+using Ydis.ViewModels.SelectedLevel;
+using Ydis.Views.Commands;
+using Ydis.Views.NavigationPanel;
 
-namespace Whydoisuck.ViewModels.Navigation
+namespace Ydis.ViewModels.Navigation
 {
     /// <summary>
     /// View model for the search in the navigation panel

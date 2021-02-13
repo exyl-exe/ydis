@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.CommonControlsViewModels;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.CommonControlsViewModels;
 
-namespace Whydoisuck.ViewModels.DataStructures
+namespace Ydis.ViewModels.DataStructures
 {
     /// <summary>
     /// Class that computes statistics about each part of a level, based on a list of sessions.

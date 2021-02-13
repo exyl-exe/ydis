@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Whydoisuck.Properties;
-using Whydoisuck.ViewModels.AppSettings;
-using Whydoisuck.Model.UserSettings;
+using Ydis.Properties;
+using Ydis.ViewModels.AppSettings;
+using Ydis.Model.UserSettings;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace Whydoisuck.Views.Commands
+namespace Ydis.Views.Commands
 {
     /// <summary>
     /// Command to choose a folder path

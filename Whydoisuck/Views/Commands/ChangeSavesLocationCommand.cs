@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Whydoisuck.Model.DataSaving;
-using Whydoisuck.Model.UserSettings;
-using Whydoisuck.Properties;
+using Ydis.Model.DataSaving;
+using Ydis.Model.UserSettings;
+using Ydis.Properties;
 
-namespace Whydoisuck.Views.Commands
+namespace Ydis.Views.Commands
 {
     public class ChangeSavesLocationCommand : ICommand
     {

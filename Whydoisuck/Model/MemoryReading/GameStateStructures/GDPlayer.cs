@@ -1,4 +1,4 @@
-﻿namespace Whydoisuck.Model.MemoryReading.GameStateStructures
+﻿namespace Ydis.Model.MemoryReading.GameStateStructures
 {
     /// <summary>
     /// Class <c>GDPlayer</c> represents a player object in the game

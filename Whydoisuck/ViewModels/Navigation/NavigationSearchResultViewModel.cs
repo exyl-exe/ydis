@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Whydoisuck.Model.DataStructures;
-using Whydoisuck.ViewModels.SelectedLevel;
-using Whydoisuck.Views.Commands;
+using Ydis.Model.DataStructures;
+using Ydis.ViewModels.SelectedLevel;
+using Ydis.Views.Commands;
 
-namespace Whydoisuck.ViewModels.Navigation
+namespace Ydis.ViewModels.Navigation
 {
     /// <summary>
     /// View model for one result of the group search in the navigation panel
