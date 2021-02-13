@@ -1,6 +1,6 @@
-# Whydoisuck #
+# Ydis #
 
-**Whydoisuck** is a software that records attempts in Geometry Dash and can display statistics about played levels (total playtime, pass rate per percent ...)
+**Ydis** is a software that records attempts in Geometry Dash and can display statistics about played levels (total playtime, pass rate per percent ...)
 
 Join the discord server to suggest features and report issues : <https://discord.gg/fgYUcqd4Mk>
 
@@ -12,7 +12,7 @@ Join the discord server to suggest features and report issues : <https://discord
 
 ## How to use ##
 
-- Download the app ( <https://github.com/exyl-exe/whydoisuck/releases> )
+- Download the app ( <https://github.com/exyl-exe/ydis/releases> )
 - Launch the app (.exe file)
 - Launch GD
 - Let the app opened while you're playing
