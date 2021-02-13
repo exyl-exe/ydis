@@ -61,6 +61,7 @@
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top">
                             <CheckBox IsChecked="{Binding AutoStartup, Mode=TwoWay}"
+                                      Margin="5,0,0,0"
                                       Style="{StaticResource SettingsCheckboxStyle}"
                                       DockPanel.Dock="Right"/>
                             <TextBlock Text="{Binding StartUpText}"
@@ -75,6 +76,7 @@
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top">
                             <CheckBox IsChecked="{Binding EnhanceAccuracy, Mode=TwoWay}"
+                                      Margin="5,0,0,0"
                                       Style="{StaticResource SettingsCheckboxStyle}"
                                       DockPanel.Dock="Right"/>
                             <TextBlock Text="{Binding PerformanceModeText}"
