@@ -75,9 +75,9 @@ namespace Ydis.Model.MemoryReading
         public static event GameInfoCallback OnPlayerSpawns;
 
         // Delay between every check of the game's state
-        private static int Delay => WDISSettings.ScanPeriod;//milliseconds
+        private static int Delay => YDISSettings.ScanPeriod;//milliseconds
         // Delay between every attach attempt
-        private static int AttachDelay => WDISSettings.AttachPeriod;
+        private static int AttachDelay => YDISSettings.AttachPeriod;
         // Boolean true if the GameWatcher is active
         private static bool IsRecording { get; set; }
         // Reader to access the game's memory

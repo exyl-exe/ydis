@@ -32,7 +32,7 @@ namespace Ydis.Model.DataSaving
             {
                 if(_saveDirectory == null)
                 {
-                    _saveDirectory = WDISSettings.SavesPath;
+                    _saveDirectory = YDISSettings.SavesPath;
                 }
                 return _saveDirectory;
             }
@@ -45,7 +45,7 @@ namespace Ydis.Model.DataSaving
         /// <summary>
         /// name of the file containing the session manager
         /// </summary>
-        public static string IndexFileName => WDISSettings.SaveManagerFileName;
+        public static string IndexFileName => YDISSettings.SaveManagerFileName;
         /// <summary>
         /// Path for the file containing the session manager.
         /// </summary>
@@ -196,7 +196,7 @@ namespace Ydis.Model.DataSaving
         /// </summary>
         /// <param name="filePath">Where the object will be saved</param>
         /// <param name="item">The object to serialize</param>
-        private void Serialize(string filePath, WDISSerializable item)
+        private void Serialize(string filePath, YDISSerializable item)
         {
             var serializedItem = item.ToJsonObject().ToString();
             File.WriteAllText(filePath, serializedItem);
@@ -207,7 +207,7 @@ namespace Ydis.Model.DataSaving
         /// </summary>
         /// <param name="filePath">Path to the file</param>
         /// <returns>The loaded object</returns>
-        private WDISSerializable Deserialize(string filePath, WDISSerializable item)
+        private YDISSerializable Deserialize(string filePath, YDISSerializable item)
         {
             if (!File.Exists(filePath)) return item;
             var value = File.ReadAllText(filePath);

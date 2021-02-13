@@ -12,7 +12,7 @@ namespace Ydis.Model.Utilities
 {
     public static class ExceptionLogger
     {
-        private static string LogsPath => WDISSettings.LogsPath;
+        private static string LogsPath => YDISSettings.LogsPath;
 
         public static void Log(Exception e)
         {

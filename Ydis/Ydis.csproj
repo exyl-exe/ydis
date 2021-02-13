@@ -117,7 +117,7 @@
     <Compile Include="Model\Utilities\AutoLaunchUtilities.cs" />
     <Compile Include="Model\Utilities\DirectoryUtilities.cs" />
     <Compile Include="Model\Utilities\ExceptionLogger.cs" />
-    <Compile Include="Model\UserSettings\WDISSettings.cs" />
+    <Compile Include="Model\UserSettings\YDISSettings.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\LevelDatagridItemViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\PracticeAttemptViewModel.cs" />
     <Compile Include="ViewModels\CommonControlsViewModels\SearchBarViewModel.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="ViewModels\DataStructures\LevelPartStatistics.cs" />
     <Compile Include="ViewModels\DataStructures\Range.cs" />
     <Compile Include="ViewModels\DataStructures\SessionsStatistics.cs" />
-    <Compile Include="Model\DataStructures\WDISSerializable.cs" />
+    <Compile Include="Model\DataStructures\YDISSerializable.cs" />
     <Compile Include="Model\DataSaving\DataSerializer.cs" />
     <Compile Include="Model\DataSaving\SessionManager.cs" />
     <Compile Include="Model\MemoryReading\GameStateStructures\GameState.cs" />

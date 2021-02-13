@@ -10,12 +10,12 @@ using Ydis.Model.UserSettings;
 namespace Ydis.Model.DataStructures
 {
     /// <summary>
-    /// WDIS objects that can be converted to a format used for saving data.
+    /// YDIS objects that can be saved in a file.
     /// </summary>
-    public abstract class WDISSerializable
+    public abstract class YDISSerializable
     {
         [JsonIgnore] public const string VersionPropertyName = "Version";
-        [JsonProperty(PropertyName = VersionPropertyName)] const int Version = WDISSettings.SerializationVersion;
+        [JsonProperty(PropertyName = VersionPropertyName)] const int Version = YDISSettings.SerializationVersion;
         /// <summary>
         /// Converts the object into a json object
         /// </summary>

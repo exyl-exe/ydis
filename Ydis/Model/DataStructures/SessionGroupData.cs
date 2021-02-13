@@ -10,7 +10,7 @@ namespace Ydis.Model.DataStructures
     /// <summary>
     /// Data of a folder
     /// </summary>
-    public class SessionGroupData : WDISSerializable
+    public class SessionGroupData : YDISSerializable
     {
         /// <summary>
         /// Sessions of the group

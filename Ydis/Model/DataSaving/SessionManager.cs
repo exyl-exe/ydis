@@ -22,7 +22,7 @@ namespace Ydis.Model.DataSaving
     /// This class manages which group a session belongs to.
     /// Only one instance can exist at a given time.
     /// </summary>
-    public class SessionManager : WDISSerializable
+    public class SessionManager : YDISSerializable
     {
         private static SessionManager _instance;
 
@@ -35,7 +35,7 @@ namespace Ydis.Model.DataSaving
             {
                 if(_instance == null)
                 {
-                    _instance = new SessionManager(WDISSettings.SavesPath);
+                    _instance = new SessionManager(YDISSettings.SavesPath);
                 }
                 return _instance;
             }
@@ -142,18 +142,18 @@ namespace Ydis.Model.DataSaving
             if (path == SavesDirectory) return;
             if (!File.Exists(Path.Combine(path, DataSerializer.IndexFileName))) return;
             // In case the directory exists (crash while performing an import)
-            if (Directory.Exists(WDISSettings.TempSaveFolder))
+            if (Directory.Exists(YDISSettings.TempSaveFolder))
             {
-                Directory.Delete(WDISSettings.TempSaveFolder, true);
+                Directory.Delete(YDISSettings.TempSaveFolder, true);
             }
-            DirectoryUtilities.Copy(path,WDISSettings.TempSaveFolder, true);
+            DirectoryUtilities.Copy(path,YDISSettings.TempSaveFolder, true);
 
-            var otherData = new SessionManager(WDISSettings.TempSaveFolder, false);
+            var otherData = new SessionManager(YDISSettings.TempSaveFolder, false);
 
             ImportData(otherData);
-            if (Directory.Exists(WDISSettings.TempSaveFolder))
+            if (Directory.Exists(YDISSettings.TempSaveFolder))
             {
-                Directory.Delete(WDISSettings.TempSaveFolder, true);
+                Directory.Delete(YDISSettings.TempSaveFolder, true);
             }
         }
 

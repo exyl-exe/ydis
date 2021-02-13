@@ -32,9 +32,9 @@ namespace Ydis.Views.Commands
         {
             var path = PathDialog();
             if (path == null || path == SessionManager.Instance.SavesDirectory) return;
-            var currentPath = WDISSettings.SavesPath;
+            var currentPath = YDISSettings.SavesPath;
             var shouldMoveData = ShouldMoveData();
-            WDISSettings.SavesPath = path;
+            YDISSettings.SavesPath = path;
             SessionManager.Instance.SetRoot(path);
             if (shouldMoveData)
             {

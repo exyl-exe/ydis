@@ -20,7 +20,7 @@ namespace Ydis.Model.DataSaving
         public static void Backup(string dir)
         {
             var backupName = string.Format("{0:yyyyMMddHHmmssfffffff}", DateTime.Now);
-            var backupPath = Path.Combine(WDISSettings.BackupsPath, backupName);
+            var backupPath = Path.Combine(YDISSettings.BackupsPath, backupName);
             DirectoryUtilities.Copy(dir, backupPath, true);
         }
     }

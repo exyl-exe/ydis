@@ -15,10 +15,10 @@ namespace Ydis.Model.UserSettings
         /// <summary>
         /// Default folder for data saving
         /// </summary>
-        [JsonProperty(PropertyName = "SavesPath")] public string SavesPath { get; set; } = Path.Combine(WDISSettings.AppData, "records");
+        [JsonProperty(PropertyName = "SavesPath")] public string SavesPath { get; set; } = Path.Combine(YDISSettings.AppData, "records");
         /// <summary>
         /// How many milliseconds there are between each scan of the game's memory
         /// </summary>
-        [JsonProperty(PropertyName = "ScanPeriod")] public int ScanPeriod { get; set; } = WDISSettings.PERFORMANCE_PERIOD;
+        [JsonProperty(PropertyName = "ScanPeriod")] public int ScanPeriod { get; set; } = YDISSettings.PERFORMANCE_PERIOD;
     }
 }

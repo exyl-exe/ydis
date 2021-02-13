@@ -13,7 +13,7 @@ namespace Ydis.Model.UserSettings
     /// <summary>
     /// Contains settings for the application
     /// </summary>
-    public static class WDISSettings
+    public static class YDISSettings
     {
         /// <summary>
         /// Scan period when privileging performance
@@ -86,7 +86,7 @@ namespace Ydis.Model.UserSettings
         /// </summary>
         public static string LogsPath => "./logs/";
         /// <summary>
-        /// How many milliseconds there are between each attempt to attach WDIS to the game's process
+        /// How many milliseconds there are between each attempt to attach the app to the game's process
         /// </summary>
         public static int AttachPeriod { get; private set; } = 1000;
         /// <summary>

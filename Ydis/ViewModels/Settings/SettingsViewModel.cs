@@ -73,11 +73,11 @@ namespace Ydis.ViewModels.AppSettings
         {
             get
             {
-                return WDISSettings.ScanPeriod == WDISSettings.ACCURACY_PERIOD;
+                return YDISSettings.ScanPeriod == YDISSettings.ACCURACY_PERIOD;
             }
             set
             {
-                WDISSettings.ScanPeriod = value ? WDISSettings.ACCURACY_PERIOD : WDISSettings.PERFORMANCE_PERIOD;
+                YDISSettings.ScanPeriod = value ? YDISSettings.ACCURACY_PERIOD : YDISSettings.PERFORMANCE_PERIOD;
             }
         }
 
@@ -88,26 +88,26 @@ namespace Ydis.ViewModels.AppSettings
         {
             get
             {
-                return AutoLaunchUtilities.DoesShortcutExist(WDISSettings.LAUNCHER_SHORTCUT_NAME, WDISSettings.LauncherPath);
+                return AutoLaunchUtilities.DoesShortcutExist(YDISSettings.LAUNCHER_SHORTCUT_NAME, YDISSettings.LauncherPath);
             }
             set
             {
                 if (value)
                 {
-                    var path = WDISSettings.LauncherPath;
+                    var path = YDISSettings.LauncherPath;
                     if (File.Exists(path))
                     {
                         Process.Start(path);
-                        AutoLaunchUtilities.CreateStartUpShortcut(WDISSettings.LAUNCHER_SHORTCUT_NAME, path);
+                        AutoLaunchUtilities.CreateStartUpShortcut(YDISSettings.LAUNCHER_SHORTCUT_NAME, path);
                     }
                 } else
                 {                    
-                    var processes = Process.GetProcessesByName(WDISSettings.LAUNCHER_PROCESS_NAME);
+                    var processes = Process.GetProcessesByName(YDISSettings.LAUNCHER_PROCESS_NAME);
                     foreach(var p in processes)
                     {
                         p.Kill();
                     }
-                    AutoLaunchUtilities.RemoveStartUpShortcut(WDISSettings.LAUNCHER_SHORTCUT_NAME);
+                    AutoLaunchUtilities.RemoveStartUpShortcut(YDISSettings.LAUNCHER_SHORTCUT_NAME);
                 }
             }
         }

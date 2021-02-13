@@ -46,7 +46,7 @@ namespace Ydis.Views
             _mutex?.Close();
         }
 
-        private void StopWDIS(object sender, EventArgs e)
+        private void StopApp(object sender, EventArgs e)
         {
             _recorder?.StopRecording();
         }
@@ -60,14 +60,14 @@ namespace Ydis.Views
             DataContext = new MainWindowViewModel(_recorder, GetMinimizedArg());
             InitializeComponent();
 
-            Closing += StopWDIS;
+            Closing += StopApp;
         }
 
         private void WritePathFile()
         {
             try
             {
-                File.WriteAllText(WDISSettings.ExeLocationPath, Assembly.GetEntryAssembly().Location);
+                File.WriteAllText(YDISSettings.ExeLocationPath, Assembly.GetEntryAssembly().Location);
             }
             catch { }
         }
@@ -100,11 +100,11 @@ namespace Ydis.Views
         {
             try
             {
-                Closing -= StopWDIS;
+                Closing -= StopApp;
                 ExceptionLogger.Log(e);
                 _recorder?.CrashRecorder();
                 string msg = string.Format("{0}\n{1}", Properties.Resources.ErrorMessage,
-                                                       string.Format(Properties.Resources.ErrorMessageLogLocationFormat, WDISSettings.LogsPath));
+                                                       string.Format(Properties.Resources.ErrorMessageLogLocationFormat, YDISSettings.LogsPath));
                 //Thread needed because sometimes the message box is not displayed                
                 MessageBox.Show(Application.Current.MainWindow, msg, Properties.Resources.ErrorMessageTitle);
             }

@@ -69,7 +69,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="WDISWindow" TargetType="local:MainWindow">
+    <Style x:Key="YDISWindow" TargetType="local:MainWindow">
         <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
                 <shell:WindowChrome NonClientFrameEdges="None"

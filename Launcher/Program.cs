@@ -11,9 +11,9 @@ namespace YdisLauncher
 {
     public class Program
     {
-        const string MUTEX_NAME = "WDISLauncherMutex";
+        const string MUTEX_NAME = "YDISLauncherMutex";
         const string PROCESS_TO_DETECT = "GeometryDash";
-        readonly static string processToLaunch = WDISPathGetter.GetWDISPath();
+        readonly static string processToLaunch = YDISPathGetter.GetYDISPath();
         const int scanRate = 3000;
         private static Mutex _mutex;
 

@@ -25,12 +25,12 @@ namespace Ydis.Model.DataSaving
         public static void TryUpdate(string dir, bool canBackup)
         {
             var version = GetDataVersion(dir);
-            if (version == WDISSettings.INVALID_VERSION)
+            if (version == YDISSettings.INVALID_VERSION)
             {
                 DirectoryUtilities.DeleteDirectoryContent(dir);
                 return;
             }
-            if(version < WDISSettings.SerializationVersion)
+            if(version < YDISSettings.SerializationVersion)
             {
                 if (canBackup)
                 {
@@ -41,7 +41,7 @@ namespace Ydis.Model.DataSaving
                 {
                     DirectoryUtilities.DeleteDirectoryContent(dir);
                 }
-            } else if(version > WDISSettings.SerializationVersion) {
+            } else if(version > YDISSettings.SerializationVersion) {
                 throw new Exception("Incompatible data version");
             };
         }
@@ -49,16 +49,16 @@ namespace Ydis.Model.DataSaving
         //Gets the version of the data in a given directory
         private static int GetDataVersion(string dir)
         {
-            var sessionManagerPath = Path.Combine(dir, WDISSettings.SaveManagerFileName);
-            if (!File.Exists(sessionManagerPath)) return WDISSettings.INVALID_VERSION;
+            var sessionManagerPath = Path.Combine(dir, YDISSettings.SaveManagerFileName);
+            if (!File.Exists(sessionManagerPath)) return YDISSettings.INVALID_VERSION;
             var rawData = File.ReadAllText(sessionManagerPath);
             try
             {
                 var json = JObject.Parse(rawData);
-                return (int)json[WDISSerializable.VersionPropertyName];
+                return (int)json[YDISSerializable.VersionPropertyName];
             } catch (JsonReaderException)
             {
-                return WDISSettings.INVALID_VERSION;
+                return YDISSettings.INVALID_VERSION;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Ydis.Model.DataSaving
         {
             int dataVersion = ver;
             bool correctFormat = true;
-            while(dataVersion != WDISSettings.SerializationVersion && correctFormat)
+            while(dataVersion != YDISSettings.SerializationVersion && correctFormat)
             {
                 switch (dataVersion)
                 {
@@ -90,7 +90,7 @@ namespace Ydis.Model.DataSaving
                 // Update session manager
                 var rawManagerData = File.ReadAllText(managerPath);
                 var json = JObject.Parse(rawManagerData);
-                json[WDISSerializable.VersionPropertyName] = "3";
+                json[YDISSerializable.VersionPropertyName] = "3";
                 File.WriteAllText(managerPath, json.ToString());
             }
 
@@ -108,7 +108,7 @@ namespace Ydis.Model.DataSaving
                 }
             }
 
-            var sessionManagerPath = Path.Combine(dir, WDISSettings.SaveManagerFileName);
+            var sessionManagerPath = Path.Combine(dir, YDISSettings.SaveManagerFileName);
             try
             {
                 List<string> folders = Directory.GetDirectories(dir).ToList();
