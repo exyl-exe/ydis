@@ -224,7 +224,7 @@
     <value>Latest releases</value>
   </data>
   <data name="GithubLink" xml:space="preserve">
-    <value>https://github.com/exyl-exe/whydoisuck/releases</value>
+    <value>https://github.com/exyl-exe/ydis/releases</value>
   </data>
   <data name="GraphPassRateAxisTitle" xml:space="preserve">
     <value>Pass rate</value>

@@ -358,7 +358,7 @@ namespace Ydis.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à https://github.com/exyl-exe/whydoisuck/releases.
+        ///   Recherche une chaîne localisée semblable à https://github.com/exyl-exe/ydis/releases.
         /// </summary>
         public static string GithubLink {
             get {
