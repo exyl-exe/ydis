@@ -21,7 +21,7 @@ namespace Ydis.Views
     public partial class MainWindow : Window
     {
         const string MINIMIZED_ARG = "--minimized";
-        const string MUTEX_NAME = "GDWhyDoISuckMutex";
+        const string MUTEX_NAME = "GDYdisMutex";
 
         private Recorder _recorder;
         private static Mutex _mutex;

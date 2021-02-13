@@ -30,15 +30,15 @@ namespace Ydis.Model.UserSettings
         /// <summary>
         /// Name of the launcher process
         /// </summary>
-        public const string LAUNCHER_PROCESS_NAME = "WhydoisuckLauncher";
+        public const string LAUNCHER_PROCESS_NAME = "YdisLauncher";
         /// <summary>
         /// File name for a shortcut to the launcher
         /// </summary>
-        public const string LAUNCHER_SHORTCUT_NAME = "WhydoisuckLauncher.url";
+        public const string LAUNCHER_SHORTCUT_NAME = "YdisLauncher.url";
         /// <summary>
         /// File name for a shortcut to the launcher
         /// </summary>
-        public const string DEFAULT_LAUNCHER_LOCATION = ".\\WhydoisuckLauncher.exe";
+        public const string DEFAULT_LAUNCHER_LOCATION = ".\\YdisLauncher.exe";
         /// <summary>
         /// Returns the path of the launcher exe file
         /// </summary>
@@ -96,12 +96,12 @@ namespace Ydis.Model.UserSettings
         /// <summary>
         /// Application data directory path
         /// </summary>
-        public static string AppData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"Whydoisuck");
+        public static string AppData { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"Ydis");
         /// <summary>
         /// Directory to save backups
         /// </summary>
         public static string BackupsPath => Path.Combine(AppData, "Backups");
-        public static string TempSaveFolder => Path.Combine(Path.GetTempPath(),"WhyDoISuckTempSaves");
+        public static string TempSaveFolder => Path.Combine(Path.GetTempPath(),"YdisTempSaves");
         /// <summary>
         /// Path to a file containing the path of the application (used by the launcher to know where the exe is)
         /// </summary>

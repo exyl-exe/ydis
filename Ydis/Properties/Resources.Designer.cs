@@ -61,7 +61,7 @@ namespace Ydis.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Whydoisuck.
+        ///   Recherche une chaîne localisée semblable à Ydis.
         /// </summary>
         public static string AppTitle {
             get {
@@ -124,7 +124,7 @@ namespace Ydis.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Whydoisuck {0} by exyl.
+        ///   Recherche une chaîne localisée semblable à Ydis {0} by exyl.
         /// </summary>
         public static string AuthorFormat {
             get {
@@ -178,7 +178,7 @@ namespace Ydis.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Thanks for using Whydoisuck, your attempts are now going to be registered !.
+        ///   Recherche une chaîne localisée semblable à Thanks for using Ydis, your attempts are now going to be registered !.
         /// </summary>
         public static string CurrentLevelNotPlayingTitle {
             get {
@@ -692,7 +692,7 @@ namespace Ydis.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Whydoisuck will be automatically opened when Geometry Dash launched.
+        ///   Recherche une chaîne localisée semblable à Ydis will be automatically opened when Geometry Dash launched.
         ///This requires a very light process to run as a background task..
         /// </summary>
         public static string SettingsOnStartDesc {

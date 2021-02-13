@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppTitle" xml:space="preserve">
-    <value>Whydoisuck</value>
+    <value>Ydis</value>
   </data>
   <data name="AttemptListEndPercentHeader" xml:space="preserve">
     <value>End percent</value>
@@ -141,7 +141,7 @@
     <value>Start percent</value>
   </data>
   <data name="AuthorFormat" xml:space="preserve">
-    <value>Whydoisuck {0} by exyl</value>
+    <value>Ydis {0} by exyl</value>
     <comment>Format</comment>
   </data>
   <data name="CurrentLevelGroupDefault" xml:space="preserve">
@@ -160,7 +160,7 @@
     <value>Exiting the level will save the session in a folder containing all sessions played on it, including copies. By clicking on the corresponding folder on the left, you can view statistics about the level.</value>
   </data>
   <data name="CurrentLevelNotPlayingTitle" xml:space="preserve">
-    <value>Thanks for using Whydoisuck, your attempts are now going to be registered !</value>
+    <value>Thanks for using Ydis, your attempts are now going to be registered !</value>
   </data>
   <data name="CurrentLevelTitleDefault" xml:space="preserve">
     <value>Not playing any level</value>
@@ -351,7 +351,7 @@
     <value>Automatically start when Geometry Dash is launched</value>
   </data>
   <data name="SettingsOnStartDesc" xml:space="preserve">
-    <value>Whydoisuck will be automatically opened when Geometry Dash launched.
+    <value>Ydis will be automatically opened when Geometry Dash launched.
 This requires a very light process to run as a background task.</value>
   </data>
   <data name="SettingsPerformanceMode" xml:space="preserve">

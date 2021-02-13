@@ -82,7 +82,7 @@ namespace Ydis.ViewModels.AppSettings
         }
 
         /// <summary>
-        /// Controls wether whydoisuck is launched automatically when GD is opened
+        /// Controls wether the app is launched automatically when GD is opened
         /// </summary>
         public bool AutoStartup
         {
