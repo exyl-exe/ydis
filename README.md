@@ -4,6 +4,8 @@
 
 Join the discord server to suggest features and report issues : <https://discord.gg/fgYUcqd4Mk>
 
+This application might be flagged as a malware by antivirus softwares, but it doesn't harm your computer in any way.
+
 ## Requirements ##
 
 - Windows only
@@ -12,10 +14,9 @@ Join the discord server to suggest features and report issues : <https://discord
 
 ## How to use ##
 
-- Download the app ( <https://github.com/exyl-exe/ydis/releases> )
-- Launch the app (.exe file)
+- Download the setup of the latest version ( <https://github.com/exyl-exe/ydis/releases> )
+- Run the setup
+- Start Ydis
 - Launch GD
-- Let the app opened while you're playing
+- Let Ydis opened while you're playing
 - gg
-
-This is still a beta so be aware that a bunch of stuff will probably be broken, and that I can't guarantee that future updates will be compatible with data recorded by the current version (I'll try my best though).
