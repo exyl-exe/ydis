@@ -484,7 +484,7 @@ namespace Ydis.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Do you want ALL of your data to be reorganized ? This will put every session in their default folder. This can be used in case your data has been messed up by merging operations..
+        ///   Recherche une chaîne localisée semblable à Do you want ALL of your data to be reorganized ? This will put every session in their default folder. This can be used in case your data was messed up by merging operations..
         /// </summary>
         public static string ManagementReorganizeAllContent {
             get {

@@ -56,11 +56,20 @@ namespace Ydis.Views
             _recorder = new Recorder();
             _recorder.StartRecording();
 
+            InitAppData();
             WritePathFile();
             DataContext = new MainWindowViewModel(_recorder, GetMinimizedArg());
             InitializeComponent();
 
             Closing += StopApp;
+        }
+
+        private void InitAppData()
+        {
+            if (!Directory.Exists(YDISSettings.AppData))
+            {
+                Directory.CreateDirectory(YDISSettings.AppData);
+            }
         }
 
         private void WritePathFile()
