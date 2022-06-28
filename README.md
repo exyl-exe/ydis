@@ -1,6 +1,8 @@
 # Ydis #
 
-**Ydis** is a software that records attempts in Geometry Dash and can display statistics about played levels (total playtime, pass rate per percent ...)
+Setup download : https://github.com/exyl-exe/ydis/releases/download/v1.1/ydis-setup.exe
+
+Ydis is a software that records attempts in Geometry Dash and can display statistics about played levels (total playtime, pass rate per percent ...)
 
 Join the discord server to suggest features and report issues : <https://discord.gg/fgYUcqd4Mk>
 
