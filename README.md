@@ -1,5 +1,7 @@
 # Ydis #
+This tool has not been updated for 2.2 and will never be. Use alternatives like the deathtracker mod from geode.
 
+## Former readme
 Setup download : https://github.com/exyl-exe/ydis/releases/download/v1.1/ydis-setup.exe
 
 Ydis is a software that records attempts in Geometry Dash and can display statistics about played levels (total playtime, pass rate per percent ...)
